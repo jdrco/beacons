@@ -7,8 +7,8 @@ services:
       - ./app:/code/app
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    env_file:
+      - .env
 
   db:
     image: postgres:15

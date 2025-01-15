@@ -32,7 +32,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import text
-from app.db import get_db
+from app.core.database import get_db
 
 app = FastAPI(
     title="Mash Beacons API",
@@ -47,13 +47,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/health", tags=["Health"])
-def health_check(db: Session = Depends(get_db)):
-    """
-    Simple endpoint to test database connection.
-    """
-    try:
-        db.execute(text("SELECT 1"))
-        return {"status": "healthy", "message": "Database connection is working"}
-    except Exception as e:
-        return {"status": "unhealthy", "error": str(e)}
+# @app.get("/health", tags=["Health"])
+# def health_check(db: Session = Depends(get_db)):
+#     """
+#     Simple endpoint to test database connection.
+#     """
+#     try:
+#         db.execute(text("SELECT 1"))
+#         return {"status": "healthy", "message": "Database connection is working"}
+#     except Exception as e:
+#         return {"status": "unhealthy", "error": str(e)}

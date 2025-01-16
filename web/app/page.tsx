@@ -7,6 +7,20 @@ import { ItemCard } from "@/components/ItemCard"
 import { CreateItemForm } from "@/components/CreateItemForm"
 import { useToast } from "@/hooks/use-toast"
 
+import dynamic from 'next/dynamic'
+
+const MapWithNoSSR = dynamic(
+  () => import('@/components/Map'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-96 flex items-center justify-center bg-gray-100">
+        Loading map...
+      </div>
+    )
+  }
+)
+
 export default function Home() {
   const [items, setItems] = useState<Item[]>([])
   const [loading, setLoading] = useState(true)
@@ -50,6 +64,11 @@ export default function Home() {
 
   return (
     <main className="container mx-auto p-4">
+      <MapWithNoSSR
+        initialCenter={[-73.935242, 40.730610]} // New York City
+        initialZoom={12}
+        className="rounded-lg shadow-lg"
+      />
       <div className="max-w-xl mx-auto space-y-8">
         <h1 className="text-2xl font-bold">Item Manager</h1>
 

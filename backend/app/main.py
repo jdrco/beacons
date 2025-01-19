@@ -1,38 +1,11 @@
-# from fastapi import FastAPI, Depends, HTTPException
-# from sqlalchemy.orm import Session
-# from . import models
-# from .db import engine, get_db
-# from pydantic import BaseModel
-# from fastapi.middleware.cors import CORSMiddleware
-# import os
-# from dotenv import load_dotenv
-
-# load_dotenv()
-
-# # Get environment variables with defaults
-# CORS_ORIGINS = os.getenv(
-#     "CORS_ORIGINS", 
-#     "http://localhost:3000"
-# ).split(",")
-
-# models.Base.metadata.create_all(bind=engine)
-
-# app = FastAPI()
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=CORS_ORIGINS,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import text
 from app.core.database import get_db
+from app.core.config import settings
+from app.routes.auth import router
 
 app = FastAPI(
     title="Mash Beacons API",
@@ -46,6 +19,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(
+    SessionMiddleware,
+    secret_key="test_key",
+    session_cookie="session",
+    same_site="lax",
+    https_only=False
+)
+
+app.include_router(router)
 
 # @app.get("/health", tags=["Health"])
 # def health_check(db: Session = Depends(get_db)):

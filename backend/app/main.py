@@ -6,6 +6,7 @@ from sqlalchemy.sql import text
 from app.core.database import get_db
 from app.core.config import settings
 from app.routes.auth import router
+from app.core.session import validate_session_middleware
 
 app = FastAPI(
     title="Mash Beacons API",
@@ -23,11 +24,10 @@ app.add_middleware(
 app.add_middleware(
     SessionMiddleware,
     secret_key="test_key",
-    session_cookie="session",
-    same_site="lax",
-    https_only=False
+    session_cookie="session_id",
 )
 
+app.middleware("http")(validate_session_middleware)
 app.include_router(router)
 
 # @app.get("/health", tags=["Health"])

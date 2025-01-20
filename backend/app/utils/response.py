@@ -6,7 +6,7 @@ def success_response(status_codes: int, status: bool, message: str, data: dict):
         content={
             "status": status,
             "message": message,
-            "data": data
+            "data": data or {},
         }
     )
 

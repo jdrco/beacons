@@ -5,7 +5,8 @@ psycopg2-binary
 python-dotenv
 pydantic-settings
 bcrypt
-authlib==1.3.2
+authlib
 httpx
 starlette
 itsdangerous
+alembic

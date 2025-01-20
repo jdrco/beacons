@@ -9,8 +9,8 @@ from app.routes.auth import router
 from app.core.session import validate_session_middleware
 
 app = FastAPI(
-    title="Mash Beacons API",
-    description="API for Mash Beacons application",
+    title="Beacons API",
+    description="API for Beacons application",
 )
 
 app.add_middleware(
@@ -30,13 +30,4 @@ app.add_middleware(
 app.middleware("http")(validate_session_middleware)
 app.include_router(router)
 
-# @app.get("/health", tags=["Health"])
-# def health_check(db: Session = Depends(get_db)):
-#     """
-#     Simple endpoint to test database connection.
-#     """
-#     try:
-#         db.execute(text("SELECT 1"))
-#         return {"status": "healthy", "message": "Database connection is working"}
-#     except Exception as e:
-#         return {"status": "unhealthy", "error": str(e)}
+# TODO: implement health check endpoint

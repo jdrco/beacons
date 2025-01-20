@@ -66,6 +66,7 @@ async def callback(request: Request, db=Depends(get_db)):
             )
             return response
         new_user = create_user(db, email=email, fname=fname, lname=lname)
+        # create a new session for the user
         return success_response(
             status_codes=201,
             status=True,

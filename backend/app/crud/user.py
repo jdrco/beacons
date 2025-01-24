@@ -1,4 +1,4 @@
-from uuid import uuid4
+from uuid import uuid4, UUID
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from app.models.user import User
@@ -53,27 +53,33 @@ def create_session(db: Session, user_id: str, duration_days: int = 1):
     db.refresh(session)
     return session
 
-def get_active_session(db: Session, session_id: str):
+def get_active_session(db: Session, session_id: str = None, user_id: UUID = None):
     """
-    Retrieve an active session by session ID.
+    Retrieve an active session by session ID or user ID.
     """
-    return query(
-        db,
-        model=SessionModel,
-        filters=[
-            SessionModel.id == session_id,
-            SessionModel.is_active == True,
-            SessionModel.expires_at > datetime.now()
-        ]
-    ).first()
+    filters = [SessionModel.is_active == True, SessionModel.expires_at > datetime.now()]
+    
+    if session_id:
+        filters.append(SessionModel.id == session_id)
+    if user_id:
+        filters.append(SessionModel.user_id == user_id)
+    
+    result = query(db, model=SessionModel, filters=filters)
+    return result[0] if result else None
 
 def deactivate_session(db: Session, session_id: str):
     """
     Deactivate a session by session ID.
     """
-    session = get_active_session(db, session_id)
+    session = get_active_session(db, session_id=session_id)
     if session:
         session.is_active = False
         db.commit()
         db.refresh(session)
     return session
+
+def update_user(db: Session, user_id: int, user_update):
+    """
+    Update a user.
+    """
+    

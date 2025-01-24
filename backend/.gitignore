@@ -18,5 +18,4 @@ env/
 *.db
 *.sqlite3
 
-migrations/versions/*
-!migrations/versions/.gitkeep
+migrations/versions/*.py

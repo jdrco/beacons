@@ -17,3 +17,5 @@ env/
 # Database
 *.db
 *.sqlite3
+
+migrations/versions/*.py

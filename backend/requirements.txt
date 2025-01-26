@@ -4,9 +4,13 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 pydantic-settings
-bcrypt
 authlib
 httpx
 starlette
 itsdangerous
 alembic
+python-jose
+bcrypt
+passlib
+pydantic[email]
+python-multipart

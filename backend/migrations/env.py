@@ -8,7 +8,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.core.database import Base
-from app.models.user import User, Session
+from app.models.user import *
 
 
 load_dotenv()

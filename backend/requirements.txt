@@ -9,3 +9,8 @@ httpx
 starlette
 itsdangerous
 alembic
+python-jose
+bcrypt
+passlib
+pydantic[email]
+python-multipart

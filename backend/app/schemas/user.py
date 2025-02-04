@@ -8,15 +8,14 @@ class UserCreate(BaseModel):
     Pydantic model for user sign-up.
     """
     email: EmailStr
-    lname: str = Field(..., min_length=2, max_length=50)
-    fname: str = Field(..., min_length=2, max_length=50)
+    username: str
     password: str
     re_password: str
     active: bool = True
     share_profile: bool = True
     education_level: Literal["Undergraduate", "Graduate"] = None
 
-    @field_validator("email", "lname", "fname", mode="before")
+    @field_validator("email", "username", mode="before")
     @classmethod
     def trim_spaces(cls, value: str):
         if isinstance(value, str):

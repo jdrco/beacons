@@ -79,8 +79,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
 def create_user(
     db: Session,
     email: str,
-    fname: str,
-    lname: str,
+    username: str,
     password: str,
     active: bool = True,
     share_profile: bool = True,
@@ -92,8 +91,7 @@ def create_user(
     hashed_password = get_password_hash(password)
     new_user = User(
         email=email,
-        fname=fname,
-        lname=lname,
+        username=username,
         password=hashed_password,
         active=active,
         share_profile=share_profile,
@@ -180,8 +178,7 @@ def sign_up(user: UserCreate, db: Session = Depends(get_db)):
         new_user = create_user(
             db,
             email=user.email,
-            fname=user.fname,
-            lname=user.lname,
+            username=user.username,
             password=user.password,
             active=user.active,
             share_profile=user.share_profile,
@@ -192,7 +189,7 @@ def sign_up(user: UserCreate, db: Session = Depends(get_db)):
             status_codes=201,
             status=True,
             message="User successfully registered",
-            data={"id": str(new_user.id), "email": new_user.email, "fname": new_user.fname, "lname": new_user.lname},
+            data={"id": str(new_user.id), "email": new_user.email, "username": new_user.username}
         )
     except Exception as e:
         return error_response(

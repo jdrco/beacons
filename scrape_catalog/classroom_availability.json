@@ -1,0 +1,1125 @@
+{
+  "T LB-002": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "T LB-002",
+      "capacity": 200,
+      "course": "ACCTG 200"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "15:30 - 16:50",
+      "location": "T LB-002",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "15:30 - 16:50",
+      "location": "T LB-002",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "15:30 - 16:50",
+      "location": "T LB-002",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "15:30 - 16:50",
+      "location": "T LB-002",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    }
+  ],
+  "CCIS 1-430": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "CCIS 1-430",
+      "capacity": 500,
+      "course": "ACCTG 211"
+    }
+  ],
+  "T L-11": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "15:30 - 16:50",
+      "location": "T L-11",
+      "capacity": 405,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "15:30 - 16:50",
+      "location": "T L-11",
+      "capacity": 27,
+      "course": "ACCTG 211"
+    }
+  ],
+  "CCIS L1-160": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "14:00 - 15:20",
+      "location": "CCIS L1-160",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "14:00 - 15:20",
+      "location": "CCIS L1-160",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 15:20",
+      "location": "CCIS L1-160",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 15:20",
+      "location": "CCIS L1-160",
+      "capacity": 55,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 15:20",
+      "location": "CCIS L1-160",
+      "capacity": 27,
+      "course": "ACCTG 211"
+    }
+  ],
+  "HC L1-L1": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "13:00 - 14:20",
+      "location": "HC L1-L1",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "13:00 - 14:20",
+      "location": "HC L1-L1",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    }
+  ],
+  "T B-87": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "13:00 - 14:20",
+      "location": "T B-87",
+      "capacity": 85,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "15:00 - 16:20",
+      "location": "T B-87",
+      "capacity": 75,
+      "course": "ACCTG 315"
+    }
+  ],
+  "BUS 2-09": [
+    {
+      "dates": "2025-05-05 - 2025-06-11 (MW)",
+      "time": "09:00 - 11:50",
+      "location": "BUS 2-09",
+      "capacity": 60,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "11:00 - 12:20",
+      "location": "BUS 2-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "12:30 - 13:50",
+      "location": "BUS 2-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "15:30 - 16:50",
+      "location": "BUS 2-09",
+      "capacity": 79,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "BUS 2-09",
+      "capacity": 75,
+      "course": "ACCTG 314"
+    }
+  ],
+  "BUS 1-09": [
+    {
+      "dates": "2025-05-05 - 2025-06-11 (T)",
+      "time": "09:00 - 11:15",
+      "location": "BUS 1-09",
+      "capacity": 60,
+      "course": "ACCTG 211"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "BUS 1-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "BUS 1-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "BUS 1-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (F)",
+      "time": "09:00 - 11:50",
+      "location": "BUS 1-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "13:00 - 13:50",
+      "location": "BUS 1-09",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-05-05 - 2025-06-11 (TR)",
+      "time": "14:00 - 16:50",
+      "location": "BUS 1-09",
+      "capacity": 60,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "09:30 - 10:50",
+      "location": "BUS 1-09",
+      "capacity": 75,
+      "course": "ACCTG 315"
+    }
+  ],
+  "BUS 2-05": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "17:00 - 18:20",
+      "location": "BUS 2-05",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "09:30 - 10:50",
+      "location": "BUS 2-05",
+      "capacity": 60,
+      "course": "ACCTG 324"
+    }
+  ],
+  "T 1-091": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "T 1-091",
+      "capacity": 79,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "14:00 - 15:20",
+      "location": "T 1-091",
+      "capacity": 75,
+      "course": "ACCTG 314"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "12:30 - 13:50",
+      "location": "T 1-091",
+      "capacity": 75,
+      "course": "ACCTG 315"
+    }
+  ],
+  "BUS 1-05": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "12:00 - 12:50",
+      "location": "BUS 1-05",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "11:00 - 11:50",
+      "location": "BUS 1-05",
+      "capacity": 80,
+      "course": "ACCTG 222"
+    }
+  ],
+  "BUS B-05": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "14:00 - 15:20",
+      "location": "BUS B-05",
+      "capacity": 45,
+      "course": "ACCTG 312"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "BUS B-05",
+      "capacity": 50,
+      "course": "ACCTG 463"
+    }
+  ],
+  "BUS 1-10": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "08:00 - 09:20",
+      "location": "BUS 1-10",
+      "capacity": 50,
+      "course": "ACCTG 314"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "15:30 - 16:50",
+      "location": "BUS 1-10",
+      "capacity": 50,
+      "course": "ACCTG 315"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "10:00 - 11:20",
+      "location": "BUS 1-10",
+      "capacity": 50,
+      "course": "ACCTG 426"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "BUS 1-10",
+      "capacity": 50,
+      "course": "ACCTG 468"
+    }
+  ],
+  "T 1-129": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "14:00 - 15:20",
+      "location": "T 1-129",
+      "capacity": 50,
+      "course": "ACCTG 315"
+    }
+  ],
+  "ESB 2-36": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "11:00 - 12:20",
+      "location": "ESB 2-36",
+      "capacity": 60,
+      "course": "ACCTG 324"
+    }
+  ],
+  "BUS 1-06": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "BUS 1-06",
+      "capacity": 50,
+      "course": "ACCTG 418"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "BUS 1-06",
+      "capacity": 50,
+      "course": "ACCTG 418"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "14:00 - 15:20",
+      "location": "BUS 1-06",
+      "capacity": 50,
+      "course": "ACCTG 426"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "15:30 - 16:50",
+      "location": "BUS 1-06",
+      "capacity": 50,
+      "course": "ACCTG 426"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "18:00 - 21:00",
+      "location": "BUS 1-06",
+      "capacity": 55,
+      "course": "ACCTG 523"
+    }
+  ],
+  "BUS 4-13": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "14:00 - 15:20",
+      "location": "BUS 4-13",
+      "capacity": 42,
+      "course": "ACCTG 456"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "15:30 - 16:50",
+      "location": "BUS 4-13",
+      "capacity": 40,
+      "course": "ACCTG 456"
+    }
+  ],
+  "BUS 3-06": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "12:30 - 13:50",
+      "location": "BUS 3-06",
+      "capacity": 50,
+      "course": "ACCTG 467"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "14:00 - 15:20",
+      "location": "BUS 3-06",
+      "capacity": 50,
+      "course": "ACCTG 467"
+    }
+  ],
+  "BUS 3-10": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "09:30 - 10:50",
+      "location": "BUS 3-10",
+      "capacity": 52,
+      "course": "ACCTG 468"
+    }
+  ],
+  "TBD": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "11:00 - 13:20",
+      "location": "TBD",
+      "capacity": 20,
+      "course": "ACCTG 481"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "16:30 - 17:50",
+      "location": "TBD",
+      "capacity": 15,
+      "course": "ALS 120"
+    },
+    {
+      "dates": "2025-07-07 - 2025-08-13 (MW)",
+      "time": "09:00 - 11:50",
+      "location": "TBD",
+      "capacity": 35,
+      "course": "ALS 125"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 16:50",
+      "location": "TBD",
+      "capacity": 5,
+      "course": "AN_SC 473"
+    }
+  ],
+  "BUS 5-13": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "18:00 - 21:00",
+      "location": "BUS 5-13",
+      "capacity": 50,
+      "course": "ACCTG 501"
+    }
+  ],
+  "BUS 5-40A": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "09:00 - 11:50",
+      "location": "BUS 5-40A",
+      "capacity": 60,
+      "course": "ACCTG 523"
+    }
+  ],
+  "BUS 5-40B": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "09:00 - 11:50",
+      "location": "BUS 5-40B",
+      "capacity": 60,
+      "course": "ACCTG 523"
+    }
+  ],
+  "BUS 3-05": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (F)",
+      "time": "13:00 - 15:50",
+      "location": "BUS 3-05",
+      "capacity": 50,
+      "course": "ACCTG 703B"
+    }
+  ],
+  "HC 2-19": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "13:00 - 15:50",
+      "location": "HC 2-19",
+      "capacity": 10,
+      "course": "ACCTG 706"
+    }
+  ],
+  "T B-104": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "12:30 - 15:20",
+      "location": "T B-104",
+      "capacity": 10,
+      "course": "ACCTG 707"
+    }
+  ],
+  "CSJ MCM 1-85": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "10:30 - 11:50",
+      "location": "CSJ MCM 1-85",
+      "capacity": 15,
+      "course": "ADMI 302"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "12:00 - 12:50",
+      "location": "CSJ MCM 1-85",
+      "capacity": 15,
+      "course": "ADMI 302"
+    }
+  ],
+  "CSJ MCM 1-52": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "16:00 - 17:20",
+      "location": "CSJ MCM 1-52",
+      "capacity": 25,
+      "course": "ADRAM 249"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MW)",
+      "time": "13:00 - 14:20",
+      "location": "CSJ MCM 1-52",
+      "capacity": 26,
+      "course": "ADRAM 302"
+    }
+  ],
+  "CSC B-10": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "14:00 - 15:50",
+      "location": "CSC B-10",
+      "capacity": 10,
+      "course": "AFNS 401"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "14:00 - 15:50",
+      "location": "CSC B-10",
+      "capacity": 40,
+      "course": "AFNS 601"
+    }
+  ],
+  "AF 1-06A": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "AF 1-06A",
+      "capacity": 6,
+      "course": "AFNS 502"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "13:00 - 13:50",
+      "location": "AF 1-06A",
+      "capacity": 6,
+      "course": "AFNS 502"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "AF 1-06A",
+      "capacity": 2,
+      "course": "AFNS 506"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "14:00 - 16:50",
+      "location": "AF 1-06A",
+      "capacity": 2,
+      "course": "AFNS 506"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "AF 1-06A",
+      "capacity": 15,
+      "course": "AFNS 599"
+    }
+  ],
+  "NRE 1-143": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "NRE 1-143",
+      "capacity": 5,
+      "course": "AFNS 511"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "08:00 - 08:50",
+      "location": "NRE 1-143",
+      "capacity": 11,
+      "course": "AFNS 512"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "NRE 1-143",
+      "capacity": 35,
+      "course": "AN_SC 411"
+    }
+  ],
+  "GSB 7-11": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "12:00 - 13:20",
+      "location": "GSB 7-11",
+      "capacity": 11,
+      "course": "AFNS 512"
+    }
+  ],
+  "GSB 5-59": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "12:00 - 12:50",
+      "location": "GSB 5-59",
+      "capacity": 6,
+      "course": "AFNS 521"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "10:00 - 10:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 554"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "09:00 - 09:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 562"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 562"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "09:00 - 09:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 563"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 563"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "11:00 - 11:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 574"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 5-59",
+      "capacity": 3,
+      "course": "AFNS 574"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (F)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 5-59",
+      "capacity": 5,
+      "course": "AFNS 582"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "12:00 - 12:50",
+      "location": "GSB 5-59",
+      "capacity": 25,
+      "course": "AN_SC 420"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "09:00 - 09:50",
+      "location": "GSB 5-59",
+      "capacity": 34,
+      "course": "AN_SC 462"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 5-59",
+      "capacity": 34,
+      "course": "AN_SC 462"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "11:00 - 11:50",
+      "location": "GSB 5-59",
+      "capacity": 30,
+      "course": "AN_SC 474"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 5-59",
+      "capacity": 30,
+      "course": "AN_SC 474"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "13:00 - 13:50",
+      "location": "GSB 5-59",
+      "capacity": 30,
+      "course": "AN_SC 485"
+    }
+  ],
+  "ECHA 1-420": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (F)",
+      "time": "13:00 - 15:50",
+      "location": "ECHA 1-420",
+      "capacity": 10,
+      "course": "AFNS 528"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "12:00 - 12:50",
+      "location": "ECHA 1-420",
+      "capacity": 3,
+      "course": "AFNS 578"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "12:00 - 13:50",
+      "location": "ECHA 1-420",
+      "capacity": 3,
+      "course": "AFNS 578"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "14:00 - 16:50",
+      "location": "ECHA 1-420",
+      "capacity": 3,
+      "course": "AFNS 578"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "ECHA 1-420",
+      "capacity": 44,
+      "course": "AN_SC 488"
+    }
+  ],
+  "GSB 8-59": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "GSB 8-59",
+      "capacity": 5,
+      "course": "AFNS 545"
+    }
+  ],
+  "ECHA 1-498": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (F)",
+      "time": "10:00 - 12:50",
+      "location": "ECHA 1-498",
+      "capacity": 5,
+      "course": "AFNS 552"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 16:50",
+      "location": "ECHA 1-498",
+      "capacity": 50,
+      "course": "AN_SC 499"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "ECHA 1-498",
+      "capacity": 50,
+      "course": "AN_SC 499"
+    }
+  ],
+  "AFDP 1 206": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "14:00 - 16:50",
+      "location": "AFDP 1 206",
+      "capacity": 3,
+      "course": "AFNS 554"
+    }
+  ],
+  "VVC 2-215": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "VVC 2-215",
+      "capacity": 5,
+      "course": "AFNS 556"
+    }
+  ],
+  "ECHA 2-420": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "09:00 - 09:50",
+      "location": "ECHA 2-420",
+      "capacity": 13,
+      "course": "AFNS 580"
+    }
+  ],
+  "ECHA L1-420": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "13:00 - 13:50",
+      "location": "ECHA L1-420",
+      "capacity": 13,
+      "course": "AFNS 580"
+    }
+  ],
+  "NRE 2-020": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "NRE 2-020",
+      "capacity": 10,
+      "course": "AFNS 581"
+    }
+  ],
+  "GSB 8-11": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "09:30 - 10:50",
+      "location": "GSB 8-11",
+      "capacity": 10,
+      "course": "AFNS 585"
+    }
+  ],
+  "GSB 5-11": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "GSB 5-11",
+      "capacity": 6,
+      "course": "AFNS 595"
+    }
+  ],
+  "AF 2-34": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 16:50",
+      "location": "AF 2-34",
+      "capacity": 15,
+      "course": "AFNS 599"
+    }
+  ],
+  "GSB 2-11": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 16:50",
+      "location": "GSB 2-11",
+      "capacity": 15,
+      "course": "AFNS 599"
+    }
+  ],
+  "NRE 2-003": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "12:30 - 13:50",
+      "location": "NRE 2-003",
+      "capacity": 30,
+      "course": "AFNS 601"
+    }
+  ],
+  "ECHA 1-472": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "12:30 - 13:50",
+      "location": "ECHA 1-472",
+      "capacity": 12,
+      "course": "AFNS 675"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 16:50",
+      "location": "ECHA 1-472",
+      "capacity": 12,
+      "course": "AFNS 675"
+    }
+  ],
+  "CCIS 1-140": [
+    {
+      "dates": "2025-01-06 - 2025-01-24 (MWF)",
+      "time": "11:00 - 11:50",
+      "location": "CCIS 1-140",
+      "capacity": 155,
+      "course": "ALES 204"
+    },
+    {
+      "dates": "2025-01-27 - 2025-04-09 (MW)",
+      "time": "11:00 - 11:50",
+      "location": "CCIS 1-140",
+      "capacity": 155,
+      "course": "ALES 204"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "09:00 - 09:50",
+      "location": "CCIS 1-140",
+      "capacity": 135,
+      "course": "AN_SC 101"
+    }
+  ],
+  "CAB 357": [
+    {
+      "dates": "2025-01-24 - 2025-04-04 (F)",
+      "time": "11:00 - 11:50",
+      "location": "CAB 357",
+      "capacity": 155,
+      "course": "ALES 204"
+    }
+  ],
+  "SAB 3-21": [
+    {
+      "dates": "2025-01-24 - 2025-04-04 (F)",
+      "time": "11:00 - 11:50",
+      "location": "SAB 3-21",
+      "capacity": 155,
+      "course": "ALES 204"
+    }
+  ],
+  "C E5-36": [
+    {
+      "dates": "2025-01-24 - 2025-04-04 (F)",
+      "time": "11:00 - 11:50",
+      "location": "C E5-36",
+      "capacity": 155,
+      "course": "ALES 204"
+    }
+  ],
+  "C E4-36": [
+    {
+      "dates": "2025-01-24 - 2025-04-04 (F)",
+      "time": "11:00 - 11:50",
+      "location": "C E4-36",
+      "capacity": 155,
+      "course": "ALES 204"
+    }
+  ],
+  "CAB 369": [
+    {
+      "dates": "2025-01-24 - 2025-04-04 (F)",
+      "time": "11:00 - 11:50",
+      "location": "CAB 369",
+      "capacity": 155,
+      "course": "ALES 204"
+    }
+  ],
+  "ONLINE": [
+    {
+      "dates": "2025-05-05 - 2025-06-11 (MW)",
+      "time": "09:00 - 11:50",
+      "location": "ONLINE",
+      "capacity": 30,
+      "course": "ALS 120"
+    },
+    {
+      "dates": "2025-05-05 - 2025-06-11 (TR)",
+      "time": "13:00 - 15:50",
+      "location": "ONLINE",
+      "capacity": 30,
+      "course": "ALS 120"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "16:30 - 17:50",
+      "location": "ONLINE",
+      "capacity": 10,
+      "course": "ALS 125"
+    },
+    {
+      "dates": "2025-07-07 - 2025-08-13 (MW)",
+      "time": "09:00 - 11:50",
+      "location": "ONLINE",
+      "capacity": 35,
+      "course": "ALS 125"
+    }
+  ],
+  "CSJ MCM 3-18": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "16:30 - 17:50",
+      "location": "CSJ MCM 3-18",
+      "capacity": 10,
+      "course": "ALS 125"
+    }
+  ],
+  "AF 1-13": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "14:00 - 16:50",
+      "location": "AF 1-13",
+      "capacity": 45,
+      "course": "AN_SC 101"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "14:00 - 16:50",
+      "location": "AF 1-13",
+      "capacity": 45,
+      "course": "AN_SC 101"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (W)",
+      "time": "14:00 - 16:50",
+      "location": "AF 1-13",
+      "capacity": 45,
+      "course": "AN_SC 101"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "12:00 - 12:50",
+      "location": "AF 1-13",
+      "capacity": 50,
+      "course": "AN_SC 377"
+    }
+  ],
+  "SAB 4-36": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "12:00 - 12:50",
+      "location": "SAB 4-36",
+      "capacity": 90,
+      "course": "AN_SC 120"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "09:30 - 10:50",
+      "location": "SAB 4-36",
+      "capacity": 72,
+      "course": "AN_SC 311"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "11:00 - 11:50",
+      "location": "SAB 4-36",
+      "capacity": 90,
+      "course": "AN_SC 325"
+    }
+  ],
+  "AF 5-19": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (M)",
+      "time": "14:00 - 16:50",
+      "location": "AF 5-19",
+      "capacity": 24,
+      "course": "AN_SC 311"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (T)",
+      "time": "14:00 - 16:50",
+      "location": "AF 5-19",
+      "capacity": 24,
+      "course": "AN_SC 311"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (R)",
+      "time": "14:00 - 16:50",
+      "location": "AF 5-19",
+      "capacity": 24,
+      "course": "AN_SC 311"
+    },
+    {
+      "dates": "2025-01-06 - 2025-04-09 (TR)",
+      "time": "11:00 - 12:20",
+      "location": "AF 5-19",
+      "capacity": 5,
+      "course": "AN_SC 473"
+    }
+  ],
+  "CSC B-02": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "13:00 - 13:50",
+      "location": "CSC B-02",
+      "capacity": 66,
+      "course": "AN_SC 312"
+    }
+  ],
+  "SAB 3-31": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (MWF)",
+      "time": "10:00 - 10:50",
+      "location": "SAB 3-31",
+      "capacity": 75,
+      "course": "AN_SC 375"
+    }
+  ],
+  "GSB 8-66": [
+    {
+      "dates": "2025-01-06 - 2025-04-09 (F)",
+      "time": "14:00 - 15:50",
+      "location": "GSB 8-66",
+      "capacity": 30,
+      "course": "AN_SC 485"
+    }
+  ]
+}

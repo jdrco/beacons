@@ -3,11 +3,11 @@ import fs from 'fs/promises';
 
 async function getAllSubjects(page) {
   await page.goto('https://apps.ualberta.ca/catalogue/course');
-  
+
   const subjectLinks = await page.$$('a[href^="/catalogue/course/"]');
   const subjects = [];
 
-  console.log("Scraped subjects:"); 
+  console.log("Scraped subjects:");
 
   for (const link of subjectLinks) {
     const href = await link.getAttribute('href');
@@ -16,7 +16,7 @@ async function getAllSubjects(page) {
       const subjectCode = href.split('/').pop();
       subjects.push({ code: subjectCode, url: 'https://apps.ualberta.ca' + href });
       // Print each subject
-      console.log(`- ${subjectCode} -> ${href}`); 
+      console.log(`- ${subjectCode} -> ${href}`);
     }
   }
 
@@ -30,7 +30,7 @@ async function getCoursesForSubject(page, subjectUrl) {
 
   try {
     // "View Available Classes" buttons
-    const links = await page.$$('a.btn.btn-nav'); 
+    const links = await page.$$('a.btn.btn-nav');
     for (const link of links) {
       const href = await link.getAttribute('href');
       if (href && href.includes('/catalogue/course/')) {
@@ -45,7 +45,7 @@ async function getCoursesForSubject(page, subjectUrl) {
 }
 
 async function scrapeClassroomAvailability(page) {
-  const sessions = {};  
+  const sessions = {};
   const errors = [];
 
   const rows = await page.$$('table.table-striped tbody tr');
@@ -121,7 +121,7 @@ async function scrapeCatalogue(authCookie) {
   ]);
 
   const page = await context.newPage();
-  const allClassrooms = {};  
+  const allClassrooms = {};
   const allErrors = [];
 
   try {

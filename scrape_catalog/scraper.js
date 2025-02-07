@@ -1,4 +1,5 @@
 import { firefox } from 'playwright';
+import fs from 'fs/promises';
 
 async function getAllSubjects(page) {
   await page.goto('https://apps.ualberta.ca/catalogue/course');
@@ -104,6 +105,10 @@ async function scrapeClassroomAvailability(page) {
 
 async function scrapeCatalogue(authCookie) {
   const browser = await firefox.launch();
+  // const browser = await firefox.launch({ 
+  //   headless: false,
+  //   slowMo: 50  // Optional: adds a delay between actions for better visibility
+  // });
   const context = await browser.newContext();
 
   await context.addCookies([
@@ -164,7 +169,16 @@ async function scrapeCatalogue(authCookie) {
     console.error('Scraping completed with errors:', JSON.stringify(allErrors, null, 2));
   }
 
-  return allClassrooms;
+  return { allClassrooms, allErrors };
+}
+
+async function saveToJson(data, filename) {
+  try {
+    await fs.writeFile(filename, JSON.stringify(data, null, 2));
+    console.log(`Data successfully saved to ${filename}`);
+  } catch (error) {
+    console.error(`Error saving to ${filename}:`, error);
+  }
 }
 
 async function main() {
@@ -174,17 +188,23 @@ async function main() {
   }
 
   try {
-    const results = await scrapeCatalogue(authCookie);
+    const { allClassrooms, allErrors } = await scrapeCatalogue(authCookie);
 
-    console.log('Classroom availability scraped successfully.');
+    console.log('Classroom availability scraped successfully and saved to classroom_availability.json');
+    await saveToJson(allClassrooms, 'classroom_availability.json');
 
-    // Save data to JSON file
-    const filePath = 'classroom_availability.json';
-    fs.writeFileSync(filePath, JSON.stringify(results, null, 2));
-
-    console.log(`Data saved to ${filePath}`);
+    // Save errors if there are any
+    if (allErrors.length > 0) {
+      await saveToJson(allErrors, 'scraping_errors.json');
+      console.log(`Found ${allErrors.length} errors during scraping. Check scraping_errors.json for details.`);
+    }
   } catch (error) {
     console.error('Fatal error running scraper:', error);
+    // Save fatal error
+    await saveToJson({
+      fatalError: error.message,
+      timestamp: new Date().toISOString()
+    }, 'fatal_error.json');
   }
 }
 

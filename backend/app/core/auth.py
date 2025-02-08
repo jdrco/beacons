@@ -2,71 +2,34 @@ import logging
 from datetime import datetime, timedelta
 from uuid import UUID
 
-from jose import jwt
-from sqlalchemy.orm import Session
-from passlib.context import CryptContext
+from fastapi import Response, Depends, Security
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.routing import APIRouter
-from fastapi import Request, Response, Depends
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.orm import Session
+from jose import jwt
+from passlib.context import CryptContext
 
 from app.core.config import settings
-from app.core.database import get_db, SessionLocal
+from app.core.database import get_db
 from app.schemas.user import UserCreate, TokenResponse, PasswordReset
-from app.crud.user import get_user_by_email
+from app.crud.user import get_user_by_email, get_user_by_username
 from app.utils.response import success_response, error_response
 from app.models.user import User, Cookie
-from app.utils.query import query
+from app.utils.query import filter_query
 
 logging.getLogger("passlib").setLevel(logging.ERROR)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/signin")
-
-async def validate_session_middleware(request: Request, call_next):
-    access_token = request.cookies.get("access_token")
-    path = request.url.path
-
-    auth_required_paths = [
-        "/private_health",
-        "/user/update-password"
-    ]
-
-    if path in auth_required_paths:
-        if not access_token:
-            return error_response(401, False, "Unauthorized. Please log in.")
-
-        db = SessionLocal()
-
-        try:
-            session = get_active_cookie(db, access_token=access_token)
-            if session:
-                request.state.user = session.user
-                return await call_next(request)
-
-            return error_response(401, False, "Unauthorized. Please log in.")
-        finally:
-            print("Closing DB connection")
-            db.close()
-
-    return await call_next(request)
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/signin", auto_error=False)
 
 def verify_password(plain_password, hashed_password):
-    """
-    Verify a plain text password against a hashed password.
-    """
     return pwd_context.verify(plain_password, hashed_password)
 
 def get_password_hash(password):
-    """
-    Hash a plain text password.
-    """
     return pwd_context.hash(password)
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
-    """
-    Create a new access token.
-    """
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now() + expires_delta
@@ -85,9 +48,6 @@ def create_user(
     share_profile: bool = True,
     education_level: str = None,
 ):
-    """
-    Create a new user and save it to the database.
-    """
     hashed_password = get_password_hash(password)
     new_user = User(
         email=email,
@@ -103,9 +63,6 @@ def create_user(
     return new_user
 
 def create_cookie(db: Session, user_id: str, access_token: str, expires_at: datetime):
-    """
-    Create a new session.
-    """
     session = Cookie(
         access_token=access_token,
         user_id=user_id,
@@ -117,22 +74,19 @@ def create_cookie(db: Session, user_id: str, access_token: str, expires_at: date
     db.refresh(session)
     return session
 
-def get_active_cookie(db: Session, access_token: str = None, user_id: UUID = None):
-    """
-    Retrieve an active session by session ID or user ID.
-    """
+def get_active_cookie(
+        db: Session,
+        access_token: str = None,
+        user_id: UUID = None):
     filters = [Cookie.is_active == True, Cookie.expires_at > datetime.now()]
     if access_token:
         filters.append(Cookie.access_token == access_token)
     if user_id:
         filters.append(Cookie.user_id == user_id)
-    result = query(db, model=Cookie, filters=filters)
+    result = filter_query(db, model=Cookie, filters=filters)
     return result[0] if result else None
 
 def deactivate_cookie(db: Session, access_token: str):
-    """
-    Deactivate a session by session ID.
-    """
     session = get_active_cookie(db, access_token=access_token)
     if session:
         session.is_active = False
@@ -141,19 +95,19 @@ def deactivate_cookie(db: Session, access_token: str):
     return session
 
 def get_active_user(
-    token: str = Depends(oauth2_scheme),
+    token: str = Security(oauth2_scheme),
     db: Session = Depends(get_db)
 ):
-    """
-    Get the currently authenticated user.
-    """
+    if not token:
+        return error_response(401, False, "Unauthorized: Please provide a valid token")
+
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         email = payload.get("sub")
         if email is None:
             return error_response(401, False, "Invalid token")
 
-        user = query(db, model=User, filters=[User.email == email])
+        user = filter_query(db, model=User, filters=[User.email == email])
         if not user:
             return error_response(401, False, "User not found")
 
@@ -163,16 +117,21 @@ def get_active_user(
 
 @router.post("/signup")
 def sign_up(user: UserCreate, db: Session = Depends(get_db)):
-    """
-    API endpoint to handle user sign-up.
-    """
     try:
-        existing_user = get_user_by_email(db, user.email)
-        if existing_user:
+        existing_email = get_user_by_email(db, user.email)
+        if existing_email:
             return error_response(
                 status_codes=400,
                 status=False,
                 message="Email already registered."
+            )
+
+        existing_username = get_user_by_username(db, user.username)
+        if existing_username:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Username already taken."
             )
 
         new_user = create_user(
@@ -204,9 +163,6 @@ def sign_in(
     db: Session = Depends(get_db),
     response: Response = None
 ):
-    """
-    API endpoint to handle user sign-in.
-    """
     user = get_user_by_email(db, form_data.username)
     if not user:
         return error_response(
@@ -235,23 +191,20 @@ def sign_in(
         "token_type": "bearer"
     }
 
-@router.put("/update-password", tags=["auth-required"])
+@router.put("/update-password")
 def update_password(
     password: PasswordReset,
-    user: User = Depends(get_active_user),
+    current_user: User = Depends(get_active_user),
     db: Session = Depends(get_db)
 ):
-    """
-    Update the user's password.
-    """
-    if not verify_password(password.old_password, user.password):
+    if not verify_password(password.old_password, current_user.password):
         return error_response(
             status_codes=400,
             status=False,
             message="Old password is incorrect."
         )
 
-    user.password = get_password_hash(password.new_password)
+    current_user.password = get_password_hash(password.new_password)
     db.commit()
     return success_response(
         status_codes=200,

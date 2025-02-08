@@ -67,13 +67,27 @@ async function scrapeClassroomAvailability(page) {
         try {
           const url = page.url();
           const course = url.split('/').slice(-2).join(' ').toUpperCase();
-
           const capacityCell = await row.$('td:nth-child(2)');
           const capacity = capacityCell ? parseInt((await capacityCell.textContent()).trim()) : null;
-
           const dates = (await dateElements[j].textContent()).replace('Calendar icon', '').trim();
-          const time = (await timeElements[j].textContent()).replace('Clock icon', '').trim();
-          const location = (await locationElements[j].textContent()).replace('Building icon', '').trim();
+
+          // Check which element contains the building icon
+          const secondElement = await timeElements[j].innerHTML();
+          const thirdElement = await locationElements[j].innerHTML();
+
+          let time, location;
+          if (thirdElement.includes('Building icon')) {
+            // Normal case
+            time = (await timeElements[j].textContent()).replace('Clock icon', '').trim();
+            location = (await locationElements[j].textContent()).replace('Building icon', '').trim();
+          } else if (secondElement.includes('Building icon')) {
+            // Weird edge case where it swaps the Time and Location columns
+            time = (await locationElements[j].textContent()).replace('Clock icon', '').trim();
+            location = (await timeElements[j].textContent()).replace('Building icon', '').trim();
+          } else {
+            errors.push(`Row ${i + 1}, Set ${j + 1}: Could not find building icon`);
+            continue;
+          }
 
           if (!dates || !time || !location) {
             errors.push(`Row ${i + 1}, Set ${j + 1}: Empty data found`);

@@ -174,10 +174,13 @@ async function scrapeCatalogue(authCookie) {
 
 async function saveToJson(data, filename) {
   try {
-    await fs.writeFile(filename, JSON.stringify(data, null, 2));
-    console.log(`Data successfully saved to ${filename}`);
+    // Ensure output directory exists
+    await fs.mkdir('output', { recursive: true });
+    const filepath = `output/${filename}`;
+    await fs.writeFile(filepath, JSON.stringify(data, null, 2));
+    console.log(`Data successfully saved to ${filepath}`);
   } catch (error) {
-    console.error(`Error saving to ${filename}:`, error);
+    console.error(`Error saving to output/${filename}:`, error);
   }
 }
 

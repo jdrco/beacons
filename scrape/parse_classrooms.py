@@ -70,5 +70,4 @@ def process_json(filename):
 # Run the processor
 if __name__ == "__main__":
     process_json("output/classroom_availability.json")
-    # process_json("output/grouped_by_building.json")
 

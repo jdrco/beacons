@@ -1,22 +1,18 @@
 import re
-from typing import Literal
-from pydantic import BaseModel, EmailStr, Field, field_validator
+from typing import Literal, Optional
+from pydantic import BaseModel, EmailStr, field_validator
 from app.utils.response import error_response
 
 class UserCreate(BaseModel):
-    """
-    Pydantic model for user sign-up.
-    """
     email: EmailStr
-    lname: str = Field(..., min_length=2, max_length=50)
-    fname: str = Field(..., min_length=2, max_length=50)
+    username: str
     password: str
     re_password: str
     active: bool = True
     share_profile: bool = True
     education_level: Literal["Undergraduate", "Graduate"] = None
 
-    @field_validator("email", "lname", "fname", mode="before")
+    @field_validator("email", "username", mode="before")
     @classmethod
     def trim_spaces(cls, value: str):
         if isinstance(value, str):
@@ -26,9 +22,6 @@ class UserCreate(BaseModel):
     @field_validator("password", mode="after")
     @classmethod
     def validate_password_strength(cls, password):
-        """
-        Validate that the password contains at least:
-        """
         if not re.search(r"[A-Z]", password):
             return error_response(
                 status_codes=400,
@@ -52,9 +45,6 @@ class UserCreate(BaseModel):
     @field_validator("re_password", mode="after")
     @classmethod
     def passwords_match(cls, re_password, values):
-        """
-        Validate that the re-entered password matches the original password.
-        """
         if "password" in values.data and re_password != values.data["password"]:
             return error_response(
                 status_codes=400,
@@ -64,16 +54,10 @@ class UserCreate(BaseModel):
         return re_password
 
 class TokenResponse(BaseModel):
-    """
-    Pydantic model for the token response.
-    """
     access_token: str
     token_type: str
 
 class PasswordReset(BaseModel):
-    """
-    Pydantic model for password reset.
-    """
     old_password: str
     new_password: str
     re_password: str
@@ -81,9 +65,6 @@ class PasswordReset(BaseModel):
     @field_validator("new_password", mode="after")
     @classmethod
     def validate_password_strength(cls, new_password):
-        """
-        Validate that the password contains at least:
-        """
         if not re.search(r"[A-Z]", new_password):
             return error_response(
                 status_codes=400,
@@ -103,13 +84,10 @@ class PasswordReset(BaseModel):
                 message="Password must contain at least one special character."
             )
         return new_password
-    
+
     @field_validator("re_password", mode="after")
     @classmethod
     def passwords_match(cls, re_password, values):
-        """
-        Validate that the re-entered password matches the original password.
-        """
         if "new_password" in values.data and re_password != values.data["new_password"]:
             return error_response(
                 status_codes=400,
@@ -117,3 +95,17 @@ class PasswordReset(BaseModel):
                 message="Passwords do not match."
             )
         return re_password
+
+class UserUpdate(BaseModel):
+    user_id: str
+    username: Optional[str] = None
+    active: Optional[bool] = None
+    share_profile: Optional[bool] = None
+    education_level: Optional[Literal["Undergraduate", "Graduate"]] = None
+
+    @field_validator("username", mode="before")
+    @classmethod
+    def trim_spaces(cls, value: str):
+        if isinstance(value, str):
+            return value.strip()
+        return value

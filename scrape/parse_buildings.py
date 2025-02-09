@@ -51,7 +51,7 @@ def group_by_building(data, coordinates):
 
 def main():
     # Read the coordinates
-    building_coords = parse_coordinates('output/buildings.txt')
+    building_coords = parse_coordinates('building_coordinates.txt')
     
     # Read the classroom availability JSON file
     with open('output/classroom_availability.json', 'r') as file:

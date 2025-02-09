@@ -1,10 +1,10 @@
-from sqlalchemy.orm import Session
 from typing import Type, TypeVar, List, Optional, Any
-from sqlalchemy import and_, or_
+from sqlalchemy.orm import Session
+from sqlalchemy import and_
 
 ModelType = TypeVar("ModelType")
 
-def query(
+def filter_query(
     db: Session,
     model: Type[ModelType],
     filters: Optional[List[Any]] = None,

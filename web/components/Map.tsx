@@ -32,9 +32,9 @@ const Map = ({ className = '' }: MapProps) => {
   return (
     <div
       ref={mapContainerRef}
-      className={`w-full h-[600px] ${className}`}
+      className={`h-full w-full ${className}`}
     />
-  )
+  );
 }
 
 export default Map

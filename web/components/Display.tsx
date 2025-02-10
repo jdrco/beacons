@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import { Heart, Building2, DoorOpen, DoorClosed } from "lucide-react";
+import { useState, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card } from "@/components/ui/card";
-import { Building2, Clock } from "lucide-react";
 import _ from "lodash";
 
 interface Coordinates {
@@ -35,9 +36,11 @@ interface BuildingData {
   [buildingName: string]: Building;
 }
 
-const ClassroomDisplay: React.FC = () => {
+export default function RoomBooking() {
   const [buildingData, setBuildingData] = useState<BuildingData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
 
@@ -51,108 +54,151 @@ const ClassroomDisplay: React.FC = () => {
         const data: BuildingData = await response.json();
         setBuildingData(data);
       } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Failed to load building data";
-        setError(errorMessage);
-        console.error("Error loading building data:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to load building data"
+        );
       } finally {
         setLoading(false);
       }
     };
-
     fetchBuildingData();
   }, []);
 
-  const isRoomAvailable = (schedules: Schedule[]): boolean => {
-    // TODO: Implement actual availability logic based on current time
-    return true;
-  };
-
-  const getRoomCount = (building: Building): number => {
-    return Object.keys(building.rooms).length;
-  };
-
-  const handleBuildingSelect = (buildingName: string) => {
-    setSelectedBuilding(
-      selectedBuilding === buildingName ? null : buildingName
+  const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
+    e.stopPropagation();
+    setFavorites((prev) =>
+      prev.includes(roomId)
+        ? prev.filter((id) => id !== roomId)
+        : [...prev, roomId]
     );
   };
 
-  if (loading) return <div className="p-4">Loading building data...</div>;
+  const isRoomAvailable = (schedules: Schedule[]): boolean => {
+    // TODO: Implement actual availability logic based on current time
+    // For now, returning a random boolean for demonstration
+    return Math.random() > 0.5;
+  };
+
+  if (loading)
+    return <div className="p-4 text-white">Loading building data...</div>;
   if (error) return <div className="p-4 text-red-500">{error}</div>;
   if (!buildingData) return null;
 
   return (
-    <div className="flex gap-4 p-4">
-      {/* Map placeholder */}
-      <Card className="w-1/2 p-4">
-        <div className="h-96 bg-gray-100 flex items-center justify-center">
-          Map Coming Soon
-          {selectedBuilding && buildingData[selectedBuilding] && (
-            <div>
-              Selected: {selectedBuilding} (
-              {buildingData[selectedBuilding].coordinates.latitude.toFixed(6)},
-              {buildingData[selectedBuilding].coordinates.longitude.toFixed(6)})
-            </div>
-          )}
-        </div>
-      </Card>
-
-      {/* List view */}
-      <Card className="w-1/2 p-4">
-        <Accordion type="single" collapsible className="w-full">
-          {Object.entries(buildingData).map(([buildingName, building]) => (
-            <AccordionItem key={buildingName} value={buildingName}>
-              <AccordionTrigger
-                className="hover:no-underline"
-                onClick={() => handleBuildingSelect(buildingName)}
-              >
-                <div className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4" />
-                  <span>{buildingName}</span>
-                  <span className="text-sm text-gray-500">
-                    ({getRoomCount(building)} rooms)
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="space-y-2">
-                  {Object.entries(building.rooms).map(
-                    ([roomName, schedules]) => (
-                      <div
-                        key={roomName}
-                        className={`p-2 rounded-md ${
-                          isRoomAvailable(schedules)
-                            ? "bg-green-50 border border-green-200"
-                            : "bg-red-50 border border-red-200"
-                        }`}
-                      >
-                        <div className="font-medium">{roomName}</div>
-                        <div className="text-sm text-gray-600">
-                          {schedules.map((schedule, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-center gap-1 mt-1"
-                            >
-                              <Clock className="h-3 w-3" />
-                              <span>
-                                {schedule.course}: {schedule.time} (
-                                {schedule.dates})
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )
+    <div className="flex w-screen gap-4 p-4">
+      <div className="h-full bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-700 w-2/3">
+        Map Coming Soon
+        {selectedBuilding && buildingData[selectedBuilding] && (
+          <div className="ml-2">
+            Selected: {selectedBuilding} (
+            {buildingData[selectedBuilding].coordinates.latitude.toFixed(6)},
+            {buildingData[selectedBuilding].coordinates.longitude.toFixed(6)})
+          </div>
+        )}
+      </div>
+      <Accordion type="multiple" className="space-y-2 w-1/3">
+        {Object.entries(buildingData).map(([buildingName, building]) => (
+          <AccordionItem
+            key={buildingName}
+            value={buildingName}
+            className="border-0"
+          >
+            <AccordionTrigger
+              className="flex items-center justify-between p-3 rounded-lg hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+              onClick={() =>
+                setSelectedBuilding(
+                  selectedBuilding === buildingName ? null : buildingName
+                )
+              }
+            >
+              <div className="flex items-center gap-3">
+                <Building2 className="w-6 h-6" />
+                <span className="text-lg">{buildingName}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`px-2 py-1 rounded-full text-sm mr-2 ${
+                    isRoomAvailable(Object.values(building.rooms).flat())
+                      ? "bg-[#4fd1c5] text-black"
+                      : "bg-[#f56565] text-white"
+                  }`}
+                >
+                  {isRoomAvailable(Object.values(building.rooms).flat()) ? (
+                    <span>free &#x1F440;</span>
+                  ) : (
+                    <span>busy &#9203;</span>
                   )}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </Card>
+                </span>
+                <span className="text-sm text-gray-400">
+                  {Object.keys(building.rooms).length} rooms
+                </span>
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent className="mt-2">
+              <Accordion type="multiple" className="ml-8 space-y-2">
+                {Object.entries(building.rooms).map(([roomName, schedules]) => {
+                  const isAvailable = isRoomAvailable(schedules);
+                  return (
+                    <AccordionItem
+                      key={roomName}
+                      value={roomName}
+                      className="border-0"
+                    >
+                      <AccordionTrigger className="flex items-center justify-between p-3 rounded-lg hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]">
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6">
+                            {isAvailable ? (
+                              <DoorOpen className="stroke-[#4fd1c5]" />
+                            ) : (
+                              <DoorClosed className="stroke-[#f56565]" />
+                            )}
+                          </div>
+                          <span>{roomName}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={(e) => toggleFavorite(e, roomName)}
+                            className="hover:text-gray-300"
+                          >
+                            <Heart
+                              size={20}
+                              fill={
+                                favorites.includes(roomName)
+                                  ? "currentColor"
+                                  : "none"
+                              }
+                            />
+                          </button>
+                        </div>
+                      </AccordionTrigger>
+
+                      <AccordionContent className="mt-2">
+                        <div className="ml-9 space-y-2 text-sm text-gray-300">
+                          <p className="font-medium">Schedule</p>
+                          <div className="space-y-2">
+                            {schedules.map((schedule, index) => (
+                              <div key={index} className="space-y-1">
+                                <p>Course: {schedule.course}</p>
+                                <p>Dates: {schedule.dates}</p>
+                                <p>Time: {schedule.time}</p>
+                                <p>Capacity: {schedule.capacity}</p>
+                                {index < schedules.length - 1 && (
+                                  <hr className="border-gray-700 my-2" />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
   );
-};
-
-export default ClassroomDisplay;
+}

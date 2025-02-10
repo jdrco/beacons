@@ -139,7 +139,7 @@ def sign_up(user: UserCreate, db: Session = Depends(get_db)):
             email=user.email,
             username=user.username,
             password=user.password,
-            active=user.active,
+            active=False,
             share_profile=user.share_profile,
             education_level=user.education_level,
         )
@@ -163,33 +163,69 @@ def sign_in(
     db: Session = Depends(get_db),
     response: Response = None
 ):
-    user = get_user_by_email(db, form_data.username)
-    if not user:
+    try:
+        user = get_user_by_email(db, form_data.username)
+        if not user:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Invalid email or password."
+            )
+
+        access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
+        access_token = create_access_token(
+            data={"sub": user.email}, expires_delta=access_token_expires
+        )
+
+        session_expiry = datetime.now() + access_token_expires
+        create_cookie(db, user_id=user.id, access_token=access_token, expires_at=session_expiry)
+
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            max_age=access_token_expires.total_seconds(),
+        )
+
+        return {
+            "access_token": access_token,
+            "token_type": "bearer"
+        }
+    except Exception as e:
+        return error_response(
+            status_codes=500,
+            status=False,
+            message={"error": str(e)}
+        )
+
+@router.post("/signout")
+def sign_out(
+    current_user: User = Depends(get_active_user),
+    db: Session = Depends(get_db),
+    response: Response = None
+):
+    try:
+        active_cookie = get_active_cookie(db, user_id=current_user.id)
+        if active_cookie:
+            deactivate_cookie(db, active_cookie.access_token)
+            response.delete_cookie("access_token")
+            return success_response(
+                status_codes=200,
+                status=True,
+                message="User signed out successfully."
+            )
+
         return error_response(
             status_codes=400,
             status=False,
-            message="Invalid email or password."
+            message="No active session found."
         )
-
-    access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
-    access_token = create_access_token(
-        data={"sub": user.email}, expires_delta=access_token_expires
-    )
-
-    session_expiry = datetime.now() + access_token_expires
-    create_cookie(db, user_id=user.id, access_token=access_token, expires_at=session_expiry)
-
-    response.set_cookie(
-        key="access_token",
-        value=access_token,
-        httponly=True,
-        max_age=access_token_expires.total_seconds(),
-    )
-
-    return {
-        "access_token": access_token,
-        "token_type": "bearer"
-    }
+    except Exception as e:
+        return error_response(
+            status_codes=500,
+            status=False,
+            message={"error": str(e)}
+        )
 
 @router.put("/update-password")
 def update_password(
@@ -197,17 +233,27 @@ def update_password(
     current_user: User = Depends(get_active_user),
     db: Session = Depends(get_db)
 ):
-    if not verify_password(password.old_password, current_user.password):
-        return error_response(
-            status_codes=400,
-            status=False,
-            message="Old password is incorrect."
+    try:
+        if not verify_password(password.old_password, current_user.password):
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Old password is incorrect."
+            )
+
+        current_user.password = get_password_hash(password.new_password)
+        db.add(current_user)
+        db.commit()
+        db.refresh(current_user)
+        return success_response(
+            status_codes=200,
+            status=True,
+            message="Password updated successfully."
         )
 
-    current_user.password = get_password_hash(password.new_password)
-    db.commit()
-    return success_response(
-        status_codes=200,
-        status=True,
-        message="Password updated successfully."
-    )
+    except Exception as e:
+        return error_response(
+            status_codes=500,
+            status=False,
+            message={"error": str(e)}
+        )

@@ -1,18 +1,36 @@
 import json
 import re
 import logging
-
 from datetime import datetime
 
 # Set up logging
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
+def normalize_schedule(schedule):
+    """
+    Normalize schedule by swapping date and time fields if they are in wrong fields.
+    Args:
+        schedule (dict): Schedule dictionary with dates and time fields
+    Returns:
+        dict: Schedule with normalized date and time fields
+    """
+    # Check if dates field contains time format (HH:MM - HH:MM)
+    time_pattern = re.compile(r'^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$')
+    date_pattern = re.compile(r'^\d{4}-\d{2}-\d{2}(?:\s*-\s*\d{4}-\d{2}-\d{2})?.*$')
+    
+    if (time_pattern.match(schedule.get("dates", "")) and 
+        date_pattern.match(schedule.get("time", ""))):
+        # Swap the fields
+        schedule["dates"], schedule["time"] = schedule["time"], schedule["dates"]
+    
+    return schedule
+
 def is_before_date(date_str):
     """
     Check if the start date is before date (e.g. May 2025 which is end of current sem)
     Args:
-        date_str (str): Date string in format "YYYY-MM-DD - YYYY-MM-DD (W)"
+        date_str (str): Date string in format "YYYY-MM-DD - YYYY-MM-DD (W)" or "YYYY-MM-DD"
     Returns:
         bool: True if start date is before May 2025, False if after or on error
     """
@@ -26,8 +44,8 @@ def is_before_date(date_str):
         return date < cutoff_date
     except (ValueError, IndexError) as e:
         logger.warning(f"Failed to parse date '{date_str}': {str(e)}")
-        # On error, we'll consider it as after May 2025 to filter it out
-        return False
+        # On error, we'll keep it as may be a different edge case
+        return True
     except Exception as e:
         logger.warning(f"Unexpected error processing date '{date_str}': {str(e)}")
         return False
@@ -46,13 +64,17 @@ def filter_schedules(data):
     filtered_data = {}
 
     for room, schedules in data.items():
-        filtered_schedules = [
-            schedule for schedule in schedules 
-            if not (isinstance(schedule.get("location"), str) and 
-                   any(loc in schedule["location"].upper() 
-                       for loc in ["TBD", "ONLINE"])) and
-               is_before_date(schedule["dates"])
-        ]
+        filtered_schedules = []
+        for schedule in schedules:
+            # Normalize the schedule (swap date/time if needed)
+            normalized_schedule = normalize_schedule(schedule)
+            
+            # Apply filters
+            if not (isinstance(normalized_schedule.get("location"), str) and 
+                   any(loc in normalized_schedule["location"].upper() 
+                       for loc in ["TBD", "ONLINE"])) and \
+               is_before_date(normalized_schedule["dates"]):
+                filtered_schedules.append(normalized_schedule)
 
         # Only include rooms that have remaining schedules
         if filtered_schedules:
@@ -123,7 +145,7 @@ def main():
     grouped_data = group_by_building(filtered_data, building_coords)
     
     # Write the grouped data to a new JSON file
-    with open('output/processed_classroom_availability_winter.json', 'w') as file:
+    with open('output/processed_classroom_availability_winter_0210_1.json', 'w') as file:
         json.dump(grouped_data, file, indent=2)
 
 if __name__ == '__main__':

@@ -208,7 +208,7 @@ async function main() {
     const { allClassrooms, allErrors } = await scrapeCatalogue(authCookie);
 
     console.log('Classroom availability scraped successfully and saved to classroom_availability.json');
-    await saveToJson(allClassrooms, 'classroom_availability.json');
+    await saveToJson(allClassrooms, 'raw_classroom_availability.json');
 
     // Save errors if there are any
     if (allErrors.length > 0) {

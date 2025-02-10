@@ -47,7 +47,7 @@ export default function RoomBooking() {
   useEffect(() => {
     const fetchBuildingData = async () => {
       try {
-        const response = await fetch("/classroom_availability.json");
+        const response = await fetch("/processed_classroom_availability.json");
         if (!response.ok) {
           throw new Error("Failed to fetch building data");
         }

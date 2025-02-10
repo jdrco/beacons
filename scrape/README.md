@@ -16,11 +16,11 @@ Run the container with: `docker run -v $(pwd):/app -e AUTH_COOKIE="your-auth-coo
 
 ## To process data:
 
-The classroom scraper will output to `output/classroom_availability.json`.
+The classroom scraper will output to `output/raw_classroom_availability.json`.
 
 There is a pre-made `building_cooridnates.txt` that has all it's coordinates from manually finding the building's long/lat from Google Maps.
 
-Run `python3 parse_building.py` and it will output to `output/grouped_by_building.json`
+Run `python3 process_classroom_availability.py` and it will output to `processed_classroom_availability.json`
 
 ## Other Notes
 

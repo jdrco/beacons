@@ -1,6 +1,33 @@
 import json
 import re
 
+
+def filter_schedules(data):
+    """
+    Remove schedules that have TBD or ONLINE in their location.
+
+    Args:
+        data (dict): Dictionary of rooms and their schedules
+
+    Returns:
+        dict: Filtered dictionary with TBD/ONLINE schedules removed
+    """
+    filtered_data = {}
+
+    for room, schedules in data.items():
+        filtered_schedules = [
+            schedule for schedule in schedules 
+            if not (isinstance(schedule.get("location"), str) and 
+                   any(loc in schedule["location"].upper() 
+                       for loc in ["TBD", "ONLINE"]))
+        ]
+
+        # Only include rooms that have remaining schedules
+        if filtered_schedules:
+            filtered_data[room] = filtered_schedules
+
+    return filtered_data
+
 def parse_coordinates(buildings_file):
     """Parse the buildings.txt file to extract building codes and their coordinates."""
     coordinates = {}
@@ -54,14 +81,17 @@ def main():
     building_coords = parse_coordinates('building_coordinates.txt')
     
     # Read the classroom availability JSON file
-    with open('output/classroom_availability.json', 'r') as file:
+    with open('output/raw_classroom_availability.json', 'r') as file:
         input_data = json.load(file)
     
+        # Filter out TBD and ONLINE schedules
+    filtered_data = filter_schedules(input_data)
+    
     # Group the data and include coordinates
-    grouped_data = group_by_building(input_data, building_coords)
+    grouped_data = group_by_building(filtered_data, building_coords)
     
     # Write the grouped data to a new JSON file
-    with open('output/grouped_by_building.json', 'w') as file:
+    with open('output/processed_classroom_availability.json', 'w') as file:
         json.dump(grouped_data, file, indent=2)
 
 if __name__ == '__main__':

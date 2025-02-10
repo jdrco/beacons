@@ -207,13 +207,6 @@
           "course": "ACCTG 315"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 10:10",
-          "location": "T B-87",
-          "capacity": 60,
-          "course": "ANTHR 101"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "12:30 - 13:50",
           "location": "T B-87",
@@ -254,27 +247,6 @@
           "location": "T B-87",
           "capacity": 100,
           "course": "POL_S 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "T B-87",
-          "capacity": 90,
-          "course": "PSYCH 213"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "14:30 - 17:20",
-          "location": "T B-87",
-          "capacity": 75,
-          "course": "PSYCH 333"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:30 - 17:20",
-          "location": "T B-87",
-          "capacity": 75,
-          "course": "PSYCH 347"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -335,25 +307,11 @@
           "course": "CMPUT 411"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TWR)",
-          "time": "12:00 - 13:50",
-          "location": "T 1-091",
-          "capacity": 50,
-          "course": "ECON 282"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "T 1-091",
           "capacity": 80,
           "course": "HIST 260"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:30 - 12:20",
-          "location": "T 1-091",
-          "capacity": 50,
-          "course": "POL_S 212"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -577,23 +535,9 @@
           "location": "T B-95",
           "capacity": 50,
           "course": "PHIL 250"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T B-95",
-          "capacity": 150,
-          "course": "PSYCH 302"
         }
       ],
       "T B-45": [
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "T B-45",
-          "capacity": 150,
-          "course": "ANTHR 150"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "11:00 - 12:50",
@@ -607,13 +551,6 @@
           "location": "T B-45",
           "capacity": 120,
           "course": "CLASS 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TWR)",
-          "time": "10:00 - 11:50",
-          "location": "T B-45",
-          "capacity": 100,
-          "course": "ECON 101"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -649,13 +586,6 @@
           "location": "T B-45",
           "capacity": 150,
           "course": "PLAN 210"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "17:00 - 19:50",
-          "location": "T B-45",
-          "capacity": 150,
-          "course": "PSYCH 327"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -749,27 +679,6 @@
           "location": "T B-38",
           "capacity": 60,
           "course": "SOC 212"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "T B-38",
-          "capacity": 60,
-          "course": "SOC 224"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "T B-38",
-          "capacity": 60,
-          "course": "SOC 271"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "T B-38",
-          "capacity": 25,
-          "course": "SOC 315"
         }
       ],
       "T 1-028": [
@@ -1032,32 +941,11 @@
           "course": "MATH 227"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "18:00 - 20:50",
-          "location": "T 1-093",
-          "capacity": 55,
-          "course": "PHIL 120"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-093",
-          "capacity": 55,
-          "course": "POL_S 101"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "12:30 - 13:50",
           "location": "T 1-093",
           "capacity": 82,
           "course": "SEM 210"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "13:00 - 15:50",
-          "location": "T 1-093",
-          "capacity": 50,
-          "course": "SOC 301"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -1104,13 +992,6 @@
           "course": "HIST 207"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-103",
-          "capacity": 80,
-          "course": "HIST 261"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "T 1-103",
@@ -1132,13 +1013,6 @@
           "course": "SEM 210"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "T 1-103",
-          "capacity": 60,
-          "course": "SOC 225"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "11:00 - 11:50",
           "location": "T 1-103",
@@ -1151,13 +1025,6 @@
           "location": "T 1-103",
           "capacity": 90,
           "course": "SOC 291"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "13:00 - 15:50",
-          "location": "T 1-103",
-          "capacity": 60,
-          "course": "SOC 377"
         }
       ],
       "T 1-033": [
@@ -1399,20 +1266,6 @@
           "course": "ASL 112"
         },
         {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "08:30 - 10:50",
-          "location": "T B-70",
-          "capacity": 24,
-          "course": "ASL 112"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWR)",
-          "time": "11:15 - 13:15",
-          "location": "T B-70",
-          "capacity": 24,
-          "course": "ASL 112"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "13:00 - 13:50",
           "location": "T B-70",
@@ -1464,13 +1317,6 @@
           "course": "ANTHR 484"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "12:00 - 14:50",
-          "location": "T 1-090",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "12:00 - 13:20",
           "location": "T 1-090",
@@ -1520,25 +1366,11 @@
           "course": "POL_S 261"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-090",
-          "capacity": 15,
-          "course": "POL_S 803"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (R)",
           "time": "14:00 - 16:50",
           "location": "T 1-090",
           "capacity": 40,
           "course": "SEM 331"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-090",
-          "capacity": 27,
-          "course": "SOC 210"
         }
       ],
       "T 14-28": [
@@ -1572,20 +1404,6 @@
         }
       ],
       "T B-60": [
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "08:30 - 10:50",
-          "location": "T B-60",
-          "capacity": 24,
-          "course": "ASL 111"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "11:00 - 13:10",
-          "location": "T B-60",
-          "capacity": 24,
-          "course": "ASL 111"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
@@ -1678,13 +1496,6 @@
           "location": "T B-76",
           "capacity": 24,
           "course": "ASL 212"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "09:00 - 10:50",
-          "location": "T B-76",
-          "capacity": 40,
-          "course": "ENGL 102"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -1792,13 +1603,6 @@
           "location": "T BW-1",
           "capacity": 50,
           "course": "SLAV 399"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T BW-1",
-          "capacity": 60,
-          "course": "SOC 203"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -1945,13 +1749,6 @@
           "course": "NORSE 112"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-096",
-          "capacity": 40,
-          "course": "POL_S 359"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (M)",
           "time": "14:00 - 16:50",
           "location": "T 1-096",
@@ -2008,13 +1805,6 @@
           "location": "T 1-108",
           "capacity": 30,
           "course": "ECON 385"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:30 - 11:40",
-          "location": "T 1-108",
-          "capacity": 20,
-          "course": "ECON 999"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -2352,20 +2142,6 @@
           "location": "T 1-125",
           "capacity": 50,
           "course": "SEM 412"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-125",
-          "capacity": 30,
-          "course": "SOC 212"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:00 - 15:50",
-          "location": "T 1-125",
-          "capacity": 40,
-          "course": "SOC 486"
         }
       ],
       "T 2-44": [
@@ -2623,25 +2399,11 @@
           "course": "ECON 281"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTW)",
-          "time": "10:30 - 12:20",
-          "location": "T 1-005",
-          "capacity": 50,
-          "course": "ECON 281"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "T 1-005",
           "capacity": 50,
           "course": "ECON 282"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "T 1-005",
-          "capacity": 40,
-          "course": "ENGL 103"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -2684,13 +2446,6 @@
           "location": "T 1-005",
           "capacity": 40,
           "course": "SEM 502"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T 1-005",
-          "capacity": 30,
-          "course": "SOC 335"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -3141,20 +2896,6 @@
           "course": "POL_S 250"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:30 - 12:20",
-          "location": "T BW-2",
-          "capacity": 50,
-          "course": "POL_S 250"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "T BW-2",
-          "capacity": 50,
-          "course": "POL_S 261"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "13:00 - 13:50",
           "location": "T BW-2",
@@ -3290,13 +3031,6 @@
           "course": "SOC 210"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "13:00 - 14:50",
-          "location": "T B-39",
-          "capacity": 27,
-          "course": "SOC 210"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "09:00 - 10:50",
           "location": "T B-39",
@@ -3323,13 +3057,6 @@
           "location": "T B-39",
           "capacity": 25,
           "course": "SOC 315"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "13:00 - 14:50",
-          "location": "T B-39",
-          "capacity": 25,
-          "course": "SOC 315"
         }
       ],
       "T 2-99": [
@@ -3353,13 +3080,6 @@
           "location": "T 2-99",
           "capacity": 40,
           "course": "ENGL 199"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "10:00 - 12:50",
-          "location": "T 2-99",
-          "capacity": 37,
-          "course": "ENGL 250"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -3922,13 +3642,6 @@
           "location": "CCIS 1-430",
           "capacity": 350,
           "course": "PSYCH 105"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "CCIS 1-430",
-          "capacity": 200,
-          "course": "PSYCH 105"
         }
       ],
       "CCIS L1-160": [
@@ -4064,34 +3777,6 @@
           "location": "CCIS L1-160",
           "capacity": 150,
           "course": "MATH 134"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "CCIS L1-160",
-          "capacity": 130,
-          "course": "MATH 154"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "CCIS L1-160",
-          "capacity": 160,
-          "course": "MATH 214"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:30 - 17:20",
-          "location": "CCIS L1-160",
-          "capacity": 175,
-          "course": "PSYCH 239"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "CCIS L1-160",
-          "capacity": 170,
-          "course": "STAT 151"
         }
       ],
       "CCIS 1-140": [
@@ -4166,13 +3851,6 @@
           "course": "ECE 203"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (F)",
-          "time": "14:30 - 16:15",
-          "location": "CCIS 1-140",
-          "capacity": 96,
-          "course": "EN_PH 131"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "11:00 - 11:20",
           "location": "CCIS 1-140",
@@ -4227,55 +3905,6 @@
           "location": "CCIS 1-140",
           "capacity": 155,
           "course": "ENGG 160"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "CCIS 1-140",
-          "capacity": 90,
-          "course": "MATH 144"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "08:30 - 09:40",
-          "location": "CCIS 1-140",
-          "capacity": 120,
-          "course": "MATH 156"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWR)",
-          "time": "18:30 - 19:50",
-          "location": "CCIS 1-140",
-          "capacity": 70,
-          "course": "MATH 201"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "20:10 - 21:00",
-          "location": "CCIS 1-140",
-          "capacity": 70,
-          "course": "MATH 201"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "CCIS 1-140",
-          "capacity": 110,
-          "course": "MATH 241"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "CCIS 1-140",
-          "capacity": 96,
-          "course": "PHYS 126"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "13:00 - 14:20",
-          "location": "CCIS 1-140",
-          "capacity": 48,
-          "course": "PHYS 130"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -4297,13 +3926,6 @@
           "location": "CCIS 1-140",
           "capacity": 155,
           "course": "REN_R 260"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "CCIS 1-140",
-          "capacity": 75,
-          "course": "STAT 266"
         }
       ],
       "CCIS 1-440": [
@@ -4399,13 +4021,6 @@
           "course": "PSYCH 105"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "08:30 - 11:20",
-          "location": "CCIS 1-440",
-          "capacity": 175,
-          "course": "PSYCH 223"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "09:00 - 09:50",
           "location": "CCIS 1-440",
@@ -4427,20 +4042,6 @@
           "location": "CCIS L1-140",
           "capacity": 180,
           "course": "CH_E 243"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTR)",
-          "time": "11:00 - 12:50",
-          "location": "CCIS L1-140",
-          "capacity": 55,
-          "course": "CHEM 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTR)",
-          "time": "11:00 - 12:50",
-          "location": "CCIS L1-140",
-          "capacity": 74,
-          "course": "CHEM 105"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -4485,20 +4086,6 @@
           "course": "MATH 101"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "08:30 - 09:40",
-          "location": "CCIS L1-140",
-          "capacity": 120,
-          "course": "MATH 111"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "CCIS L1-140",
-          "capacity": 130,
-          "course": "MATH 125"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "08:00 - 08:50",
           "location": "CCIS L1-140",
@@ -4541,25 +4128,11 @@
           "course": "PHYS 230"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:30 - 17:20",
-          "location": "CCIS L1-140",
-          "capacity": 175,
-          "course": "PSYCH 275"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "08:00 - 09:20",
           "location": "CCIS L1-140",
           "capacity": 180,
           "course": "STAT 235"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "18:00 - 19:20",
-          "location": "CCIS L1-140",
-          "capacity": 116,
-          "course": "STAT 252"
         }
       ],
       "CCIS L2-190": [
@@ -4641,27 +4214,6 @@
           "course": "HECOL 211"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "CCIS L2-190",
-          "capacity": 150,
-          "course": "MATH 125"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "CCIS L2-190",
-          "capacity": 150,
-          "course": "MATH 225"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "08:30 - 09:40",
-          "location": "CCIS L2-190",
-          "capacity": 150,
-          "course": "MATH 315"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "CCIS L2-190",
@@ -4694,13 +4246,6 @@
           "time": "14:00 - 15:20",
           "location": "CCIS L2-190",
           "capacity": 250,
-          "course": "STAT 151"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "CCIS L2-190",
-          "capacity": 200,
           "course": "STAT 151"
         }
       ],
@@ -4899,13 +4444,6 @@
           "course": "CMPUT 256"
         },
         {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "17:00 - 20:00",
-          "location": "CCIS L2-200",
-          "capacity": 200,
-          "course": "ENGG 404B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "CCIS L2-200",
@@ -5059,13 +4597,6 @@
           "course": "CHEM 241"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 12:10",
-          "location": "CCIS 1-160",
-          "capacity": 79,
-          "course": "CHEM 261"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "12:30 - 13:50",
           "location": "CCIS 1-160",
@@ -5106,13 +4637,6 @@
           "location": "CCIS 1-160",
           "capacity": 153,
           "course": "MATH 125"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "CCIS 1-160",
-          "capacity": 120,
-          "course": "MATH 322"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -6179,20 +5703,6 @@
           "location": "CCIS L2-203",
           "capacity": 24,
           "course": "EN_PH 131"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (T)",
-          "time": "14:30 - 17:20",
-          "location": "CCIS L2-203",
-          "capacity": 24,
-          "course": "EN_PH 131"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (R)",
-          "time": "14:30 - 17:20",
-          "location": "CCIS L2-203",
-          "capacity": 24,
-          "course": "EN_PH 131"
         }
       ],
       "CCIS L2-209": [
@@ -6965,20 +6475,6 @@
           "location": "CCIS L2-209",
           "capacity": 24,
           "course": "EN_PH 131"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (T)",
-          "time": "14:30 - 17:20",
-          "location": "CCIS L2-209",
-          "capacity": 24,
-          "course": "EN_PH 131"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (R)",
-          "time": "14:30 - 17:20",
-          "location": "CCIS L2-209",
-          "capacity": 24,
-          "course": "EN_PH 131"
         }
       ],
       "CCIS L2-181": [
@@ -7596,20 +7092,6 @@
       ],
       "CCIS L2-144": [
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "08:30 - 11:20",
-          "location": "CCIS L2-144",
-          "capacity": 24,
-          "course": "PHYS 124"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "08:30 - 11:20",
-          "location": "CCIS L2-144",
-          "capacity": 24,
-          "course": "PHYS 124"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (M)",
           "time": "14:00 - 16:50",
           "location": "CCIS L2-144",
@@ -7719,20 +7201,6 @@
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "14:00 - 16:50",
-          "location": "CCIS L2-150",
-          "capacity": 24,
-          "course": "PHYS 126"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "08:30 - 11:20",
-          "location": "CCIS L2-150",
-          "capacity": 24,
-          "course": "PHYS 126"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "08:30 - 11:20",
           "location": "CCIS L2-150",
           "capacity": 24,
           "course": "PHYS 126"
@@ -8435,20 +7903,6 @@
           "course": "PHIL 102"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "11:30 - 14:20",
-          "location": "HC L1-L1",
-          "capacity": 175,
-          "course": "PSYCH 241"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "HC L1-L1",
-          "capacity": 175,
-          "course": "PSYCH 258"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "09:00 - 09:50",
           "location": "HC L1-L1",
@@ -8597,13 +8051,6 @@
           "course": "ENGL 307"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "HC 1-11",
-          "capacity": 22,
-          "course": "ENGL 409"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "13:00 - 13:50",
           "location": "HC 1-11",
@@ -8634,25 +8081,11 @@
           "course": "ECON 213"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "HC 2-15",
-          "capacity": 36,
-          "course": "ENGL 102"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "12:00 - 12:50",
           "location": "HC 2-15",
           "capacity": 36,
           "course": "ENGL 339"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "09:30 - 12:20",
-          "location": "HC 2-15",
-          "capacity": 36,
-          "course": "ENGL 378"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -8732,13 +8165,6 @@
           "location": "HC 2-29",
           "capacity": 25,
           "course": "ENGL 125"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:00 - 15:50",
-          "location": "HC 2-29",
-          "capacity": 22,
-          "course": "ENGL 409"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -9129,34 +8555,6 @@
           "course": "ENGL 125"
         },
         {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "08:30 - 10:50",
-          "location": "HC 2-22",
-          "capacity": 30,
-          "course": "FREN 111"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "11:15 - 13:15",
-          "location": "HC 2-22",
-          "capacity": 30,
-          "course": "FREN 111"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "08:30 - 10:50",
-          "location": "HC 2-22",
-          "capacity": 30,
-          "course": "FREN 112"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWR)",
-          "time": "11:15 - 13:15",
-          "location": "HC 2-22",
-          "capacity": 30,
-          "course": "FREN 112"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "HC 2-22",
@@ -9251,20 +8649,6 @@
         }
       ],
       "HC 2-14": [
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "10:00 - 12:50",
-          "location": "HC 2-14",
-          "capacity": 20,
-          "course": "CSL 370"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "10:00 - 12:50",
-          "location": "HC 2-14",
-          "capacity": 5,
-          "course": "CSL 550"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
@@ -9392,13 +8776,6 @@
           "location": "HC L1-L3",
           "capacity": 75,
           "course": "MATH 311"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "HC L1-L3",
-          "capacity": 60,
-          "course": "SOC 251"
         }
       ],
       "HC 2-30": [
@@ -9675,34 +9052,6 @@
           "course": "ENGL 103"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (MWF)",
-          "time": "13:30 - 15:20",
-          "location": "HC 2-11",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "HC 2-11",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MWF)",
-          "time": "09:00 - 10:50",
-          "location": "HC 2-11",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "18:00 - 20:50",
-          "location": "HC 2-11",
-          "capacity": 40,
-          "course": "ENGL 199"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "HC 2-11",
@@ -9780,13 +9129,6 @@
           "location": "HC 1-07",
           "capacity": 36,
           "course": "ENGL 223"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "17:30 - 20:30",
-          "location": "HC 1-07",
-          "capacity": 34,
-          "course": "ENGL 308"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -9891,34 +9233,6 @@
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "18:00 - 21:00",
-          "location": "HC 2-07",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "HC 2-07",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "15:00 - 17:50",
-          "location": "HC 2-07",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MWF)",
-          "time": "12:00 - 13:50",
-          "location": "HC 2-07",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "18:00 - 20:50",
           "location": "HC 2-07",
           "capacity": 40,
           "course": "ENGL 102"
@@ -10382,20 +9696,6 @@
           "location": "HC 2-25",
           "capacity": 30,
           "course": "SPAN 112"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "HC 2-25",
-          "capacity": 24,
-          "course": "WRITE 297"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "HC 2-25",
-          "capacity": 24,
-          "course": "WRITE 297"
         }
       ],
       "HC 4-42": [
@@ -10442,13 +9742,6 @@
           "location": "HC 2-26",
           "capacity": 25,
           "course": "KOREA 102"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "HC 2-26",
-          "capacity": 15,
-          "course": "POL_S 804"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -10521,13 +9814,6 @@
     "rooms": {
       "BUS 2-09": [
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 2-09",
-          "capacity": 60,
-          "course": "ACCTG 211"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "11:00 - 12:20",
           "location": "BUS 2-09",
@@ -10556,25 +9842,11 @@
           "course": "ACCTG 314"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 2-09",
-          "capacity": 70,
-          "course": "B_LAW 201"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TRF)",
           "time": "10:00 - 10:50",
           "location": "BUS 2-09",
           "capacity": 55,
           "course": "BUEC 211"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "18:00 - 20:55",
-          "location": "BUS 2-09",
-          "capacity": 40,
-          "course": "ENGL 102"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -10624,23 +9896,9 @@
           "location": "BUS 2-09",
           "capacity": 40,
           "course": "SEM 659"
-        },
-        {
-          "dates": "2025-07-14 - 2025-07-18 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 2-09",
-          "capacity": 50,
-          "course": "SEM 678"
         }
       ],
       "BUS 1-09": [
-        {
-          "dates": "2025-05-05 - 2025-06-11 (T)",
-          "time": "09:00 - 11:15",
-          "location": "BUS 1-09",
-          "capacity": 60,
-          "course": "ACCTG 211"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
@@ -10677,25 +9935,11 @@
           "course": "ACCTG 222"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 16:50",
-          "location": "BUS 1-09",
-          "capacity": 60,
-          "course": "ACCTG 222"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "09:30 - 10:50",
           "location": "BUS 1-09",
           "capacity": 75,
           "course": "ACCTG 315"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "18:00 - 20:50",
-          "location": "BUS 1-09",
-          "capacity": 60,
-          "course": "BTM 211"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -10808,34 +10052,6 @@
           "location": "BUS 1-09",
           "capacity": 80,
           "course": "SEM 441"
-        },
-        {
-          "dates": "2025-07-07 - 2025-07-11 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-09",
-          "capacity": 5,
-          "course": "SEM 488"
-        },
-        {
-          "dates": "2025-06-23 - 2025-06-27 (MTWRF)",
-          "time": "08:30 - 16:20",
-          "location": "BUS 1-09",
-          "capacity": 50,
-          "course": "SEM 612"
-        },
-        {
-          "dates": "2025-07-07 - 2025-07-11 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-09",
-          "capacity": 40,
-          "course": "SEM 686"
-        },
-        {
-          "dates": "2025-07-14 - 2025-07-18 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-09",
-          "capacity": 30,
-          "course": "SEM 686"
         }
       ],
       "BUS 2-05": [
@@ -10889,27 +10105,6 @@
           "course": "CMPUT 175"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "15:30 - 17:20",
-          "location": "BUS 2-05",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "12:00 - 13:50",
-          "location": "BUS 2-05",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MWF)",
-          "time": "09:00 - 10:50",
-          "location": "BUS 2-05",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "11:00 - 11:50",
           "location": "BUS 2-05",
@@ -10924,31 +10119,10 @@
           "course": "FIN 201"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 2-05",
-          "capacity": 70,
-          "course": "FIN 201"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 2-05",
-          "capacity": 50,
-          "course": "FIN 312"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "14:00 - 15:20",
           "location": "BUS 2-05",
           "capacity": 75,
-          "course": "MGTSC 212"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "12:00 - 14:50",
-          "location": "BUS 2-05",
-          "capacity": 60,
           "course": "MGTSC 212"
         },
         {
@@ -10971,20 +10145,6 @@
           "location": "BUS 2-05",
           "capacity": 85,
           "course": "SEM 210"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "BUS 2-05",
-          "capacity": 60,
-          "course": "SOC 224"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "13:30 - 16:20",
-          "location": "BUS 2-05",
-          "capacity": 50,
-          "course": "SOC 382"
         }
       ],
       "BUS 1-05": [
@@ -11010,24 +10170,10 @@
           "course": "B_LAW 201"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "15:00 - 17:50",
-          "location": "BUS 1-05",
-          "capacity": 35,
-          "course": "B_LAW 402"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "BUS 1-05",
           "capacity": 45,
-          "course": "B_LAW 422"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "12:00 - 14:50",
-          "location": "BUS 1-05",
-          "capacity": 35,
           "course": "B_LAW 422"
         },
         {
@@ -11087,13 +10233,6 @@
           "course": "BTM 611"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 1-05",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (R)",
           "time": "14:00 - 14:50",
           "location": "BUS 1-05",
@@ -11115,25 +10254,11 @@
           "course": "FIN 201"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 1-05",
-          "capacity": 60,
-          "course": "FIN 312"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "BUS 1-05",
           "capacity": 45,
           "course": "MARK 432"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "18:00 - 20:50",
-          "location": "BUS 1-05",
-          "capacity": 40,
-          "course": "MARK 452"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -11169,27 +10294,6 @@
           "location": "BUS 1-05",
           "capacity": 84,
           "course": "SEM 210"
-        },
-        {
-          "dates": "2025-06-23 - 2025-06-27 (MTWRF)",
-          "time": "09:00 - 17:20",
-          "location": "BUS 1-05",
-          "capacity": 50,
-          "course": "SEM 412"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 1-05",
-          "capacity": 60,
-          "course": "SOC 225"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "18:00 - 20:55",
-          "location": "BUS 1-05",
-          "capacity": 60,
-          "course": "SOC 225"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -11290,20 +10394,6 @@
           "location": "BUS B-05",
           "capacity": 50,
           "course": "RELIG 202"
-        },
-        {
-          "dates": "2025-05-14 - 2025-05-23 (W)",
-          "time": "09:00 - 16:50",
-          "location": "BUS B-05",
-          "capacity": 36,
-          "course": "SEM 611"
-        },
-        {
-          "dates": "2025-06-02 - 2025-06-18 (W)",
-          "time": "09:00 - 16:50",
-          "location": "BUS B-05",
-          "capacity": 36,
-          "course": "SEM 611"
         }
       ],
       "BUS 1-10": [
@@ -11434,13 +10524,6 @@
           "course": "OM 421"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 1-10",
-          "capacity": 30,
-          "course": "OM 421"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (F)",
           "time": "10:00 - 11:50",
           "location": "BUS 1-10",
@@ -11467,13 +10550,6 @@
           "location": "BUS 1-10",
           "capacity": 40,
           "course": "SEM 641"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:00 - 15:50",
-          "location": "BUS 1-10",
-          "capacity": 40,
-          "course": "SOC 473"
         }
       ],
       "BUS 1-06": [
@@ -11534,25 +10610,11 @@
           "course": "BUEC 442"
         },
         {
-          "dates": "2025-08-15 - 2025-08-23 (FS)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 40,
-          "course": "BUS 640"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "08:00 - 08:50",
           "location": "BUS 1-06",
           "capacity": 40,
           "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "10:00 - 12:50",
-          "location": "BUS 1-06",
-          "capacity": 40,
-          "course": "ENGL 103"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -11632,39 +10694,11 @@
           "course": "MARK 472"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "13:00 - 15:50",
-          "location": "BUS 1-06",
-          "capacity": 15,
-          "course": "MARK 488"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "14:00 - 15:20",
           "location": "BUS 1-06",
           "capacity": 45,
           "course": "OM 421"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 25,
-          "course": "OM 488"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 10,
-          "course": "OM 686"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "18:00 - 20:50",
-          "location": "BUS 1-06",
-          "capacity": 50,
-          "course": "PHIL 265"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (R)",
@@ -11679,34 +10713,6 @@
           "location": "BUS 1-06",
           "capacity": 40,
           "course": "SEM 633"
-        },
-        {
-          "dates": "2025-05-09 - 2025-05-23 (F)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 25,
-          "course": "SEM 653"
-        },
-        {
-          "dates": "2025-06-13",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 25,
-          "course": "SEM 653"
-        },
-        {
-          "dates": "2025-07-23 - 2025-07-25 (WRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 50,
-          "course": "SEM 690"
-        },
-        {
-          "dates": "2025-07-30 - 2025-07-31 (WR)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 1-06",
-          "capacity": 50,
-          "course": "SEM 690"
         }
       ],
       "BUS 4-13": [
@@ -11846,20 +10852,6 @@
           "course": "FIN 413"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 15:50",
-          "location": "BUS 3-06",
-          "capacity": 40,
-          "course": "MARK 201"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "16:00 - 16:50",
-          "location": "BUS 3-06",
-          "capacity": 40,
-          "course": "MARK 201"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "BUS 3-06",
@@ -11886,13 +10878,6 @@
           "location": "BUS 3-06",
           "capacity": 50,
           "course": "SEM 635"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "10:00 - 12:50",
-          "location": "BUS 3-06",
-          "capacity": 25,
-          "course": "WRS 101"
         }
       ],
       "BUS 3-10": [
@@ -11981,20 +10966,6 @@
           "course": "MARK 468"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 16:50",
-          "location": "BUS 3-10",
-          "capacity": 20,
-          "course": "MARK 488"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 16:50",
-          "location": "BUS 3-10",
-          "capacity": 20,
-          "course": "MARK 686"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "18:00 - 21:00",
           "location": "BUS 3-10",
@@ -12021,20 +10992,6 @@
           "location": "BUS 3-10",
           "capacity": 58,
           "course": "PSYCH 327"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "08:30 - 10:50",
-          "location": "BUS 3-10",
-          "capacity": 30,
-          "course": "SPAN 112"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWR)",
-          "time": "11:15 - 13:15",
-          "location": "BUS 3-10",
-          "capacity": 30,
-          "course": "SPAN 112"
         }
       ],
       "BUS 5-13": [
@@ -12137,13 +11094,6 @@
           "location": "BUS 5-40A",
           "capacity": 50,
           "course": "MARK 502"
-        },
-        {
-          "dates": "2025-05-10 - 2025-06-07 (S)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 5-40A",
-          "capacity": 40,
-          "course": "SEM 651"
         }
       ],
       "BUS 5-40B": [
@@ -12202,13 +11152,6 @@
           "location": "BUS 5-40B",
           "capacity": 50,
           "course": "MARK 502"
-        },
-        {
-          "dates": "2025-05-10 - 2025-06-07 (S)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 5-40B",
-          "capacity": 40,
-          "course": "SEM 651"
         }
       ],
       "BUS 3-05": [
@@ -12231,13 +11174,6 @@
           "time": "11:00 - 11:50",
           "location": "BUS 3-05",
           "capacity": 84,
-          "course": "B_LAW 201"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "BUS 3-05",
-          "capacity": 55,
           "course": "B_LAW 201"
         },
         {
@@ -12283,39 +11219,11 @@
           "course": "FIN 413"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "18:00 - 21:00",
-          "location": "BUS 3-05",
-          "capacity": 50,
-          "course": "FIN 413"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "18:00 - 21:00",
-          "location": "BUS 3-05",
-          "capacity": 50,
-          "course": "FIN 413"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "16:00 - 17:20",
           "location": "BUS 3-05",
           "capacity": 50,
           "course": "FIN 430"
-        },
-        {
-          "dates": "2025-05-26 - 2025-05-30 (MTWRF)",
-          "time": "08:30 - 16:30",
-          "location": "BUS 3-05",
-          "capacity": 45,
-          "course": "FIN 686"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-09 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 3-05",
-          "capacity": 20,
-          "course": "MARK 686"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -12358,13 +11266,6 @@
           "location": "BUS 3-05",
           "capacity": 25,
           "course": "SEM 628"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "BUS 3-05",
-          "capacity": 60,
-          "course": "SOC 241"
         }
       ],
       "BUS B-09": [
@@ -12395,13 +11296,6 @@
           "location": "BUS B-09",
           "capacity": 35,
           "course": "BUEC 503"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-09 (MTWRF)",
-          "time": "08:30 - 16:30",
-          "location": "BUS B-09",
-          "capacity": 28,
-          "course": "BUEC 563"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -12479,20 +11373,6 @@
           "location": "BUS B-09",
           "capacity": 50,
           "course": "POL_S 298"
-        },
-        {
-          "dates": "2025-06-16 - 2025-06-20 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS B-09",
-          "capacity": 20,
-          "course": "SEM 427"
-        },
-        {
-          "dates": "2025-06-16 - 2025-06-20 (MTWRF)",
-          "time": "09:00 - 16:50",
-          "location": "BUS B-09",
-          "capacity": 5,
-          "course": "SEM 627"
         }
       ],
       "BUS B-24": [
@@ -12539,13 +11419,6 @@
           "course": "BTM 211"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "13:30 - 15:15",
-          "location": "BUS B-24",
-          "capacity": 60,
-          "course": "BTM 211"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "16:00 - 16:50",
           "location": "BUS B-24",
@@ -12564,13 +11437,6 @@
           "time": "11:00 - 11:50",
           "location": "BUS B-24",
           "capacity": 62,
-          "course": "MGTSC 212"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "11:00 - 12:45",
-          "location": "BUS B-24",
-          "capacity": 60,
           "course": "MGTSC 212"
         },
         {
@@ -12660,13 +11526,6 @@
           "course": "BTM 211"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "13:30 - 15:15",
-          "location": "BUS B-28",
-          "capacity": 60,
-          "course": "BTM 211"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (M)",
           "time": "16:00 - 17:50",
           "location": "BUS B-28",
@@ -12699,13 +11558,6 @@
           "time": "11:00 - 11:50",
           "location": "BUS B-28",
           "capacity": 62,
-          "course": "MGTSC 212"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "11:00 - 12:45",
-          "location": "BUS B-28",
-          "capacity": 60,
           "course": "MGTSC 212"
         },
         {
@@ -12742,34 +11594,6 @@
           "location": "BUS B-28",
           "capacity": 11,
           "course": "PHYS 234"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "14:00 - 15:20",
-          "location": "BUS B-28",
-          "capacity": 25,
-          "course": "STAT 235A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "14:00 - 15:20",
-          "location": "BUS B-28",
-          "capacity": 24,
-          "course": "STAT 235A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "14:00 - 15:20",
-          "location": "BUS B-28",
-          "capacity": 25,
-          "course": "STAT 235B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "14:00 - 15:20",
-          "location": "BUS B-28",
-          "capacity": 24,
-          "course": "STAT 235B"
         }
       ],
       "BUS B-12": [
@@ -12839,27 +11663,6 @@
           "course": "SEM 420"
         },
         {
-          "dates": "2025-05-05 - 2025-05-09 (MTWRF)",
-          "time": "08:30 - 16:30",
-          "location": "BUS 4-09",
-          "capacity": 35,
-          "course": "SEM 601"
-        },
-        {
-          "dates": "2025-05-10 - 2025-06-07 (S)",
-          "time": "09:00 - 16:50",
-          "location": "BUS 4-09",
-          "capacity": 40,
-          "course": "SEM 651"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "18:00 - 20:50",
-          "location": "BUS 4-09",
-          "capacity": 36,
-          "course": "SEM 652"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "13:00 - 15:50",
           "location": "BUS 4-09",
@@ -12885,13 +11688,6 @@
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "12:30 - 13:50",
-          "location": "BUS B-18",
-          "capacity": 25,
-          "course": "OM 420"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "14:00 - 16:50",
           "location": "BUS B-18",
           "capacity": 25,
           "course": "OM 420"
@@ -13047,34 +11843,6 @@
           "location": "ESB 1-31",
           "capacity": 24,
           "course": "BIOL 391"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "13:30 - 15:20",
-          "location": "ESB 1-31",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "ESB 1-31",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "15:30 - 17:20",
-          "location": "ESB 1-31",
-          "capacity": 40,
-          "course": "ENGL 102"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "09:00 - 10:50",
-          "location": "ESB 1-31",
-          "capacity": 40,
-          "course": "ENGL 102"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (F)",
@@ -13266,13 +12034,6 @@
           "location": "ESB 2-35",
           "capacity": 48,
           "course": "PSYCH 313"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "ESB 2-35",
-          "capacity": 25,
-          "course": "WRS 101"
         }
       ],
       "ESB 1-33": [
@@ -13345,13 +12106,6 @@
           "location": "ESB 1-33",
           "capacity": 5,
           "course": "EAS 568"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "13:30 - 15:20",
-          "location": "ESB 1-33",
-          "capacity": 40,
-          "course": "ENGL 103"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -13445,13 +12199,6 @@
           "location": "ESB 3-27",
           "capacity": 115,
           "course": "MATH 201"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "08:30 - 11:20",
-          "location": "ESB 3-27",
-          "capacity": 200,
-          "course": "PSYCH 104"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -14777,60 +13524,11 @@
           "course": "BIOL 366"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "10:00 - 10:50",
-          "location": "CSC B-10",
-          "capacity": 70,
-          "course": "CH_E 345A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "10:00 - 10:50",
-          "location": "CSC B-10",
-          "capacity": 70,
-          "course": "CH_E 345B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "13:30 - 14:55",
-          "location": "CSC B-10",
-          "capacity": 35,
-          "course": "CMPUT 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "10:00 - 11:25",
-          "location": "CSC B-10",
-          "capacity": 90,
-          "course": "CMPUT 174"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "11:50 - 13:15",
-          "location": "CSC B-10",
-          "capacity": 65,
-          "course": "CMPUT 174"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "17:00 - 19:50",
           "location": "CSC B-10",
           "capacity": 58,
           "course": "CMPUT 195"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "17:00 - 19:50",
-          "location": "CSC B-10",
-          "capacity": 1,
-          "course": "CMPUT 272"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "17:00 - 19:50",
-          "location": "CSC B-10",
-          "capacity": 1,
-          "course": "CMPUT 272"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -14938,20 +13636,6 @@
           "location": "CSC B-02",
           "capacity": 66,
           "course": "AN_SC 312"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "10:00 - 11:25",
-          "location": "CSC B-02",
-          "capacity": 70,
-          "course": "CMPUT 175"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "11:50 - 13:15",
-          "location": "CSC B-02",
-          "capacity": 45,
-          "course": "CMPUT 175"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -15163,20 +13847,6 @@
       ],
       "CSC 1-59": [
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "11:50 - 13:15",
-          "location": "CSC 1-59",
-          "capacity": 25,
-          "course": "CMPUT 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "08:30 - 09:55",
-          "location": "CSC 1-59",
-          "capacity": 25,
-          "course": "CMPUT 174"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (M)",
           "time": "14:00 - 16:50",
           "location": "CSC 1-59",
@@ -15275,13 +13945,6 @@
           "location": "CSC 1-25",
           "capacity": 24,
           "course": "CMPUT 174"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "08:30 - 09:55",
-          "location": "CSC 1-25",
-          "capacity": 25,
-          "course": "CMPUT 175"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (F)",
@@ -16061,13 +14724,6 @@
           "course": "MAT_E 461"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (WF)",
-          "time": "09:50 - 10:40",
-          "location": "NRE 1-143",
-          "capacity": 40,
-          "course": "MATH 101"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "12:00 - 12:50",
           "location": "NRE 1-143",
@@ -16238,13 +14894,6 @@
           "course": "MAT_E 461"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "20:10 - 21:00",
-          "location": "NRE 2-020",
-          "capacity": 30,
-          "course": "MATH 209"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "17:00 - 20:00",
           "location": "NRE 2-020",
@@ -16310,81 +14959,11 @@
           "course": "CH_E 243"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "13:00 - 13:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 316A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 15:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 316A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "13:00 - 13:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 316B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 15:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 316B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "11:00 - 11:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 345A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "11:00 - 11:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 345B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "14:00 - 14:50",
           "location": "NRE 2-003",
           "capacity": 65,
           "course": "CH_E 351"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "11:00 - 12:20",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 358A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "13:00 - 16:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 358A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "11:00 - 12:20",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 358B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "13:00 - 16:50",
-          "location": "NRE 2-003",
-          "capacity": 70,
-          "course": "CH_E 358B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -16455,48 +15034,6 @@
           "location": "NRE 2-003",
           "capacity": 120,
           "course": "MEC_E 390"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "NRE 2-003",
-          "capacity": 90,
-          "course": "MEC_E 451A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "12:00 - 12:50",
-          "location": "NRE 2-003",
-          "capacity": 90,
-          "course": "MEC_E 451A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "NRE 2-003",
-          "capacity": 90,
-          "course": "MEC_E 451B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "12:00 - 12:50",
-          "location": "NRE 2-003",
-          "capacity": 90,
-          "course": "MEC_E 451B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "NRE 2-003",
-          "capacity": 75,
-          "course": "MEC_E 539A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "NRE 2-003",
-          "capacity": 74,
-          "course": "MEC_E 539B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -16881,20 +15418,6 @@
           "course": "MAT_E 669"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (WF)",
-          "time": "09:50 - 10:40",
-          "location": "NRE 2-127",
-          "capacity": 40,
-          "course": "MATH 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "20:10 - 21:00",
-          "location": "NRE 2-127",
-          "capacity": 30,
-          "course": "MATH 209"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "NRE 2-127",
@@ -16909,34 +15432,6 @@
           "location": "NRE 2-090",
           "capacity": 40,
           "course": "BME 605"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "NRE 2-090",
-          "capacity": 50,
-          "course": "CH_E 312A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-090",
-          "capacity": 50,
-          "course": "CH_E 312A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "NRE 2-090",
-          "capacity": 50,
-          "course": "CH_E 312B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-090",
-          "capacity": 50,
-          "course": "CH_E 312B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -17044,95 +15539,11 @@
           "course": "MAT_E 336"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (WF)",
-          "time": "09:50 - 10:40",
-          "location": "NRE 2-090",
-          "capacity": 40,
-          "course": "MATH 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-090",
-          "capacity": 32,
-          "course": "MATH 201A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-090",
-          "capacity": 32,
-          "course": "MATH 201B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "20:10 - 21:00",
-          "location": "NRE 2-090",
-          "capacity": 30,
-          "course": "MATH 209"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "12:00 - 12:50",
           "location": "NRE 2-090",
           "capacity": 40,
           "course": "MEC_E 415"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MW)",
-          "time": "12:00 - 13:20",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 310A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 15:50",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 310A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MW)",
-          "time": "12:00 - 13:20",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 310B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 15:50",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 310B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 323A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 16:50",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 323A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 323B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 16:50",
-          "location": "NRE 2-090",
-          "capacity": 45,
-          "course": "MIN_E 323B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (F)",
@@ -17263,13 +15674,6 @@
           "course": "MAT_E 673"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "20:10 - 21:00",
-          "location": "NRE 2-016",
-          "capacity": 30,
-          "course": "MATH 209"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "NRE 2-016",
@@ -17363,13 +15767,6 @@
           "course": "ECE 740"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "13:00 - 14:10",
-          "location": "NRE 1-003",
-          "capacity": 96,
-          "course": "EN_PH 131"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "17:00 - 20:00",
           "location": "NRE 1-003",
@@ -17403,48 +15800,6 @@
           "location": "NRE 1-003",
           "capacity": 120,
           "course": "HECOL 201"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (WF)",
-          "time": "09:50 - 10:40",
-          "location": "NRE 1-003",
-          "capacity": 40,
-          "course": "MATH 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "NRE 1-003",
-          "capacity": 100,
-          "course": "MATH 334"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:20",
-          "location": "NRE 1-003",
-          "capacity": 60,
-          "course": "MEC_E 265A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:20",
-          "location": "NRE 1-003",
-          "capacity": 60,
-          "course": "MEC_E 265B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "09:00 - 09:50",
-          "location": "NRE 1-003",
-          "capacity": 90,
-          "course": "MEC_E 371A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "09:00 - 09:50",
-          "location": "NRE 1-003",
-          "capacity": 90,
-          "course": "MEC_E 371B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -17636,34 +15991,6 @@
           "location": "NRE 2-117",
           "capacity": 45,
           "course": "CIV_E 303"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-117",
-          "capacity": 70,
-          "course": "MEC_E 390A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-117",
-          "capacity": 70,
-          "course": "MEC_E 390B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 16:50",
-          "location": "NRE 2-117",
-          "capacity": 75,
-          "course": "MEC_E 539A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 16:50",
-          "location": "NRE 2-117",
-          "capacity": 74,
-          "course": "MEC_E 539B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -17892,34 +16219,6 @@
           "location": "NRE 2-125",
           "capacity": 45,
           "course": "CIV_E 303"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-125",
-          "capacity": 70,
-          "course": "MEC_E 390A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 14:50",
-          "location": "NRE 2-125",
-          "capacity": 70,
-          "course": "MEC_E 390B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 16:50",
-          "location": "NRE 2-125",
-          "capacity": 75,
-          "course": "MEC_E 539A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 16:50",
-          "location": "NRE 2-125",
-          "capacity": 74,
-          "course": "MEC_E 539B"
         }
       ],
       "NRE 2-001": [
@@ -18034,160 +16333,6 @@
           "location": "NRE 2-001",
           "capacity": 125,
           "course": "HGEO 252"
-        },
-        {
-          "dates": "2025-05-15",
-          "time": "15:30 - 16:50",
-          "location": "NRE 2-001",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-05-29",
-          "time": "15:30 - 16:50",
-          "location": "NRE 2-001",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-06-12",
-          "time": "15:30 - 16:50",
-          "location": "NRE 2-001",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-07-03",
-          "time": "15:30 - 16:50",
-          "location": "NRE 2-001",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-07-17",
-          "time": "15:30 - 16:50",
-          "location": "NRE 2-001",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-07-31",
-          "time": "15:30 - 16:50",
-          "location": "NRE 2-001",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 300A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "12:00 - 12:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 300A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 300B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "12:00 - 12:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 300B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 331A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (M)",
-          "time": "11:00 - 11:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 331A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 331B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (M)",
-          "time": "11:00 - 11:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 331B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 15:20",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 360A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 15:20",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 360B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 15:20",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 362A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 15:20",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 362B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "11:00 - 11:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 460A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "12:00 - 12:20",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 460A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "11:00 - 11:50",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 460B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "12:00 - 12:20",
-          "location": "NRE 2-001",
-          "capacity": 90,
-          "course": "MEC_E 460B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -19334,32 +17479,11 @@
           "course": "AN_SC 488"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "12:00 - 13:10",
-          "location": "ECHA 1-420",
-          "capacity": 70,
-          "course": "BIOCH 320"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-14 (MWF)",
           "time": "09:00 - 09:50",
           "location": "ECHA 1-420",
           "capacity": 50,
           "course": "D_HYG 200B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "14:00 - 15:25",
-          "location": "ECHA 1-420",
-          "capacity": 50,
-          "course": "HE_ED 321"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "17:00 - 19:55",
-          "location": "ECHA 1-420",
-          "capacity": 55,
-          "course": "HECOL 321"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (M)",
@@ -19504,27 +17628,6 @@
           "course": "D_HYG 490B"
         },
         {
-          "dates": "2025-05-12 - 2025-07-11 (MR)",
-          "time": "08:00 - 11:50",
-          "location": "ECHA 1-498",
-          "capacity": 32,
-          "course": "DDS 516"
-        },
-        {
-          "dates": "2025-05-12 - 2025-07-11 (T)",
-          "time": "08:00 - 08:50",
-          "location": "ECHA 1-498",
-          "capacity": 32,
-          "course": "DDS 516"
-        },
-        {
-          "dates": "2025-05-12 - 2025-07-11 (WR)",
-          "time": "13:00 - 13:50",
-          "location": "ECHA 1-498",
-          "capacity": 32,
-          "course": "DDS 516"
-        },
-        {
           "dates": "2025-01-06 - 2025-05-02 (M)",
           "time": "08:00 - 11:50",
           "location": "ECHA 1-498",
@@ -19595,13 +17698,6 @@
           "location": "ECHA 2-420",
           "capacity": 13,
           "course": "AFNS 580"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 10:10",
-          "location": "ECHA 2-420",
-          "capacity": 70,
-          "course": "BIOCH 310"
         },
         {
           "dates": "2025-01-06 - 2025-04-14 (T)",
@@ -19792,13 +17888,6 @@
           "course": "D_HYG 480"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-131",
-          "capacity": 40,
-          "course": "EDPS 410"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "17:30 - 20:30",
           "location": "ECHA 2-131",
@@ -19839,13 +17928,6 @@
           "location": "ECHA 2-131",
           "capacity": 12,
           "course": "NURS 399B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-13 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-131",
-          "capacity": 63,
-          "course": "NURS 437"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (M)",
@@ -20171,13 +18253,6 @@
           "course": "OBIOL 305B"
         },
         {
-          "dates": "09:30 - 15:20",
-          "time": "2025-06-16 - 2025-06-27",
-          "location": "ECHA 2-140",
-          "capacity": 20,
-          "course": "SPH 557"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "13:00 - 15:50",
           "location": "ECHA 2-140",
@@ -20220,20 +18295,6 @@
           "location": "ECHA L1-430",
           "capacity": 10,
           "course": "CELL 502"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-12 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA L1-430",
-          "capacity": 80,
-          "course": "INT_D 222"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-12 (TR)",
-          "time": "13:00 - 15:50",
-          "location": "ECHA L1-430",
-          "capacity": 80,
-          "course": "INT_D 222"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -20301,34 +18362,6 @@
           "course": "D_HYG 370B"
         },
         {
-          "dates": "2025-05-12 - 2025-07-11 (M)",
-          "time": "13:00 - 16:50",
-          "location": "ECHA 2-137",
-          "capacity": 32,
-          "course": "DDS 526"
-        },
-        {
-          "dates": "2025-05-12 - 2025-07-11 (T)",
-          "time": "08:00 - 11:50",
-          "location": "ECHA 2-137",
-          "capacity": 32,
-          "course": "DDS 526"
-        },
-        {
-          "dates": "2025-05-12 - 2025-07-11 (M)",
-          "time": "13:00 - 16:50",
-          "location": "ECHA 2-137",
-          "capacity": 20,
-          "course": "DDS 527"
-        },
-        {
-          "dates": "2025-05-12 - 2025-07-11 (T)",
-          "time": "08:00 - 11:50",
-          "location": "ECHA 2-137",
-          "capacity": 20,
-          "course": "DDS 527"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (R)",
           "time": "13:00 - 13:50",
           "location": "ECHA 2-137",
@@ -20369,20 +18402,6 @@
           "location": "ECHA 2-137",
           "capacity": 16,
           "course": "MLSCI 475"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-137",
-          "capacity": 32,
-          "course": "NURS 433"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-13 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-137",
-          "capacity": 32,
-          "course": "NURS 433"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -20448,13 +18467,6 @@
           "location": "ECHA L1-190",
           "capacity": 239,
           "course": "DANCE 200"
-        },
-        {
-          "dates": "2025-06-25",
-          "time": "10:00 - 13:00",
-          "location": "ECHA L1-190",
-          "capacity": 33,
-          "course": "EXPH 2559"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MF)",
@@ -20666,27 +18678,6 @@
           "course": "LABMP 530"
         },
         {
-          "dates": "2025-06-19 - 2025-07-30 (F)",
-          "time": "09:00 - 10:50",
-          "location": "ECHA 2-135",
-          "capacity": 16,
-          "course": "NURS 327"
-        },
-        {
-          "dates": "2025-06-19 - 2025-07-30 (F)",
-          "time": "11:00 - 12:50",
-          "location": "ECHA 2-135",
-          "capacity": 16,
-          "course": "NURS 327"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (T)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-135",
-          "capacity": 15,
-          "course": "NURS 516"
-        },
-        {
           "dates": "2025-01-08",
           "time": "09:00 - 11:50",
           "location": "ECHA 2-135",
@@ -20751,20 +18742,6 @@
         }
       ],
       "ECHA 1-478": [
-        {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "08:00 - 10:50",
-          "location": "ECHA 1-478",
-          "capacity": 10,
-          "course": "DENT 552"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "11:00 - 12:50",
-          "location": "ECHA 1-478",
-          "capacity": 10,
-          "course": "DENT 552"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
@@ -20861,20 +18838,6 @@
           "course": "NURS 327"
         },
         {
-          "dates": "2025-05-05 - 2025-06-13 (T)",
-          "time": "09:00 - 10:50",
-          "location": "ECHA 1-432",
-          "capacity": 15,
-          "course": "NURS 437"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-13 (T)",
-          "time": "11:00 - 12:50",
-          "location": "ECHA 1-432",
-          "capacity": 16,
-          "course": "NURS 437"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "09:00 - 11:50",
           "location": "ECHA 1-432",
@@ -20952,20 +18915,6 @@
           "location": "ECHA 1-451",
           "capacity": 16,
           "course": "NURS 327"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (T)",
-          "time": "10:00 - 11:50",
-          "location": "ECHA 1-451",
-          "capacity": 8,
-          "course": "NURS 432"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-13 (T)",
-          "time": "10:00 - 11:50",
-          "location": "ECHA 1-451",
-          "capacity": 8,
-          "course": "NURS 432"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -21080,20 +19029,6 @@
           "location": "ECHA 2-125",
           "capacity": 8,
           "course": "NURS 322"
-        },
-        {
-          "dates": "2025-06-19 - 2025-07-30 (F)",
-          "time": "09:00 - 10:50",
-          "location": "ECHA 2-125",
-          "capacity": 16,
-          "course": "NURS 327"
-        },
-        {
-          "dates": "2025-06-19 - 2025-07-30 (F)",
-          "time": "11:00 - 12:50",
-          "location": "ECHA 2-125",
-          "capacity": 16,
-          "course": "NURS 327"
         }
       ],
       "ECHA 2-150": [
@@ -21147,13 +19082,6 @@
           "course": "NURS 327"
         },
         {
-          "dates": "2025-06-19 - 2025-07-30 (R)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-150",
-          "capacity": 64,
-          "course": "NURS 327"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "15:00 - 17:50",
           "location": "ECHA 2-150",
@@ -21175,20 +19103,6 @@
           "location": "ECHA 1-464",
           "capacity": 13,
           "course": "LABMP 590"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (T)",
-          "time": "10:00 - 11:50",
-          "location": "ECHA 1-464",
-          "capacity": 12,
-          "course": "NURS 432"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-13 (T)",
-          "time": "10:00 - 11:50",
-          "location": "ECHA 1-464",
-          "capacity": 12,
-          "course": "NURS 432"
         }
       ],
       "ECHA 2-121": [
@@ -21212,20 +19126,6 @@
           "location": "ECHA 2-121",
           "capacity": 15,
           "course": "MLSCI 430"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-121",
-          "capacity": 32,
-          "course": "NURS 432"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-13 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ECHA 2-121",
-          "capacity": 32,
-          "course": "NURS 432"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -21302,20 +19202,6 @@
       ],
       "ECHA 1-457": [
         {
-          "dates": "2025-05-05 - 2025-05-23 (T)",
-          "time": "10:00 - 11:50",
-          "location": "ECHA 1-457",
-          "capacity": 12,
-          "course": "NURS 432"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-13 (T)",
-          "time": "10:00 - 11:50",
-          "location": "ECHA 1-457",
-          "capacity": 12,
-          "course": "NURS 432"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "ECHA 1-457",
@@ -21345,20 +19231,6 @@
         }
       ],
       "ECHA 1-436": [
-        {
-          "dates": "2025-05-05 - 2025-06-13 (T)",
-          "time": "09:00 - 10:50",
-          "location": "ECHA 1-436",
-          "capacity": 16,
-          "course": "NURS 437"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-13 (T)",
-          "time": "11:00 - 12:50",
-          "location": "ECHA 1-436",
-          "capacity": 16,
-          "course": "NURS 437"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
@@ -21728,13 +19600,6 @@
           "location": "VVC 1-662",
           "capacity": 45,
           "course": "DANCE 431"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "10:00 - 11:25",
-          "location": "VVC 1-662",
-          "capacity": 30,
-          "course": "KIN 311"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -22290,20 +20155,6 @@
           "location": "VVC 4-294",
           "capacity": 16,
           "course": "KIN 311"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "12:00 - 14:00",
-          "location": "VVC 4-294",
-          "capacity": 15,
-          "course": "KIN 311"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "14:15 - 16:15",
-          "location": "VVC 4-294",
-          "capacity": 15,
-          "course": "KIN 311"
         }
       ],
       "VVC 1-300": [
@@ -22739,13 +20590,6 @@
           "course": "MATH 499"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:30 - 12:20",
-          "location": "CAB 369",
-          "capacity": 36,
-          "course": "POL_S 225"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (R)",
           "time": "12:30 - 13:20",
           "location": "CAB 369",
@@ -22785,13 +20629,6 @@
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "08:00 - 09:20",
-          "location": "CAB 269",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "09:00 - 10:50",
           "location": "CAB 269",
           "capacity": 40,
           "course": "ENGL 103"
@@ -22958,13 +20795,6 @@
           "course": "MM 805"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:30 - 12:20",
-          "location": "CAB 269",
-          "capacity": 50,
-          "course": "POL_S 211"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "15:30 - 16:20",
           "location": "CAB 269",
@@ -23000,13 +20830,6 @@
           "location": "CAB 235",
           "capacity": 81,
           "course": "BUS 222"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "10:00 - 11:25",
-          "location": "CAB 235",
-          "capacity": 60,
-          "course": "CMPUT 101"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -23049,20 +20872,6 @@
           "location": "CAB 235",
           "capacity": 100,
           "course": "PSYCH 302"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TWR)",
-          "time": "11:30 - 13:20",
-          "location": "CAB 235",
-          "capacity": 90,
-          "course": "PSYCH 367"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "13:00 - 15:50",
-          "location": "CAB 235",
-          "capacity": 80,
-          "course": "SOC 100"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -23221,13 +21030,6 @@
           "location": "CAB 341",
           "capacity": 30,
           "course": "STAT 235"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 15:20",
-          "location": "CAB 341",
-          "capacity": 30,
-          "course": "STAT 235B"
         }
       ],
       "CAB 373": [
@@ -23523,13 +21325,6 @@
           "course": "BUS 222"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 12:10",
-          "location": "CAB 239",
-          "capacity": 57,
-          "course": "CHEM 263"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "CAB 239",
@@ -23556,13 +21351,6 @@
           "location": "CAB 239",
           "capacity": 95,
           "course": "MATH 337"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "CAB 239",
-          "capacity": 55,
-          "course": "POL_S 101"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -23651,13 +21439,6 @@
           "course": "CMPUT 566"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (MWF)",
-          "time": "09:00 - 10:50",
-          "location": "CAB 243",
-          "capacity": 100,
-          "course": "HGEO 100"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "12:00 - 12:50",
           "location": "CAB 243",
@@ -23693,32 +21474,11 @@
           "course": "MATH 315"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "CAB 243",
-          "capacity": 96,
-          "course": "PHYS 124"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "11:00 - 11:50",
           "location": "CAB 243",
           "capacity": 130,
           "course": "PHYS 271"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "CAB 243",
-          "capacity": 125,
-          "course": "STAT 161"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWR)",
-          "time": "18:00 - 19:20",
-          "location": "CAB 243",
-          "capacity": 120,
-          "course": "STAT 252"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -24070,20 +21830,6 @@
           "course": "ENGL 102"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "18:00 - 20:55",
-          "location": "CAB 273",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (TR)",
-          "time": "09:30 - 12:20",
-          "location": "CAB 273",
-          "capacity": 30,
-          "course": "LING 320"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "CAB 273",
@@ -24312,13 +22058,6 @@
           "course": "PSYCH 212"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "11:30 - 14:20",
-          "location": "CAB 265",
-          "capacity": 90,
-          "course": "PSYCH 212"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "09:00 - 09:50",
           "location": "CAB 265",
@@ -24331,13 +22070,6 @@
           "location": "CAB 265",
           "capacity": 120,
           "course": "PSYCH 381"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "CAB 265",
-          "capacity": 80,
-          "course": "SOC 100"
         }
       ],
       "CAB 657": [
@@ -24477,13 +22209,6 @@
           "location": "CAB 331",
           "capacity": 30,
           "course": "STAT 235"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 15:20",
-          "location": "CAB 331",
-          "capacity": 30,
-          "course": "STAT 235A"
         }
       ],
       "CAB 335": [
@@ -24733,20 +22458,6 @@
           "course": "CLASS 221"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MT)",
-          "time": "11:30 - 14:20",
-          "location": "SAB 3-31",
-          "capacity": 80,
-          "course": "GENET 270"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (W)",
-          "time": "11:30 - 14:20",
-          "location": "SAB 3-31",
-          "capacity": 80,
-          "course": "GENET 270"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "12:00 - 12:50",
           "location": "SAB 3-31",
@@ -24905,13 +22616,6 @@
       ],
       "SAB 3-36": [
         {
-          "dates": "2025-05-05 - 2025-06-11 (MR)",
-          "time": "08:30 - 11:20",
-          "location": "SAB 3-36",
-          "capacity": 80,
-          "course": "BIOL 201"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "14:00 - 15:20",
           "location": "SAB 3-36",
@@ -24980,13 +22684,6 @@
           "location": "SAB 3-36",
           "capacity": 70,
           "course": "LING 308"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "SAB 3-36",
-          "capacity": 70,
-          "course": "MATH 260"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -25114,22 +22811,22 @@
           "course": "REN_R 368"
         },
         {
-          "dates": "14:00 - 16:50",
-          "time": "2025-02-05",
+          "dates": "2025-02-05",
+          "time": "14:00 - 16:50",
           "location": "SAB 1-50",
           "capacity": 39,
           "course": "REN_R 444"
         },
         {
-          "dates": "14:00 - 16:50",
-          "time": "2025-03-05",
+          "dates": "2025-03-05",
+          "time": "14:00 - 16:50",
           "location": "SAB 1-50",
           "capacity": 39,
           "course": "REN_R 444"
         },
         {
-          "dates": "14:00 - 16:50",
-          "time": "2025-04-09",
+          "dates": "2025-04-09",
+          "time": "14:00 - 16:50",
           "location": "SAB 1-50",
           "capacity": 39,
           "course": "REN_R 444"
@@ -25392,20 +23089,6 @@
           "location": "C E1-60",
           "capacity": 196,
           "course": "BIOL 201"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTR)",
-          "time": "11:00 - 12:50",
-          "location": "C E1-60",
-          "capacity": 115,
-          "course": "CHEM 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTR)",
-          "time": "11:00 - 12:50",
-          "location": "C E1-60",
-          "capacity": 15,
-          "course": "CHEM 103"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -25777,13 +23460,6 @@
           "location": "FAB 2-020",
           "capacity": 50,
           "course": "PHIL 366"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "FAB 2-020",
-          "capacity": 60,
-          "course": "RELIG 274"
         }
       ],
       "FAB 2-040A": [
@@ -25862,13 +23538,6 @@
       ],
       "FAB 1-007": [
         {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "FAB 1-007",
-          "capacity": 5,
-          "course": "ART 338"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "08:00 - 10:50",
           "location": "FAB 1-007",
@@ -25876,25 +23545,11 @@
           "course": "ART 350"
         },
         {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "FAB 1-007",
-          "capacity": 5,
-          "course": "ART 438"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "08:00 - 10:50",
           "location": "FAB 1-007",
           "capacity": 2,
           "course": "ART 450"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "FAB 1-007",
-          "capacity": 5,
-          "course": "ART 538"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
@@ -25916,13 +23571,6 @@
           "location": "FAB 1-007",
           "capacity": 15,
           "course": "DES 396"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "14:00 - 17:10",
-          "location": "FAB 1-007",
-          "capacity": 25,
-          "course": "MUSIC 245"
         }
       ],
       "FAB 1-010": [
@@ -26043,32 +23691,11 @@
       ],
       "FAB 2-038A": [
         {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "FAB 2-038A",
-          "capacity": 5,
-          "course": "DES 338"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "FAB 2-038A",
-          "capacity": 5,
-          "course": "DES 438"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "14:00 - 16:50",
           "location": "FAB 2-038A",
           "capacity": 13,
           "course": "DES 496"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "FAB 2-038A",
-          "capacity": 5,
-          "course": "DES 538"
         }
       ],
       "FAB 2-036": [
@@ -26460,13 +24087,6 @@
           "time": "18:00 - 19:30",
           "location": "FAB 2-028",
           "capacity": 25,
-          "course": "MUSIC 100"
-        },
-        {
-          "dates": "2025-07-07 - 2025-07-25 (MTWRF)",
-          "time": "12:00 - 14:25",
-          "location": "FAB 2-028",
-          "capacity": 27,
           "course": "MUSIC 100"
         },
         {
@@ -27236,13 +24856,6 @@
           "location": "HUB 161",
           "capacity": 10,
           "course": "ART 134"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "14:00 - 16:50",
-          "location": "HUB 161",
-          "capacity": 18,
-          "course": "ART 134"
         }
       ],
       "HUB 100": [
@@ -27268,13 +24881,6 @@
           "course": "ART 311"
         },
         {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "HUB 100",
-          "capacity": 5,
-          "course": "ART 338"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "08:00 - 10:50",
           "location": "HUB 100",
@@ -27287,20 +24893,6 @@
           "location": "HUB 100",
           "capacity": 10,
           "course": "ART 411"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "HUB 100",
-          "capacity": 5,
-          "course": "ART 438"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "HUB 100",
-          "capacity": 5,
-          "course": "ART 538"
         }
       ],
       "HUB 157": [
@@ -27353,20 +24945,6 @@
           "time": "18:30 - 21:25",
           "location": "HUB 167",
           "capacity": 10,
-          "course": "DES 135"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 11:50",
-          "location": "HUB 167",
-          "capacity": 18,
-          "course": "DES 135"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "09:00 - 11:50",
-          "location": "HUB 167",
-          "capacity": 18,
           "course": "DES 135"
         }
       ]
@@ -27424,13 +25002,6 @@
           "course": "ART 240"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "09:00 - 11:50",
-          "location": "NPP 3-09",
-          "capacity": 18,
-          "course": "ART 240"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (F)",
           "time": "09:00 - 11:50",
           "location": "NPP 3-09",
@@ -27449,13 +25020,6 @@
           "time": "18:30 - 21:20",
           "location": "NPP 3-09",
           "capacity": 10,
-          "course": "ART 340"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "09:00 - 11:50",
-          "location": "NPP 3-09",
-          "capacity": 15,
           "course": "ART 340"
         }
       ]
@@ -27560,41 +25124,6 @@
           "location": "ED 228",
           "capacity": 24,
           "course": "NURS 485"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ED 228",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (W)",
-          "time": "13:00 - 14:50",
-          "location": "ED 228",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (F)",
-          "time": "09:00 - 10:50",
-          "location": "ED 228",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-27",
-          "time": "09:00 - 11:50",
-          "location": "ED 228",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (W)",
-          "time": "09:00 - 11:50",
-          "location": "ED 228",
-          "capacity": 24,
-          "course": "NURS 485A"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -27720,41 +25249,6 @@
           "course": "NS 504"
         },
         {
-          "dates": "2025-05-05 - 2025-05-30 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ED 164",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (W)",
-          "time": "13:00 - 14:50",
-          "location": "ED 164",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (F)",
-          "time": "09:00 - 10:50",
-          "location": "ED 164",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-27",
-          "time": "09:00 - 11:50",
-          "location": "ED 164",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (W)",
-          "time": "09:00 - 11:50",
-          "location": "ED 164",
-          "capacity": 24,
-          "course": "NURS 485A"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "ED 164",
@@ -27797,20 +25291,6 @@
           "location": "ED 306",
           "capacity": 20,
           "course": "CMPUT 631"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 306",
-          "capacity": 30,
-          "course": "EDEL 321"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-16 (MWF)",
-          "time": "10:00 - 15:00",
-          "location": "ED 306",
-          "capacity": 30,
-          "course": "EDSE 430"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (F)",
@@ -28126,13 +25606,6 @@
           "course": "EDEL 321"
         },
         {
-          "dates": "2025-07-07 - 2025-07-11 (MTWRF)",
-          "time": "09:00 - 16:00",
-          "location": "ED 177",
-          "capacity": 25,
-          "course": "EDEL 595"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (R)",
           "time": "15:30 - 16:50",
           "location": "ED 177",
@@ -28194,41 +25667,6 @@
           "location": "ED 177",
           "capacity": 24,
           "course": "NURS 322"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (M)",
-          "time": "09:00 - 11:50",
-          "location": "ED 177",
-          "capacity": 12,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (W)",
-          "time": "13:00 - 14:50",
-          "location": "ED 177",
-          "capacity": 12,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (F)",
-          "time": "09:00 - 10:50",
-          "location": "ED 177",
-          "capacity": 12,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-27",
-          "time": "09:00 - 11:50",
-          "location": "ED 177",
-          "capacity": 12,
-          "course": "NURS 485A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-30 (W)",
-          "time": "09:00 - 11:50",
-          "location": "ED 177",
-          "capacity": 12,
-          "course": "NURS 485A"
         }
       ],
       "ED 1-126": [
@@ -28245,20 +25683,6 @@
           "location": "ED 1-126",
           "capacity": 18,
           "course": "EAP 103"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-25 (MTWRF)",
-          "time": "09:00 - 12:15",
-          "location": "ED 1-126",
-          "capacity": 18,
-          "course": "EAP 135"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-25 (MTWRF)",
-          "time": "12:45 - 16:00",
-          "location": "ED 1-126",
-          "capacity": 18,
-          "course": "EAP 135"
         }
       ],
       "ED 7-140": [
@@ -28275,20 +25699,6 @@
           "location": "ED 7-140",
           "capacity": 15,
           "course": "EAP 135"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-19 (MTR)",
-          "time": "09:00 - 10:50",
-          "location": "ED 7-140",
-          "capacity": 20,
-          "course": "INT_D 137A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-14 (MTR)",
-          "time": "09:00 - 10:50",
-          "location": "ED 7-140",
-          "capacity": 20,
-          "course": "INT_D 137B"
         }
       ],
       "ED 7-102": [
@@ -28298,20 +25708,6 @@
           "location": "ED 7-102",
           "capacity": 18,
           "course": "EAP 136"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-20 (MTWRF)",
-          "time": "09:00 - 12:15",
-          "location": "ED 7-102",
-          "capacity": 18,
-          "course": "EXELP 7550A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-20 (MTWRF)",
-          "time": "09:00 - 12:15",
-          "location": "ED 7-102",
-          "capacity": 18,
-          "course": "EXELP 7550B"
         }
       ],
       "ED 7-114": [
@@ -28335,20 +25731,6 @@
           "location": "ED 7-114",
           "capacity": 18,
           "course": "EAP 137"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-19 (MTR)",
-          "time": "10:00 - 11:50",
-          "location": "ED 7-114",
-          "capacity": 20,
-          "course": "INT_D 137A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-14 (MTR)",
-          "time": "10:00 - 11:50",
-          "location": "ED 7-114",
-          "capacity": 20,
-          "course": "INT_D 137B"
         }
       ],
       "ED 5-102": [
@@ -28358,65 +25740,9 @@
           "location": "ED 5-102",
           "capacity": 18,
           "course": "EAP 136"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-20 (MTRF)",
-          "time": "08:00 - 12:00",
-          "location": "ED 5-102",
-          "capacity": 18,
-          "course": "EAP 136A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-20 (MTRF)",
-          "time": "12:30 - 16:30",
-          "location": "ED 5-102",
-          "capacity": 18,
-          "course": "EAP 136A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-08 (MTRF)",
-          "time": "08:00 - 12:00",
-          "location": "ED 5-102",
-          "capacity": 18,
-          "course": "EAP 136B"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-08 (MTRF)",
-          "time": "12:30 - 16:30",
-          "location": "ED 5-102",
-          "capacity": 18,
-          "course": "EAP 136B"
         }
       ],
       "ED 5-180": [
-        {
-          "dates": "2025-05-05 - 2025-06-20 (MTRF)",
-          "time": "08:00 - 12:00",
-          "location": "ED 5-180",
-          "capacity": 18,
-          "course": "EAP 136A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-20 (MTRF)",
-          "time": "12:30 - 16:30",
-          "location": "ED 5-180",
-          "capacity": 18,
-          "course": "EAP 136A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-08 (MTRF)",
-          "time": "08:00 - 12:00",
-          "location": "ED 5-180",
-          "capacity": 18,
-          "course": "EAP 136B"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-08 (MTRF)",
-          "time": "12:30 - 16:30",
-          "location": "ED 5-180",
-          "capacity": 18,
-          "course": "EAP 136B"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 11:50",
@@ -28432,36 +25758,6 @@
           "course": "EAP 137"
         }
       ],
-      "ED 6-138": [
-        {
-          "dates": "2025-05-05 - 2025-06-20 (W)",
-          "time": "09:00 - 10:50",
-          "location": "ED 6-138",
-          "capacity": 36,
-          "course": "EAP 136A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-20 (W)",
-          "time": "13:00 - 14:50",
-          "location": "ED 6-138",
-          "capacity": 36,
-          "course": "EAP 136A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-08 (W)",
-          "time": "09:00 - 10:50",
-          "location": "ED 6-138",
-          "capacity": 36,
-          "course": "EAP 136B"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-08 (W)",
-          "time": "13:00 - 14:50",
-          "location": "ED 6-138",
-          "capacity": 36,
-          "course": "EAP 136B"
-        }
-      ],
       "ED 1-128": [
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -28469,20 +25765,6 @@
           "location": "ED 1-128",
           "capacity": 18,
           "course": "EAP 137"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-19 (MTR)",
-          "time": "09:00 - 10:50",
-          "location": "ED 1-128",
-          "capacity": 20,
-          "course": "INT_D 137A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-14 (MTR)",
-          "time": "09:00 - 10:50",
-          "location": "ED 1-128",
-          "capacity": 20,
-          "course": "INT_D 137B"
         }
       ],
       "ED 129": [
@@ -28550,37 +25832,7 @@
           "course": "SPH 563"
         }
       ],
-      "ED B-127": [
-        {
-          "dates": "2025-05-03 - 2025-06-14 (S)",
-          "time": "09:00 - 16:30",
-          "location": "ED B-127",
-          "capacity": 15,
-          "course": "EDCT 400"
-        }
-      ],
       "ED B-129": [
-        {
-          "dates": "2025-05-03 - 2025-06-14 (S)",
-          "time": "09:00 - 16:30",
-          "location": "ED B-129",
-          "capacity": 15,
-          "course": "EDCT 400"
-        },
-        {
-          "dates": "2025-08-18 - 2025-08-22 (MTWRF)",
-          "time": "08:00 - 15:30",
-          "location": "ED B-129",
-          "capacity": 24,
-          "course": "EDCT 400"
-        },
-        {
-          "dates": "2025-08-18 - 2025-08-22 (MTWRF)",
-          "time": "16:00 - 20:30",
-          "location": "ED B-129",
-          "capacity": 24,
-          "course": "EDCT 400"
-        },
         {
           "dates": "2025-01-06 - 2025-02-07 (MTWR)",
           "time": "09:00 - 12:50",
@@ -28598,13 +25850,6 @@
       ],
       "ED 155A": [
         {
-          "dates": "2025-07-07 - 2025-07-25 (MTWR)",
-          "time": "10:00 - 13:55",
-          "location": "ED 155A",
-          "capacity": 25,
-          "course": "EDCT 400"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (W)",
           "time": "13:00 - 15:50",
           "location": "ED 155A",
@@ -28617,15 +25862,6 @@
           "location": "ED 155A",
           "capacity": 25,
           "course": "PSYCH 356"
-        }
-      ],
-      "ED B-125": [
-        {
-          "dates": "2025-07-07 - 2025-07-25 (MTWR)",
-          "time": "10:00 - 13:55",
-          "location": "ED B-125",
-          "capacity": 15,
-          "course": "EDCT 400"
         }
       ],
       "ED 423": [
@@ -28730,13 +25966,6 @@
           "location": "ED 428",
           "capacity": 35,
           "course": "EDEL 415"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 428",
-          "capacity": 30,
-          "course": "EDEL 415"
         }
       ],
       "ED 277": [
@@ -28774,13 +26003,6 @@
           "location": "ED 277",
           "capacity": 20,
           "course": "EDPY 442"
-        },
-        {
-          "dates": "2025-07-07 - 2025-07-25 (MTWRF)",
-          "time": "09:00 - 11:15",
-          "location": "ED 277",
-          "capacity": 15,
-          "course": "EDPY 536"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (R)",
@@ -28823,20 +26045,6 @@
           "location": "ED 277",
           "capacity": 16,
           "course": "NURS 485"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "08:30 - 10:50",
-          "location": "ED 277",
-          "capacity": 30,
-          "course": "SPAN 111"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "11:15 - 13:15",
-          "location": "ED 277",
-          "capacity": 30,
-          "course": "SPAN 111"
         }
       ],
       "ED GYM": [
@@ -28860,20 +26068,6 @@
           "location": "ED GYM",
           "capacity": 35,
           "course": "EDEL 321"
-        },
-        {
-          "dates": "2025-05-06 - 2025-06-07 (S)",
-          "time": "08:00 - 13:50",
-          "location": "ED GYM",
-          "capacity": 20,
-          "course": "EDSE 401"
-        },
-        {
-          "dates": "2025-05-06 - 2025-06-07 (S)",
-          "time": "08:00 - 13:50",
-          "location": "ED GYM",
-          "capacity": 10,
-          "course": "EDSE 501"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (R)",
@@ -28926,13 +26120,6 @@
         }
       ],
       "ED 221": [
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 221",
-          "capacity": 30,
-          "course": "EDEL 321"
-        },
         {
           "dates": "2025-01-06 - 2025-02-07 (MTWR)",
           "time": "09:00 - 12:50",
@@ -28999,20 +26186,6 @@
           "course": "EDEL 325"
         },
         {
-          "dates": "2025-05-26 - 2025-06-11 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 456",
-          "capacity": 30,
-          "course": "EDEL 325"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 456",
-          "capacity": 35,
-          "course": "EDEL 325"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (F)",
           "time": "09:00 - 11:50",
           "location": "ED 456",
@@ -29025,48 +26198,6 @@
           "location": "ED 456",
           "capacity": 35,
           "course": "EDEL 455"
-        },
-        {
-          "dates": "2025-05-02",
-          "time": "17:00 - 20:30",
-          "location": "ED 456",
-          "capacity": 24,
-          "course": "EDU 595"
-        },
-        {
-          "dates": "2025-05-03",
-          "time": "08:30 - 12:50",
-          "location": "ED 456",
-          "capacity": 24,
-          "course": "EDU 595"
-        },
-        {
-          "dates": "2025-05-23",
-          "time": "17:00 - 20:30",
-          "location": "ED 456",
-          "capacity": 24,
-          "course": "EDU 595"
-        },
-        {
-          "dates": "2025-05-24",
-          "time": "08:30 - 12:50",
-          "location": "ED 456",
-          "capacity": 24,
-          "course": "EDU 595"
-        },
-        {
-          "dates": "2025-05-30",
-          "time": "17:00 - 20:30",
-          "location": "ED 456",
-          "capacity": 24,
-          "course": "EDU 595"
-        },
-        {
-          "dates": "2025-05-31",
-          "time": "08:30 - 12:50",
-          "location": "ED 456",
-          "capacity": 24,
-          "course": "EDU 595"
         }
       ],
       "ED 314": [
@@ -29172,13 +26303,6 @@
       ],
       "ED 206": [
         {
-          "dates": "2025-07-14 - 2025-07-18 (MTWRF)",
-          "time": "09:00 - 16:00",
-          "location": "ED 206",
-          "capacity": 25,
-          "course": "EDEL 595"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (R)",
           "time": "17:00 - 20:00",
           "location": "ED 206",
@@ -29191,20 +26315,6 @@
           "location": "ED 206",
           "capacity": 20,
           "course": "EDPY 607"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MW)",
-          "time": "09:00 - 11:50",
-          "location": "ED 206",
-          "capacity": 40,
-          "course": "EDU 211"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 206",
-          "capacity": 40,
-          "course": "EDU 211"
         },
         {
           "dates": "2025-01-06 - 2025-03-07 (R)",
@@ -29367,25 +26477,11 @@
           "course": "EDU 211"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "12:00 - 14:50",
-          "location": "ED 265",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (WF)",
           "time": "13:00 - 13:50",
           "location": "ED 265",
           "capacity": 40,
           "course": "KIN 106"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "09:00 - 10:20",
-          "location": "ED 265",
-          "capacity": 21,
-          "course": "KIN 400"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -29513,13 +26609,6 @@
           "course": "EDFX 350"
         },
         {
-          "dates": "2025-05-05 - 2025-05-23 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "ED 380",
-          "capacity": 40,
-          "course": "EDPS 401"
-        },
-        {
           "dates": "2025-04-28 - 2025-05-02 (MTWRF)",
           "time": "08:00 - 14:50",
           "location": "ED 380",
@@ -29598,13 +26687,6 @@
         }
       ],
       "ED 358": [
-        {
-          "dates": "2025-05-05 - 2025-05-09 (MTWRF)",
-          "time": "09:00 - 16:00",
-          "location": "ED 358",
-          "capacity": 25,
-          "course": "EDHS 504"
-        },
         {
           "dates": "2025-01-06 - 2025-03-07 (MW)",
           "time": "10:30 - 12:50",
@@ -29724,20 +26806,6 @@
           "course": "EDPY 500"
         },
         {
-          "dates": "2025-07-28 - 2025-08-13 (MTWRF)",
-          "time": "09:00 - 11:50",
-          "location": "ED 213",
-          "capacity": 15,
-          "course": "EDPY 535"
-        },
-        {
-          "dates": "2025-05-26 - 2025-06-05 (MTWR)",
-          "time": "09:00 - 15:00",
-          "location": "ED 213",
-          "capacity": 20,
-          "course": "EDPY 597"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "ED 213",
@@ -29833,13 +26901,6 @@
           "course": "EDPY 417"
         },
         {
-          "dates": "2025-06-02 - 2025-06-13 (MTWR)",
-          "time": "09:30 - 14:30",
-          "location": "ED 255",
-          "capacity": 35,
-          "course": "EDSE 401"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (WF)",
           "time": "08:00 - 08:50",
           "location": "ED 255",
@@ -29917,20 +26978,6 @@
           "location": "ED 1-130",
           "capacity": 20,
           "course": "EDPY 601"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-19 (MTR)",
-          "time": "10:00 - 11:50",
-          "location": "ED 1-130",
-          "capacity": 20,
-          "course": "INT_D 137A"
-        },
-        {
-          "dates": "2025-06-30 - 2025-08-14 (MTR)",
-          "time": "10:00 - 11:50",
-          "location": "ED 1-130",
-          "capacity": 20,
-          "course": "INT_D 137B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
@@ -30056,13 +27103,6 @@
           "location": "ED 2-101",
           "capacity": 16,
           "course": "EDPY 597"
-        },
-        {
-          "dates": "2025-05-03 - 2025-06-07 (S)",
-          "time": "09:00 - 11:50",
-          "location": "ED 2-101",
-          "capacity": 15,
-          "course": "EDPY 903"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (W)",
@@ -30196,25 +27236,11 @@
       ],
       "ED 465": [
         {
-          "dates": "2025-05-06 - 2025-06-07 (TR)",
-          "time": "18:30 - 20:25",
-          "location": "ED 465",
-          "capacity": 20,
-          "course": "EDSE 401"
-        },
-        {
           "dates": "2025-01-06 - 2025-02-07 (MTWR)",
           "time": "09:00 - 12:50",
           "location": "ED 465",
           "capacity": 30,
           "course": "EDSE 443"
-        },
-        {
-          "dates": "2025-05-06 - 2025-06-07 (TR)",
-          "time": "18:30 - 20:25",
-          "location": "ED 465",
-          "capacity": 10,
-          "course": "EDSE 501"
         }
       ],
       "ED 401": [
@@ -30300,13 +27326,6 @@
         }
       ],
       "ED 2-135": [
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "09:00 - 10:50",
-          "location": "ED 2-135",
-          "capacity": 40,
-          "course": "HGEO 250"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (F)",
           "time": "14:00 - 16:50",
@@ -32253,13 +29272,6 @@
           "course": "BIOCH 200"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "12:00 - 13:10",
-          "location": "ETLC E1-001",
-          "capacity": 250,
-          "course": "BIOCH 200"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "12:30 - 13:50",
           "location": "ETLC E1-001",
@@ -32651,27 +29663,6 @@
           "course": "EN_PH 131"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "17:00 - 20:00",
-          "location": "ETLC E1-013",
-          "capacity": 200,
-          "course": "ENGG 404A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (M)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E1-013",
-          "capacity": 200,
-          "course": "ENGG 404A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (M)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E1-013",
-          "capacity": 200,
-          "course": "ENGG 404B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "11:00 - 11:50",
           "location": "ETLC E1-013",
@@ -32679,32 +29670,11 @@
           "course": "MATH 102"
         },
         {
-          "dates": "2025-07-07 - 2025-08-13 (MTWRF)",
-          "time": "08:30 - 09:40",
-          "location": "ETLC E1-013",
-          "capacity": 120,
-          "course": "MATH 134"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "14:00 - 14:50",
           "location": "ETLC E1-013",
           "capacity": 150,
           "course": "MATH 154"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "ETLC E1-013",
-          "capacity": 110,
-          "course": "MATH 300A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "ETLC E1-013",
-          "capacity": 110,
-          "course": "MATH 300B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -32721,20 +29691,6 @@
           "course": "STAT 235"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "11:00 - 11:50",
-          "location": "ETLC E1-013",
-          "capacity": 90,
-          "course": "STAT 235A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "11:00 - 11:50",
-          "location": "ETLC E1-013",
-          "capacity": 90,
-          "course": "STAT 235B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "09:00 - 09:50",
           "location": "ETLC E1-013",
@@ -32743,34 +29699,6 @@
         }
       ],
       "ETLC E1-007": [
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "CH_E 243A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "08:30 - 09:20",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "CH_E 243A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "CH_E 243B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "08:30 - 09:20",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "CH_E 243B"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "09:00 - 09:50",
@@ -32821,20 +29749,6 @@
           "course": "ECE 209"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "13:00 - 13:50",
-          "location": "ETLC E1-007",
-          "capacity": 80,
-          "course": "ECE 209A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "13:00 - 13:50",
-          "location": "ETLC E1-007",
-          "capacity": 80,
-          "course": "ECE 209B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "ETLC E1-007",
@@ -32870,20 +29784,6 @@
           "course": "ENGG 160"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "11:00 - 12:20",
-          "location": "ETLC E1-007",
-          "capacity": 120,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "11:00 - 12:20",
-          "location": "ETLC E1-007",
-          "capacity": 120,
-          "course": "MAT_E 202B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "14:00 - 14:50",
           "location": "ETLC E1-007",
@@ -32898,60 +29798,11 @@
           "course": "MATH 156"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWR)",
-          "time": "18:30 - 19:50",
-          "location": "ETLC E1-007",
-          "capacity": 120,
-          "course": "MATH 209"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "13:00 - 13:50",
           "location": "ETLC E1-007",
           "capacity": 180,
           "course": "MEC_E 420"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "11:00 - 11:50",
-          "location": "ETLC E1-007",
-          "capacity": 95,
-          "course": "MEC_E 430A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "11:00 - 11:50",
-          "location": "ETLC E1-007",
-          "capacity": 95,
-          "course": "MEC_E 430B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "MEC_E 463A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 15:50",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "MEC_E 463A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "MEC_E 463B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 15:50",
-          "location": "ETLC E1-007",
-          "capacity": 90,
-          "course": "MEC_E 463B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -33096,13 +29947,6 @@
           "course": "MAT_E 345"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (WF)",
-          "time": "09:50 - 10:40",
-          "location": "ETLC E1-008",
-          "capacity": 40,
-          "course": "MATH 101"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "15:30 - 16:50",
           "location": "ETLC E1-008",
@@ -33118,34 +29962,6 @@
         }
       ],
       "ETLC E2-002": [
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "ETLC E2-002",
-          "capacity": 70,
-          "course": "CH_E 318A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 15:50",
-          "location": "ETLC E2-002",
-          "capacity": 70,
-          "course": "CH_E 318A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "ETLC E2-002",
-          "capacity": 70,
-          "course": "CH_E 318B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 15:50",
-          "location": "ETLC E2-002",
-          "capacity": 70,
-          "course": "CH_E 318B"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "11:00 - 11:50",
@@ -33201,20 +30017,6 @@
           "location": "ETLC E2-002",
           "capacity": 80,
           "course": "ECE 422"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E2-002",
-          "capacity": 75,
-          "course": "ENG_M 530A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E2-002",
-          "capacity": 75,
-          "course": "ENG_M 530B"
         },
         {
           "dates": "2025-01-09",
@@ -33315,146 +30117,6 @@
           "course": "ENV_E 440"
         },
         {
-          "dates": "2025-05-14",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-05-28",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-06-11",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-05-16",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-05-30",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-06-13",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202A"
-        },
-        {
-          "dates": "2025-07-02",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-07-16",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-07-30",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-07-04",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-07-18",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-08-01",
-          "time": "14:00 - 15:20",
-          "location": "ETLC E2-002",
-          "capacity": 40,
-          "course": "MAT_E 202B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "09:00 - 09:50",
-          "location": "ETLC E2-002",
-          "capacity": 64,
-          "course": "MATH 201A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "12:00 - 12:50",
-          "location": "ETLC E2-002",
-          "capacity": 32,
-          "course": "MATH 201A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "09:00 - 09:50",
-          "location": "ETLC E2-002",
-          "capacity": 64,
-          "course": "MATH 201B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "12:00 - 12:50",
-          "location": "ETLC E2-002",
-          "capacity": 32,
-          "course": "MATH 201B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "ETLC E2-002",
-          "capacity": 60,
-          "course": "MEC_E 230A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "10:00 - 10:50",
-          "location": "ETLC E2-002",
-          "capacity": 60,
-          "course": "MEC_E 230A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "ETLC E2-002",
-          "capacity": 60,
-          "course": "MEC_E 230B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "10:00 - 10:50",
-          "location": "ETLC E2-002",
-          "capacity": 60,
-          "course": "MEC_E 230B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "08:00 - 08:50",
           "location": "ETLC E2-002",
@@ -33474,20 +30136,6 @@
           "location": "ETLC E2-002",
           "capacity": 95,
           "course": "MEC_E 250"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MW)",
-          "time": "10:00 - 10:50",
-          "location": "ETLC E2-002",
-          "capacity": 60,
-          "course": "MEC_E 260A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MW)",
-          "time": "10:00 - 10:50",
-          "location": "ETLC E2-002",
-          "capacity": 60,
-          "course": "MEC_E 260B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -33923,24 +30571,10 @@
           "course": "HECOL 210"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "13:30 - 16:20",
-          "location": "ETLC E1-017",
-          "capacity": 150,
-          "course": "HECOL 211"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "14:00 - 14:50",
           "location": "ETLC E1-017",
           "capacity": 175,
-          "course": "MATH 101"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "08:30 - 09:40",
-          "location": "ETLC E1-017",
-          "capacity": 100,
           "course": "MATH 101"
         },
         {
@@ -33958,25 +30592,11 @@
           "course": "MATH 136"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "10:00 - 11:10",
-          "location": "ETLC E1-017",
-          "capacity": 100,
-          "course": "MATH 146"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "ETLC E1-017",
           "capacity": 180,
           "course": "MATH 214"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "11:30 - 12:40",
-          "location": "ETLC E1-017",
-          "capacity": 140,
-          "course": "STAT 265"
         }
       ],
       "ETLC E4-013": [
@@ -34028,34 +30648,6 @@
           "location": "ETLC E4-013",
           "capacity": 54,
           "course": "ECE 209"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E4-013",
-          "capacity": 40,
-          "course": "ECE 209A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E4-013",
-          "capacity": 40,
-          "course": "ECE 209A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E4-013",
-          "capacity": 40,
-          "course": "ECE 209B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 16:50",
-          "location": "ETLC E4-013",
-          "capacity": 40,
-          "course": "ECE 209B"
         }
       ],
       "ETLC E4-012": [
@@ -34509,20 +31101,6 @@
           "course": "BIOCH 525"
         },
         {
-          "dates": "2025-06-24",
-          "time": "09:00 - 11:00",
-          "location": "MS 2-50",
-          "capacity": 33,
-          "course": "EXPH 2559"
-        },
-        {
-          "dates": "2025-06-25",
-          "time": "13:00 - 16:00",
-          "location": "MS 2-50",
-          "capacity": 33,
-          "course": "EXPH 2559"
-        },
-        {
           "dates": "2025-01-06 - 2025-03-12 (TR)",
           "time": "11:00 - 12:20",
           "location": "MS 2-50",
@@ -34706,48 +31284,6 @@
       ],
       "MS 2-27": [
         {
-          "dates": "2025-05-07",
-          "time": "09:00 - 12:00",
-          "location": "MS 2-27",
-          "capacity": 33,
-          "course": "EXPH 2552"
-        },
-        {
-          "dates": "2025-06-11",
-          "time": "09:00 - 12:00",
-          "location": "MS 2-27",
-          "capacity": 33,
-          "course": "EXPH 2552"
-        },
-        {
-          "dates": "2025-05-07",
-          "time": "13:00 - 16:00",
-          "location": "MS 2-27",
-          "capacity": 33,
-          "course": "EXPH 2555"
-        },
-        {
-          "dates": "2025-06-11",
-          "time": "13:00 - 16:00",
-          "location": "MS 2-27",
-          "capacity": 33,
-          "course": "EXPH 2555"
-        },
-        {
-          "dates": "2025-05-06",
-          "time": "10:30 - 11:30",
-          "location": "MS 2-27",
-          "capacity": 33,
-          "course": "EXPH 2558"
-        },
-        {
-          "dates": "2025-06-10",
-          "time": "11:00 - 12:00",
-          "location": "MS 2-27",
-          "capacity": 33,
-          "course": "EXPH 2558"
-        },
-        {
           "dates": "2025-01-10 - 2025-02-14 (F)",
           "time": "14:00 - 14:50",
           "location": "MS 2-27",
@@ -34817,13 +31353,6 @@
           "time": "14:30 - 15:50",
           "location": "MS 6-36",
           "capacity": 35,
-          "course": "KIN 400"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "10:30 - 13:20",
-          "location": "MS 6-36",
-          "capacity": 21,
           "course": "KIN 400"
         }
       ],
@@ -36290,13 +32819,6 @@
           "course": "PSYCH 357"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "17:00 - 19:50",
-          "location": "BS M-149",
-          "capacity": 50,
-          "course": "PSYCH 357"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "14:00 - 14:50",
           "location": "BS M-149",
@@ -36485,13 +33007,6 @@
           "course": "MICRB 514"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "08:30 - 11:20",
-          "location": "BS M-137",
-          "capacity": 40,
-          "course": "PSYCH 329"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
           "location": "BS M-137",
@@ -36504,13 +33019,6 @@
           "location": "BS M-137",
           "capacity": 25,
           "course": "PSYCH 403"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "11:30 - 14:20",
-          "location": "BS M-137",
-          "capacity": 30,
-          "course": "PSYCH 459"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -37211,13 +33719,6 @@
     "rooms": {
       "MEC 2-3": [
         {
-          "dates": "2025-05-05 - 2025-06-11 (MTWRF)",
-          "time": "14:00 - 15:20",
-          "location": "MEC 2-3",
-          "capacity": 80,
-          "course": "CELL 201"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "12:30 - 13:50",
           "location": "MEC 2-3",
@@ -37260,67 +33761,11 @@
           "course": "MATH 334"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (WF)",
-          "time": "12:00 - 13:20",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 340A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (M)",
-          "time": "12:00 - 12:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 340A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (WF)",
-          "time": "12:00 - 13:20",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 340B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (M)",
-          "time": "12:00 - 12:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 340B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 360A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 360B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "09:30 - 10:50",
           "location": "MEC 2-3",
           "capacity": 120,
           "course": "MEC_E 362"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 362A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "09:30 - 10:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 362B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
@@ -37335,76 +33780,6 @@
           "location": "MEC 2-3",
           "capacity": 55,
           "course": "MEC_E 371"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "11:00 - 11:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 371A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "11:00 - 11:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 371B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "08:00 - 09:20",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 380A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (F)",
-          "time": "11:00 - 11:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 380A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "08:00 - 09:20",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 380B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (F)",
-          "time": "11:00 - 11:50",
-          "location": "MEC 2-3",
-          "capacity": 90,
-          "course": "MEC_E 380B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "11:00 - 12:20",
-          "location": "MEC 2-3",
-          "capacity": 70,
-          "course": "MEC_E 390A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "11:00 - 12:20",
-          "location": "MEC 2-3",
-          "capacity": 70,
-          "course": "MEC_E 390B"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "09:00 - 09:50",
-          "location": "MEC 2-3",
-          "capacity": 80,
-          "course": "MEC_E 403A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "09:00 - 09:50",
-          "location": "MEC 2-3",
-          "capacity": 80,
-          "course": "MEC_E 403B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -37486,34 +33861,6 @@
           "course": "MATH 160"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "MEC 2-1",
-          "capacity": 50,
-          "course": "MEC_E 250A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 14:50",
-          "location": "MEC 2-1",
-          "capacity": 50,
-          "course": "MEC_E 250A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "10:00 - 10:50",
-          "location": "MEC 2-1",
-          "capacity": 50,
-          "course": "MEC_E 250B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 14:50",
-          "location": "MEC 2-1",
-          "capacity": 50,
-          "course": "MEC_E 250B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "12:30 - 13:20",
           "location": "MEC 2-1",
@@ -37526,20 +33873,6 @@
           "location": "MEC 2-1",
           "capacity": 110,
           "course": "MEC_E 300"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "11:00 - 11:50",
-          "location": "MEC 2-1",
-          "capacity": 66,
-          "course": "MEC_E 301A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "11:00 - 11:50",
-          "location": "MEC 2-1",
-          "capacity": 66,
-          "course": "MEC_E 301B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
@@ -37563,39 +33896,11 @@
           "course": "MEC_E 380"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "MEC 2-1",
-          "capacity": 54,
-          "course": "MEC_E 420A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (TR)",
-          "time": "12:30 - 13:50",
-          "location": "MEC 2-1",
-          "capacity": 54,
-          "course": "MEC_E 420B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "MEC 2-1",
           "capacity": 110,
           "course": "MEC_E 451"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (MWF)",
-          "time": "13:00 - 13:50",
-          "location": "MEC 2-1",
-          "capacity": 75,
-          "course": "MEC_E 537A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (MWF)",
-          "time": "13:00 - 13:50",
-          "location": "MEC 2-1",
-          "capacity": 75,
-          "course": "MEC_E 537B"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -38355,20 +34660,6 @@
           "course": "MEC_E 265"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-3",
-          "capacity": 60,
-          "course": "MEC_E 265A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-3",
-          "capacity": 60,
-          "course": "MEC_E 265B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "08:30 - 09:20",
           "location": "MEC 3-3",
@@ -38450,20 +34741,6 @@
           "course": "MEC_E 265"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-28",
-          "capacity": 60,
-          "course": "MEC_E 265A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-28",
-          "capacity": 60,
-          "course": "MEC_E 265B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "08:30 - 09:20",
           "location": "MEC 3-28",
@@ -38527,48 +34804,6 @@
           "location": "MEC 3-10",
           "capacity": 23,
           "course": "MEC_E 301"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-10",
-          "capacity": 22,
-          "course": "MEC_E 301A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-10",
-          "capacity": 22,
-          "course": "MEC_E 301A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-10",
-          "capacity": 22,
-          "course": "MEC_E 301A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-10",
-          "capacity": 22,
-          "course": "MEC_E 301B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-10",
-          "capacity": 22,
-          "course": "MEC_E 301B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 3-10",
-          "capacity": 22,
-          "course": "MEC_E 301B"
         }
       ],
       "MEC 4-19": [
@@ -38606,48 +34841,6 @@
           "location": "MEC 4-19",
           "capacity": 18,
           "course": "MEC_E 420"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 4-19",
-          "capacity": 18,
-          "course": "MEC_E 420A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (W)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 4-19",
-          "capacity": 18,
-          "course": "MEC_E 420A"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-30 (R)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 4-19",
-          "capacity": 18,
-          "course": "MEC_E 420A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (T)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 4-19",
-          "capacity": 18,
-          "course": "MEC_E 420B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (W)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 4-19",
-          "capacity": 18,
-          "course": "MEC_E 420B"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (R)",
-          "time": "14:00 - 16:50",
-          "location": "MEC 4-19",
-          "capacity": 18,
-          "course": "MEC_E 420B"
         }
       ]
     }
@@ -39106,20 +35299,6 @@
           "course": "MEC_E 260"
         },
         {
-          "dates": "2025-05-05 - 2025-06-30 (M)",
-          "time": "14:00 - 16:50",
-          "location": "ECERF W2-110",
-          "capacity": 60,
-          "course": "MEC_E 260A"
-        },
-        {
-          "dates": "2025-07-01 - 2025-08-01 (M)",
-          "time": "14:00 - 16:50",
-          "location": "ECERF W2-110",
-          "capacity": 60,
-          "course": "MEC_E 260B"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "10:00 - 10:50",
           "location": "ECERF W2-110",
@@ -39235,46 +35414,6 @@
           "location": "SJ 103",
           "capacity": 28,
           "course": "PHIL 359"
-        }
-      ]
-    }
-  },
-  "ENT": {
-    "coordinates": {
-      "latitude": 53.5412368,
-      "longitude": -113.4992844
-    },
-    "rooms": {
-      "ENT 2-570E": [
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "08:30 - 11:30",
-          "location": "ENT 2-570E",
-          "capacity": 20,
-          "course": "COMM 501"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "13:30 - 16:20",
-          "location": "ENT 2-570E",
-          "capacity": 20,
-          "course": "COMM 506"
-        }
-      ],
-      "ENT 2-590G": [
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "13:30 - 16:20",
-          "location": "ENT 2-590G",
-          "capacity": 24,
-          "course": "COMM 502"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "08:30 - 11:30",
-          "location": "ENT 2-590G",
-          "capacity": 24,
-          "course": "COMM 503"
         }
       ]
     }
@@ -39599,13 +35738,6 @@
           "location": "CH 2-39",
           "capacity": 98,
           "course": "OCCTH 584"
-        },
-        {
-          "dates": "2025-08-01 - 2025-08-29 (MTWRF)",
-          "time": "09:00 - 10:50",
-          "location": "CH 2-39",
-          "capacity": 125,
-          "course": "PTHER 516"
         }
       ],
       "CH 3-07": [
@@ -39626,27 +35758,6 @@
       ],
       "CH 2-41": [
         {
-          "dates": "2025-06-23 - 2025-07-25 (M)",
-          "time": "08:00 - 09:50",
-          "location": "CH 2-41",
-          "capacity": 82,
-          "course": "PTHER 527"
-        },
-        {
-          "dates": "2025-07-07 - 2025-07-25 (F)",
-          "time": "08:00 - 09:50",
-          "location": "CH 2-41",
-          "capacity": 82,
-          "course": "PTHER 527"
-        },
-        {
-          "dates": "2025-06-23 - 2025-07-25 (W)",
-          "time": "08:00 - 09:50",
-          "location": "CH 2-41",
-          "capacity": 82,
-          "course": "PTHER 527"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-17 (W)",
           "time": "12:30 - 13:50",
           "location": "CH 2-41",
@@ -39659,27 +35770,6 @@
           "location": "CH 2-41",
           "capacity": 88,
           "course": "PTHER 572"
-        },
-        {
-          "dates": "2025-06-23 - 2025-07-25 (MW)",
-          "time": "10:00 - 11:50",
-          "location": "CH 2-41",
-          "capacity": 82,
-          "course": "PTHER 578"
-        },
-        {
-          "dates": "2025-07-07 - 2025-07-25 (F)",
-          "time": "10:00 - 11:50",
-          "location": "CH 2-41",
-          "capacity": 82,
-          "course": "PTHER 578"
-        },
-        {
-          "dates": "2025-06-23 - 2025-07-25 (T)",
-          "time": "10:00 - 11:50",
-          "location": "CH 2-41",
-          "capacity": 82,
-          "course": "PTHER 578"
         }
       ],
       "CH 1-10": [
@@ -39892,13 +35982,6 @@
           "course": "DES 303"
         },
         {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "IND 1-02",
-          "capacity": 5,
-          "course": "DES 338"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MW)",
           "time": "14:00 - 16:50",
           "location": "IND 1-02",
@@ -39918,20 +36001,6 @@
           "location": "IND 1-02",
           "capacity": 12,
           "course": "DES 403"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "IND 1-02",
-          "capacity": 5,
-          "course": "DES 438"
-        },
-        {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 14:00",
-          "location": "IND 1-02",
-          "capacity": 5,
-          "course": "DES 538"
         }
       ],
       "IND 10": [
@@ -40027,13 +36096,6 @@
           "course": "EASIA 461"
         },
         {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "09:00 - 11:50",
-          "location": "A 141",
-          "capacity": 40,
-          "course": "ENGL 103"
-        },
-        {
           "dates": "2025-01-06 - 2025-04-09 (MWF)",
           "time": "11:00 - 11:50",
           "location": "A 141",
@@ -40050,34 +36112,6 @@
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
           "time": "11:00 - 12:20",
-          "location": "A 141",
-          "capacity": 50,
-          "course": "FS 100"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MWF)",
-          "time": "09:30 - 11:25",
-          "location": "A 141",
-          "capacity": 50,
-          "course": "FS 100"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (MW)",
-          "time": "12:00 - 14:25",
-          "location": "A 141",
-          "capacity": 50,
-          "course": "FS 100"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MWF)",
-          "time": "09:30 - 11:25",
-          "location": "A 141",
-          "capacity": 50,
-          "course": "FS 100"
-        },
-        {
-          "dates": "2025-07-07 - 2025-08-13 (MW)",
-          "time": "12:00 - 14:25",
           "location": "A 141",
           "capacity": 50,
           "course": "FS 100"
@@ -40270,13 +36304,6 @@
     },
     "rooms": {
       "TC 113": [
-        {
-          "dates": "2025-05-26 - 2025-06-11 (MTWR)",
-          "time": "09:00 - 11:50",
-          "location": "TC 113",
-          "capacity": 30,
-          "course": "DRAMA 149"
-        },
         {
           "dates": "2025-01-06 - 2025-04-09 (T)",
           "time": "09:30 - 10:50",
@@ -40532,13 +36559,6 @@
     "rooms": {
       "SAV CLASS 1": [
         {
-          "dates": "2025-05-05 - 2025-05-23 (MTWRF)",
-          "time": "09:00 - 11:30",
-          "location": "SAV CLASS 1",
-          "capacity": 30,
-          "course": "EDSE 401"
-        },
-        {
           "dates": "2025-01-06 - 2025-02-07 (MTWR)",
           "time": "09:00 - 12:50",
           "location": "SAV CLASS 1",
@@ -40735,13 +36755,6 @@
           "location": "HEB 3-01",
           "capacity": 25,
           "course": "HECOL 408"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (WF)",
-          "time": "09:00 - 11:50",
-          "location": "HEB 3-01",
-          "capacity": 20,
-          "course": "HECOL 413"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",
@@ -41394,13 +37407,6 @@
           "location": "LC 197",
           "capacity": 30,
           "course": "LAW 582"
-        },
-        {
-          "dates": "2025-05-05 - 2025-06-11 (TR)",
-          "time": "17:00 - 20:00",
-          "location": "LC 197",
-          "capacity": 20,
-          "course": "LAW 589"
         },
         {
           "dates": "2025-01-06 - 2025-04-09 (TR)",

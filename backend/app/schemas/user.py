@@ -8,7 +8,6 @@ class UserCreate(BaseModel):
     username: str
     password: str
     re_password: str
-    active: bool = True
     share_profile: bool = True
     education_level: Literal["Undergraduate", "Graduate"] = None
 
@@ -18,6 +17,14 @@ class UserCreate(BaseModel):
         if isinstance(value, str):
             return value.strip()
         return value
+
+    @field_validator("email", mode="before")
+    @classmethod
+    def validate_email_domain(cls, email: str):
+        email = email.strip()
+        if not email.endswith("@ualberta.ca"):
+            raise ValueError("Only @ualberta.ca emails are allowed.")
+        return email
 
     @field_validator("password", mode="after")
     @classmethod

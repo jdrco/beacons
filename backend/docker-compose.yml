@@ -7,12 +7,15 @@ services:
       - ./app:/code/app
       - ./migrations:/code/migrations
       - ./alembic.ini:/code/alembic.ini
+      - ./room_program_data:/code/room_program_data
     depends_on:
       - db
     env_file:
       - .env
     command: >
-      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+      sh -c "alembic upgrade head &&
+             python room_program_data/db_room.py &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
 
   db:
     image: postgres:15

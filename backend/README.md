@@ -12,7 +12,6 @@ docker exec backend_db_1 psql -U postgres -d postgres -c "TRUNCATE TABLE users, 
 
 ## Generate new db if something change in app/models/*
 ```
-docker compose exec web alembic revision --autogenerate
 docker compose exec web alembic upgrade head
 ```
 
@@ -21,4 +20,3 @@ docker compose exec web alembic upgrade head
 docker exec backend-db-1 psql -U postgres -d postgres -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 docker exec backend_db_1 psql -U postgres -d postgres -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 ```
-

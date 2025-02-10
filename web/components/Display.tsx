@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Map from "./Map";
 
 interface Coordinates {
   latitude: number;
@@ -162,15 +163,14 @@ export default function RoomBooking() {
 
   return (
     <div className="flex w-screen gap-4 p-4">
-      <div className="h-full bg-gray-100 rounded-lg mb-4 flex items-center justify-center text-gray-700 w-2/3">
-        Map Coming Soon
-        {selectedBuilding && buildingData[selectedBuilding] && (
-          <div className="ml-2">
-            Selected: {selectedBuilding} (
-            {buildingData[selectedBuilding].coordinates.latitude.toFixed(6)},
-            {buildingData[selectedBuilding].coordinates.longitude.toFixed(6)})
-          </div>
-        )}
+      <div className="h-full w-2/3">
+        <Map
+          buildingData={buildingData}
+          isBuildingAvailable={isBuildingAvailable}
+          onBuildingClick={setSelectedBuilding}
+          selectedBuilding={selectedBuilding}
+          className="w-full h-full rounded-2xl"
+        />
       </div>
       <div className="w-1/3 h-full overflow-hidden">
         <Accordion

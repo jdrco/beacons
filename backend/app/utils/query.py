@@ -10,10 +10,15 @@ def filter_query(
     filters: Optional[List[Any]] = None,
     order_by: Optional[List] = None,
     limit: Optional[int] = None,
-    offset: Optional[int] = None
+    offset: Optional[int] = None,
+    join_models: Optional[List[Type[ModelType]]] = None
 ) -> List[ModelType]:
 
     query_obj = db.query(model)
+
+    if join_models:
+        for join_model in join_models:
+            query_obj = query_obj.join(join_model)
 
     if filters:
         query_obj = query_obj.filter(and_(*filters))

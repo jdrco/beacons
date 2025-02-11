@@ -6,7 +6,7 @@ docker compose up --build
 ```
 ## When starting fresh, ensure DB is cleared
 ```
-docker exec backend-db-1 psql -U postgres -d postgres -c "TRUNCATE TABLE users, cookies RESTART IDENTITY;"
+docker exec backend-db-1 psql -U postgres -d postgres -c "TRUNCATE TABLE users, cookies, user_favorite_rooms, rooms, room_schedules, single_event_schedules RESTART IDENTITY;"
 docker exec backend_db_1 psql -U postgres -d postgres -c "TRUNCATE TABLE users, cookies RESTART IDENTITY;"
 ```
 

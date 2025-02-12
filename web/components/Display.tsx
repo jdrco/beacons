@@ -232,8 +232,8 @@ export default function RoomBooking() {
   };
 
   return (
-    <div className="flex flex-col h-full w-full gap-4 max-h-screen overflow-hidden">
-      <div className="flex flex-col md:flex-row w-full gap-4">
+    <div className="flex flex-col h-full w-full gap-2 md:gap-4 max-h-screen overflow-hidden">
+      <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
         <div className="md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
         </div>
@@ -241,11 +241,11 @@ export default function RoomBooking() {
           <img
             src="/beacons_logo.svg"
             alt="Beacons Logo"
-            className="next-image-unconstrained md:h-10 h-6"
+            className="hidden md:block next-image-unconstrained md:h-10 h-6"
           />
         </div>
       </div>
-      <div className="h-full w-full flex flex-col md:flex-row gap-4 min-h-0">
+      <div className="h-full w-full flex flex-col md:flex-row gap-2 md:gap-4 min-h-0">
         <Map
           buildingData={buildingData}
           isRoomAvailable={isRoomAvailable}

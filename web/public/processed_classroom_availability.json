@@ -1,8 +1,8 @@
 {
   "T": {
     "coordinates": {
-      "latitude": 53.528183,
-      "longitude": -113.5263297
+      "latitude": 53.527772,
+      "longitude": -113.521627
     },
     "rooms": {
       "T LB-002": [
@@ -3554,8 +3554,8 @@
   },
   "CCIS": {
     "coordinates": {
-      "latitude": 53.5281606,
-      "longitude": -113.5283164
+      "latitude": 53.528358,
+      "longitude": -113.525966
     },
     "rooms": {
       "CCIS 1-430": [
@@ -7841,8 +7841,8 @@
   },
   "HC": {
     "coordinates": {
-      "latitude": 53.5271716,
-      "longitude": -113.5245215
+      "latitude": 53.527172,
+      "longitude": -113.519593
     },
     "rooms": {
       "HC L1-L1": [
@@ -9808,8 +9808,8 @@
   },
   "BUS": {
     "coordinates": {
-      "latitude": 53.5273529,
-      "longitude": -113.5244589
+      "latitude": 53.527437,
+      "longitude": -113.521809
     },
     "rooms": {
       "BUS 2-09": [
@@ -11697,8 +11697,8 @@
   },
   "ESB": {
     "coordinates": {
-      "latitude": 53.5281184,
-      "longitude": -113.5259896
+      "latitude": 53.528167,
+      "longitude": -113.523467
     },
     "rooms": {
       "ESB 2-36": [
@@ -12401,8 +12401,8 @@
   },
   "CSJ": {
     "coordinates": {
-      "latitude": 53.5205431,
-      "longitude": -113.4706278
+      "latitude": 53.52163,
+      "longitude": -113.468835
     },
     "rooms": {
       "CSJ MCM 1-85": [
@@ -13490,8 +13490,8 @@
   },
   "CSC": {
     "coordinates": {
-      "latitude": 53.5267622,
-      "longitude": -113.529726
+      "latitude": 53.526927,
+      "longitude": -113.527259
     },
     "rooms": {
       "CSC B-10": [
@@ -14264,8 +14264,8 @@
   },
   "AF": {
     "coordinates": {
-      "latitude": 53.5261117,
-      "longitude": -113.5305318
+      "latitude": 53.526152,
+      "longitude": -113.52771
     },
     "rooms": {
       "AF 1-06A": [
@@ -14613,8 +14613,8 @@
   },
   "NRE": {
     "coordinates": {
-      "latitude": 53.5267813,
-      "longitude": -113.5316913
+      "latitude": 53.526726,
+      "longitude": -113.529979
     },
     "rooms": {
       "NRE 1-143": [
@@ -16550,8 +16550,8 @@
   },
   "GSB": {
     "coordinates": {
-      "latitude": 53.526011,
-      "longitude": -113.5320078
+      "latitude": 53.526142,
+      "longitude": -113.529437
     },
     "rooms": {
       "GSB 7-11": [
@@ -17438,8 +17438,8 @@
   },
   "ECHA": {
     "coordinates": {
-      "latitude": 53.5208892,
-      "longitude": -113.5290237
+      "latitude": 53.521607,
+      "longitude": -113.526508
     },
     "rooms": {
       "ECHA 1-420": [
@@ -19342,8 +19342,8 @@
   },
   "AFDP": {
     "coordinates": {
-      "latitude": 53.4980234,
-      "longitude": -113.5386785
+      "latitude": 53.498202,
+      "longitude": -113.535998
     },
     "rooms": {
       "AFDP 1 206": [
@@ -19366,8 +19366,8 @@
   },
   "VVC": {
     "coordinates": {
-      "latitude": 53.5240517,
-      "longitude": -113.5300049
+      "latitude": 53.524069,
+      "longitude": -113.527012
     },
     "rooms": {
       "VVC 2-215": [
@@ -20246,8 +20246,8 @@
   },
   "CAB": {
     "coordinates": {
-      "latitude": 53.526591,
-      "longitude": -113.5273451
+      "latitude": 53.52662,
+      "longitude": -113.524786
     },
     "rooms": {
       "CAB 357": [
@@ -22280,8 +22280,8 @@
   },
   "SAB": {
     "coordinates": {
-      "latitude": 53.5256403,
-      "longitude": -113.5272998
+      "latitude": 53.525865,
+      "longitude": -113.524663
     },
     "rooms": {
       "SAB 3-21": [
@@ -22850,8 +22850,8 @@
   },
   "C": {
     "coordinates": {
-      "latitude": 53.5275644,
-      "longitude": -113.5246544
+      "latitude": 53.527217,
+      "longitude": -113.524421
     },
     "rooms": {
       "C E5-36": [
@@ -23334,8 +23334,8 @@
   },
   "TEL": {
     "coordinates": {
-      "latitude": 53.5610024,
-      "longitude": -113.5662057
+      "latitude": 53.523419,
+      "longitude": -113.518574
     },
     "rooms": {
       "TEL 150": [
@@ -23407,8 +23407,8 @@
   },
   "FAB": {
     "coordinates": {
-      "latitude": 53.5243694,
-      "longitude": -113.5226442
+      "latitude": 53.524369,
+      "longitude": -113.520001
     },
     "rooms": {
       "FAB 2-020": [
@@ -24817,8 +24817,8 @@
   },
   "HUB": {
     "coordinates": {
-      "latitude": 53.5262123,
-      "longitude": -113.5232794
+      "latitude": 53.526139,
+      "longitude": -113.520355
     },
     "rooms": {
       "HUB 161": [
@@ -24952,8 +24952,8 @@
   },
   "NPP": {
     "coordinates": {
-      "latitude": 53.5259855,
-      "longitude": -113.5259457
+      "latitude": 53.52605,
+      "longitude": -113.523306
     },
     "rooms": {
       "NPP 3-10": [
@@ -25027,8 +25027,8 @@
   },
   "ED": {
     "coordinates": {
-      "latitude": 53.5238238,
-      "longitude": -113.5256753
+      "latitude": 53.523278,
+      "longitude": -113.523467
     },
     "rooms": {
       "ED 155B": [
@@ -27479,8 +27479,8 @@
   },
   "AU": {
     "coordinates": {
-      "latitude": 53.0116908,
-      "longitude": -112.8267491
+      "latitude": 53.011196,
+      "longitude": -112.823035
     },
     "rooms": {
       "AU RS 024": [
@@ -29252,8 +29252,8 @@
   },
   "ETLC": {
     "coordinates": {
-      "latitude": 53.5271027,
-      "longitude": -113.5314424
+      "latitude": 53.527411,
+      "longitude": -113.528783
     },
     "rooms": {
       "ETLC E1-001": [
@@ -31058,8 +31058,8 @@
   },
   "MS": {
     "coordinates": {
-      "latitude": 53.5220293,
-      "longitude": -113.5268865
+      "latitude": 53.522057,
+      "longitude": -113.52432
     },
     "rooms": {
       "MS 5-98": [
@@ -31785,8 +31785,8 @@
   },
   "BS": {
     "coordinates": {
-      "latitude": 53.5289175,
-      "longitude": -113.5285776
+      "latitude": 53.52898,
+      "longitude": -113.526374
     },
     "rooms": {
       "BS CW-110": [
@@ -33577,8 +33577,8 @@
   },
   "CL": {
     "coordinates": {
-      "latitude": 53.5267097,
-      "longitude": -113.5262003
+      "latitude": 53.526783,
+      "longitude": -113.523708
     },
     "rooms": {
       "CL 1-30": [
@@ -33629,8 +33629,8 @@
   },
   "SS": {
     "coordinates": {
-      "latitude": 53.523952,
-      "longitude": -113.5240518
+      "latitude": 53.523976,
+      "longitude": -113.521452
     },
     "rooms": {
       "SS 101": [
@@ -33713,8 +33713,8 @@
   },
   "MEC": {
     "coordinates": {
-      "latitude": 53.5277398,
-      "longitude": -113.5327995
+      "latitude": 53.527715,
+      "longitude": -113.527898
     },
     "rooms": {
       "MEC 2-3": [
@@ -34847,8 +34847,8 @@
   },
   "ECERF": {
     "coordinates": {
-      "latitude": 53.5272057,
-      "longitude": -113.5326525
+      "latitude": 53.527289,
+      "longitude": -113.53007
     },
     "rooms": {
       "ECERF W2-090": [
@@ -35324,8 +35324,8 @@
   },
   "SJ": {
     "coordinates": {
-      "latitude": 53.5244978,
-      "longitude": -113.5271972
+      "latitude": 53.524506,
+      "longitude": -113.524577
     },
     "rooms": {
       "SJ 102": [
@@ -35420,8 +35420,8 @@
   },
   "CH": {
     "coordinates": {
-      "latitude": 53.5181154,
-      "longitude": -113.5263009
+      "latitude": 53.518124,
+      "longitude": -113.523531
     },
     "rooms": {
       "CH 2-07": [
@@ -35925,8 +35925,8 @@
   },
   "IND": {
     "coordinates": {
-      "latitude": 53.5252683,
-      "longitude": -113.5310851
+      "latitude": 53.52531,
+      "longitude": -113.528466
     },
     "rooms": {
       "IND 12": [
@@ -36046,8 +36046,8 @@
   },
   "A": {
     "coordinates": {
-      "latitude": 53.5267117,
-      "longitude": -113.5275745
+      "latitude": 53.52685,
+      "longitude": -113.522313
     },
     "rooms": {
       "A 112": [
@@ -36299,8 +36299,8 @@
   },
   "TC": {
     "coordinates": {
-      "latitude": 53.5235073,
-      "longitude": -113.5225922
+      "latitude": 53.523565,
+      "longitude": -113.519872
     },
     "rooms": {
       "TC 113": [
@@ -36418,8 +36418,8 @@
   },
   "PB": {
     "coordinates": {
-      "latitude": 53.5259238,
-      "longitude": -113.5292309
+      "latitude": 53.525798,
+      "longitude": -113.526637
     },
     "rooms": {
       "PB 3-58": [
@@ -36553,8 +36553,8 @@
   },
   "SAV": {
     "coordinates": {
-      "latitude": 53.5259238,
-      "longitude": -113.5292309
+      "latitude": 53.502217,
+      "longitude": -113.5325
     },
     "rooms": {
       "SAV CLASS 1": [
@@ -36570,8 +36570,8 @@
   },
   "ASH": {
     "coordinates": {
-      "latitude": 53.5274538,
-      "longitude": -113.5292454
+      "latitude": 53.52746,
+      "longitude": -113.526642
     },
     "rooms": {
       "ASH 4-70": [
@@ -36691,8 +36691,8 @@
   },
   "HEB": {
     "coordinates": {
-      "latitude": 53.5253703,
-      "longitude": -113.5328951
+      "latitude": 53.525386,
+      "longitude": -113.530371
     },
     "rooms": {
       "HEB B-10": [
@@ -36858,8 +36858,8 @@
   },
   "HMR": {
     "coordinates": {
-      "latitude": 53.5225163,
-      "longitude": -113.5251829
+      "latitude": 53.522583,
+      "longitude": -113.522834
     },
     "rooms": {
       "HMR 652": [
@@ -36924,8 +36924,8 @@
   },
   "CS": {
     "coordinates": {
-      "latitude": 53.5197678,
-      "longitude": -113.5283016
+      "latitude": 53.519757,
+      "longitude": -113.523316
     },
     "rooms": {
       "CS 10-120": [
@@ -37071,8 +37071,8 @@
   },
   "LC": {
     "coordinates": {
-      "latitude": 53.5243969,
-      "longitude": -113.5214651
+      "latitude": 53.524286,
+      "longitude": -113.518569
     },
     "rooms": {
       "LC 231A": [
@@ -37798,8 +37798,8 @@
   },
   "CON": {
     "coordinates": {
-      "latitude": 53.5267118,
-      "longitude": -113.5252893
+      "latitude": 53.01228,
+      "longitude": -112.823474
     },
     "rooms": {
       "CON HALL": [
@@ -37829,8 +37829,8 @@
   },
   "KATZ": {
     "coordinates": {
-      "latitude": 53.522458,
-      "longitude": -113.526968
+      "latitude": 53.522577,
+      "longitude": -113.524845
     },
     "rooms": {
       "KATZ 7-003": [
@@ -37846,8 +37846,8 @@
   },
   "RS": {
     "coordinates": {
-      "latitude": 53.525895,
-      "longitude": -113.5241571
+      "latitude": 53.525651,
+      "longitude": -113.521659
     },
     "rooms": {
       "RS 2-03": [

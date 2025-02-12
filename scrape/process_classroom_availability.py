@@ -1,4 +1,5 @@
 import json
+import requests
 import re
 import logging
 from datetime import datetime
@@ -82,36 +83,83 @@ def filter_schedules(data):
 
     return filtered_data
 
-def parse_coordinates(buildings_file):
-    """Parse the buildings.txt file to extract building codes and their coordinates."""
+def fetch_coordinates():
+    """
+    Fetch and parse building coordinates from UAlberta maps API.
+    
+    Returns:
+        dict: Dictionary mapping building codes to their coordinates
+    """
+    url = 'https://www.ualberta.ca/api/maps/0/2048'
     coordinates = {}
-    with open(buildings_file, 'r') as file:
-        for line in file:
-            # Skip lines that don't contain building information
-            if not line.strip() or line.startswith('==='):
+    
+    try:
+        response = requests.get(url)
+        data = response.json()
+        
+        for building in data['data']['Labels']:
+            # Skip empty building names
+            if not building.get('Name'):
+                continue
+                
+            # Clean building name and extract abbreviation
+            name = re.sub(r'\u003Cbr\/\u003E', ' ', building['Name']).strip()
+            
+            # Skip if name is empty after cleaning
+            if not name:
                 continue
             
-            # Extract building code and coordinates using regex
-            match = re.match(r'-\s+(\w+)\s+@?([@\d.,\-]+)?', line.strip())
-            if match:
-                building_code, coords = match.groups()
-                if coords:
-                    # Clean up coordinates and convert to list of floats
-                    coords = coords.strip('@').split(',')
-                    try:
-                        lat, lon = map(float, coords)
-                        coordinates[building_code] = {'latitude': lat, 'longitude': lon}
-                    except ValueError:
-                        # Handle malformed coordinates
-                        coordinates[building_code] = None
-                else:
-                    # Handle buildings without coordinates (like 'TBD' or 'ONLINE')
-                    coordinates[building_code] = None
-    
-    return coordinates
+            # Try to get abbreviation from parentheses first
+            abbr_match = re.search(r'\(([^)]+)\)$', name)
+            if abbr_match:
+                building_code = abbr_match.group(1).strip()
+            else:
+                # If no parentheses, take first word and clean it
+                words = name.split()
+                if not words:  # Skip if no words after splitting
+                    continue
+                building_code = words[0].strip().upper()
+                
+                # Skip if building code is empty after cleaning
+                if not building_code:
+                    continue
+            
+            # Store coordinates
+            coordinates[building_code] = {
+                'latitude': building['Coords']['lat'],
+                'longitude': building['Coords']['lng']
+            }
+            
+            # Debug print to see what's being processed
+            logger.debug(f"Processed building: {name} -> {building_code}")
+        
+        return coordinates
+        
+    except requests.RequestException as e:
+        logger.error(f"Error fetching building data from API: {e}")
+        return {}
+    except json.JSONDecodeError as e:
+        logger.error(f"Error parsing JSON response: {e}")
+        return {}
+    except Exception as e:
+        logger.error(f"Unexpected error while parsing coordinates: {e}")
+        return {}
 
+# TODO: Fix when no matching key, results in null coordinate
 def group_by_building(data, coordinates):
-    """Group classroom data by building and add coordinates."""
+    """
+    Group classroom data by building and add coordinates.
+    
+    Args:
+        data (dict): Dictionary of rooms and their schedules
+        coordinates (dict): Dictionary of building codes mapping to coordinate data
+            Example format: {
+                'CAB': {'latitude': 53.5264, 'longitude': -113.5276}
+            }
+    
+    Returns:
+        dict: Grouped data by building with coordinates
+    """
     grouped = {}
     
     for room, schedules in data.items():
@@ -120,19 +168,90 @@ def group_by_building(data, coordinates):
         
         # Initialize dict for building if it doesn't exist
         if building not in grouped:
+            building_coords = coordinates.get(building)
+            if building_coords:
+                coords = {
+                    'latitude': building_coords['latitude'],
+                    'longitude': building_coords['longitude']
+                }
+            else:
+                coords = None
+                
             grouped[building] = {
-                'coordinates': coordinates.get(building),
+                'coordinates': coords,
                 'rooms': {}
             }
             
         # Add the room data under the building's rooms
         grouped[building]['rooms'][room] = schedules
-        
+    
     return grouped
+
+def fetch_coordinates():
+    """
+    Fetch and parse building coordinates from UAlberta maps API.
+    
+    Returns:
+        dict: Dictionary mapping building codes to their coordinates
+    """
+    url = 'https://www.ualberta.ca/api/maps/0/2048'
+    coordinates = {}
+    
+    try:
+        response = requests.get(url)
+        data = response.json()
+        
+        for building in data['data']['Labels']:
+            # Skip empty building names
+            if not building.get('Name'):
+                continue
+                
+            # Clean building name and extract abbreviation
+            name = re.sub(r'\u003Cbr\/\u003E', ' ', building['Name']).strip()
+            
+            # Skip if name is empty after cleaning
+            if not name:
+                continue
+            
+            # Try to get abbreviation from parentheses first
+            abbr_match = re.search(r'\(([^)]+)\)$', name)
+            if abbr_match:
+                building_code = abbr_match.group(1).strip()
+            else:
+                # If no parentheses, take first word and clean it
+                words = name.split()
+                if not words:  # Skip if no words after splitting
+                    continue
+                building_code = words[0].strip().upper()
+                
+                # Skip if building code is empty after cleaning
+                if not building_code:
+                    continue
+            
+            # Store coordinates
+            coordinates[building_code] = {
+                'latitude': building['Coords']['lat'],
+                'longitude': building['Coords']['lng']
+            }
+            
+            # Debug print to see what's being processed
+            logger.debug(f"Processed building: {name} -> {building_code}")
+        
+        return coordinates
+        
+    except requests.RequestException as e:
+        logger.error(f"Error fetching building data from API: {e}")
+        return {}
+    except json.JSONDecodeError as e:
+        logger.error(f"Error parsing JSON response: {e}")
+        return {}
+    except Exception as e:
+        logger.error(f"Unexpected error while parsing coordinates: {e}")
+        return {}
 
 def main():
     # Read the coordinates
-    building_coords = parse_coordinates('building_coordinates.txt')
+    building_coords = fetch_coordinates()
     
     # Read the classroom availability JSON file
     with open('output/raw_classroom_availability.json', 'r') as file:
@@ -145,7 +264,7 @@ def main():
     grouped_data = group_by_building(filtered_data, building_coords)
     
     # Write the grouped data to a new JSON file
-    with open('output/processed_classroom_availability_winter_0210_1.json', 'w') as file:
+    with open('output/processed_classroom_availability_winter_0212.json', 'w') as file:
         json.dump(grouped_data, file, indent=2)
 
 if __name__ == '__main__':

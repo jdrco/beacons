@@ -1,10 +1,26 @@
 "use client";
+
 import { useState } from "react";
 import { Filter, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+export default function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState("");
+
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    onSearch(newQuery);
+  };
+
+  const handleClear = () => {
+    setQuery("");
+    onSearch("");
+  };
 
   return (
     <div className="bg-[#1a1f23] flex">
@@ -14,15 +30,15 @@ export default function SearchBar() {
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Filter a building or classroom"
+            onChange={handleQueryChange}
+            placeholder="Filter by building or classroom"
             className={cn(
               "h-12 md:h-16 w-full bg-transparent pl-16 pr-12 text-white placeholder:text-gray-500",
               "focus:outline-none focus:ring-0"
             )}
           />
           <button
-            onClick={() => setQuery("")}
+            onClick={handleClear}
             className={cn(
               "absolute right-6 rounded-full p-1 text-gray-400 transition-opacity",
               "hover:text-gray-300",

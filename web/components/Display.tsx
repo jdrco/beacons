@@ -43,6 +43,40 @@ export default function RoomBooking() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter buildings and rooms based on search query
+  const filteredBuildingData = buildingData
+    ? Object.entries(buildingData).reduce((acc, [buildingName, building]) => {
+        const matchingRooms = Object.entries(building.rooms).reduce(
+          (roomAcc, [roomName, schedules]) => {
+            if (
+              roomName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              schedules.some((schedule) =>
+                schedule.course
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())
+              )
+            ) {
+              roomAcc[roomName] = schedules;
+            }
+            return roomAcc;
+          },
+          {} as Room
+        );
+
+        if (
+          buildingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          Object.keys(matchingRooms).length > 0
+        ) {
+          acc[buildingName] = {
+            ...building,
+            rooms: matchingRooms,
+          };
+        }
+        return acc;
+      }, {} as BuildingData)
+    : null;
 
   useEffect(() => {
     const fetchBuildingData = async () => {
@@ -166,7 +200,7 @@ export default function RoomBooking() {
     <div className="flex flex-col h-full w-full gap-4 max-h-screen overflow-hidden">
       <div className="flex flex-col md:flex-row w-full gap-4">
         <div className="md:w-2/3 order-last md:order-first">
-          <SearchBar />
+          <SearchBar onSearch={setSearchQuery} />
         </div>
         <div className="order-first md:order-last flex justify-center items-center md:w-1/3">
           <img
@@ -189,7 +223,7 @@ export default function RoomBooking() {
             type="multiple"
             className="space-y-2 w-full h-full overflow-y-auto"
           >
-            {Object.entries(buildingData).map(([buildingName, building]) => (
+            {Object.entries(filteredBuildingData || {}).map(([buildingName, building]) => (
               <AccordionItem
                 key={buildingName}
                 value={buildingName}
@@ -202,33 +236,34 @@ export default function RoomBooking() {
                       selectedBuilding === buildingName ? null : buildingName
                     )
                   }
+                  rightElement={
+                    <div className="flex items-end">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`px-2 py-1 rounded-full text-sm mr-2 ${
+                            isBuildingAvailable(building)
+                              ? "bg-[#4fd1c5] text-black"
+                              : "bg-[#f56565] text-white"
+                          }`}
+                        >
+                          {isBuildingAvailable(building) ? (
+                            <span>free &#x1F440;</span>
+                          ) : (
+                            <span>busy &#9203;</span>
+                          )}
+                        </span>
+                        <span className="text-sm text-gray-400">
+                          {Object.keys(building.rooms).length} rooms
+                        </span>
+                      </div>
+                    </div>
+                  }
                 >
                   <div className="flex items-center gap-3">
                     <Building2 className="w-6 h-6" />
-                    <span className="text-lg">{buildingName}</span>
-                  </div>
-                  <div className="flex items-end">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`px-2 py-1 rounded-full text-sm mr-2 ${
-                          isBuildingAvailable(building)
-                            ? "bg-[#4fd1c5] text-black"
-                            : "bg-[#f56565] text-white"
-                        }`}
-                      >
-                        {isBuildingAvailable(building) ? (
-                          <span>free &#x1F440;</span>
-                        ) : (
-                          <span>busy &#9203;</span>
-                        )}
-                      </span>
-                      <span className="text-sm text-gray-400">
-                        {Object.keys(building.rooms).length} rooms
-                      </span>
-                    </div>
+                    <span className="text-xl">{buildingName}</span>
                   </div>
                 </AccordionTrigger>
-
                 <AccordionContent className="mt-2">
                   <Accordion type="multiple" className="ml-8 space-y-2">
                     {Object.entries(building.rooms).map(
@@ -240,18 +275,9 @@ export default function RoomBooking() {
                             value={roomName}
                             className="border-0"
                           >
-                            <AccordionTrigger className="flex items-center justify-between p-3 rounded-lg hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]">
-                              <div className="flex items-center gap-3">
-                                <div className="w-6 h-6">
-                                  {isAvailable ? (
-                                    <DoorOpen className="stroke-[#4fd1c5]" />
-                                  ) : (
-                                    <DoorClosed className="stroke-[#f56565]" />
-                                  )}
-                                </div>
-                                <span>{roomName}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
+                            <AccordionTrigger
+                              className="flex items-center justify-between p-3 rounded-lg hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+                              rightElement={
                                 <button
                                   onClick={(e) => toggleFavorite(e, roomName)}
                                   className="hover:text-gray-300"
@@ -265,6 +291,17 @@ export default function RoomBooking() {
                                     }
                                   />
                                 </button>
+                              }
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="w-6 h-6">
+                                  {isAvailable ? (
+                                    <DoorOpen className="stroke-[#4fd1c5]" />
+                                  ) : (
+                                    <DoorClosed className="stroke-[#f56565]" />
+                                  )}
+                                </div>
+                                <span className="text-lg">{roomName}</span>
                               </div>
                             </AccordionTrigger>
 

@@ -116,6 +116,9 @@ export default function RoomBooking() {
     // Get current day of week (0 = Sunday, 1 = Monday, etc.)
     const currentDay = now.getDay();
 
+    // const currentTime = 14 * 60 + 30; // 2:30 PM
+    // const currentDay = 3; // Wednesday
+
     // Check each schedule
     for (const schedule of schedules) {
       // Parse the dates
@@ -202,15 +205,23 @@ export default function RoomBooking() {
     return hours * 60 + minutes;
   };
 
-  // Helper function to get the earliest time slot for a room's schedules
-  const getEarliestTime = (schedules: Schedule[]): number => {
-    if (!schedules || schedules.length === 0) return 24 * 60; // Return end of day if no schedules
+  const getAvailabilityColor = (
+    availableRooms: number,
+    totalRooms: number
+  ): string => {
+    const ratio = availableRooms / totalRooms;
+    if (ratio >= 0.5) return "#4AA69D"; // green
+    if (ratio >= 0.25) return "#DDAA5E"; // yellow
+    return "#F66A6A"; // red
+  };
 
-    return Math.min(
-      ...schedules.map((schedule) =>
-        timeToMinutes(schedule.time.split(" - ")[0])
-      )
-    );
+  const getAvailableRoomCount = (
+    building: Building,
+    isRoomAvailable: (schedules: Schedule[]) => boolean
+  ): number => {
+    return Object.values(building.rooms).reduce((count, schedules) => {
+      return count + (isRoomAvailable(schedules) ? 1 : 0);
+    }, 0);
   };
 
   return (
@@ -230,11 +241,12 @@ export default function RoomBooking() {
       <div className="h-full w-full flex flex-col md:flex-row gap-4 min-h-0">
         <Map
           buildingData={buildingData}
-          isBuildingAvailable={isBuildingAvailable}
+          isRoomAvailable={isRoomAvailable}
           onBuildingClick={setSelectedBuilding}
           selectedBuilding={selectedBuilding}
           className="w-full md:w-2/3 h-full rounded-2xl"
         />
+        {/* <div className="bg-red-200 w-full md:w-2/3 h-full rounded-2xl"></div> */}
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
           <Accordion
             type="multiple"
@@ -257,22 +269,28 @@ export default function RoomBooking() {
                     rightElement={
                       <div className="flex items-end">
                         <div className="flex items-center gap-2">
-                          <span
-                            className={`px-2 py-1 rounded-full text-sm mr-2 ${
-                              isBuildingAvailable(building)
-                                ? "bg-[#4fd1c5] text-black"
-                                : "bg-[#f56565] text-white"
-                            }`}
-                          >
-                            {isBuildingAvailable(building) ? (
-                              <span>free &#x1F440;</span>
-                            ) : (
-                              <span>busy &#9203;</span>
-                            )}
-                          </span>
-                          <span className="text-sm text-gray-400">
-                            {Object.keys(building.rooms).length} rooms
-                          </span>
+                          {(() => {
+                            const totalRooms = Object.keys(
+                              building.rooms
+                            ).length;
+                            const availableRooms = getAvailableRoomCount(
+                              building,
+                              isRoomAvailable
+                            );
+                            const backgroundColor = getAvailabilityColor(
+                              availableRooms,
+                              totalRooms
+                            );
+
+                            return (
+                              <span
+                                className="flex justify-center items-center w-16 px-1 rounded-full text-sm mr-2 text-white"
+                                style={{ backgroundColor }}
+                              >
+                                {availableRooms}/{totalRooms}
+                              </span>
+                            );
+                          })()}
                         </div>
                       </div>
                     }
@@ -325,7 +343,7 @@ export default function RoomBooking() {
 
                               <AccordionContent className="mt-2">
                                 <div className="ml-9 space-y-2 text-sm text-gray-300">
-                                  <p className="font-medium">Schedule</p>
+                                  <p className="font-medium">M T W R F</p>
                                   <div className="space-y-2">
                                     {[...schedules]
                                       .sort((a, b) => {
@@ -342,7 +360,6 @@ export default function RoomBooking() {
                                           <p>Course: {schedule.course}</p>
                                           <p>Dates: {schedule.dates}</p>
                                           <p>Time: {schedule.time}</p>
-                                          <p>Capacity: {schedule.capacity}</p>
                                           {index < schedules.length - 1 && (
                                             <hr className="border-gray-700 my-2" />
                                           )}

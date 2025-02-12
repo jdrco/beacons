@@ -98,8 +98,8 @@ const Map = ({
         // Create marker element
         const el = document.createElement("div");
         el.className = "building-marker";
-        el.style.width = "20px";
-        el.style.height = "20px";
+        el.style.width = "15px";
+        el.style.height = "15px";
         el.style.borderRadius = "50%";
         el.style.boxShadow = `0 0 10px ${markerColor}`;
         el.style.backgroundColor = markerColor;

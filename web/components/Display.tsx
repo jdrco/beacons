@@ -1,6 +1,13 @@
 "use client";
 
-import { Heart, Building2, DoorOpen, DoorClosed } from "lucide-react";
+import {
+  Heart,
+  Building2,
+  DoorOpen,
+  DoorClosed,
+  ChevronDown,
+  Plus,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import {
   Accordion,
@@ -248,51 +255,55 @@ export default function RoomBooking() {
         />
         {/* <div className="bg-red-200 w-full md:w-2/3 h-full rounded-2xl"></div> */}
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
-          <Accordion
-            type="multiple"
-            className="space-y-2 w-full h-full overflow-y-auto"
-          >
+          <Accordion type="multiple" className="w-full h-full overflow-y-auto">
             {Object.entries(filteredBuildingData || {}).map(
               ([buildingName, building]) => (
-                <AccordionItem
-                  key={buildingName}
-                  value={buildingName}
-                  className="border-0"
-                >
+                <AccordionItem key={buildingName} value={buildingName}>
                   <AccordionTrigger
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+                    className="flex items-center justify-between px-3 py-5 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
                     onClick={() =>
                       setSelectedBuilding(
                         selectedBuilding === buildingName ? null : buildingName
                       )
                     }
                     rightElement={
-                      <div className="flex items-end">
-                        <div className="flex items-center gap-2">
-                          {(() => {
-                            const totalRooms = Object.keys(
-                              building.rooms
-                            ).length;
-                            const availableRooms = getAvailableRoomCount(
-                              building,
-                              isRoomAvailable
-                            );
-                            const backgroundColor = getAvailabilityColor(
-                              availableRooms,
-                              totalRooms
-                            );
+                      <>
+                        <div className="flex items-end">
+                          <div className="flex items-center gap-2">
+                            {(() => {
+                              const totalRooms = Object.keys(
+                                building.rooms
+                              ).length;
+                              const availableRooms = getAvailableRoomCount(
+                                building,
+                                isRoomAvailable
+                              );
+                              const backgroundColor = getAvailabilityColor(
+                                availableRooms,
+                                totalRooms
+                              );
 
-                            return (
-                              <span
-                                className="flex justify-center items-center w-16 px-1 rounded-full text-sm mr-2 text-white"
-                                style={{ backgroundColor }}
-                              >
-                                {availableRooms}/{totalRooms}
-                              </span>
-                            );
-                          })()}
+                              return (
+                                <span
+                                  className="flex justify-center items-center gap-2 w-20 p-2 rounded-full text-sm text-white"
+                                  style={{ backgroundColor }}
+                                >
+                                  <div className="flex items-center h-4">
+                                    <DoorOpen
+                                      className="h-full w-auto"
+                                      strokeWidth={2}
+                                    />
+                                  </div>
+                                  <span className="leading-4">
+                                    {availableRooms}/{totalRooms}
+                                  </span>
+                                </span>
+                              );
+                            })()}
+                          </div>
                         </div>
-                      </div>
+                        <ChevronDown className="shrink-0 transition-transform duration-200 chevron-icon" />
+                      </>
                     }
                   >
                     <div className="flex items-center gap-3">
@@ -300,39 +311,40 @@ export default function RoomBooking() {
                       <span className="text-xl">{buildingName}</span>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="mt-2">
-                    <Accordion type="multiple" className="ml-8 space-y-2">
+                  <AccordionContent>
+                    <Accordion type="multiple" className="ml-8">
                       {Object.entries(building.rooms).map(
                         ([roomName, schedules]) => {
                           const isAvailable = isRoomAvailable(schedules);
                           return (
-                            <AccordionItem
-                              key={roomName}
-                              value={roomName}
-                              className="border-0"
-                            >
+                            <AccordionItem key={roomName} value={roomName}>
                               <AccordionTrigger
-                                className="flex items-center justify-between p-3 rounded-lg hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+                                className="flex items-center justify-between px-3 py-5 hover:no-underline"
                                 rightElement={
-                                  <button
-                                    onClick={(e) => toggleFavorite(e, roomName)}
-                                    className="hover:text-gray-300"
-                                  >
-                                    <Heart
-                                      size={20}
-                                      fill={
-                                        favorites.includes(roomName)
-                                          ? "currentColor"
-                                          : "none"
+                                  <>
+                                    <button
+                                      onClick={(e) =>
+                                        toggleFavorite(e, roomName)
                                       }
-                                    />
-                                  </button>
+                                      className="hover:text-gray-300"
+                                    >
+                                      <Heart
+                                        size={20}
+                                        fill={
+                                          favorites.includes(roomName)
+                                            ? "currentColor"
+                                            : "none"
+                                        }
+                                      />
+                                    </button>
+                                    <Plus className="shrink-0 transition-transform duration-200 chevron-icon" />
+                                  </>
                                 }
                               >
                                 <div className="flex items-center gap-3">
                                   <div className="w-6 h-6">
                                     {isAvailable ? (
-                                      <DoorOpen className="stroke-[#4fd1c5]" />
+                                      <DoorOpen className="stroke-[#4AA69D]" />
                                     ) : (
                                       <DoorClosed className="stroke-[#f56565]" />
                                     )}

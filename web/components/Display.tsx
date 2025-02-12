@@ -322,7 +322,7 @@ export default function RoomBooking() {
                                 className="flex items-center justify-between px-3 py-5 hover:no-underline"
                                 rightElement={
                                   <>
-                                    <button
+                                    {/* <button
                                       onClick={(e) =>
                                         toggleFavorite(e, roomName)
                                       }
@@ -336,7 +336,7 @@ export default function RoomBooking() {
                                             : "none"
                                         }
                                       />
-                                    </button>
+                                    </button> */}
                                     <Plus className="shrink-0 transition-transform duration-200 chevron-icon" />
                                   </>
                                 }

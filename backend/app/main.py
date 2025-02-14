@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.auth import get_active_user, router as auth_router
 from app.routes.user import router as user_router
+from app.routes.distance import router as distance_router
 from app.utils.response import success_response, error_response
 from app.models.user import User
 
@@ -22,6 +23,7 @@ app.add_middleware(
 # app.middleware("http")(validate_session_middleware)
 app.include_router(auth_router, tags=["auth"])
 app.include_router(user_router, tags=["user"])
+app.include_router(distance_router, tags=["distance"])
 
 
 @app.get("/public_health", tags=["health"])

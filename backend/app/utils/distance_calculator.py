@@ -2,7 +2,7 @@ import json
 from math import radians, cos, sin, sqrt, atan2
 from pathlib import Path
 
-# Move up three directories from utils/
+# Get the base directory of the project
 BASE_DIR = Path(__file__).resolve().parents[1]
 
 # Construct the correct path to the JSON file

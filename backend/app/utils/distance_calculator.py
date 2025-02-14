@@ -1,17 +1,22 @@
-import re
+import json
 from math import radians, cos, sin, sqrt, atan2
+from pathlib import Path
 
-BUILDING_COORDINATES_FILE = "scrape/building_coordinates.txt"
+# Move up three directories from utils/
+BASE_DIR = Path(__file__).resolve().parents[1]
+
+# Construct the correct path to the JSON file
+BUILDING_COORDINATES_FILE = BASE_DIR / "ualberta_buildings.json"
 
 def parse_building_coordinates():
-    """Parses the building_coordinates.txt file and returns a dictionary of coordinates."""
+    """Parses the ualberta_buildings.json file and returns a dictionary of coordinates."""
     buildings = {}
     with open(BUILDING_COORDINATES_FILE, 'r') as file:
-        for line in file:
-            match = re.match(r"-\s(\w+)\s@([0-9.]+),([-0-9.]+)", line)
-            if match:
-                name, lat, lon = match.groups()
-                buildings[name] = (float(lat), float(lon))
+        data = json.load(file)
+        for code, info in data.items():
+            lat = info["coordinates"]["latitude"]
+            lon = info["coordinates"]["longtitude"]  
+            buildings[code] = (float(lat), float(lon))
     return buildings
 
 def haversine(lat1, lon1, lat2, lon2):
@@ -35,4 +40,3 @@ def get_nearest_buildings(user_lat=None, user_lon=None):
         for name, (lat, lon) in buildings.items()
     ]
     return sorted(distances, key=lambda x: x["distance_km"])
-

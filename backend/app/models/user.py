@@ -2,12 +2,14 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Boolean, DateTime, UUID, ForeignKey
 from sqlalchemy.orm import relationship
+
 from app.core.database import Base
+from app.models import *
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
     username = Column(String, nullable=False)
@@ -16,6 +18,7 @@ class User(Base):
     education_level = Column(String, nullable=True)
 
     cookies = relationship("Cookie", back_populates="user", cascade="all, delete-orphan")
+    favorite_rooms = relationship("UserFavoriteRoom", back_populates="user", cascade="all, delete-orphan")
 
 class Cookie(Base):
     __tablename__ = "cookies"
@@ -27,3 +30,12 @@ class Cookie(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     user = relationship("User", back_populates="cookies")
+
+class UserFavoriteRoom(Base):
+    __tablename__ = "user_favorite_rooms"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    room_id = Column(UUID(as_uuid=True), ForeignKey("rooms.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+
+    user = relationship("User", back_populates="favorite_rooms")
+    room = relationship("Room", back_populates="favorited_by")

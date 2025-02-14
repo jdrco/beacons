@@ -1,7 +1,10 @@
 import uuid
+
 from sqlalchemy import Column, String, UUID, DECIMAL, ForeignKey, DateTime, Boolean, Index, Time
 from sqlalchemy.orm import relationship
+
 from app.core.database import Base
+from app.models import *
 
 class Building(Base):
     __tablename__ = "buildings"
@@ -23,7 +26,7 @@ class Room(Base):
     building = relationship("Building", back_populates="rooms")
     room_schedules = relationship("RoomSchedule", back_populates="room", cascade="all, delete")
     single_event_schedules = relationship("SingleEventSchedule", back_populates="room", cascade="all, delete")
-
+    favorited_by = relationship("UserFavoriteRoom", back_populates="room", cascade="all, delete-orphan")
 
 class RoomSchedule(Base):
     __tablename__ = "room_schedules"

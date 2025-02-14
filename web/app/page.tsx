@@ -15,7 +15,7 @@ const MapWithNoSSR = dynamic(() => import("@/components/Map"), {
 
 export default function Home() {
   return (
-    <main className="flex w-screen h-screen p-4 gap-4">
+    <main className="flex w-screen h-screen p-2 md:p-4 gap-2 md:gap-4">
       {/* <div className="bg-green-600 h-full w-1/3"></div> */}
       {/* <div className="bg-red-600 flex flex-col h-full w-2/3 gap-4">
         <div className="bg-pink-400 h-16"></div>

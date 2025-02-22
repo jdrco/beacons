@@ -1,0 +1,84 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+
+' Define actors
+:Public User: as public
+:Authenticated User: as auth
+:System Data Collector: as collector
+
+' Main system boundary
+rectangle "Beacons System" {
+  ' User Authentication Package
+  package "User Authentication" {
+    (FR1: Register Account) as register #lightgreen
+    (FR2: Sign In) as login #lightgreen
+    (Verify Email) as verify
+  }
+
+  ' Classroom Management Package
+  package "Classroom Management" {
+    (FR3: Collect Classroom Data) as collect #lightgreen
+    (FR4: Display Availability) as display #lightgreen
+    (View Map Interface) as map
+    (View List Interface) as list
+    (Filter Classrooms) as filter
+  }
+
+  ' User Features Package
+  package "User Features" {
+    (FR5: Manage Profile) as profile #lightgreen
+    (FR6: Handle Notifications) as notify #lightgreen
+    (Edit Preferences) as prefs
+    (Manage Favorite Rooms) as favorites
+  }
+
+  ' Location Features Package
+  package "Location Features" {
+    (FR7: Get Location Services) as location #lightgreen
+    (FR8: View Activity Feed) as feed #lightgreen
+    (Check Into Room) as checkin
+    (Share Study Status) as share
+    (View Room Demographics) as demographics
+  }
+}
+
+' Public User relationships
+public -- display
+display ..> map : <<include>>
+display ..> list : <<include>>
+public -- register
+public -- filter
+
+' Authenticated User relationships
+auth -- profile
+auth -- notify
+auth -- location
+auth -- feed
+auth -- login
+auth -- checkin
+auth -- share
+auth -- favorites
+
+' System Data Collector relationships
+collector -- collect
+
+' Dependencies and includes
+notify ..> favorites : <<include>>
+profile ..> prefs : <<include>>
+register ..> verify : <<include>>
+checkin ..> location : <<include>>
+feed ..> checkin : <<include>>
+share ..> checkin : <<include>>
+demographics ..> feed : <<include>>
+
+' Login requirements
+profile ..> login : <<include>>
+notify ..> login : <<include>>
+location ..> login : <<include>>
+feed ..> login : <<include>>
+checkin ..> login : <<include>>
+favorites ..> login : <<include>>
+share ..> login : <<include>>
+
+@enduml

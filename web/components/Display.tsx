@@ -234,8 +234,11 @@ export default function RoomBooking() {
   return (
     <div className="flex flex-col h-full w-full gap-2 md:gap-4 max-h-screen overflow-hidden">
       <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
-        <div className="md:w-2/3 order-last md:order-first">
+        <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
+          <button className="flex items-center h-full border border-[#4AA69D] rounded-xl md:rounded-2xl">
+            <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6 text-gray-400" />
+          </button>
         </div>
         <div className="order-first md:order-last flex justify-center items-center md:w-1/3">
           <img
@@ -251,16 +254,16 @@ export default function RoomBooking() {
           isRoomAvailable={isRoomAvailable}
           onBuildingClick={setSelectedBuilding}
           selectedBuilding={selectedBuilding}
-          className="w-full md:w-2/3 h-full rounded-2xl"
+          className="w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"
         />
-        {/* <div className="bg-red-200 w-full md:w-2/3 h-full rounded-2xl"></div> */}
+        {/* <div className="bg-red-200 w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"></div> */}
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
           <Accordion type="multiple" className="w-full h-full overflow-y-auto">
             {Object.entries(filteredBuildingData || {}).map(
               ([buildingName, building]) => (
                 <AccordionItem key={buildingName} value={buildingName}>
                   <AccordionTrigger
-                    className="flex items-center justify-between px-3 py-5 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+                    className="flex items-center justify-between px-3 py-4 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
                     onClick={() =>
                       setSelectedBuilding(
                         selectedBuilding === buildingName ? null : buildingName
@@ -285,7 +288,7 @@ export default function RoomBooking() {
 
                               return (
                                 <span
-                                  className="flex justify-center items-center gap-2 w-20 p-2 rounded-full text-sm text-white"
+                                  className="flex justify-center items-center gap-2 w-20 py-1 rounded-full text-sm text-white"
                                   style={{ backgroundColor }}
                                 >
                                   <div className="flex items-center h-4">

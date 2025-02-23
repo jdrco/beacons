@@ -7,6 +7,7 @@ import {
   DoorClosed,
   ChevronDown,
   Plus,
+  SlidersHorizontal
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {

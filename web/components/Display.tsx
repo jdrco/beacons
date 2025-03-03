@@ -7,7 +7,7 @@ import {
   DoorClosed,
   ChevronDown,
   Plus,
-  SlidersHorizontal
+  SlidersHorizontal,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import Map from "./Map";
 import SearchBar from "./Search";
 
@@ -119,13 +120,13 @@ export default function RoomBooking() {
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
     // Get current date and time
     const now = new Date();
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
+    // const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
 
     // Get current day of week (0 = Sunday, 1 = Monday, etc.)
-    const currentDay = now.getDay();
+    // const currentDay = now.getDay();
 
-    // const currentTime = 14 * 60 + 30; // 2:30 PM
-    // const currentDay = 3; // Wednesday
+    const currentTime = 14 * 60 + 30; // 2:30 PM
+    const currentDay = 3; // Wednesday
 
     // Check each schedule
     for (const schedule of schedules) {
@@ -233,7 +234,7 @@ export default function RoomBooking() {
   };
 
   return (
-    <div className="flex flex-col h-full w-full gap-2 md:gap-4 max-h-screen overflow-hidden">
+    <div className="flex flex-col h-full w-full gap-4 max-h-screen overflow-y-hidden">
       <div className="flex flex-col md:flex-row w-full gap-2 md:gap-4">
         <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
@@ -249,22 +250,25 @@ export default function RoomBooking() {
           />
         </div>
       </div>
-      <div className="h-full w-full flex flex-col md:flex-row gap-2 md:gap-4 min-h-0">
+      <div className="h-full w-full flex flex-col md:flex-row gap-4 min-h-0">
         <Map
           buildingData={buildingData}
           isRoomAvailable={isRoomAvailable}
           onBuildingClick={setSelectedBuilding}
           selectedBuilding={selectedBuilding}
-          className="w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"
+          className="w-full md:w-2/3 h-full rounded-md border-black border-2"
         />
         {/* <div className="bg-red-200 w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"></div> */}
-        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
-          <Accordion type="multiple" className="w-full h-full overflow-y-auto">
+        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden">
+          <Accordion
+            type="multiple"
+            className="w-full h-full overflow-y-auto pr-2"
+          >
             {Object.entries(filteredBuildingData || {}).map(
               ([buildingName, building]) => (
                 <AccordionItem key={buildingName} value={buildingName}>
                   <AccordionTrigger
-                    className="flex items-center justify-between px-3 py-4 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+                    className="flex items-center justify-between px-3 py-4 hover:no-underline transition-colors data-[state=open]:bg-[#649fd3]"
                     onClick={() =>
                       setSelectedBuilding(
                         selectedBuilding === buildingName ? null : buildingName
@@ -288,8 +292,8 @@ export default function RoomBooking() {
                               );
 
                               return (
-                                <span
-                                  className="flex justify-center items-center gap-2 w-20 py-1 rounded-full text-sm text-white"
+                                <Badge
+                                  className="flex justify-center items-center gap-2 w-20 py-1 rounded-full text-sm text-black"
                                   style={{ backgroundColor }}
                                 >
                                   <div className="flex items-center h-4">
@@ -301,7 +305,7 @@ export default function RoomBooking() {
                                   <span className="leading-4">
                                     {availableRooms}/{totalRooms}
                                   </span>
-                                </span>
+                                </Badge>
                               );
                             })()}
                           </div>

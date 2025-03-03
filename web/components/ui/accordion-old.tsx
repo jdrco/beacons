@@ -1,20 +1,11 @@
 "use client";
+
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
+
 import { cn } from "@/lib/utils";
 
-// Make the Accordion a flex container with column direction to enable gap
-const Accordion = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Root
-    ref={ref}
-    className={cn("flex flex-col", className)}
-    {...props}
-  />
-));
-Accordion.displayName = "Accordion";
+const Accordion = AccordionPrimitive.Root;
 
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -23,7 +14,7 @@ const AccordionItem = React.forwardRef<
   <AccordionPrimitive.Item
     ref={ref}
     className={cn(
-      "rounded-base border-2 border-b border-border shadow-shadow mb-4", // Added mb-4 margin-bottom for spacing
+      "border-[#4AA69D] [&:not(:last-child)]:border-b-[1px]",
       className
     )}
     {...props}
@@ -47,7 +38,9 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      <div className="flex items-center gap-4">{rightElement}</div>
+      <div className="flex items-center gap-4">
+        {rightElement}
+      </div>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

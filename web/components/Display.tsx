@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/accordion";
 import Map from "./Map";
 import SearchBar from "./Search";
+// Import the enhanced WeeklyCalendar component
+import { WeeklyCalendar } from "./WeeklyCalendar";
 
 interface Coordinates {
   latitude: number;
@@ -232,6 +234,13 @@ export default function RoomBooking() {
     }, 0);
   };
 
+  // Transform schedule data into a format suitable for the calendar
+  const getScheduleForCalendar = (schedules: Schedule[]) => {
+    // This would be implemented to transform the schedule data into a format
+    // that can be displayed on the WeeklyCalendar component
+    return schedules;
+  };
+
   return (
     <div className="flex flex-col h-full w-full gap-y-2 md:gap-y-6  max-h-screen overflow-hidden">
       <div className="flex flex-col md:flex-row w-full md:gap-8">
@@ -342,29 +351,42 @@ export default function RoomBooking() {
                               </AccordionTrigger>
 
                               <AccordionContent className="mt-2">
-                                <div className="ml-9 space-y-2 text-sm text-gray-300">
-                                  <p className="font-medium">M T W R F</p>
-                                  <div className="space-y-2">
-                                    {[...schedules]
-                                      .sort((a, b) => {
-                                        const timeA = timeToMinutes(
-                                          a.time.split(" - ")[0]
-                                        );
-                                        const timeB = timeToMinutes(
-                                          b.time.split(" - ")[0]
-                                        );
-                                        return timeA - timeB;
-                                      })
-                                      .map((schedule, index) => (
-                                        <div key={index} className="space-y-1">
-                                          <p>Course: {schedule.course}</p>
-                                          <p>Dates: {schedule.dates}</p>
-                                          <p>Time: {schedule.time}</p>
-                                          {index < schedules.length - 1 && (
-                                            <hr className="border-gray-700 my-2" />
-                                          )}
-                                        </div>
-                                      ))}
+                                <div className="space-y-4">
+                                  {/* Weekly calendar integration */}
+                                  <div className="border border-gray-700 rounded-lg p-3 bg-[#1e2329]">
+                                    <WeeklyCalendar schedules={schedules} />
+                                  </div>
+
+                                  {/* Original schedule details */}
+                                  <div className="space-y-2 text-sm text-gray-300">
+                                    <p className="font-medium">
+                                      Schedule Details
+                                    </p>
+                                    <div className="space-y-2">
+                                      {[...schedules]
+                                        .sort((a, b) => {
+                                          const timeA = timeToMinutes(
+                                            a.time.split(" - ")[0]
+                                          );
+                                          const timeB = timeToMinutes(
+                                            b.time.split(" - ")[0]
+                                          );
+                                          return timeA - timeB;
+                                        })
+                                        .map((schedule, index) => (
+                                          <div
+                                            key={index}
+                                            className="space-y-1"
+                                          >
+                                            <p>Course: {schedule.course}</p>
+                                            <p>Dates: {schedule.dates}</p>
+                                            <p>Time: {schedule.time}</p>
+                                            {index < schedules.length - 1 && (
+                                              <hr className="border-gray-700 my-2" />
+                                            )}
+                                          </div>
+                                        ))}
+                                    </div>
                                   </div>
                                 </div>
                               </AccordionContent>

@@ -98,18 +98,18 @@ const Map = ({
         // Create marker element
         const el = document.createElement("div");
         el.className = "building-marker";
-        el.style.width = "13px";
-        el.style.height = "13px";
+        el.style.width = "12px";
+        el.style.height = "12px";
         el.style.borderRadius = "50%";
-        el.style.boxShadow = `0 0 15px ${markerColor}`; // Increased glow size from 10px to 15px
+        el.style.boxShadow = `0 0 15px ${markerColor}`;
         el.style.backgroundColor = markerColor;
         // el.style.filter = "blur(0.5px)";
-        // el.style.border = "2px solid white";
+        el.style.border = "1px solid white";
         el.style.cursor = "pointer";
 
         // Add pulse animation if selected
         if (selectedBuilding === buildingName) {
-          el.style.animation = "pulse 2s infinite";
+          el.style.animation = "pulse 1s infinite";
         }
 
         // Create or update marker

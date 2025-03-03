@@ -7,7 +7,7 @@ import {
   DoorClosed,
   ChevronDown,
   Plus,
-  SlidersHorizontal
+  SlidersHorizontal,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -325,25 +325,9 @@ export default function RoomBooking() {
                               <AccordionTrigger
                                 className="flex items-center justify-between px-3 py-5 hover:no-underline"
                                 rightElement={
-                                  <>
-                                    {/* <button
-                                      onClick={(e) =>
-                                        toggleFavorite(e, roomName)
-                                      }
-                                      className="hover:text-gray-300"
-                                    >
-                                      <Heart
-                                        size={20}
-                                        fill={
-                                          favorites.includes(roomName)
-                                            ? "currentColor"
-                                            : "none"
-                                        }
-                                      />
-                                    </button> */}
-                                    <Plus className="shrink-0 transition-transform duration-200 chevron-icon" />
-                                  </>
+                                  <Plus className="shrink-0 transition-transform duration-200" />
                                 }
+                                usePlusMinusToggle={true}
                               >
                                 <div className="flex items-center gap-3">
                                   <div className="w-6 h-6">

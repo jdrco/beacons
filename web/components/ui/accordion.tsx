@@ -1,8 +1,7 @@
 "use client";
-
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-
+import { Plus, Minus, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Accordion = AccordionPrimitive.Root;
@@ -22,28 +21,82 @@ const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = "AccordionItem";
 
+// Custom plus-to-minus icon component
+const PlusMinusIcon = ({ isOpen }: { isOpen: boolean }) => {
+  return (
+    <div className="relative w-6 h-6 transition-opacity duration-200">
+      <Minus
+        className={cn(
+          "absolute inset-0 transition-opacity duration-200",
+          isOpen ? "opacity-100" : "opacity-0"
+        )}
+      />
+      <Plus
+        className={cn(
+          "absolute inset-0 transition-opacity duration-200",
+          isOpen ? "opacity-0" : "opacity-100"
+        )}
+      />
+    </div>
+  );
+};
+
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
     rightElement?: React.ReactNode;
+    usePlusMinusToggle?: boolean; // Renamed for clarity
   }
->(({ className, children, rightElement, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]_.chevron-icon]:rotate-180",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <div className="flex items-center gap-4">
-        {rightElement}
-      </div>
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-));
+>(
+  (
+    { className, children, rightElement, usePlusMinusToggle = false, ...props },
+    ref
+  ) => {
+    // Get the open state from data attribute for the icon transition
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    return (
+      <AccordionPrimitive.Header className="flex">
+        <AccordionPrimitive.Trigger
+          ref={ref}
+          className={cn(
+            "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]_.chevron-icon]:rotate-180",
+            className
+          )}
+          onPointerDown={() => setIsOpen(!isOpen)} // Toggle the state on click
+          {...props}
+        >
+          {children}
+          <div className="flex items-center gap-4">
+            {rightElement ? (
+              // If rightElement contains a Plus icon that should toggle, replace it
+              usePlusMinusToggle ? (
+                <>
+                  {/* Replace only the Plus with PlusMinusIcon if present in rightElement */}
+                  {React.Children.map(
+                    rightElement as React.ReactElement,
+                    (child) => {
+                      if (React.isValidElement(child) && child.type === Plus) {
+                        return <PlusMinusIcon isOpen={isOpen} />;
+                      }
+                      return child;
+                    }
+                  )}
+                </>
+              ) : (
+                // Use rightElement as is
+                rightElement
+              )
+            ) : (
+              // Default to ChevronDown if no rightElement provided
+              <ChevronDown className="shrink-0 transition-transform duration-200 chevron-icon" />
+            )}
+          </div>
+        </AccordionPrimitive.Trigger>
+      </AccordionPrimitive.Header>
+    );
+  }
+);
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<

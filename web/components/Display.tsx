@@ -234,10 +234,10 @@ export default function RoomBooking() {
 
   return (
     <div className="flex flex-col h-full w-full gap-y-2 md:gap-y-6  max-h-screen overflow-hidden">
-      <div className="flex flex-col md:flex-row w-full md:gap-4">
+      <div className="flex flex-col md:flex-row w-full md:gap-8">
         <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
-          <button className="flex items-center h-full border border-[#4AA69D] rounded-xl md:rounded-2xl">
+          <button className="flex items-center h-full border border-[#4AA69D] rounded-xl md:rounded-2xl hover:bg-[#2a3137]">
             <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6 text-gray-400" />
           </button>
         </div>

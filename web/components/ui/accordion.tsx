@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { Plus, Minus, ChevronDown } from "lucide-react";
+import { ChevronDown, CalendarArrowDown, CalendarArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Accordion = AccordionPrimitive.Root;
@@ -21,17 +21,17 @@ const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = "AccordionItem";
 
-// Custom plus-to-minus icon component
-const PlusMinusIcon = ({ isOpen }: { isOpen: boolean }) => {
+// Calendar toggle icon component
+const CalendarToggleIcon = ({ isOpen }: { isOpen: boolean }) => {
   return (
     <div className="relative w-6 h-6 transition-opacity duration-200">
-      <Minus
+      <CalendarArrowUp
         className={cn(
           "absolute inset-0 transition-opacity duration-200",
           isOpen ? "opacity-100" : "opacity-0"
         )}
       />
-      <Plus
+      <CalendarArrowDown
         className={cn(
           "absolute inset-0 transition-opacity duration-200",
           isOpen ? "opacity-0" : "opacity-100"
@@ -45,7 +45,7 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
     rightElement?: React.ReactNode;
-    usePlusMinusToggle?: boolean; // Renamed for clarity
+    usePlusMinusToggle?: boolean; // Now controls Calendar toggles
   }
 >(
   (
@@ -54,7 +54,6 @@ const AccordionTrigger = React.forwardRef<
   ) => {
     // Get the open state from data attribute for the icon transition
     const [isOpen, setIsOpen] = React.useState(false);
-
     return (
       <AccordionPrimitive.Header className="flex">
         <AccordionPrimitive.Trigger
@@ -69,15 +68,15 @@ const AccordionTrigger = React.forwardRef<
           {children}
           <div className="flex items-center gap-4">
             {rightElement ? (
-              // If rightElement contains a Plus icon that should toggle, replace it
+              // If rightElement contains an icon that should toggle, replace it
               usePlusMinusToggle ? (
                 <>
-                  {/* Replace only the Plus with PlusMinusIcon if present in rightElement */}
+                  {/* Replace only the Plus/Minus with CalendarToggleIcon if present in rightElement */}
                   {React.Children.map(
                     rightElement as React.ReactElement,
                     (child) => {
-                      if (React.isValidElement(child) && child.type === Plus) {
-                        return <PlusMinusIcon isOpen={isOpen} />;
+                      if (React.isValidElement(child)) {
+                        return <CalendarToggleIcon isOpen={isOpen} />;
                       }
                       return child;
                     }

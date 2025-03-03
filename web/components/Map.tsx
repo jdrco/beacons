@@ -43,9 +43,9 @@ const getAvailabilityColor = (
   totalRooms: number
 ): string => {
   const ratio = availableRooms / totalRooms;
-  if (ratio >= 0.5) return "#4AA69D"; // green
-  if (ratio >= 0.25) return "#DDAA5E"; // yellow
-  return "#F66A6A"; // red
+  if (ratio >= 0.5) return "#50C9BD"; // brighter green
+  if (ratio >= 0.25) return "#FFBB45"; // brighter yellow
+  return "#FF5252"; // brighter red
 };
 
 const getAvailableRoomCount = (
@@ -98,12 +98,13 @@ const Map = ({
         // Create marker element
         const el = document.createElement("div");
         el.className = "building-marker";
-        el.style.width = "15px";
-        el.style.height = "15px";
+        el.style.width = "13px";
+        el.style.height = "13px";
         el.style.borderRadius = "50%";
-        el.style.boxShadow = `0 0 10px ${markerColor}`;
+        el.style.boxShadow = `0 0 15px ${markerColor}`; // Increased glow size from 10px to 15px
         el.style.backgroundColor = markerColor;
-        el.style.border = "2px solid white";
+        // el.style.filter = "blur(0.5px)";
+        // el.style.border = "2px solid white";
         el.style.cursor = "pointer";
 
         // Add pulse animation if selected
@@ -138,13 +139,13 @@ const Map = ({
       style.textContent = `
         @keyframes pulse {
           0% {
-            box-shadow: 0 0 0 0 rgba(74, 166, 157, 0.7);
+            box-shadow: 0 0 0 0 rgba(80, 201, 189, 0.9);
           }
           70% {
-            box-shadow: 0 0 0 10px rgba(74, 166, 157, 0);
+            box-shadow: 0 0 0 15px rgba(80, 201, 189, 0);
           }
           100% {
-            box-shadow: 0 0 0 0 rgba(74, 166, 157, 0);
+            box-shadow: 0 0 0 0 rgba(80, 201, 189, 0);
           }
         }
       `;

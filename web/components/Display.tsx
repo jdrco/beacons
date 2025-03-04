@@ -7,7 +7,6 @@ import {
   DoorClosed,
   ChevronDown,
   Plus,
-  SlidersHorizontal,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -18,6 +17,9 @@ import {
 } from "@/components/ui/accordion";
 import Map from "./Map";
 import SearchBar from "./Search";
+import AvailabilityFilterDropdown, {
+  AvailabilityFilter,
+} from "./AvailabilityFilter";
 // Import the enhanced WeeklyCalendar component
 import { WeeklyCalendar } from "./WeeklyCalendar";
 
@@ -54,76 +56,15 @@ export default function RoomBooking() {
   const [error, setError] = useState<string | null>(null);
   const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-
-  // Filter buildings and rooms based on search query
-  const filteredBuildingData = buildingData
-    ? Object.entries(buildingData).reduce((acc, [buildingName, building]) => {
-        const matchingRooms = Object.entries(building.rooms).reduce(
-          (roomAcc, [roomName, schedules]) => {
-            if (
-              roomName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              schedules.some((schedule) =>
-                schedule.course
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase())
-              )
-            ) {
-              roomAcc[roomName] = schedules;
-            }
-            return roomAcc;
-          },
-          {} as Room
-        );
-
-        if (
-          buildingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          Object.keys(matchingRooms).length > 0
-        ) {
-          acc[buildingName] = {
-            ...building,
-            rooms: matchingRooms,
-          };
-        }
-        return acc;
-      }, {} as BuildingData)
-    : null;
-
-  useEffect(() => {
-    const fetchBuildingData = async () => {
-      try {
-        const response = await fetch("/processed_classroom_availability.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch building data");
-        }
-        const data: BuildingData = await response.json();
-        setBuildingData(data);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to load building data"
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBuildingData();
-  }, []);
-
-  const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
-    e.stopPropagation();
-    setFavorites((prev) =>
-      prev.includes(roomId)
-        ? prev.filter((id) => id !== roomId)
-        : [...prev, roomId]
-    );
-  };
+  const [availabilityFilter, setAvailabilityFilter] =
+    useState<AvailabilityFilter>("all");
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
     // Get current date and time
     const now = new Date();
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
 
-    // Get current day of week (0 = Sunday, 1 = Monday, etc.)
+    const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
     const currentDay = now.getDay();
 
     // const currentTime = 14 * 60 + 30; // 2:30 PM
@@ -193,6 +134,20 @@ export default function RoomBooking() {
     return true; // Room is available if no conflicting schedules found
   };
 
+  // Get available room count for a building
+  const getAvailableRoomCount = (building: Building): number => {
+    return Object.values(building.rooms).reduce((count, schedules) => {
+      return count + (isRoomAvailable(schedules) ? 1 : 0);
+    }, 0);
+  };
+
+  // Get availability ratio for a building
+  const getBuildingAvailabilityRatio = (building: Building): number => {
+    const totalRooms = Object.keys(building.rooms).length;
+    const availableRooms = getAvailableRoomCount(building);
+    return totalRooms > 0 ? availableRooms / totalRooms : 0;
+  };
+
   // Check if a building has any available rooms
   const isBuildingAvailable = (building: Building): boolean => {
     // Check each room in the building
@@ -204,10 +159,89 @@ export default function RoomBooking() {
     return false; // Building is busy if all rooms are occupied
   };
 
-  if (loading)
-    return <div className="p-4 text-white">Loading building data...</div>;
-  if (error) return <div className="p-4 text-red-500">{error}</div>;
-  if (!buildingData) return null;
+  // Check if a building matches the current availability filter
+  const buildingMatchesAvailabilityFilter = (building: Building): boolean => {
+    const availabilityRatio = getBuildingAvailabilityRatio(building);
+
+    switch (availabilityFilter) {
+      case "available":
+        return availabilityRatio >= 0.5;
+      case "limited":
+        return availabilityRatio >= 0.25 && availabilityRatio < 0.5;
+      case "unavailable":
+        return availabilityRatio < 0.25;
+      case "all":
+      default:
+        return true;
+    }
+  };
+
+  // Filter buildings and rooms based on search query and availability filter
+  const filteredBuildingData = buildingData
+    ? Object.entries(buildingData).reduce((acc, [buildingName, building]) => {
+        // First check if building matches availability filter
+        if (!buildingMatchesAvailabilityFilter(building)) {
+          return acc;
+        }
+
+        const matchingRooms = Object.entries(building.rooms).reduce(
+          (roomAcc, [roomName, schedules]) => {
+            if (
+              roomName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              schedules.some((schedule) =>
+                schedule.course
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())
+              )
+            ) {
+              roomAcc[roomName] = schedules;
+            }
+            return roomAcc;
+          },
+          {} as Room
+        );
+
+        if (
+          buildingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          Object.keys(matchingRooms).length > 0
+        ) {
+          acc[buildingName] = {
+            ...building,
+            rooms: matchingRooms,
+          };
+        }
+        return acc;
+      }, {} as BuildingData)
+    : null;
+
+  useEffect(() => {
+    const fetchBuildingData = async () => {
+      try {
+        const response = await fetch("/processed_classroom_availability.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch building data");
+        }
+        const data: BuildingData = await response.json();
+        setBuildingData(data);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Failed to load building data"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBuildingData();
+  }, []);
+
+  const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
+    e.stopPropagation();
+    setFavorites((prev) =>
+      prev.includes(roomId)
+        ? prev.filter((id) => id !== roomId)
+        : [...prev, roomId]
+    );
+  };
 
   // Helper function to convert time string to minutes since midnight
   const timeToMinutes = (timeStr: string): number => {
@@ -225,15 +259,6 @@ export default function RoomBooking() {
     return "#F66A6A"; // red
   };
 
-  const getAvailableRoomCount = (
-    building: Building,
-    isRoomAvailable: (schedules: Schedule[]) => boolean
-  ): number => {
-    return Object.values(building.rooms).reduce((count, schedules) => {
-      return count + (isRoomAvailable(schedules) ? 1 : 0);
-    }, 0);
-  };
-
   // Transform schedule data into a format suitable for the calendar
   const getScheduleForCalendar = (schedules: Schedule[]) => {
     // This would be implemented to transform the schedule data into a format
@@ -241,14 +266,20 @@ export default function RoomBooking() {
     return schedules;
   };
 
+  if (loading)
+    return <div className="p-4 text-white">Loading building data...</div>;
+  if (error) return <div className="p-4 text-red-500">{error}</div>;
+  if (!buildingData) return null;
+
   return (
     <div className="flex flex-col h-full w-full gap-y-2 md:gap-y-6  max-h-screen overflow-hidden">
       <div className="flex flex-col md:flex-row w-full md:gap-8">
         <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
-          <button className="flex items-center h-full border border-[#4AA69D] rounded-xl md:rounded-2xl hover:bg-[#2a3137]">
-            <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6 text-gray-400" />
-          </button>
+          <AvailabilityFilterDropdown
+            onFilterChange={setAvailabilityFilter}
+            currentFilter={availabilityFilter}
+          />
         </div>
         <div className="order-first md:order-last flex justify-center items-center md:w-1/3">
           <img
@@ -260,13 +291,12 @@ export default function RoomBooking() {
       </div>
       <div className="h-full w-full flex flex-col md:flex-row gap-2 md:gap-x-8 min-h-0">
         <Map
-          buildingData={buildingData}
+          buildingData={filteredBuildingData || undefined}
           isRoomAvailable={isRoomAvailable}
           onBuildingClick={setSelectedBuilding}
           selectedBuilding={selectedBuilding}
           className="w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"
         />
-        {/* <div className="bg-red-200 w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"></div> */}
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
           <Accordion type="multiple" className="w-full h-full overflow-y-auto">
             {Object.entries(filteredBuildingData || {}).map(
@@ -287,10 +317,8 @@ export default function RoomBooking() {
                               const totalRooms = Object.keys(
                                 building.rooms
                               ).length;
-                              const availableRooms = getAvailableRoomCount(
-                                building,
-                                isRoomAvailable
-                              );
+                              const availableRooms =
+                                getAvailableRoomCount(building);
                               const backgroundColor = getAvailabilityColor(
                                 availableRooms,
                                 totalRooms

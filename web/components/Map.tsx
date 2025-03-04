@@ -29,6 +29,7 @@ interface MapProps {
   isRoomAvailable: (schedules: Schedule[]) => boolean;
   onBuildingClick?: (buildingName: string) => void;
   selectedBuilding?: string | null;
+  currentDateTime: Date;
 }
 const getAvailabilityColor = (
   availableRooms: number,
@@ -53,6 +54,7 @@ const Map = ({
   isRoomAvailable,
   onBuildingClick,
   selectedBuilding,
+  currentDateTime,
 }: MapProps) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -81,45 +83,75 @@ const Map = ({
     if (!mapRef.current || !buildingData) return;
 
     const updateMarkers = () => {
-      // Clear all existing markers
-      Object.values(markersRef.current).forEach((marker) => marker.remove());
-      markersRef.current = {};
+      // If markers don't exist yet, create them
+      if (Object.keys(markersRef.current).length === 0) {
+        // Create new markers for all buildings
+        Object.entries(buildingData).forEach(([buildingName, building]) => {
+          const availableRooms = getAvailableRoomCount(
+            building,
+            isRoomAvailable
+          );
+          const totalRooms = Object.keys(building.rooms).length;
+          const markerColor = getAvailabilityColor(availableRooms, totalRooms);
 
-      // Create markers only for filtered buildings
-      Object.entries(buildingData).forEach(([buildingName, building]) => {
-        const availableRooms = getAvailableRoomCount(building, isRoomAvailable);
-        const totalRooms = Object.keys(building.rooms).length;
-        const markerColor = getAvailabilityColor(availableRooms, totalRooms);
+          // Create marker element
+          const el = document.createElement("div");
+          el.className = "building-marker";
+          el.style.width = "12px";
+          el.style.height = "12px";
+          el.style.borderRadius = "50%";
+          el.style.boxShadow = `0 0 15px ${markerColor}`;
+          el.style.backgroundColor = markerColor;
+          el.style.cursor = "pointer";
 
-        // Create marker element
-        const el = document.createElement("div");
-        el.className = "building-marker";
-        el.style.width = "12px";
-        el.style.height = "12px";
-        el.style.borderRadius = "50%";
-        el.style.boxShadow = `0 0 15px ${markerColor}`;
-        el.style.backgroundColor = markerColor;
-        el.style.cursor = "pointer";
+          // Add pulse animation if selected
+          if (selectedBuilding === buildingName) {
+            el.style.animation = "pulse 1s infinite";
+          }
 
-        // Add pulse animation if selected
-        if (selectedBuilding === buildingName) {
-          el.style.animation = "pulse 1s infinite";
-        }
+          // Create marker
+          const marker = new mapboxgl.Marker(el)
+            .setLngLat([
+              building.coordinates.longitude,
+              building.coordinates.latitude,
+            ])
+            .addTo(mapRef.current!);
 
-        // Create marker
-        const marker = new mapboxgl.Marker(el)
-          .setLngLat([
-            building.coordinates.longitude,
-            building.coordinates.latitude,
-          ])
-          .addTo(mapRef.current!);
+          el.addEventListener("click", () => {
+            onBuildingClick?.(buildingName);
+          });
 
-        el.addEventListener("click", () => {
-          onBuildingClick?.(buildingName);
+          markersRef.current[buildingName] = marker;
         });
+      } else {
+        // Just update existing markers' colors
+        Object.entries(buildingData).forEach(([buildingName, building]) => {
+          const marker = markersRef.current[buildingName];
+          if (marker) {
+            const availableRooms = getAvailableRoomCount(
+              building,
+              isRoomAvailable
+            );
+            const totalRooms = Object.keys(building.rooms).length;
+            const markerColor = getAvailabilityColor(
+              availableRooms,
+              totalRooms
+            );
 
-        markersRef.current[buildingName] = marker;
-      });
+            // Get the marker element and update its color
+            const el = marker.getElement();
+            el.style.backgroundColor = markerColor;
+            el.style.boxShadow = `0 0 15px ${markerColor}`;
+
+            // Update animation if selected status changed
+            if (selectedBuilding === buildingName) {
+              el.style.animation = "pulse 1s infinite";
+            } else {
+              el.style.animation = "";
+            }
+          }
+        });
+      }
     };
 
     // If map is already loaded, update markers immediately
@@ -129,7 +161,15 @@ const Map = ({
       // Otherwise wait for the map to load
       mapRef.current.on("load", updateMarkers);
     }
-  }, [buildingData, isRoomAvailable, selectedBuilding, onBuildingClick]);
+
+    // Pass currentDateTime from RoomBooking to Map component
+  }, [
+    buildingData,
+    isRoomAvailable,
+    selectedBuilding,
+    onBuildingClick,
+    currentDateTime,
+  ]);
 
   return <div ref={mapContainerRef} className={`h-full w-full ${className}`} />;
 };

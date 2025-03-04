@@ -58,11 +58,12 @@ export default function RoomBooking() {
   const [searchQuery, setSearchQuery] = useState("");
   const [availabilityFilter, setAvailabilityFilter] =
     useState<AvailabilityFilter>("all");
+  const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
     // Get current date and time
-    const now = new Date();
+    const now = currentDateTime;
 
     const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
     const currentDay = now.getDay();
@@ -234,6 +235,48 @@ export default function RoomBooking() {
     fetchBuildingData();
   }, []);
 
+  useEffect(() => {
+    const calculateNextUpdateTime = () => {
+      const now = new Date();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      // Determine next update point (00, 20, 30, or 50 minutes)
+      let nextMinute;
+      if (minutes < 20) nextMinute = 20;
+      else if (minutes < 30) nextMinute = 30;
+      else if (minutes < 50) nextMinute = 50;
+      else nextMinute = 60; // Next hour
+
+      // Calculate milliseconds until next update
+      const millisecondsToNextUpdate =
+        ((nextMinute - minutes) * 60 - seconds) * 1000;
+
+      return millisecondsToNextUpdate;
+    };
+
+    // Function to schedule the next update
+    const scheduleNextUpdate = () => {
+      const delay = calculateNextUpdateTime();
+
+      // Set timeout for next update
+      const timerId = setTimeout(() => {
+        // Update the current time to trigger recalculation
+        setCurrentDateTime(new Date());
+        // Schedule the next update
+        scheduleNextUpdate();
+      }, delay);
+
+      // Clean up timeout on component unmount
+      return () => clearTimeout(timerId);
+    };
+
+    // Start the scheduling chain
+    const cleanup = scheduleNextUpdate();
+
+    return cleanup;
+  }, []);
+
   const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
     e.stopPropagation();
     setFavorites((prev) =>
@@ -257,13 +300,6 @@ export default function RoomBooking() {
     if (ratio >= 0.5) return "#4AA69D"; // green
     if (ratio >= 0.25) return "#DDAA5E"; // yellow
     return "#F66A6A"; // red
-  };
-
-  // Transform schedule data into a format suitable for the calendar
-  const getScheduleForCalendar = (schedules: Schedule[]) => {
-    // This would be implemented to transform the schedule data into a format
-    // that can be displayed on the WeeklyCalendar component
-    return schedules;
   };
 
   if (loading)
@@ -295,6 +331,7 @@ export default function RoomBooking() {
           isRoomAvailable={isRoomAvailable}
           onBuildingClick={setSelectedBuilding}
           selectedBuilding={selectedBuilding}
+          currentDateTime={currentDateTime} // Pass the current time to Map
           className="w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"
         />
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">

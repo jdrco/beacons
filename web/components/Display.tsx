@@ -321,30 +321,36 @@ export default function RoomBooking() {
       // If we're collapsing, just update the accordion state without scrolling
       setExpandedAccordionItems([]);
     } else {
-      // Expand only this building in the accordion
-      setExpandedAccordionItems([buildingName]);
+      // If we're expanding a different building, first collapse all
+      setExpandedAccordionItems([]);
 
-      // Scroll to the selected building only when expanding
+      // Then use a staggered approach to expand the new building
       setTimeout(() => {
-        if (
-          buildingItemRefs.current[buildingName] &&
-          accordionContainerRef.current
-        ) {
-          const container = accordionContainerRef.current;
-          const element = buildingItemRefs.current[buildingName];
+        // Now expand the selected building after previous ones have had time to collapse
+        setExpandedAccordionItems([buildingName]);
 
-          if (element) {
-            // Calculate position to position the building at the top with a small padding
-            const scrollPosition = element.offsetTop - 120; // 20px padding from top
+        // Add a longer delay for scrolling to ensure DOM has fully updated
+        setTimeout(() => {
+          if (
+            buildingItemRefs.current[buildingName] &&
+            accordionContainerRef.current
+          ) {
+            const container = accordionContainerRef.current;
+            const element = buildingItemRefs.current[buildingName];
 
-            // Scroll to position the selected building at the top of the container
-            container.scrollTo({
-              top: Math.max(0, scrollPosition),
-              behavior: "smooth",
-            });
+            if (element) {
+              // Calculate position to position the building at the top with a small padding
+              const scrollPosition = element.offsetTop - 120; // 120px padding from top
+
+              // Scroll to position the selected building at the top of the container
+              container.scrollTo({
+                top: Math.max(0, scrollPosition),
+                behavior: "smooth",
+              });
+            }
           }
-        }
-      }, 100); // Small delay to ensure DOM updates have processed
+        }, 300); // Longer delay to ensure DOM accordion animations have completed
+      }, 50); // Short delay to ensure previous accordions begin collapsing
     }
   };
 

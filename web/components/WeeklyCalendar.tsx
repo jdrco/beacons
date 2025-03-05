@@ -26,7 +26,7 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
 
   // Day labels (starting with Monday)
-  const weekDays = ["M", "T", "W", "R", "F", "Sa", "Su"];
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   // Time slots (from 8 AM to 8 PM)
   const timeSlots = [

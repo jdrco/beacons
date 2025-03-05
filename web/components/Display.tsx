@@ -309,7 +309,7 @@ export default function RoomBooking() {
 
   // Handle building selection from map or accordion
   const handleBuildingSelect = (buildingName: string) => {
-    // Check if we're toggling the already selected building (expanding vs collapsing)
+    // Check if we're toggling the already selected building
     const isToggling =
       selectedBuilding === buildingName &&
       expandedAccordionItems.includes(buildingName);
@@ -321,15 +321,17 @@ export default function RoomBooking() {
       // If we're collapsing, just update the accordion state without scrolling
       setExpandedAccordionItems([]);
     } else {
-      // If we're expanding a different building, first collapse all
+      // First collapse all
       setExpandedAccordionItems([]);
 
-      // Then use a staggered approach to expand the new building
+      // Then use a longer delay before expanding
       setTimeout(() => {
-        // Now expand the selected building after previous ones have had time to collapse
+        // Expand the selected building
         setExpandedAccordionItems([buildingName]);
 
-        // Add a longer delay for scrolling to ensure DOM has fully updated
+        // Add a much longer delay for scrolling on mobile
+        const scrollDelay = window.innerWidth < 768 ? 500 : 300;
+
         setTimeout(() => {
           if (
             buildingItemRefs.current[buildingName] &&
@@ -339,18 +341,21 @@ export default function RoomBooking() {
             const element = buildingItemRefs.current[buildingName];
 
             if (element) {
-              // Calculate position to position the building at the top with a small padding
-              const scrollPosition = element.offsetTop - 120; // 120px padding from top
-
-              // Scroll to position the selected building at the top of the container
-              container.scrollTo({
-                top: Math.max(0, scrollPosition),
-                behavior: "smooth",
-              });
+              // On mobile, use a simpler approach - just scroll the element into view
+              if (window.innerWidth < 768) {
+                element.scrollIntoView({ behavior: "smooth", block: "start" });
+              } else {
+                // On desktop, use the original approach with padding
+                const scrollPosition = element.offsetTop - 120;
+                container.scrollTo({
+                  top: Math.max(0, scrollPosition),
+                  behavior: "smooth",
+                });
+              }
             }
           }
-        }, 300); // Longer delay to ensure DOM accordion animations have completed
-      }, 50); // Short delay to ensure previous accordions begin collapsing
+        }, scrollDelay);
+      }, 100); // Slightly longer initial delay
     }
   };
 
@@ -360,7 +365,7 @@ export default function RoomBooking() {
   if (!buildingData) return null;
 
   return (
-    <div className="flex flex-col h-full w-full gap-y-2 md:gap-y-6  max-h-screen overflow-hidden">
+    <div className="flex flex-col h-full w-full gap-y-3 md:gap-y-6  max-h-screen overflow-hidden">
       <div className="flex flex-col md:flex-row w-full md:gap-8">
         <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
@@ -373,18 +378,18 @@ export default function RoomBooking() {
           <img
             src="/beacons_logo.svg"
             alt="Beacons Logo"
-            className="hidden md:block next-image-unconstrained md:h-12 h-6"
+            className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
           />
         </div>
       </div>
-      <div className="h-full w-full flex flex-col md:flex-row gap-2 md:gap-x-8 min-h-0">
+      <div className="h-full w-full flex flex-col md:flex-row gap-3 md:gap-x-8 min-h-0">
         <Map
           buildingData={filteredBuildingData || undefined}
           isRoomAvailable={isRoomAvailable}
           onBuildingClick={handleBuildingSelect}
           selectedBuilding={selectedBuilding}
           currentDateTime={currentDateTime}
-          className="w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"
+          className="w-full md:w-2/3 h-[600px] md:h-full rounded-xl md:rounded-2xl"
         />
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
           <Accordion
@@ -454,7 +459,7 @@ export default function RoomBooking() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <Accordion type="multiple" className="ml-8">
+                    <Accordion type="multiple" className="mx-4">
                       {Object.entries(building.rooms).map(
                         ([roomName, schedules]) => {
                           const isAvailable = isRoomAvailable(schedules);

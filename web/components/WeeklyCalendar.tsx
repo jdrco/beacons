@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -39,6 +39,10 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     null
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [currentTimePosition, setCurrentTimePosition] = useState<number | null>(
+    null
+  );
+  const timeGridRef = useRef<HTMLDivElement>(null);
 
   // Day labels (starting with Monday)
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -175,6 +179,31 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     setCalendarEvents(events);
   }, [schedules]);
 
+  useEffect(() => {
+    const updateCurrentTime = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+
+      // Only show the line during calendar hours (8am to 8pm)
+      if (hours >= 8 && hours <= 20) {
+        // Calculate position: hours since 8am in rem units (2rem per hour)
+        const position = (hours - 8 + minutes / 60) * 2;
+        setCurrentTimePosition(position);
+      } else {
+        setCurrentTimePosition(null);
+      }
+    };
+
+    // Update immediately
+    updateCurrentTime();
+
+    // Then update every minute
+    const interval = setInterval(updateCurrentTime, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Generate the current week's dates
   const getCurrentWeekDates = () => {
     const today = new Date();
@@ -276,13 +305,7 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
   return (
     <TooltipProvider>
       <div className="flex flex-col space-y-2 w-full">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-bold">Room Schedule</h2>
-          <div className="flex items-center gap-2">
-            <h2 className="text-sm font-medium">{getCurrentWeekDates()}</h2>
-          </div>
-        </div>
-        <hr className="w-full border-gray-200 dark:border-gray-800" />
+        {/* Your existing header code... */}
         <div className="w-full overflow-x-auto">
           {/* Days header */}
           <div className="grid grid-cols-8 border-b border-gray-800 w-full min-w-[240px]">
@@ -296,8 +319,12 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
               </div>
             ))}
           </div>
+
           {/* Time grid */}
-          <div className="grid grid-cols-8 w-full min-w-[240px]">
+          <div
+            className="grid grid-cols-8 w-full min-w-[240px] relative"
+            ref={timeGridRef}
+          >
             {/* Time labels */}
             <div className="border-r border-gray-800">
               {timeSlots.map((time) => (
@@ -311,6 +338,7 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
                 </div>
               ))}
             </div>
+
             {/* Calendar cells with events */}
             {Array.from({ length: 7 }).map((_, dayIndex) => (
               <div key={dayIndex} className="border-r border-gray-800 relative">
@@ -344,6 +372,18 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
                   ))}
               </div>
             ))}
+
+            {/* Current time indicator line */}
+            {currentTimePosition !== null && (
+              <div
+                className="absolute left-0 right-0 border-t border-red-500 z-20 pointer-events-none"
+                style={{
+                  top: `${currentTimePosition}rem`,
+                  width: "100%",
+                }}
+              >
+              </div>
+            )}
           </div>
         </div>
 

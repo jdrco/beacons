@@ -177,10 +177,6 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     setCalendarEvents(events);
   }, [schedules]);
 
-  const navigateWeek = (direction: number) => {
-    setCurrentWeekOffset((prev) => prev + direction);
-  };
-
   // Generate the current week's dates
   const getCurrentWeekDates = () => {
     const today = new Date();
@@ -236,17 +232,6 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     };
   };
 
-  const getHoverStyle = (isHovered: boolean): React.CSSProperties => {
-    return isHovered
-      ? {
-          transform: "scale(1.05)",
-          opacity: "1",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
-          zIndex: 20,
-        }
-      : {};
-  };
-
   const getCourseAbbreviation = (courseName: string): string => {
     // Extract the first letter and any numbers that follow
     const match = courseName.match(/^([A-Z])[^0-9]*([0-9]+)/i);
@@ -295,19 +280,7 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-bold">Room Schedule</h2>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigateWeek(-1)}
-              className="text-sm p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              ←
-            </button>
             <h2 className="text-sm font-medium">{getCurrentWeekDates()}</h2>
-            <button
-              onClick={() => navigateWeek(1)}
-              className="text-sm p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              →
-            </button>
           </div>
         </div>
         <hr className="w-full border-gray-200 dark:border-gray-800" />

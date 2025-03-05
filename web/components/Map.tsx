@@ -4,7 +4,10 @@ import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { DoorOpen } from "lucide-react";
-import { getAvailabilityColor } from "@/lib/utils";
+import {
+  getAvailabilityColor,
+  getAvailabilityColorBrighter,
+} from "@/lib/utils";
 
 interface Coordinates {
   latitude: number;
@@ -90,7 +93,7 @@ const BuildingTooltip = ({
   const backgroundColor = getAvailabilityColor(availableRooms, totalRooms);
 
   return (
-    <div className="bg-[#1e2329] border border-gray-700 rounded-lg p-3 shadow-lg min-w-[150px]">
+    <div className="bg-[#1e2329b3] border border-gray-700 rounded-lg p-3 shadow-lg min-w-[150px]">
       <div className="flex items-center justify-between">
         <div className="text-white font-medium">{buildingName}</div>
         <span
@@ -119,6 +122,23 @@ const Map = ({
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<{ [key: string]: mapboxgl.Marker }>({});
   const popupsRef = useRef<{ [key: string]: mapboxgl.Popup }>({});
+  const isMobileRef = useRef<boolean>(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      isMobileRef.current = window.innerWidth < 768;
+    };
+
+    // Check initially
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Initialize map on component mount
   useEffect(() => {
@@ -166,7 +186,10 @@ const Map = ({
       Object.entries(buildingData).forEach(([buildingName, building]) => {
         const availableRooms = getAvailableRoomCount(building, isRoomAvailable);
         const totalRooms = Object.keys(building.rooms).length;
-        const markerColor = getAvailabilityColor(availableRooms, totalRooms);
+        const markerColor = getAvailabilityColorBrighter(
+          availableRooms,
+          totalRooms
+        );
 
         const marker = markersRef.current[buildingName];
 
@@ -176,18 +199,12 @@ const Map = ({
           el.style.backgroundColor = markerColor;
           el.style.boxShadow = `0 0 15px ${markerColor}`;
 
-          // Update animation if selected status changed
-          if (selectedBuilding === buildingName) {
-            el.style.animation = "pulse 1s infinite";
-          } else {
-            el.style.animation = "";
-          }
         } else {
           // Create new marker
           const el = document.createElement("div");
           el.className = "building-marker";
-          el.style.width = "15px";
-          el.style.height = "15px";
+          el.style.width = "14px";
+          el.style.height = "14px";
           el.style.borderRadius = "50%";
           el.style.boxShadow = `0 0 15px ${markerColor}`;
           el.style.backgroundColor = markerColor;
@@ -205,13 +222,6 @@ const Map = ({
               building.coordinates.latitude,
             ])
             .addTo(mapRef.current!);
-
-          // Add click handler to marker
-          el.addEventListener("click", () => {
-            if (onBuildingClick) {
-              onBuildingClick(buildingName);
-            }
-          });
 
           // Create tooltip content
           const tooltipNode = document.createElement("div");
@@ -233,18 +243,49 @@ const Map = ({
 
           popupsRef.current[buildingName] = popup;
 
-          // Add hover handlers for the marker
+          // Add click handler to marker - Make this work before hover effects
+          el.addEventListener("click", () => {
+            if (onBuildingClick) {
+              onBuildingClick(buildingName);
+            }
+          });
+
+          // Add touch handler specifically for mobile
+          el.addEventListener("touchstart", (e) => {
+            if (isMobileRef.current) {
+              // For mobile, show popup on touch
+              popup
+                .setLngLat([
+                  building.coordinates.longitude,
+                  building.coordinates.latitude,
+                ])
+                .addTo(mapRef.current!);
+
+              // Also trigger the building selection immediately on touch
+              if (onBuildingClick) {
+                onBuildingClick(buildingName);
+              }
+            }
+          });
+
+          // Add hover handlers for desktop only
           el.addEventListener("mouseenter", () => {
-            popup
-              .setLngLat([
-                building.coordinates.longitude,
-                building.coordinates.latitude,
-              ])
-              .addTo(mapRef.current!);
+            // Only show hover popup on desktop
+            if (!isMobileRef.current) {
+              popup
+                .setLngLat([
+                  building.coordinates.longitude,
+                  building.coordinates.latitude,
+                ])
+                .addTo(mapRef.current!);
+            }
           });
 
           el.addEventListener("mouseleave", () => {
-            popup.remove();
+            // Only hide popup on desktop
+            if (!isMobileRef.current) {
+              popup.remove();
+            }
           });
 
           markersRef.current[buildingName] = newMarker;
@@ -279,6 +320,13 @@ const Map = ({
         zoom: 16,
         duration: 1000,
       });
+
+      // On mobile, remove any popups after selection to clean up the UI
+      if (isMobileRef.current) {
+        setTimeout(() => {
+          Object.values(popupsRef.current).forEach((popup) => popup.remove());
+        }, 1500);
+      }
     }
   }, [selectedBuilding, buildingData]);
 
@@ -308,6 +356,22 @@ const Map = ({
           100% {
             box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
           }
+        }
+        .building-marker {
+          /* Increase the touch target size for mobile without changing appearance */
+          min-width: 14px;
+          min-height: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .building-marker::after {
+          content: "";
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: inherit;
+          box-shadow: inherit;
         }
       `}</style>
     </div>

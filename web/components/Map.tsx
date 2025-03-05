@@ -59,7 +59,7 @@ const getAvailableRoomCount = (
 
 const MapLegend = () => {
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1e2329] border border-gray-700 rounded-lg p-2 shadow-lg z-10">
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1e2329b3] border border-gray-700 rounded-lg p-2 shadow-lg z-10">
       <div className="mb-1.5 text-xs font-medium text-white/90 text-center">
         Classroom Availability
       </div>

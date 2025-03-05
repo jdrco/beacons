@@ -26,7 +26,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     <div className="w-full h-full flex">
       <div className="relative w-full group">
         <div className="relative flex items-center rounded-xl md:rounded-2xl border border-[#2b5f5a]">
-          <Search className="absolute left-3 md:left-6 w-4 h-4 md:h-6 md:w-6 text-gray-400" />
+          <Search className="absolute left-3 md:left-6 w-4 h-4 md:h-6 md:w-6" />
           <input
             type="text"
             value={query}

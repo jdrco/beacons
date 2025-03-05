@@ -70,11 +70,11 @@ export default function RoomBooking() {
     // Get current date and time
     const now = currentDateTime;
 
-    // const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
-    // const currentDay = now.getDay();
+    const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
+    const currentDay = now.getDay();
 
-    const currentTime = 14 * 60 + 30; // 2:30 PM
-    const currentDay = 3; // Wednesday
+    // const currentTime = 14 * 60 + 30; // 2:30 PM
+    // const currentDay = 3; // Wednesday
 
     // Check each schedule
     for (const schedule of schedules) {

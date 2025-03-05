@@ -42,7 +42,7 @@ export default function AvailabilityFilterDropdown({
             isFilterActive ? "bg-[#2a3137]" : ""
           }`}
         >
-          <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6 text-gray-400" />
+          <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-[#1e2329] border border-gray-700 text-white">

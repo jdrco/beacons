@@ -334,15 +334,10 @@ export default function RoomBooking() {
           const element = buildingItemRefs.current[buildingName];
 
           if (element) {
-            const elementTop = element.offsetTop;
-            const elementHeight = element.offsetHeight;
-            const containerHeight = container.clientHeight;
+            // Calculate position to position the building at the top with a small padding
+            const scrollPosition = element.offsetTop - 120; // 20px padding from top
 
-            // Calculate position to center the element in the viewport
-            const scrollPosition =
-              elementTop - containerHeight / 2 + elementHeight / 2;
-
-            // Scroll to center the selected building in the container
+            // Scroll to position the selected building at the top of the container
             container.scrollTo({
               top: Math.max(0, scrollPosition),
               behavior: "smooth",

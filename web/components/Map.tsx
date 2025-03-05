@@ -148,8 +148,11 @@ const Map = ({
             ])
             .addTo(mapRef.current!);
 
+          // Add click handler to marker
           el.addEventListener("click", () => {
-            onBuildingClick?.(buildingName);
+            if (onBuildingClick) {
+              onBuildingClick(buildingName);
+            }
           });
 
           markersRef.current[buildingName] = newMarker;
@@ -171,6 +174,21 @@ const Map = ({
     onBuildingClick,
     currentDateTime,
   ]);
+
+  // Center map on selected building when it changes
+  useEffect(() => {
+    if (!mapRef.current || !buildingData || !selectedBuilding) return;
+
+    const building = buildingData[selectedBuilding];
+    if (building) {
+      // Center map on the selected building with animation
+      mapRef.current.flyTo({
+        center: [building.coordinates.longitude, building.coordinates.latitude],
+        zoom: 16,
+        duration: 1000,
+      });
+    }
+  }, [selectedBuilding, buildingData]);
 
   return <div ref={mapContainerRef} className={`h-full w-full ${className}`} />;
 };

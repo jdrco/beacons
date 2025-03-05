@@ -8,7 +8,7 @@ import {
   ChevronDown,
   Plus,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -59,17 +59,22 @@ export default function RoomBooking() {
   const [availabilityFilter, setAvailabilityFilter] =
     useState<AvailabilityFilter>("all");
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
+  const [expandedAccordionItems, setExpandedAccordionItems] = useState<
+    string[]
+  >([]);
+  const accordionContainerRef = useRef<HTMLDivElement>(null);
+  const buildingItemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
     // Get current date and time
     const now = currentDateTime;
 
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
-    const currentDay = now.getDay();
+    // const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
+    // const currentDay = now.getDay();
 
-    // const currentTime = 14 * 60 + 30; // 2:30 PM
-    // const currentDay = 3; // Wednesday
+    const currentTime = 14 * 60 + 30; // 2:30 PM
+    const currentDay = 3; // Wednesday
 
     // Check each schedule
     for (const schedule of schedules) {
@@ -302,6 +307,52 @@ export default function RoomBooking() {
     return "#F66A6A"; // red
   };
 
+  // Handle building selection from map or accordion
+  const handleBuildingSelect = (buildingName: string) => {
+    // Check if we're toggling the already selected building (expanding vs collapsing)
+    const isToggling =
+      selectedBuilding === buildingName &&
+      expandedAccordionItems.includes(buildingName);
+
+    // Update selected building
+    setSelectedBuilding(buildingName);
+
+    if (isToggling) {
+      // If we're collapsing, just update the accordion state without scrolling
+      setExpandedAccordionItems([]);
+    } else {
+      // Expand only this building in the accordion
+      setExpandedAccordionItems([buildingName]);
+
+      // Scroll to the selected building only when expanding
+      setTimeout(() => {
+        if (
+          buildingItemRefs.current[buildingName] &&
+          accordionContainerRef.current
+        ) {
+          const container = accordionContainerRef.current;
+          const element = buildingItemRefs.current[buildingName];
+
+          if (element) {
+            const elementTop = element.offsetTop;
+            const elementHeight = element.offsetHeight;
+            const containerHeight = container.clientHeight;
+
+            // Calculate position to center the element in the viewport
+            const scrollPosition =
+              elementTop - containerHeight / 2 + elementHeight / 2;
+
+            // Scroll to center the selected building in the container
+            container.scrollTo({
+              top: Math.max(0, scrollPosition),
+              behavior: "smooth",
+            });
+          }
+        }
+      }, 100); // Small delay to ensure DOM updates have processed
+    }
+  };
+
   if (loading)
     return <div className="p-4 text-white">Loading building data...</div>;
   if (error) return <div className="p-4 text-red-500">{error}</div>;
@@ -329,23 +380,35 @@ export default function RoomBooking() {
         <Map
           buildingData={filteredBuildingData || undefined}
           isRoomAvailable={isRoomAvailable}
-          onBuildingClick={setSelectedBuilding}
+          onBuildingClick={handleBuildingSelect}
           selectedBuilding={selectedBuilding}
-          currentDateTime={currentDateTime} // Pass the current time to Map
+          currentDateTime={currentDateTime}
           className="w-full md:w-2/3 h-full rounded-xl md:rounded-2xl"
         />
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
-          <Accordion type="multiple" className="w-full h-full overflow-y-auto">
+          <Accordion
+            type="multiple"
+            className="w-full h-full overflow-y-auto"
+            value={expandedAccordionItems}
+            onValueChange={setExpandedAccordionItems}
+            ref={accordionContainerRef}
+          >
             {Object.entries(filteredBuildingData || {}).map(
               ([buildingName, building]) => (
-                <AccordionItem key={buildingName} value={buildingName}>
+                <AccordionItem
+                  key={buildingName}
+                  value={buildingName}
+                  ref={(el) => {
+                    buildingItemRefs.current[buildingName] = el as HTMLElement;
+                  }}
+                >
                   <AccordionTrigger
                     className="flex items-center justify-between px-3 py-4 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
-                    onClick={() =>
-                      setSelectedBuilding(
-                        selectedBuilding === buildingName ? null : buildingName
-                      )
-                    }
+                    onClick={(e) => {
+                      // Prevent the default accordion behavior
+                      e.preventDefault();
+                      handleBuildingSelect(buildingName);
+                    }}
                     rightElement={
                       <>
                         <div className="flex items-end">

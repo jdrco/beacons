@@ -493,9 +493,9 @@ export default function RoomBooking() {
 
                                   {/* Original schedule details */}
                                   <div className="space-y-2 text-sm text-gray-300">
-                                    <p className="font-medium">
+                                    <h2 className="text-sm font-bold">
                                       Schedule Details
-                                    </p>
+                                    </h2>
                                     <div className="space-y-2">
                                       {[...schedules]
                                         .sort((a, b) => {

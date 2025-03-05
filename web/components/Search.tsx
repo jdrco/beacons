@@ -25,13 +25,13 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <div className="w-full h-full flex">
       <div className="relative w-full group">
-        <div className="relative flex items-center rounded-xl md:rounded-2xl border border-[#4AA69D]">
+        <div className="relative flex items-center rounded-xl md:rounded-2xl border border-[#2b5f5a]">
           <Search className="absolute left-3 md:left-6 h-6 w-6 text-gray-400" />
           <input
             type="text"
             value={query}
             onChange={handleQueryChange}
-            placeholder="Filter by building or classroom"
+            placeholder="Search by building, room, or class"
             className={cn(
               "h-10 md:h-14 w-full bg-transparent px-16 text-white text-lg placeholder:text-gray-500",
               "focus:outline-none focus:ring-0"

@@ -38,7 +38,7 @@ export default function AvailabilityFilterDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
-          className={`flex items-center h-full border border-[#4AA69D] rounded-xl md:rounded-2xl hover:bg-[#2a3137] focus:outline-none focus:ring-0 ${
+          className={`flex items-center h-full border border-[#2b5f5a] rounded-xl md:rounded-2xl hover:bg-[#2a3137] focus:outline-none focus:ring-0 ${
             isFilterActive ? "bg-[#2a3137]" : ""
           }`}
         >

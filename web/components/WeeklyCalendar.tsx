@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 // Add types for schedules
 interface Schedule {
@@ -44,6 +42,36 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     "7pm",
     "8pm",
   ];
+
+  // Generate a color based on the course name
+  const getCourseColor = (courseName: string) => {
+    // A list of pleasant, visually distinct colors
+    const colorPalette = [
+      "#4AA69D", // Teal
+      "#F06292", // Pink
+      "#7986CB", // Blue
+      "#FFA726", // Orange
+      "#9CCC65", // Light Green
+      "#BA68C8", // Purple
+      "#4DB6AC", // Light Teal
+      "#FF8A65", // Coral
+      "#AED581", // Lime
+      "#FFD54F", // Amber
+      "#81C784", // Green
+      "#64B5F6", // Light Blue
+      "#F8BBD0", // Light Pink
+    ];
+
+    // Simple hash function to generate a consistent index for each course name
+    let hash = 0;
+    for (let i = 0; i < courseName.length; i++) {
+      hash = courseName.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    // Use modulo to get an index within the range of our color palette
+    const index = Math.abs(hash) % colorPalette.length;
+    return colorPalette[index];
+  };
 
   useEffect(() => {
     if (!schedules || schedules.length === 0) return;
@@ -148,8 +176,8 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     const top = `${event.startTime * 2}rem`; // 2rem per hour
     const height = `${(event.endTime - event.startTime) * 2}rem`;
 
-    // Determine background color (could be based on course type, etc.)
-    const bgColor = "#4AA69D"; // Teal color for all events
+    // Get a color based on the course name
+    const bgColor = getCourseColor(event.course);
 
     return {
       position: "absolute",
@@ -161,38 +189,39 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
       padding: "0.25rem",
       color: "white",
       fontSize: "0.7rem",
+      fontWeight: "bold",
       overflow: "hidden",
       opacity: "0.85",
       zIndex: 10,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center", // Vertically center the text
+      alignItems: "center", // Horizontally center the text
     };
+  };
+
+  const getCourseAbbreviation = (courseName: string): string => {
+    // Extract the first letter and any numbers that follow
+    const match = courseName.match(/^([A-Z])[^0-9]*([0-9]+)/i);
+    if (match) {
+      // Return first letter + number (e.g., "Computer Science 101" -> "C101")
+      return `${match[1].toUpperCase()}${match[2]}`;
+    }
+
+    // Fallback: just return the first letter
+    return courseName.charAt(0).toUpperCase();
   };
 
   return (
     <div className="flex flex-col space-y-2 w-full">
       <div className="flex items-center justify-between">
+        <h2 className="text-sm font-bold">Room Schedule</h2>
         <h2 className="text-sm font-medium">{getCurrentWeekDates()}</h2>
-        <div className="flex items-center space-x-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7"
-            onClick={() => navigateWeek(-1)}
-          >
-            <ChevronLeft className="h-3 w-3" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7"
-            onClick={() => navigateWeek(1)}
-          >
-            <ChevronRight className="h-3 w-3" />
-          </Button>
-        </div>
       </div>
+      <br className="w-full border-white border-2" />
       <div className="w-full overflow-x-auto">
         {/* Days header */}
-        <div className="grid grid-cols-8 border-b w-full min-w-[240px]">
+        <div className="grid grid-cols-8 border-b border-gray-800 w-full min-w-[240px]">
           <div className="py-1 text-center text-xs text-muted-foreground"></div>
           {weekDays.map((day, index) => (
             <div
@@ -206,9 +235,12 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
         {/* Time grid */}
         <div className="grid grid-cols-8 w-full min-w-[240px]">
           {/* Time labels */}
-          <div className="border-r">
+          <div className="border-r border-gray-800">
             {timeSlots.map((time) => (
-              <div key={time} className="h-8 border-b px-1 py-1">
+              <div
+                key={time}
+                className="h-8 border-b border-gray-800 px-1 py-1"
+              >
                 <span className="text-[10px] text-muted-foreground">
                   {time}
                 </span>
@@ -217,14 +249,13 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
           </div>
           {/* Calendar cells with events */}
           {Array.from({ length: 7 }).map((_, dayIndex) => (
-            <div key={dayIndex} className="border-r relative">
+            <div key={dayIndex} className="border-r border-gray-800 relative">
               {timeSlots.map((_, timeIndex) => (
                 <div
                   key={`${dayIndex}-${timeIndex}`}
-                  className="h-8 border-b"
+                  className="h-8 border-b border-gray-800"
                 />
               ))}
-
               {/* Render events for this day */}
               {calendarEvents
                 .filter((event) => event.dayIndex === dayIndex)
@@ -234,9 +265,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
                     style={getEventStyle(event)}
                     title={event.course}
                   >
-                    {event.course.length > 8
-                      ? `${event.course.substring(0, 7)}...`
-                      : event.course}
+                    <div className="font-semibold text-center">
+                      {getCourseAbbreviation(event.course)}
+                    </div>
                   </div>
                 ))}
             </div>

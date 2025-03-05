@@ -55,11 +55,11 @@ const getAvailableRoomCount = (
 
 const MapLegend = () => {
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1e2329b3] border border-gray-700 rounded-lg p-2 shadow-lg z-10">
-      <div className="mb-1.5 text-xs font-medium text-white/90 text-center">
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1e2329b3] border border-gray-700 rounded-lg p-2 shadow-lg z-10 min-w-fit whitespace-nowrap">
+      <div className="hidden md:block mb-1.5 text-xs font-medium text-white/90 text-center">
         Classroom Availability
       </div>
-      <div className="flex gap-3">
+      <div className="flex justify-center gap-3">
         <div className="flex items-center gap-1.5">
           <div className="w-2.5 h-2.5 rounded-full bg-[#50C9BD] shadow-sm shadow-[#50C9BD]/50"></div>
           <span className="text-xs text-white">≥50%</span>
@@ -197,16 +197,15 @@ const Map = ({
           // Update existing marker
           const el = marker.getElement();
           el.style.backgroundColor = markerColor;
-          el.style.boxShadow = `0 0 15px ${markerColor}`;
-
+          el.style.boxShadow = `0 0 8px ${markerColor}`;
         } else {
           // Create new marker
           const el = document.createElement("div");
           el.className = "building-marker";
-          el.style.width = "14px";
-          el.style.height = "14px";
+          el.style.width = "12px";
+          el.style.height = "12px";
           el.style.borderRadius = "50%";
-          el.style.boxShadow = `0 0 15px ${markerColor}`;
+          el.style.boxShadow = `0 0 8px ${markerColor}`;
           el.style.backgroundColor = markerColor;
           el.style.cursor = "pointer";
 
@@ -348,27 +347,26 @@ const Map = ({
         }
         @keyframes pulse {
           0% {
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
           }
           70% {
-            box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
           }
           100% {
             box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
           }
         }
         .building-marker {
-          /* Increase the touch target size for mobile without changing appearance */
-          min-width: 14px;
-          min-height: 14px;
+          min-width: 12px;
+          min-height: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
         }
         .building-marker::after {
           content: "";
-          width: 15px;
-          height: 15px;
+          width: 12px;
+          height: 12px;
           border-radius: 50%;
           background: inherit;
           box-shadow: inherit;

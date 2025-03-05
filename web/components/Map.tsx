@@ -1,7 +1,10 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { DoorOpen } from "lucide-react";
+import { getAvailabilityColor } from "@/lib/utils";
 
 interface Coordinates {
   latitude: number;
@@ -38,16 +41,6 @@ interface MapProps {
   currentDateTime: Date;
 }
 
-const getAvailabilityColor = (
-  availableRooms: number,
-  totalRooms: number
-): string => {
-  const ratio = availableRooms / totalRooms;
-  if (ratio >= 0.5) return "#50C9BD"; // brighter green
-  if (ratio >= 0.25) return "#FFBB45"; // brighter yellow
-  return "#FF5252"; // brighter red
-};
-
 const getAvailableRoomCount = (
   building: Building,
   isRoomAvailable: (schedules: Schedule[]) => boolean
@@ -81,6 +74,39 @@ const MapLegend = () => {
   );
 };
 
+// Define interface for tooltip props
+interface BuildingTooltipProps {
+  buildingName: string;
+  availableRooms: number;
+  totalRooms: number;
+}
+
+// Custom tooltip component for the popups
+const BuildingTooltip = ({
+  buildingName,
+  availableRooms,
+  totalRooms,
+}: BuildingTooltipProps) => {
+  const backgroundColor = getAvailabilityColor(availableRooms, totalRooms);
+
+  return (
+    <div className="bg-[#1e2329] border border-gray-700 rounded-lg p-3 shadow-lg min-w-[150px]">
+      <div className="flex items-center justify-between">
+        <div className="text-white font-medium">{buildingName}</div>
+        <span
+          className="flex justify-center items-center gap-1 py-1 px-2 rounded-full text-xs text-white"
+          style={{ backgroundColor }}
+        >
+          <DoorOpen className="h-3 w-3" strokeWidth={2} />
+          <span>
+            {availableRooms}/{totalRooms}
+          </span>
+        </span>
+      </div>
+    </div>
+  );
+};
+
 const Map = ({
   className = "",
   buildingData,
@@ -92,6 +118,7 @@ const Map = ({
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<{ [key: string]: mapboxgl.Marker }>({});
+  const popupsRef = useRef<{ [key: string]: mapboxgl.Popup }>({});
 
   // Initialize map on component mount
   useEffect(() => {
@@ -105,6 +132,7 @@ const Map = ({
     // Cleanup function
     return () => {
       Object.values(markersRef.current).forEach((marker) => marker.remove());
+      Object.values(popupsRef.current).forEach((popup) => popup.remove());
       if (mapRef.current) {
         mapRef.current.remove();
       }
@@ -125,6 +153,12 @@ const Map = ({
           // Remove the marker if it's no longer in the filtered data
           markersRef.current[buildingName].remove();
           delete markersRef.current[buildingName];
+
+          // Also remove any associated popup
+          if (popupsRef.current[buildingName]) {
+            popupsRef.current[buildingName].remove();
+            delete popupsRef.current[buildingName];
+          }
         }
       });
 
@@ -179,6 +213,40 @@ const Map = ({
             }
           });
 
+          // Create tooltip content
+          const tooltipNode = document.createElement("div");
+          ReactDOM.createRoot(tooltipNode).render(
+            <BuildingTooltip
+              buildingName={buildingName}
+              availableRooms={availableRooms}
+              totalRooms={totalRooms}
+            />
+          );
+
+          // Create popup but don't add to map yet
+          const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            offset: 15,
+            className: "map-tooltip", // For custom styling if needed
+          }).setDOMContent(tooltipNode);
+
+          popupsRef.current[buildingName] = popup;
+
+          // Add hover handlers for the marker
+          el.addEventListener("mouseenter", () => {
+            popup
+              .setLngLat([
+                building.coordinates.longitude,
+                building.coordinates.latitude,
+              ])
+              .addTo(mapRef.current!);
+          });
+
+          el.addEventListener("mouseleave", () => {
+            popup.remove();
+          });
+
           markersRef.current[buildingName] = newMarker;
         }
       });
@@ -217,6 +285,31 @@ const Map = ({
   return (
     <div ref={mapContainerRef} className={`h-full w-full ${className}`}>
       <MapLegend />
+
+      {/* Add some global styles for the tooltips */}
+      <style jsx global>{`
+        .map-tooltip .mapboxgl-popup-content {
+          padding: 0;
+          background: transparent;
+          box-shadow: none;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        .map-tooltip .mapboxgl-popup-tip {
+          display: none;
+        }
+        @keyframes pulse {
+          0% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+          }
+          70% {
+            box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+          }
+        }
+      `}</style>
     </div>
   );
 };

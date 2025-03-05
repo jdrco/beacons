@@ -1,8 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+} from "@/components/ui/drawer";
 
-// Add types for schedules
 interface Schedule {
   dates: string;
   time: string;
@@ -16,12 +28,19 @@ interface CalendarEvent {
   startTime: number;
   endTime: number;
   course: string;
+  location: string;
+  capacity: number;
+  dates: string;
 }
 
 export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
   // State for current week
   const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
+    null
+  );
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // Day labels (starting with Monday)
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -108,6 +127,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
             startTime,
             endTime,
             course: schedule.course,
+            location: schedule.location,
+            capacity: schedule.capacity,
+            dates: schedule.dates,
           });
         if (weekdayPattern.includes("T") && !weekdayPattern.includes("R"))
           events.push({
@@ -115,6 +137,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
             startTime,
             endTime,
             course: schedule.course,
+            location: schedule.location,
+            capacity: schedule.capacity,
+            dates: schedule.dates,
           });
         if (weekdayPattern.includes("W"))
           events.push({
@@ -122,6 +147,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
             startTime,
             endTime,
             course: schedule.course,
+            location: schedule.location,
+            capacity: schedule.capacity,
+            dates: schedule.dates,
           });
         if (weekdayPattern.includes("R"))
           events.push({
@@ -129,6 +157,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
             startTime,
             endTime,
             course: schedule.course,
+            location: schedule.location,
+            capacity: schedule.capacity,
+            dates: schedule.dates,
           });
         if (weekdayPattern.includes("F"))
           events.push({
@@ -136,6 +167,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
             startTime,
             endTime,
             course: schedule.course,
+            location: schedule.location,
+            capacity: schedule.capacity,
+            dates: schedule.dates,
           });
       }
     });
@@ -197,7 +231,20 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
       flexDirection: "column",
       justifyContent: "center", // Vertically center the text
       alignItems: "center", // Horizontally center the text
+      cursor: "pointer",
+      transition: "all 0.2s ease-in-out",
     };
+  };
+
+  const getHoverStyle = (isHovered: boolean): React.CSSProperties => {
+    return isHovered
+      ? {
+          transform: "scale(1.05)",
+          opacity: "1",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+          zIndex: 20,
+        }
+      : {};
   };
 
   const getCourseAbbreviation = (courseName: string): string => {
@@ -212,68 +259,160 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     return courseName.charAt(0).toUpperCase();
   };
 
+  const handleEventClick = (event: CalendarEvent) => {
+    setSelectedEvent(event);
+    setIsDrawerOpen(true);
+  };
+
+  const formatTimeRange = (startTime: number, endTime: number) => {
+    const formatTime = (time: number) => {
+      const hour = Math.floor(time) + 8; // Convert back from grid index to hour
+      const minute = Math.round((time % 1) * 60);
+      const period = hour >= 12 ? "PM" : "AM";
+      const hour12 = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+      return `${hour12}:${minute < 10 ? "0" + minute : minute} ${period}`;
+    };
+
+    return `${formatTime(startTime)} - ${formatTime(endTime)}`;
+  };
+
+  const getDayName = (dayIndex: number) => {
+    const days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    return days[dayIndex];
+  };
+
   return (
-    <div className="flex flex-col space-y-2 w-full">
-      <div className="flex items-center justify-between">
-        <h2 className="text-sm font-bold">Room Schedule</h2>
-        <h2 className="text-sm font-medium">{getCurrentWeekDates()}</h2>
-      </div>
-      <br className="w-full border-white border-2" />
-      <div className="w-full overflow-x-auto">
-        {/* Days header */}
-        <div className="grid grid-cols-8 border-b border-gray-800 w-full min-w-[240px]">
-          <div className="py-1 text-center text-xs text-muted-foreground"></div>
-          {weekDays.map((day, index) => (
-            <div
-              key={`day-${index}`}
-              className="flex items-center justify-center py-1"
+    <TooltipProvider>
+      <div className="flex flex-col space-y-2 w-full">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-bold">Room Schedule</h2>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigateWeek(-1)}
+              className="text-sm p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
             >
-              <span className="text-xs font-medium">{day}</span>
-            </div>
-          ))}
+              ←
+            </button>
+            <h2 className="text-sm font-medium">{getCurrentWeekDates()}</h2>
+            <button
+              onClick={() => navigateWeek(1)}
+              className="text-sm p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              →
+            </button>
+          </div>
         </div>
-        {/* Time grid */}
-        <div className="grid grid-cols-8 w-full min-w-[240px]">
-          {/* Time labels */}
-          <div className="border-r border-gray-800">
-            {timeSlots.map((time) => (
+        <hr className="w-full border-gray-200 dark:border-gray-800" />
+        <div className="w-full overflow-x-auto">
+          {/* Days header */}
+          <div className="grid grid-cols-8 border-b border-gray-800 w-full min-w-[240px]">
+            <div className="py-1 text-center text-xs text-muted-foreground"></div>
+            {weekDays.map((day, index) => (
               <div
-                key={time}
-                className="h-8 border-b border-gray-800 px-1 py-1"
+                key={`day-${index}`}
+                className="flex items-center justify-center py-1"
               >
-                <span className="text-[10px] text-muted-foreground">
-                  {time}
-                </span>
+                <span className="text-xs font-medium">{day}</span>
               </div>
             ))}
           </div>
-          {/* Calendar cells with events */}
-          {Array.from({ length: 7 }).map((_, dayIndex) => (
-            <div key={dayIndex} className="border-r border-gray-800 relative">
-              {timeSlots.map((_, timeIndex) => (
+          {/* Time grid */}
+          <div className="grid grid-cols-8 w-full min-w-[240px]">
+            {/* Time labels */}
+            <div className="border-r border-gray-800">
+              {timeSlots.map((time) => (
                 <div
-                  key={`${dayIndex}-${timeIndex}`}
-                  className="h-8 border-b border-gray-800"
-                />
+                  key={time}
+                  className="h-8 border-b border-gray-800 px-1 py-1"
+                >
+                  <span className="text-[10px] text-muted-foreground">
+                    {time}
+                  </span>
+                </div>
               ))}
-              {/* Render events for this day */}
-              {calendarEvents
-                .filter((event) => event.dayIndex === dayIndex)
-                .map((event, idx) => (
-                  <div
-                    key={`event-${dayIndex}-${idx}`}
-                    style={getEventStyle(event)}
-                    title={event.course}
-                  >
-                    <div className="font-semibold text-center">
-                      {getCourseAbbreviation(event.course)}
-                    </div>
-                  </div>
-                ))}
             </div>
-          ))}
+            {/* Calendar cells with events */}
+            {Array.from({ length: 7 }).map((_, dayIndex) => (
+              <div key={dayIndex} className="border-r border-gray-800 relative">
+                {timeSlots.map((_, timeIndex) => (
+                  <div
+                    key={`${dayIndex}-${timeIndex}`}
+                    className="h-8 border-b border-gray-800"
+                  />
+                ))}
+                {/* Render events for this day */}
+                {calendarEvents
+                  .filter((event) => event.dayIndex === dayIndex)
+                  .map((event, idx) => (
+                    <Tooltip key={`event-${dayIndex}-${idx}`}>
+                      <TooltipTrigger asChild>
+                        <div
+                          className="transition-transform hover:scale-105 hover:opacity-100 hover:shadow-md"
+                          style={{ ...getEventStyle(event) }}
+                          onClick={() => handleEventClick(event)}
+                        >
+                          <div className="font-semibold text-center">
+                            {getCourseAbbreviation(event.course)}
+                          </div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="font-medium">{event.course}</p>
+                        <p className="text-xs">{event.location}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ))}
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Drawer for detailed event view */}
+        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+          <DrawerContent className="px-4 mx-auto">
+            {selectedEvent && (
+              <>
+                <DrawerHeader className="sm:text-center">
+                  <DrawerTitle>{selectedEvent.course}</DrawerTitle>
+                  <DrawerDescription>
+                    {getDayName(selectedEvent.dayIndex)}s ·{" "}
+                    {formatTimeRange(
+                      selectedEvent.startTime,
+                      selectedEvent.endTime
+                    )}
+                  </DrawerDescription>
+                </DrawerHeader>
+                <div className="grid gap-4 py-4 max-w-lg mx-auto w-full">
+                  <div className="grid sm:grid-cols-4 grid-cols-1 items-center gap-2 sm:gap-4">
+                    <span className="text-sm font-medium">Location:</span>
+                    <span className="sm:col-span-3">
+                      {selectedEvent.location}
+                    </span>
+                  </div>
+                  <div className="grid sm:grid-cols-4 grid-cols-1 items-center gap-2 sm:gap-4">
+                    <span className="text-sm font-medium">Capacity:</span>
+                    <span className="sm:col-span-3">
+                      {selectedEvent.capacity} students
+                    </span>
+                  </div>
+                  <div className="grid sm:grid-cols-4 grid-cols-1 items-center gap-2 sm:gap-4">
+                    <span className="text-sm font-medium">Dates:</span>
+                    <span className="sm:col-span-3">{selectedEvent.dates}</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </DrawerContent>
+        </Drawer>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }

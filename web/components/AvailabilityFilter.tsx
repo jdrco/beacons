@@ -76,7 +76,7 @@ export default function AvailabilityFilterDropdown({
               ) : (
                 <Circle className="w-4 h-4 text-[#4AA69D]" strokeWidth={1.5} />
               )}
-              <span>Mostly Available (≥50%)</span>
+              <span>Mostly Available</span>
             </div>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
@@ -92,7 +92,7 @@ export default function AvailabilityFilterDropdown({
               ) : (
                 <Circle className="w-4 h-4 text-[#DDAA5E]" strokeWidth={1.5} />
               )}
-              <span>Limited Availability (25-50%)</span>
+              <span>Limited Availability</span>
             </div>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
@@ -108,7 +108,7 @@ export default function AvailabilityFilterDropdown({
               ) : (
                 <Circle className="w-4 h-4 text-[#F66A6A]" strokeWidth={1.5} />
               )}
-              <span>{"Mostly Unavailable (<25%)"}</span>
+              <span>{"Mostly Unavailable"}</span>
             </div>
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>

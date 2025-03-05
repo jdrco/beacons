@@ -57,6 +57,30 @@ const getAvailableRoomCount = (
   }, 0);
 };
 
+const MapLegend = () => {
+  return (
+    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1e2329] border border-gray-700 rounded-lg p-2 shadow-lg z-10">
+      <div className="mb-1.5 text-xs font-medium text-white/90 text-center">
+        Classroom Availability
+      </div>
+      <div className="flex gap-3">
+        <div className="flex items-center gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#50C9BD] shadow-sm shadow-[#50C9BD]/50"></div>
+          <span className="text-xs text-white">≥50%</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FFBB45] shadow-sm shadow-[#FFBB45]/50"></div>
+          <span className="text-xs text-white">25-50%</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5252] shadow-sm shadow-[#FF5252]/50"></div>
+          <span className="text-xs text-white">&lt;25%</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Map = ({
   className = "",
   buildingData,
@@ -190,7 +214,11 @@ const Map = ({
     }
   }, [selectedBuilding, buildingData]);
 
-  return <div ref={mapContainerRef} className={`h-full w-full ${className}`} />;
+  return (
+    <div ref={mapContainerRef} className={`h-full w-full ${className}`}>
+      <MapLegend />
+    </div>
+  );
 };
 
 export default Map;

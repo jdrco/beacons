@@ -9,7 +9,7 @@ const publicPaths = [
 ]
 
 export function middleware(request: NextRequest) {
-  // return NextResponse.next() // Uncomment for simple pass through for development
+  return NextResponse.next() // Uncomment for simple pass through for development
 
   const accessToken = request.cookies.get('access_token')
   const path = request.nextUrl.pathname

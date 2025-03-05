@@ -34,8 +34,6 @@ interface CalendarEvent {
 }
 
 export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
-  // State for current week
-  const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
@@ -183,8 +181,9 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
     const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to get Monday
 
-    // Apply week offset
-    const mondayDate = new Date(today.setDate(diff + currentWeekOffset * 7));
+    // Create a new date object for Monday of current week
+    const mondayDate = new Date(today);
+    mondayDate.setDate(diff);
 
     const startDate = new Date(mondayDate);
     const endDate = new Date(mondayDate);

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Heart,
+  // Heart,
   Building2,
   DoorOpen,
   DoorClosed,
@@ -52,7 +52,7 @@ interface BuildingData {
 
 export default function RoomBooking() {
   const [buildingData, setBuildingData] = useState<BuildingData | null>(null);
-  const [favorites, setFavorites] = useState<string[]>([]);
+  // const [favorites, setFavorites] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
@@ -153,17 +153,6 @@ export default function RoomBooking() {
     const totalRooms = Object.keys(building.rooms).length;
     const availableRooms = getAvailableRoomCount(building);
     return totalRooms > 0 ? availableRooms / totalRooms : 0;
-  };
-
-  // Check if a building has any available rooms
-  const isBuildingAvailable = (building: Building): boolean => {
-    // Check each room in the building
-    for (const roomSchedules of Object.values(building.rooms)) {
-      if (isRoomAvailable(roomSchedules)) {
-        return true; // Building is available if at least one room is available
-      }
-    }
-    return false; // Building is busy if all rooms are occupied
   };
 
   // Check if a building matches the current availability filter
@@ -283,14 +272,14 @@ export default function RoomBooking() {
     return cleanup;
   }, []);
 
-  const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
-    e.stopPropagation();
-    setFavorites((prev) =>
-      prev.includes(roomId)
-        ? prev.filter((id) => id !== roomId)
-        : [...prev, roomId]
-    );
-  };
+  // const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
+  //   e.stopPropagation();
+  //   setFavorites((prev) =>
+  //     prev.includes(roomId)
+  //       ? prev.filter((id) => id !== roomId)
+  //       : [...prev, roomId]
+  //   );
+  // };
 
   // Helper function to convert time string to minutes since midnight
   const timeToMinutes = (timeStr: string): number => {

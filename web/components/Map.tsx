@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -250,7 +250,7 @@ const Map = ({
           });
 
           // Add touch handler specifically for mobile
-          el.addEventListener("touchstart", (e) => {
+          el.addEventListener("touchstart", () => {
             if (isMobileRef.current) {
               // For mobile, show popup on touch
               popup

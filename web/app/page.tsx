@@ -1,17 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import ClassroomDisplay from "@/components/Display";
-
-const MapWithNoSSR = dynamic(() => import("@/components/Map"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full flex items-center justify-center bg-gray-100">
-      Loading map...
-    </div>
-  ),
-});
 
 export default function Home() {
   return (

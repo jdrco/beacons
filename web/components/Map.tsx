@@ -4,7 +4,6 @@ import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { DoorOpen, LoaderCircle } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   getAvailabilityColor,
   getAvailabilityColorBrighter,
@@ -416,13 +415,21 @@ const Map = ({
   return (
     <div className={`relative h-full w-full ${className}`}>
       {!isMapLoaded && (
-        <div className="absolute inset-0 bg-[#1e2329] rounded-xl md:rounded-2xl z-10 p-4 flex flex-col gap-4">
-          <Skeleton className="w-full h-full rounded-lg bg-[#1b3b38]">
+        <div className="absolute inset-0 bg-[#1e2329] rounded-xl md:rounded-2xl z-10 flex flex-col gap-4">
+          <div
+            className="w-full h-full rounded-lg overflow-hidden"
+            style={{
+              background:
+                "linear-gradient(to bottom, #4AA69D, #DDAA5E, #F66A6A)",
+            }}
+          >
             <div className="h-full flex justify-center items-center gap-x-2">
-              <LoaderCircle className="animate-spin" />
+              <div className="flex items-center justify-center">
+                <LoaderCircle className="animate-spin" />
+              </div>
               Loading map. Hang tight...
             </div>
-          </Skeleton>
+          </div>
         </div>
       )}
 

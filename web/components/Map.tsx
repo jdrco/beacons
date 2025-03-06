@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { DoorOpen, LoaderCircle } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { DoorOpen, Loader2 } from "lucide-react";
 import {
   getAvailabilityColor,
   getAvailabilityColorBrighter,
@@ -84,6 +83,7 @@ interface BuildingTooltipProps {
   buildingName: string;
   availableRooms: number;
   totalRooms: number;
+  onClose?: () => void;
 }
 
 // Custom tooltip component for the popups
@@ -91,22 +91,47 @@ const BuildingTooltip = ({
   buildingName,
   availableRooms,
   totalRooms,
-}: BuildingTooltipProps) => {
+  onClose,
+}: BuildingTooltipProps & { onClose?: () => void }) => {
   const backgroundColor = getAvailabilityColor(availableRooms, totalRooms);
 
   return (
     <div className="bg-[#1e2329b3] border border-gray-700 rounded-lg p-3 shadow-lg min-w-[150px]">
       <div className="flex items-center justify-between">
         <div className="text-white font-medium">{buildingName}</div>
-        <span
-          className="flex justify-center items-center gap-1 py-1 px-2 rounded-full text-xs text-white"
-          style={{ backgroundColor }}
-        >
-          <DoorOpen className="h-3 w-3" strokeWidth={2} />
-          <span>
-            {availableRooms}/{totalRooms}
+        <div className="flex items-center gap-2">
+          <span
+            className="flex justify-center items-center gap-1 py-1 px-2 rounded-full text-xs text-white"
+            style={{ backgroundColor }}
+          >
+            <DoorOpen className="h-3 w-3" strokeWidth={2} />
+            <span>
+              {availableRooms}/{totalRooms}
+            </span>
           </span>
-        </span>
+          {onClose && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose?.();
+              }}
+              className="text-gray-400 hover:text-white ml-1"
+              aria-label="Close"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -219,14 +244,9 @@ const Map = ({
           el.style.width = "12px";
           el.style.height = "12px";
           el.style.borderRadius = "50%";
-          el.style.boxShadow = `0 0 8px ${markerColor}`;
+          el.style.boxShadow = `0 0 6px ${markerColor}`;
           el.style.backgroundColor = markerColor;
           el.style.cursor = "pointer";
-
-          // Add pulse animation if selected
-          if (selectedBuilding === buildingName) {
-            el.style.animation = "pulse 1s infinite";
-          }
 
           // Create marker
           const newMarker = new mapboxgl.Marker(el)
@@ -243,6 +263,10 @@ const Map = ({
               buildingName={buildingName}
               availableRooms={availableRooms}
               totalRooms={totalRooms}
+              onClose={() => {
+                popup.remove();
+                activePopupRef.current = null;
+              }}
             />
           );
 
@@ -416,13 +440,19 @@ const Map = ({
   return (
     <div className={`relative h-full w-full ${className}`}>
       {!isMapLoaded && (
-        <div className="absolute inset-0 bg-[#1e2329] rounded-xl md:rounded-2xl z-10 p-4 flex flex-col gap-4">
-          <Skeleton className="w-full h-full rounded-lg bg-[#1b3b38]">
-            <div className="h-full flex justify-center items-center gap-x-2">
-              <LoaderCircle className="animate-spin" />
-              Loading map. Hang tight...
+        <div className="absolute inset-0 bg-[#1e2329] rounded-xl md:rounded-2xl z-10 flex flex-col gap-4">
+          <div
+            className="w-full h-full rounded-lg overflow-hidden"
+            style={{
+              background:
+                "linear-gradient(to bottom, #4AA69D, #DDAA5E, #F66A6A)",
+            }}
+          >
+            <div className="h-full flex items-center justify-center gap-2 text-primary">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span>Loading map. Hang tight...</span>
             </div>
-          </Skeleton>
+          </div>
         </div>
       )}
 
@@ -445,17 +475,6 @@ const Map = ({
         .map-tooltip .mapboxgl-popup-tip {
           display: none;
         }
-        @keyframes pulse {
-          0% {
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
-          }
-          70% {
-            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
-          }
-          100% {
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-          }
-        }
         .building-marker {
           min-width: 12px;
           min-height: 12px;
@@ -470,6 +489,13 @@ const Map = ({
           border-radius: 50%;
           background: inherit;
           box-shadow: inherit;
+        }
+        .map-tooltip button:focus {
+          outline: none;
+        }
+        .map-tooltip button:focus-visible {
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+          border-radius: 2px;
         }
       `}</style>
     </div>

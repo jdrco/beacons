@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { DoorOpen, LoaderCircle } from "lucide-react";
+import { DoorOpen, Loader2 } from "lucide-react";
 import {
   getAvailabilityColor,
   getAvailabilityColorBrighter,
@@ -418,11 +418,9 @@ const Map = ({
                 "linear-gradient(to bottom, #4AA69D, #DDAA5E, #F66A6A)",
             }}
           >
-            <div className="h-full flex justify-center items-center gap-x-2">
-              <div className="flex items-center justify-center">
-                <LoaderCircle className="animate-spin" />
-              </div>
-              Loading map. Hang tight...
+            <div className="h-full flex items-center justify-center gap-2 text-primary">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span>Loading map. Hang tight...</span>
             </div>
           </div>
         </div>

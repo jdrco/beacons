@@ -222,11 +222,6 @@ const Map = ({
           el.style.backgroundColor = markerColor;
           el.style.cursor = "pointer";
 
-          // Add pulse animation if selected
-          if (selectedBuilding === buildingName) {
-            el.style.animation = "pulse 1s infinite";
-          }
-
           // Create marker
           const newMarker = new mapboxgl.Marker(el)
             .setLngLat([
@@ -451,17 +446,6 @@ const Map = ({
         }
         .map-tooltip .mapboxgl-popup-tip {
           display: none;
-        }
-        @keyframes pulse {
-          0% {
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
-          }
-          70% {
-            box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
-          }
-          100% {
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-          }
         }
         .building-marker {
           min-width: 12px;

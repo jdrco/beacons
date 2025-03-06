@@ -1,6 +1,5 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,17 +9,42 @@ interface SearchBarProps {
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Handle input changes with debounce
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    onSearch(newQuery);
+
+    // Clear any existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Set a new timer to delay the search
+    debounceTimerRef.current = setTimeout(() => {
+      onSearch(newQuery);
+    }, 250); // 250ms debounce
   };
 
   const handleClear = () => {
     setQuery("");
     onSearch("");
+    // Focus the input after clearing
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
+
+  // Clean up the debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="w-full h-full flex">
@@ -28,6 +52,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         <div className="relative flex items-center rounded-xl md:rounded-2xl border border-[#2b5f5a]">
           <Search className="absolute left-3 md:left-6 w-4 h-4 md:h-6 md:w-6" />
           <input
+            ref={inputRef}
             type="text"
             value={query}
             onChange={handleQueryChange}
@@ -44,6 +69,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
               "hover:text-gray-300",
               !query && "opacity-0"
             )}
+            type="button" // Explicitly set button type
           >
             <X className="h-5 w-5" />
           </button>

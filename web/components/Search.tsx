@@ -31,7 +31,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
             type="text"
             value={query}
             onChange={handleQueryChange}
-            placeholder="Search by building, room, or class"
+            placeholder="Search building, room, or class"
             className={cn(
               "h-10 md:h-14 w-full bg-transparent px-10 md:px-16 text-white text-sm md:text-lg placeholder:text-gray-500",
               "focus:outline-none focus:ring-0"

@@ -20,7 +20,6 @@ interface DisplaySettingsProps {
 export default function DisplaySettingsDropdown({
   onFilterChange,
   currentFilter,
-  currentDateTime,
 }: DisplaySettingsProps) {
   // Determine if any filter is currently active (not "all")
   const isFilterActive = currentFilter !== "all";

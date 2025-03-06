@@ -63,7 +63,6 @@ export default function Display() {
   const accordionContainerRef = useRef<HTMLDivElement>(null);
   const buildingItemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const [showMapTooltip, setShowMapTooltip] = useState<boolean>(true);
-  const [isCustomTimeActive, setIsCustomTimeActive] = useState<boolean>(false);
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
@@ -227,9 +226,6 @@ export default function Display() {
   }, []);
 
   useEffect(() => {
-    // Only run auto-updates if not in custom time mode
-    if (isCustomTimeActive) return;
-
     const calculateNextUpdateTime = () => {
       const now = new Date();
       const minutes = now.getMinutes();
@@ -256,10 +252,7 @@ export default function Display() {
       // Set timeout for next update
       const timerId = setTimeout(() => {
         // Update the current time to trigger recalculation
-        if (!isCustomTimeActive) {
-          // Important: Use functional update to ensure we're not using stale state
-          setCurrentDateTime(() => new Date());
-        }
+        setCurrentDateTime(new Date());
         // Schedule the next update
         scheduleNextUpdate();
       }, delay);
@@ -272,7 +265,7 @@ export default function Display() {
     const cleanup = scheduleNextUpdate();
 
     return cleanup;
-  }, [isCustomTimeActive]);
+  }, []);
 
   useEffect(() => {
     // This empty effect with searchQuery dependency helps isolate search state updates
@@ -292,26 +285,6 @@ export default function Display() {
   const timeToMinutes = (timeStr: string): number => {
     const [hours, minutes] = timeStr.split(":").map(Number);
     return hours * 60 + minutes;
-  };
-
-  const handleTimeChange = (newDateTime: Date) => {
-    // First check if this is essentially the current time
-    const now = new Date();
-    const isCustom =
-      newDateTime.getDate() !== now.getDate() ||
-      newDateTime.getMonth() !== now.getMonth() ||
-      newDateTime.getFullYear() !== now.getFullYear() ||
-      newDateTime.getHours() !== now.getHours() ||
-      newDateTime.getMinutes() !== now.getMinutes();
-
-    // If it's essentially the current time, just use the exact current time
-    if (!isCustom) {
-      setCurrentDateTime(new Date());
-      setIsCustomTimeActive(false);
-    } else {
-      setCurrentDateTime(newDateTime);
-      setIsCustomTimeActive(true);
-    }
   };
 
   // Handle building selection from map or accordion
@@ -393,9 +366,7 @@ export default function Display() {
           <DisplaySettingsDropdown
             onFilterChange={setDisplaySettings}
             currentFilter={displaySettings}
-            onTimeChange={handleTimeChange}
             currentDateTime={currentDateTime}
-            isCustomTimeActive={isCustomTimeActive}
           />
         </div>
         <div className="order-first md:order-last flex justify-center items-center md:w-1/3 relative">

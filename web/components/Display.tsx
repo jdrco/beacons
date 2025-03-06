@@ -47,14 +47,14 @@ interface BuildingData {
   [buildingName: string]: Building;
 }
 
-export default function RoomBooking() {
+export default function Display() {
   const [buildingData, setBuildingData] = useState<BuildingData | null>(null);
   // const [favorites, setFavorites] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [DisplaySettings, setDisplaySettings] =
+  const [displaySettings, setDisplaySettings] =
     useState<DisplaySettings>("all");
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
   const [expandedAccordionItems, setExpandedAccordionItems] = useState<
@@ -63,6 +63,7 @@ export default function RoomBooking() {
   const accordionContainerRef = useRef<HTMLDivElement>(null);
   const buildingItemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const [showMapTooltip, setShowMapTooltip] = useState<boolean>(true);
+  const [isCustomTimeActive, setIsCustomTimeActive] = useState<boolean>(false);
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
@@ -157,7 +158,7 @@ export default function RoomBooking() {
   const buildingMatchesDisplaySettings = (building: Building): boolean => {
     const availabilityRatio = getBuildingAvailabilityRatio(building);
 
-    switch (DisplaySettings) {
+    switch (displaySettings) {
       case "available":
         return availabilityRatio >= 0.5;
       case "limited":
@@ -229,6 +230,9 @@ export default function RoomBooking() {
   }, []);
 
   useEffect(() => {
+    // Only run auto-updates if not in custom time mode
+    if (isCustomTimeActive) return;
+
     const calculateNextUpdateTime = () => {
       const now = new Date();
       const minutes = now.getMinutes();
@@ -255,7 +259,9 @@ export default function RoomBooking() {
       // Set timeout for next update
       const timerId = setTimeout(() => {
         // Update the current time to trigger recalculation
-        setCurrentDateTime(new Date());
+        if (!isCustomTimeActive) {
+          setCurrentDateTime(new Date());
+        }
         // Schedule the next update
         scheduleNextUpdate();
       }, delay);
@@ -268,7 +274,7 @@ export default function RoomBooking() {
     const cleanup = scheduleNextUpdate();
 
     return cleanup;
-  }, []);
+  }, [isCustomTimeActive]);
 
   // const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
   //   e.stopPropagation();
@@ -283,6 +289,26 @@ export default function RoomBooking() {
   const timeToMinutes = (timeStr: string): number => {
     const [hours, minutes] = timeStr.split(":").map(Number);
     return hours * 60 + minutes;
+  };
+
+  const handleTimeChange = (newDateTime: Date) => {
+    // First check if this is essentially the current time
+    const now = new Date();
+    const isCustom =
+      newDateTime.getDate() !== now.getDate() ||
+      newDateTime.getMonth() !== now.getMonth() ||
+      newDateTime.getFullYear() !== now.getFullYear() ||
+      newDateTime.getHours() !== now.getHours() ||
+      newDateTime.getMinutes() !== now.getMinutes();
+
+    // If it's essentially the current time, just use the exact current time
+    if (!isCustom) {
+      setCurrentDateTime(new Date());
+      setIsCustomTimeActive(false);
+    } else {
+      setCurrentDateTime(newDateTime);
+      setIsCustomTimeActive(true);
+    }
   };
 
   // Handle building selection from map or accordion
@@ -363,7 +389,9 @@ export default function RoomBooking() {
           <SearchBar onSearch={setSearchQuery} />
           <DisplaySettingsDropdown
             onFilterChange={setDisplaySettings}
-            currentFilter={DisplaySettings}
+            currentFilter={displaySettings}
+            onTimeChange={handleTimeChange}
+            currentDateTime={currentDateTime}
           />
         </div>
         <div className="order-first md:order-last flex justify-center items-center md:w-1/3 relative">

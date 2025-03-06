@@ -1,6 +1,5 @@
 "use client";
-
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -11,11 +10,22 @@ interface SearchBarProps {
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Handle input changes with debounce
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    onSearch(newQuery);
+
+    // Clear any existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Set a new timer to delay the search
+    debounceTimerRef.current = setTimeout(() => {
+      onSearch(newQuery);
+    }, 250); // 250ms debounce
   };
 
   const handleClear = () => {
@@ -27,10 +37,14 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     }
   };
 
-  // Prevent any potential event propagation issues
-  const handleInputClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
+  // Clean up the debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="w-full h-full flex">
@@ -42,7 +56,6 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
             type="text"
             value={query}
             onChange={handleQueryChange}
-            onClick={handleInputClick}
             placeholder="Search building, room, or class"
             className={cn(
               "h-10 md:h-14 w-full bg-transparent px-10 md:px-16 text-white text-sm md:text-lg placeholder:text-gray-500",
@@ -56,7 +69,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
               "hover:text-gray-300",
               !query && "opacity-0"
             )}
-            type="button" // Explicitly set type to prevent form submission
+            type="button" // Explicitly set button type
           >
             <X className="h-5 w-5" />
           </button>

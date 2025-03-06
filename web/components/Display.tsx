@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/accordion";
 import Map from "./Map";
 import SearchBar from "./Search";
-import AvailabilityFilterDropdown, { DisplaySettings } from "./DisplaySettings";
+import DisplaySettingsDropdown, { DisplaySettings } from "./DisplaySettings";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { getAvailabilityColor } from "@/lib/utils";
 
@@ -54,7 +54,7 @@ export default function RoomBooking() {
   const [error, setError] = useState<string | null>(null);
   const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [DisplaySettings, setAvailabilityFilter] =
+  const [DisplaySettings, setDisplaySettings] =
     useState<DisplaySettings>("all");
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
   const [expandedAccordionItems, setExpandedAccordionItems] = useState<
@@ -154,7 +154,7 @@ export default function RoomBooking() {
   };
 
   // Check if a building matches the current availability filter
-  const buildingMatchesAvailabilityFilter = (building: Building): boolean => {
+  const buildingMatchesDisplaySettings = (building: Building): boolean => {
     const availabilityRatio = getBuildingAvailabilityRatio(building);
 
     switch (DisplaySettings) {
@@ -174,7 +174,7 @@ export default function RoomBooking() {
   const filteredBuildingData = buildingData
     ? Object.entries(buildingData).reduce((acc, [buildingName, building]) => {
         // First check if building matches availability filter
-        if (!buildingMatchesAvailabilityFilter(building)) {
+        if (!buildingMatchesDisplaySettings(building)) {
           return acc;
         }
 
@@ -361,8 +361,8 @@ export default function RoomBooking() {
       <div className="flex flex-col md:flex-row w-full md:gap-8">
         <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
           <SearchBar onSearch={setSearchQuery} />
-          <AvailabilityFilterDropdown
-            onFilterChange={setAvailabilityFilter}
+          <DisplaySettingsDropdown
+            onFilterChange={setDisplaySettings}
             currentFilter={DisplaySettings}
           />
         </div>

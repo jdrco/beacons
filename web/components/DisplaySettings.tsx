@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SlidersHorizontal, CircleCheck, Circle } from "lucide-react";
 export type DisplaySettings = "all" | "available" | "limited" | "unavailable";
-interface AvailabilityFilterProps {
+interface DisplaySettingsProps {
   onFilterChange: (filter: DisplaySettings) => void;
   currentFilter: DisplaySettings;
 }
-export default function AvailabilityFilterDropdown({
+export default function DisplaySettingsDropdown({
   onFilterChange,
   currentFilter,
-}: AvailabilityFilterProps) {
+}: DisplaySettingsProps) {
   // Determine if any filter is currently active (not "all")
   const isFilterActive = currentFilter !== "all";
   // Handle filter selection with toggle behavior

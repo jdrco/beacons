@@ -346,7 +346,16 @@ export default function RoomBooking() {
   };
 
   if (loading)
-    return <div className="p-4 text-white">Loading building data...</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <img
+          src="/beacons_logo_load.svg"
+          alt="Loading"
+          className="animate-spin w-12 h-12"
+        />
+        <div className="p-4 text-white">Loading data...</div>
+      </div>
+    );
   if (error) return <div className="p-4 text-red-500">{error}</div>;
   if (!buildingData) return null;
 

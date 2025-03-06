@@ -185,6 +185,26 @@ const Map = ({
     // Set loaded state when map is fully loaded
     map.on("load", () => {
       setIsMapLoaded(true);
+
+      // Get the current center and zoom from the loaded map
+      const currentCenter = map.getCenter();
+      const targetZoom = map.getZoom();
+
+      // Start with a zoomed out view of the same center
+      map.jumpTo({
+        center: currentCenter,
+        zoom: targetZoom - 6,
+      });
+
+      // Then animate back to the original zoom level
+      setTimeout(() => {
+        map.flyTo({
+          center: currentCenter,
+          zoom: targetZoom,
+          speed: 0.8,
+          duration: 2000,
+        });
+      }, 300);
     });
 
     // Cleanup function

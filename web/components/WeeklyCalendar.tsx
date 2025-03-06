@@ -204,30 +204,6 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Generate the current week's dates
-  const getCurrentWeekDates = () => {
-    const today = new Date();
-    const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
-    const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to get Monday
-
-    // Create a new date object for Monday of current week
-    const mondayDate = new Date(today);
-    mondayDate.setDate(diff);
-
-    const startDate = new Date(mondayDate);
-    const endDate = new Date(mondayDate);
-    endDate.setDate(endDate.getDate() + 6);
-
-    const startMonth = startDate.toLocaleString("default", { month: "short" });
-    const endMonth = endDate.toLocaleString("default", { month: "short" });
-
-    if (startMonth === endMonth) {
-      return `${startMonth} ${startDate.getDate()} - ${endDate.getDate()}`;
-    } else {
-      return `${startMonth} ${startDate.getDate()} - ${endMonth} ${endDate.getDate()}`;
-    }
-  };
-
   // Style for event elements
   const getEventStyle = (event: CalendarEvent): React.CSSProperties => {
     // Calculate position and height based on start/end times

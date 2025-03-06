@@ -369,12 +369,17 @@ export default function RoomBooking() {
             currentFilter={availabilityFilter}
           />
         </div>
-        <div className="order-first md:order-last flex justify-center items-center md:w-1/3">
-          <img
-            src="/beacons_logo.svg"
-            alt="Beacons Logo"
-            className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
-          />
+        <div className="order-first md:order-last flex justify-center items-center md:w-1/3 relative">
+          <div className="relative">
+            <img
+              src="/beacons_logo.svg"
+              alt="Beacons Logo"
+              className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
+            />
+            <span className="absolute left-full top-4 md:top-1/2 -translate-y-1/2 text-xs md:text-sm text-gray-400 ml-4 font-medium whitespace-nowrap">
+              beta v0.1.0
+            </span>
+          </div>
         </div>
       </div>
       <div className="h-full w-full flex flex-col md:flex-row gap-3 md:gap-x-8 min-h-0">

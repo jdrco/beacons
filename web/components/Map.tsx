@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { DoorOpen } from "lucide-react";
+import { DoorOpen, LoaderCircle } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   getAvailabilityColor,
   getAvailabilityColorBrighter,
@@ -126,6 +127,7 @@ const Map = ({
   const popupsRef = useRef<{ [key: string]: mapboxgl.Popup }>({});
   const activePopupRef = useRef<string | null>(null);
   const isMobileRef = useRef<boolean>(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   // Check if device is mobile
   useEffect(() => {
@@ -147,9 +149,17 @@ const Map = ({
   useEffect(() => {
     if (!mapContainerRef.current) return;
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-    mapRef.current = new mapboxgl.Map({
+
+    const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/jdrco/cm649khvj002601sthc0bc7la",
+    });
+
+    mapRef.current = map;
+
+    // Set loaded state when map is fully loaded
+    map.on("load", () => {
+      setIsMapLoaded(true);
     });
 
     // Cleanup function
@@ -360,55 +370,68 @@ const Map = ({
   ]);
 
   // Center map on selected building when it changes
-    useEffect(() => {
-      if (!mapRef.current || !buildingData || !selectedBuilding) return;
+  useEffect(() => {
+    if (!mapRef.current || !buildingData || !selectedBuilding) return;
 
-      const building = buildingData[selectedBuilding];
-      if (building) {
-        // Center map on the selected building with animation
-        mapRef.current.flyTo({
-          center: [
+    const building = buildingData[selectedBuilding];
+    if (building) {
+      // Center map on the selected building with animation
+      mapRef.current.flyTo({
+        center: [building.coordinates.longitude, building.coordinates.latitude],
+        zoom: 16,
+        duration: 1000,
+      });
+
+      // Only show the popup if showTooltip is true
+      if (showTooltip && popupsRef.current[selectedBuilding]) {
+        // Hide any previously active popup that's not the selected building
+        if (
+          activePopupRef.current &&
+          activePopupRef.current !== selectedBuilding &&
+          popupsRef.current[activePopupRef.current]
+        ) {
+          popupsRef.current[activePopupRef.current].remove();
+        }
+
+        // Show the popup for the selected building
+        popupsRef.current[selectedBuilding]
+          .setLngLat([
             building.coordinates.longitude,
             building.coordinates.latitude,
-          ],
-          zoom: 16,
-          duration: 1000,
-        });
+          ])
+          .addTo(mapRef.current!);
 
-        // Only show the popup if showTooltip is true
-        if (showTooltip && popupsRef.current[selectedBuilding]) {
-          // Hide any previously active popup that's not the selected building
-          if (
-            activePopupRef.current &&
-            activePopupRef.current !== selectedBuilding &&
-            popupsRef.current[activePopupRef.current]
-          ) {
-            popupsRef.current[activePopupRef.current].remove();
-          }
-
-          // Show the popup for the selected building
-          popupsRef.current[selectedBuilding]
-            .setLngLat([
-              building.coordinates.longitude,
-              building.coordinates.latitude,
-            ])
-            .addTo(mapRef.current!);
-
-          // Update the active popup reference
-          activePopupRef.current = selectedBuilding;
-        } else if (!showTooltip && activePopupRef.current) {
-          // If showTooltip is false, hide any active popup
-          if (popupsRef.current[activePopupRef.current]) {
-            popupsRef.current[activePopupRef.current].remove();
-          }
-          activePopupRef.current = null;
+        // Update the active popup reference
+        activePopupRef.current = selectedBuilding;
+      } else if (!showTooltip && activePopupRef.current) {
+        // If showTooltip is false, hide any active popup
+        if (popupsRef.current[activePopupRef.current]) {
+          popupsRef.current[activePopupRef.current].remove();
         }
+        activePopupRef.current = null;
       }
-    }, [selectedBuilding, buildingData, showTooltip]);
+    }
+  }, [selectedBuilding, buildingData, showTooltip]);
 
   return (
-    <div ref={mapContainerRef} className={`h-full w-full ${className}`}>
-      <MapLegend />
+    <div className={`relative h-full w-full ${className}`}>
+      {!isMapLoaded && (
+        <div className="absolute inset-0 bg-[#1e2329] rounded-xl md:rounded-2xl z-10 p-4 flex flex-col gap-4">
+          <Skeleton className="w-full h-full rounded-lg bg-[#1b3b38]">
+            <div className="h-full flex justify-center items-center gap-x-2">
+              <LoaderCircle className="animate-spin" />
+              Loading map. Hang tight...
+            </div>
+          </Skeleton>
+        </div>
+      )}
+
+      <div
+        ref={mapContainerRef}
+        className="h-full w-full rounded-xl md:rounded-2xl overflow-hidden"
+      >
+        {isMapLoaded && <MapLegend />}
+      </div>
 
       {/* Add some global styles for the tooltips */}
       <style jsx global>{`

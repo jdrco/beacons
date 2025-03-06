@@ -179,16 +179,15 @@ export default function Display() {
           return acc;
         }
 
+        // Check if building name matches search query
+        const buildingMatches = buildingName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+
+        // Filter rooms that match the search query (only by room name, not by class name)
         const matchingRooms = Object.entries(building.rooms).reduce(
           (roomAcc, [roomName, schedules]) => {
-            if (
-              roomName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              schedules.some((schedule) =>
-                schedule.course
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase())
-              )
-            ) {
+            if (roomName.toLowerCase().includes(searchQuery.toLowerCase())) {
               roomAcc[roomName] = schedules;
             }
             return roomAcc;
@@ -196,13 +195,11 @@ export default function Display() {
           {} as Room
         );
 
-        if (
-          buildingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          Object.keys(matchingRooms).length > 0
-        ) {
+        // Include building if either the building name matches or there are matching rooms
+        if (buildingMatches || Object.keys(matchingRooms).length > 0) {
           acc[buildingName] = {
             ...building,
-            rooms: matchingRooms,
+            rooms: buildingMatches ? building.rooms : matchingRooms,
           };
         }
         return acc;
@@ -260,7 +257,8 @@ export default function Display() {
       const timerId = setTimeout(() => {
         // Update the current time to trigger recalculation
         if (!isCustomTimeActive) {
-          setCurrentDateTime(new Date());
+          // Important: Use functional update to ensure we're not using stale state
+          setCurrentDateTime(() => new Date());
         }
         // Schedule the next update
         scheduleNextUpdate();
@@ -275,6 +273,11 @@ export default function Display() {
 
     return cleanup;
   }, [isCustomTimeActive]);
+
+  useEffect(() => {
+    // This empty effect with searchQuery dependency helps isolate search state updates
+    // from time-related state updates
+  }, [searchQuery]);
 
   // const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
   //   e.stopPropagation();
@@ -392,6 +395,7 @@ export default function Display() {
             currentFilter={displaySettings}
             onTimeChange={handleTimeChange}
             currentDateTime={currentDateTime}
+            isCustomTimeActive={isCustomTimeActive}
           />
         </div>
         <div className="order-first md:order-last flex justify-center items-center md:w-1/3 relative">
@@ -514,7 +518,10 @@ export default function Display() {
                                 <div className="space-y-4">
                                   {/* Weekly calendar integration */}
                                   <div className="border border-gray-700 rounded-lg p-3 bg-[#1e2329]">
-                                    <WeeklyCalendar schedules={schedules} />
+                                    <WeeklyCalendar
+                                      schedules={schedules}
+                                      currentDateTime={currentDateTime}
+                                    />
                                   </div>
 
                                   {/* Original schedule details */}

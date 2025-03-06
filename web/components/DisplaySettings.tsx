@@ -17,6 +17,7 @@ interface DisplaySettingsProps {
   currentFilter: DisplaySettings;
   onTimeChange: (date: Date) => void;
   currentDateTime: Date;
+  isCustomTimeActive: boolean; // Add this prop
 }
 
 export default function DisplaySettingsDropdown({
@@ -24,6 +25,7 @@ export default function DisplaySettingsDropdown({
   currentFilter,
   onTimeChange,
   currentDateTime,
+  isCustomTimeActive, // Accept the prop
 }: DisplaySettingsProps) {
   // Determine if any filter is currently active (not "all")
   const isFilterActive = currentFilter !== "all";
@@ -217,7 +219,7 @@ export default function DisplaySettingsDropdown({
               <button
                 key={day}
                 className={`text-xs py-1 px-2 rounded ${
-                  currentDateTime.getDay() === index
+                  isCustomTimeActive && currentDateTime.getDay() === index
                     ? "bg-[#2b5f5a] text-white"
                     : "bg-[#2a3137] text-gray-300 hover:bg-[#323c44]"
                 }`}
@@ -236,6 +238,7 @@ export default function DisplaySettingsDropdown({
               <button
                 key={slot.value}
                 className={`text-xs py-1 px-1 rounded ${
+                  isCustomTimeActive &&
                   currentDateTime.getHours() === slot.value
                     ? "bg-[#2b5f5a] text-white"
                     : "bg-[#2a3137] text-gray-300 hover:bg-[#323c44]"

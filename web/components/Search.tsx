@@ -5,9 +5,13 @@ import { cn } from "@/lib/utils";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
+  filterType?: "limited" | "full";
 }
 
-export default function SearchBar({ onSearch }: SearchBarProps) {
+export default function SearchBar({
+  onSearch,
+  filterType = "limited",
+}: SearchBarProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -28,9 +32,18 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     }, 250); // 250ms debounce
   };
 
+  // Separate handler for clearing to ensure we don't trigger time filter issues
   const handleClear = () => {
     setQuery("");
+
+    // Clear any pending debounce timers
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    // Directly call onSearch with empty string
     onSearch("");
+
     // Focus the input after clearing
     if (inputRef.current) {
       inputRef.current.focus();
@@ -56,7 +69,11 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
             type="text"
             value={query}
             onChange={handleQueryChange}
-            placeholder="Search building, room, or class"
+            placeholder={
+              filterType === "limited"
+                ? "Search building or room"
+                : "Search building, room, or class"
+            }
             className={cn(
               "h-10 md:h-14 w-full bg-transparent px-10 md:px-16 text-white text-sm md:text-lg placeholder:text-gray-500",
               "focus:outline-none focus:ring-0"
@@ -69,7 +86,8 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
               "hover:text-gray-300",
               !query && "opacity-0"
             )}
-            type="button" // Explicitly set button type
+            type="button"
+            aria-label="Clear search"
           >
             <X className="h-5 w-5" />
           </button>

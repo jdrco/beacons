@@ -33,7 +33,15 @@ interface CalendarEvent {
   dates: string;
 }
 
-export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
+interface WeeklyCalendarProps {
+  schedules?: Schedule[];
+  currentDateTime?: Date; // Add prop for the selected date/time
+}
+
+export function WeeklyCalendar({
+  schedules = [],
+  currentDateTime = new Date(), // Default to current time if not provided
+}: WeeklyCalendarProps) {
   const [calendarEvents, setCalendarEvents] = useState<CalendarEvent[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
     null
@@ -179,11 +187,11 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     setCalendarEvents(events);
   }, [schedules]);
 
+  // Update current time indicator using the provided currentDateTime
   useEffect(() => {
-    const updateCurrentTime = () => {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
+    const updateCurrentTimeIndicator = () => {
+      const hours = currentDateTime.getHours();
+      const minutes = currentDateTime.getMinutes();
 
       // Only show the line during calendar hours (8am to 8pm)
       if (hours >= 8 && hours <= 20) {
@@ -196,13 +204,24 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     };
 
     // Update immediately
-    updateCurrentTime();
+    updateCurrentTimeIndicator();
 
-    // Then update every minute
-    const interval = setInterval(updateCurrentTime, 60000);
+    // If using current time (not custom selected), set up an interval
+    // to update every minute
+    const isCurrentTime =
+      new Date().getHours() === currentDateTime.getHours() &&
+      new Date().getMinutes() === currentDateTime.getMinutes();
 
-    return () => clearInterval(interval);
-  }, []);
+    let interval: NodeJS.Timeout | null = null;
+
+    if (isCurrentTime) {
+      interval = setInterval(updateCurrentTimeIndicator, 60000);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [currentDateTime]);
 
   // Style for event elements
   const getEventStyle = (event: CalendarEvent): React.CSSProperties => {
@@ -278,10 +297,16 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
     return days[dayIndex];
   };
 
+  // Get the current day of week as an index (0-6 where 0 is Monday)
+  // This converts JavaScript's 0-6 where 0 is Sunday to our 0-6 where 0 is Monday
+  const getCurrentDayIndex = () => {
+    const jsDay = currentDateTime.getDay(); // 0 is Sunday, 1 is Monday, etc.
+    return jsDay === 0 ? 6 : jsDay - 1; // Convert to 0 is Monday, 6 is Sunday
+  };
+
   return (
     <TooltipProvider>
       <div className="flex flex-col space-y-2 w-full">
-        {/* Your existing header code... */}
         <div className="w-full overflow-x-auto">
           {/* Days header */}
           <div className="grid grid-cols-8 border-b border-gray-800 w-full min-w-[240px]">
@@ -289,7 +314,11 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
             {weekDays.map((day, index) => (
               <div
                 key={`day-${index}`}
-                className="flex items-center justify-center py-1"
+                className={`flex items-center justify-center py-1 ${
+                  index === getCurrentDayIndex()
+                    ? "bg-[#2a3137] rounded-t-md"
+                    : ""
+                }`}
               >
                 <span className="text-xs font-medium">{day}</span>
               </div>
@@ -317,7 +346,10 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
 
             {/* Calendar cells with events */}
             {Array.from({ length: 7 }).map((_, dayIndex) => (
-              <div key={dayIndex} className="border-r border-gray-800 relative">
+              <div
+                key={dayIndex}
+                className={`border-r border-gray-800 relative`}
+              >
                 {timeSlots.map((_, timeIndex) => (
                   <div
                     key={`${dayIndex}-${timeIndex}`}
@@ -346,20 +378,25 @@ export function WeeklyCalendar({ schedules = [] }: { schedules?: Schedule[] }) {
                       </TooltipContent>
                     </Tooltip>
                   ))}
+
+                {/* Current time indicator line - only shown on the current day */}
+                {currentTimePosition !== null &&
+                  dayIndex === getCurrentDayIndex() && (
+                    <div
+                      className="absolute -left-0 right-0 border-t border-red-500 z-20 pointer-events-none"
+                      style={{
+                        top: `${currentTimePosition}rem`,
+                        width: "100%",
+                      }}
+                    >
+                      <div
+                        className="absolute -left-1 -top-1 w-2 h-2 rounded-full bg-red-500"
+                        style={{ borderRadius: "50%" }}
+                      ></div>
+                    </div>
+                  )}
               </div>
             ))}
-
-            {/* Current time indicator line */}
-            {currentTimePosition !== null && (
-              <div
-                className="absolute left-0 right-0 border-t border-red-500 z-20 pointer-events-none"
-                style={{
-                  top: `${currentTimePosition}rem`,
-                  width: "100%",
-                }}
-              >
-              </div>
-            )}
           </div>
         </div>
 

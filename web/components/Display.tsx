@@ -63,7 +63,6 @@ export default function Display() {
   const accordionContainerRef = useRef<HTMLDivElement>(null);
   const buildingItemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const [showMapTooltip, setShowMapTooltip] = useState<boolean>(true);
-  const [isCustomTimeActive, setIsCustomTimeActive] = useState<boolean>(false);
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
@@ -179,16 +178,15 @@ export default function Display() {
           return acc;
         }
 
+        // Check if building name matches search query
+        const buildingMatches = buildingName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+
+        // Filter rooms that match the search query (only by room name, not by class name)
         const matchingRooms = Object.entries(building.rooms).reduce(
           (roomAcc, [roomName, schedules]) => {
-            if (
-              roomName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              schedules.some((schedule) =>
-                schedule.course
-                  .toLowerCase()
-                  .includes(searchQuery.toLowerCase())
-              )
-            ) {
+            if (roomName.toLowerCase().includes(searchQuery.toLowerCase())) {
               roomAcc[roomName] = schedules;
             }
             return roomAcc;
@@ -196,13 +194,11 @@ export default function Display() {
           {} as Room
         );
 
-        if (
-          buildingName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          Object.keys(matchingRooms).length > 0
-        ) {
+        // Include building if either the building name matches or there are matching rooms
+        if (buildingMatches || Object.keys(matchingRooms).length > 0) {
           acc[buildingName] = {
             ...building,
-            rooms: matchingRooms,
+            rooms: buildingMatches ? building.rooms : matchingRooms,
           };
         }
         return acc;
@@ -230,9 +226,6 @@ export default function Display() {
   }, []);
 
   useEffect(() => {
-    // Only run auto-updates if not in custom time mode
-    if (isCustomTimeActive) return;
-
     const calculateNextUpdateTime = () => {
       const now = new Date();
       const minutes = now.getMinutes();
@@ -259,9 +252,7 @@ export default function Display() {
       // Set timeout for next update
       const timerId = setTimeout(() => {
         // Update the current time to trigger recalculation
-        if (!isCustomTimeActive) {
-          setCurrentDateTime(new Date());
-        }
+        setCurrentDateTime(new Date());
         // Schedule the next update
         scheduleNextUpdate();
       }, delay);
@@ -274,7 +265,12 @@ export default function Display() {
     const cleanup = scheduleNextUpdate();
 
     return cleanup;
-  }, [isCustomTimeActive]);
+  }, []);
+
+  useEffect(() => {
+    // This empty effect with searchQuery dependency helps isolate search state updates
+    // from time-related state updates
+  }, [searchQuery]);
 
   // const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
   //   e.stopPropagation();
@@ -289,26 +285,6 @@ export default function Display() {
   const timeToMinutes = (timeStr: string): number => {
     const [hours, minutes] = timeStr.split(":").map(Number);
     return hours * 60 + minutes;
-  };
-
-  const handleTimeChange = (newDateTime: Date) => {
-    // First check if this is essentially the current time
-    const now = new Date();
-    const isCustom =
-      newDateTime.getDate() !== now.getDate() ||
-      newDateTime.getMonth() !== now.getMonth() ||
-      newDateTime.getFullYear() !== now.getFullYear() ||
-      newDateTime.getHours() !== now.getHours() ||
-      newDateTime.getMinutes() !== now.getMinutes();
-
-    // If it's essentially the current time, just use the exact current time
-    if (!isCustom) {
-      setCurrentDateTime(new Date());
-      setIsCustomTimeActive(false);
-    } else {
-      setCurrentDateTime(newDateTime);
-      setIsCustomTimeActive(true);
-    }
   };
 
   // Handle building selection from map or accordion
@@ -390,7 +366,6 @@ export default function Display() {
           <DisplaySettingsDropdown
             onFilterChange={setDisplaySettings}
             currentFilter={displaySettings}
-            onTimeChange={handleTimeChange}
             currentDateTime={currentDateTime}
           />
         </div>
@@ -514,7 +489,10 @@ export default function Display() {
                                 <div className="space-y-4">
                                   {/* Weekly calendar integration */}
                                   <div className="border border-gray-700 rounded-lg p-3 bg-[#1e2329]">
-                                    <WeeklyCalendar schedules={schedules} />
+                                    <WeeklyCalendar
+                                      schedules={schedules}
+                                      currentDateTime={currentDateTime}
+                                    />
                                   </div>
 
                                   {/* Original schedule details */}

@@ -218,7 +218,7 @@ const Map = ({
           el.style.width = "12px";
           el.style.height = "12px";
           el.style.borderRadius = "50%";
-          el.style.boxShadow = `0 0 8px ${markerColor}`;
+          el.style.boxShadow = `0 0 6px ${markerColor}`;
           el.style.backgroundColor = markerColor;
           el.style.cursor = "pointer";
 

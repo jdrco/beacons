@@ -65,6 +65,7 @@ export default function RoomBooking() {
   >([]);
   const accordionContainerRef = useRef<HTMLDivElement>(null);
   const buildingItemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+  const [showMapTooltip, setShowMapTooltip] = useState<boolean>(true);
 
   // Check if a single room is available
   const isRoomAvailable = (schedules: Schedule[]): boolean => {
@@ -300,11 +301,14 @@ export default function RoomBooking() {
     if (isToggling) {
       // If we're collapsing, update the accordion state without scrolling
       setExpandedAccordionItems([]);
-      // We don't clear the selectedBuilding because we want the map to keep focusing on it
-      // This will allow the tooltip to remain visible on the map
+      // Also hide the tooltip when collapsing
+      setShowMapTooltip(false);
     } else {
       // First collapse all
       setExpandedAccordionItems([]);
+
+      // Show the tooltip
+      setShowMapTooltip(true);
 
       // Then use a longer delay before expanding
       setTimeout(() => {
@@ -371,6 +375,7 @@ export default function RoomBooking() {
           onBuildingClick={handleBuildingSelect}
           selectedBuilding={selectedBuilding}
           currentDateTime={currentDateTime}
+          showTooltip={showMapTooltip}
           className="w-full md:w-2/3 h-[600px] md:h-full rounded-xl md:rounded-2xl"
         />
         <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">

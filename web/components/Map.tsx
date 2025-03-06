@@ -42,6 +42,7 @@ interface MapProps {
   onBuildingClick?: (buildingName: string) => void;
   selectedBuilding?: string | null;
   currentDateTime: Date;
+  showTooltip?: boolean;
 }
 
 const getAvailableRoomCount = (
@@ -117,6 +118,7 @@ const Map = ({
   onBuildingClick,
   selectedBuilding,
   currentDateTime,
+  showTooltip = true,
 }: MapProps) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -200,13 +202,6 @@ const Map = ({
           const el = marker.getElement();
           el.style.backgroundColor = markerColor;
           el.style.boxShadow = `0 0 8px ${markerColor}`;
-
-          // Add pulse animation if selected
-          if (selectedBuilding === buildingName) {
-            el.style.animation = "pulse 1s infinite";
-          } else {
-            el.style.animation = "none";
-          }
         } else {
           // Create new marker
           const el = document.createElement("div");
@@ -365,42 +360,51 @@ const Map = ({
   ]);
 
   // Center map on selected building when it changes
-  useEffect(() => {
-    if (!mapRef.current || !buildingData || !selectedBuilding) return;
+    useEffect(() => {
+      if (!mapRef.current || !buildingData || !selectedBuilding) return;
 
-    const building = buildingData[selectedBuilding];
-    if (building) {
-      // Center map on the selected building with animation
-      mapRef.current.flyTo({
-        center: [building.coordinates.longitude, building.coordinates.latitude],
-        zoom: 16,
-        duration: 1000,
-      });
-
-      // Show the popup for the selected building
-      if (popupsRef.current[selectedBuilding]) {
-        // Hide any previously active popup that's not the selected building
-        if (
-          activePopupRef.current &&
-          activePopupRef.current !== selectedBuilding &&
-          popupsRef.current[activePopupRef.current]
-        ) {
-          popupsRef.current[activePopupRef.current].remove();
-        }
-
-        // Show the popup for the selected building
-        popupsRef.current[selectedBuilding]
-          .setLngLat([
+      const building = buildingData[selectedBuilding];
+      if (building) {
+        // Center map on the selected building with animation
+        mapRef.current.flyTo({
+          center: [
             building.coordinates.longitude,
             building.coordinates.latitude,
-          ])
-          .addTo(mapRef.current!);
+          ],
+          zoom: 16,
+          duration: 1000,
+        });
 
-        // Update the active popup reference
-        activePopupRef.current = selectedBuilding;
+        // Only show the popup if showTooltip is true
+        if (showTooltip && popupsRef.current[selectedBuilding]) {
+          // Hide any previously active popup that's not the selected building
+          if (
+            activePopupRef.current &&
+            activePopupRef.current !== selectedBuilding &&
+            popupsRef.current[activePopupRef.current]
+          ) {
+            popupsRef.current[activePopupRef.current].remove();
+          }
+
+          // Show the popup for the selected building
+          popupsRef.current[selectedBuilding]
+            .setLngLat([
+              building.coordinates.longitude,
+              building.coordinates.latitude,
+            ])
+            .addTo(mapRef.current!);
+
+          // Update the active popup reference
+          activePopupRef.current = selectedBuilding;
+        } else if (!showTooltip && activePopupRef.current) {
+          // If showTooltip is false, hide any active popup
+          if (popupsRef.current[activePopupRef.current]) {
+            popupsRef.current[activePopupRef.current].remove();
+          }
+          activePopupRef.current = null;
+        }
       }
-    }
-  }, [selectedBuilding, buildingData]);
+    }, [selectedBuilding, buildingData, showTooltip]);
 
   return (
     <div ref={mapContainerRef} className={`h-full w-full ${className}`}>

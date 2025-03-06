@@ -8,14 +8,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SlidersHorizontal, CircleCheck, Circle } from "lucide-react";
-export type AvailabilityFilter =
-  | "all"
-  | "available"
-  | "limited"
-  | "unavailable";
+export type DisplaySettings = "all" | "available" | "limited" | "unavailable";
 interface AvailabilityFilterProps {
-  onFilterChange: (filter: AvailabilityFilter) => void;
-  currentFilter: AvailabilityFilter;
+  onFilterChange: (filter: DisplaySettings) => void;
+  currentFilter: DisplaySettings;
 }
 export default function AvailabilityFilterDropdown({
   onFilterChange,
@@ -25,8 +21,8 @@ export default function AvailabilityFilterDropdown({
   const isFilterActive = currentFilter !== "all";
   // Handle filter selection with toggle behavior
   const handleFilterChange = (value: string) => {
-    // Type assertion to convert string to AvailabilityFilter
-    const filterValue = value as AvailabilityFilter;
+    // Type assertion to convert string to DisplaySettings
+    const filterValue = value as DisplaySettings;
     // If the user selects the already active filter, toggle back to "all"
     if (filterValue === currentFilter) {
       onFilterChange("all");

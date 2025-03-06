@@ -122,6 +122,7 @@ const Map = ({
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<{ [key: string]: mapboxgl.Marker }>({});
   const popupsRef = useRef<{ [key: string]: mapboxgl.Popup }>({});
+  const activePopupRef = useRef<string | null>(null);
   const isMobileRef = useRef<boolean>(false);
 
   // Check if device is mobile
@@ -155,6 +156,7 @@ const Map = ({
       Object.values(popupsRef.current).forEach((popup) => popup.remove());
       if (mapRef.current) {
         mapRef.current.remove();
+        activePopupRef.current = null;
       }
     };
   }, []);
@@ -198,6 +200,13 @@ const Map = ({
           const el = marker.getElement();
           el.style.backgroundColor = markerColor;
           el.style.boxShadow = `0 0 8px ${markerColor}`;
+
+          // Add pulse animation if selected
+          if (selectedBuilding === buildingName) {
+            el.style.animation = "pulse 1s infinite";
+          } else {
+            el.style.animation = "none";
+          }
         } else {
           // Create new marker
           const el = document.createElement("div");
@@ -242,8 +251,34 @@ const Map = ({
 
           popupsRef.current[buildingName] = popup;
 
-          // Add click handler to marker - Make this work before hover effects
+          // Add click handler to marker
           el.addEventListener("click", () => {
+            // If this marker isn't the active one, show its popup
+            if (activePopupRef.current !== buildingName) {
+              // Hide any previously active popup
+              if (
+                activePopupRef.current &&
+                popupsRef.current[activePopupRef.current]
+              ) {
+                popupsRef.current[activePopupRef.current].remove();
+              }
+
+              // Show this marker's popup
+              popup
+                .setLngLat([
+                  building.coordinates.longitude,
+                  building.coordinates.latitude,
+                ])
+                .addTo(mapRef.current!);
+
+              // Set this as the active popup
+              activePopupRef.current = buildingName;
+            } else {
+              // If this is already the active marker, toggle the popup
+              popup.remove();
+              activePopupRef.current = null;
+            }
+
             if (onBuildingClick) {
               onBuildingClick(buildingName);
             }
@@ -252,15 +287,31 @@ const Map = ({
           // Add touch handler specifically for mobile
           el.addEventListener("touchstart", () => {
             if (isMobileRef.current) {
-              // For mobile, show popup on touch
-              popup
-                .setLngLat([
-                  building.coordinates.longitude,
-                  building.coordinates.latitude,
-                ])
-                .addTo(mapRef.current!);
+              // For mobile, show popup on touch and keep it visible
+              if (activePopupRef.current !== buildingName) {
+                // Hide any previously active popup
+                if (
+                  activePopupRef.current &&
+                  popupsRef.current[activePopupRef.current]
+                ) {
+                  popupsRef.current[activePopupRef.current].remove();
+                }
 
-              // Also trigger the building selection immediately on touch
+                popup
+                  .setLngLat([
+                    building.coordinates.longitude,
+                    building.coordinates.latitude,
+                  ])
+                  .addTo(mapRef.current!);
+
+                activePopupRef.current = buildingName;
+              } else {
+                // If this is already the active marker, toggle the popup
+                popup.remove();
+                activePopupRef.current = null;
+              }
+
+              // Also trigger the building selection
               if (onBuildingClick) {
                 onBuildingClick(buildingName);
               }
@@ -269,8 +320,11 @@ const Map = ({
 
           // Add hover handlers for desktop only
           el.addEventListener("mouseenter", () => {
-            // Only show hover popup on desktop
-            if (!isMobileRef.current) {
+            // Only show hover popup on desktop if it's not already the active popup
+            if (
+              !isMobileRef.current &&
+              activePopupRef.current !== buildingName
+            ) {
               popup
                 .setLngLat([
                   building.coordinates.longitude,
@@ -281,8 +335,11 @@ const Map = ({
           });
 
           el.addEventListener("mouseleave", () => {
-            // Only hide popup on desktop
-            if (!isMobileRef.current) {
+            // Only hide popup on desktop if it's not the active popup
+            if (
+              !isMobileRef.current &&
+              activePopupRef.current !== buildingName
+            ) {
               popup.remove();
             }
           });
@@ -320,11 +377,27 @@ const Map = ({
         duration: 1000,
       });
 
-      // On mobile, remove any popups after selection to clean up the UI
-      if (isMobileRef.current) {
-        setTimeout(() => {
-          Object.values(popupsRef.current).forEach((popup) => popup.remove());
-        }, 1500);
+      // Show the popup for the selected building
+      if (popupsRef.current[selectedBuilding]) {
+        // Hide any previously active popup that's not the selected building
+        if (
+          activePopupRef.current &&
+          activePopupRef.current !== selectedBuilding &&
+          popupsRef.current[activePopupRef.current]
+        ) {
+          popupsRef.current[activePopupRef.current].remove();
+        }
+
+        // Show the popup for the selected building
+        popupsRef.current[selectedBuilding]
+          .setLngLat([
+            building.coordinates.longitude,
+            building.coordinates.latitude,
+          ])
+          .addTo(mapRef.current!);
+
+        // Update the active popup reference
+        activePopupRef.current = selectedBuilding;
       }
     }
   }, [selectedBuilding, buildingData]);

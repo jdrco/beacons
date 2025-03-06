@@ -294,12 +294,14 @@ export default function RoomBooking() {
       selectedBuilding === buildingName &&
       expandedAccordionItems.includes(buildingName);
 
-    // Update selected building
+    // Always update selected building first
     setSelectedBuilding(buildingName);
 
     if (isToggling) {
-      // If we're collapsing, just update the accordion state without scrolling
+      // If we're collapsing, update the accordion state without scrolling
       setExpandedAccordionItems([]);
+      // We don't clear the selectedBuilding because we want the map to keep focusing on it
+      // This will allow the tooltip to remain visible on the map
     } else {
       // First collapse all
       setExpandedAccordionItems([]);

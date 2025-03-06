@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,7 @@ interface SearchBarProps {
 
 export default function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
@@ -20,6 +21,15 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   const handleClear = () => {
     setQuery("");
     onSearch("");
+    // Focus the input after clearing
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  // Prevent any potential event propagation issues
+  const handleInputClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   return (
@@ -28,9 +38,11 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         <div className="relative flex items-center rounded-xl md:rounded-2xl border border-[#2b5f5a]">
           <Search className="absolute left-3 md:left-6 w-4 h-4 md:h-6 md:w-6" />
           <input
+            ref={inputRef}
             type="text"
             value={query}
             onChange={handleQueryChange}
+            onClick={handleInputClick}
             placeholder="Search building, room, or class"
             className={cn(
               "h-10 md:h-14 w-full bg-transparent px-10 md:px-16 text-white text-sm md:text-lg placeholder:text-gray-500",
@@ -44,6 +56,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
               "hover:text-gray-300",
               !query && "opacity-0"
             )}
+            type="button" // Explicitly set type to prevent form submission
           >
             <X className="h-5 w-5" />
           </button>

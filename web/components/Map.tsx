@@ -490,6 +490,13 @@ const Map = ({
           background: inherit;
           box-shadow: inherit;
         }
+        .map-tooltip button:focus {
+          outline: none;
+        }
+        .map-tooltip button:focus-visible {
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+          border-radius: 2px;
+        }
       `}</style>
     </div>
   );

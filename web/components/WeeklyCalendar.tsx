@@ -348,11 +348,7 @@ export function WeeklyCalendar({
             {Array.from({ length: 7 }).map((_, dayIndex) => (
               <div
                 key={dayIndex}
-                className={`border-r border-gray-800 relative ${
-                  dayIndex === getCurrentDayIndex()
-                    ? "bg-[#2a3137] bg-opacity-40"
-                    : ""
-                }`}
+                className={`border-r border-gray-800 relative`}
               >
                 {timeSlots.map((_, timeIndex) => (
                   <div
@@ -382,24 +378,25 @@ export function WeeklyCalendar({
                       </TooltipContent>
                     </Tooltip>
                   ))}
+
+                {/* Current time indicator line - only shown on the current day */}
+                {currentTimePosition !== null &&
+                  dayIndex === getCurrentDayIndex() && (
+                    <div
+                      className="absolute -left-0 right-0 border-t border-red-500 z-20 pointer-events-none"
+                      style={{
+                        top: `${currentTimePosition}rem`,
+                        width: "100%",
+                      }}
+                    >
+                      <div
+                        className="absolute -left-1 -top-1 w-2 h-2 rounded-full bg-red-500"
+                        style={{ borderRadius: "50%" }}
+                      ></div>
+                    </div>
+                  )}
               </div>
             ))}
-
-            {/* Current time indicator line */}
-            {currentTimePosition !== null && (
-              <div
-                className="absolute left-0 right-0 border-t border-red-500 z-20 pointer-events-none"
-                style={{
-                  top: `${currentTimePosition}rem`,
-                  width: "100%",
-                }}
-              >
-                <div
-                  className="absolute -left-1 -top-1.5 w-3 h-3 rounded-full bg-red-500"
-                  style={{ borderRadius: "50%" }}
-                ></div>
-              </div>
-            )}
           </div>
         </div>
 

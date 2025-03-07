@@ -1,0 +1,460 @@
+@startuml
+digraph Authentication_Dependencies {
+  node [shape=box, style=rounded, fontsize=10]
+  edge [fontsize=8]
+  rankdir=TB
+  
+  subgraph cluster_FR1 {
+    label = "FR1: User Registration"
+    style = filled
+    fillcolor = lightyellow
+    
+    ' REQ-1: Email/password registration
+    reg_form [label="Create registration form"]
+    form_validation [label="Implement front-end validation"]
+    reg_api [label="Develop API endpoint for registration"]
+    user_db [label="Create user database table"]
+    password_hash [label="Implement password hashing"]
+    responsive_ui [label="Design responsive registration UI"]
+    reg_error [label="Set up error handling for registration"]
+    reg_analytics [label="Add registration analytics tracking"]
+    
+    ' REQ-2: Email validation
+    email_regex [label="Create regex pattern for email format"]
+    realtime_check [label="Implement real-time email checking"]
+    domain_verify [label="Verify email domain existence"]
+    validation_error [label="Display validation error messages"]
+    validation_helper [label="Create email validation helper functions"]
+    validation_state [label="Add validation state indicators"]
+    backend_validation [label="Implement backend email validation"]
+    validation_logging [label="Set up logging for validation failures"]
+    
+    ' REQ-3: Password security enforcement
+    min_length [label="Implement min length requirement"]
+    uppercase_valid [label="Require uppercase letter validation"]
+    number_valid [label="Require number validation"]
+    special_char [label="Require special character validation"]
+    strength_indicator [label="Create password strength indicator"]
+    password_policies [label="Develop secure password policies module"]
+    realtime_pass_valid [label="Implement real-time password validation"]
+    pass_error_msg [label="Add password validation error messaging"]
+    
+    ' REQ-4: Store user information
+    users_table [label="Create users table in PostgreSQL"]
+    secure_storage [label="Implement secure data storage procedures"]
+    data_encrypt [label="Set up user data encryption"]
+    timestamps [label="Create timestamps for user records"]
+    transaction_handling [label="Implement database transaction handling"]
+    data_backup [label="Set up data backup procedures"]
+    data_access [label="Create user data access layer"]
+    db_migration [label="Develop database migration scripts"]
+    
+    ' REQ-5: Generate unique username
+    username_algo [label="Create username generation algorithm"]
+    unique_verify [label="Implement uniqueness verification"]
+    collision_handling [label="Add collision handling for usernames"]
+    username_normalize [label="Set up username normalization rules"]
+    readable_patterns [label="Create readable username patterns"]
+    username_regen [label="Develop username regeneration if needed"]
+    username_validation [label="Implement username validation rules"]
+    username_logging [label="Set up logging for username generation"]
+    
+    ' REQ-6: Display error messages
+    error_components [label="Design error message components"]
+    error_templates [label="Create error message templates"]
+    field_errors [label="Implement field-specific error displays"]
+    error_accessibility [label="Set up accessibility for error notifications"]
+    error_i18n [label="Add error message internationalization"]
+    error_state [label="Create error state management"]
+    error_logging [label="Implement error logging system"]
+    mobile_errors [label="Design mobile-friendly error displays"]
+    
+    ' REQ-7: Send verification email
+    email_templates [label="Create email templates for verification"]
+    email_service [label="Set up email sending service integration"]
+    secure_tokens [label="Generate secure verification tokens"]
+    token_expiry [label="Implement token expiration settings"]
+    email_queue [label="Create email dispatch queue system"]
+    delivery_tracking [label="Set up email delivery tracking"]
+    retry_logic [label="Implement retry logic for failed emails"]
+    template_render [label="Create email template rendering system"]
+    
+    ' REQ-8: Verify account activation
+    token_validation [label="Create verification token validation logic"]
+    account_activation [label="Implement account activation in database"]
+    success_page [label="Design success confirmation page"]
+    activation_timestamp [label="Set up activation timestamp tracking"]
+    verify_analytics [label="Create verification analytics"]
+    expired_token [label="Implement expired token handling"]
+    reverify_process [label="Develop re-verification request process"]
+    verify_status [label="Add verification status indicators"]
+    
+    ' REQ-9: Handle invalid verification links
+    expired_detection [label="Create expired link detection"]
+    error_pages [label="Design user-friendly error pages"]
+    invalid_token [label="Implement invalid token handling"]
+    resend_option [label="Create resend verification option"]
+    security_logging [label="Set up security logging for invalid attempts"]
+    error_customize [label="Add error message customization"]
+    error_redirect [label="Implement redirection to appropriate pages"]
+    verif_failures [label="Create analytics for verification failures"]
+  }
+  
+  subgraph cluster_FR2 {
+    label = "FR2: User Sign-In"
+    style = filled
+    fillcolor = lightcyan
+    
+    ' REQ-1: Email/password authentication
+    signin_form [label="Design sign-in form UI components"]
+    signin_validation [label="Implement front-end validation"]
+    auth_api [label="Create authentication API endpoint"]
+    cred_verify [label="Develop credential verification logic"]
+    auth_error_handle [label="Set up authentication error handling"]
+    remember_me [label="Add 'Remember me' functionality"]
+    secure_input [label="Implement secure input handling"]
+    signin_analytics [label="Create sign-in analytics tracking"]
+    
+    ' REQ-2: Verify credentials
+    password_compare [label="Implement password hash comparison"]
+    account_status [label="Create account status verification"]
+    rate_limiting [label="Set up rate limiting for failed attempts"]
+    ip_security [label="Add IP-based security checks"]
+    verify_audit [label="Implement audit logging for verification"]
+    verify_error [label="Create verification error handling"]
+    account_lockout [label="Add account lockout after failures"]
+    suspicious_activity [label="Develop suspicious activity detection"]
+    
+    ' REQ-3: Secure session management
+    jwt_generation [label="Implement JWT token generation"]
+    cookie_storage [label="Create HTTP-only cookie storage"]
+    token_expiration [label="Set up token expiration handling"]
+    token_refresh [label="Add token refresh mechanism"]
+    session_table [label="Implement session tracking table"]
+    session_invalid [label="Create session invalidation logic"]
+    timeout_handling [label="Set up session timeout handling"]
+    session_monitor [label="Develop session security monitoring"]
+    
+    ' REQ-4: Logout functionality
+    logout_api [label="Create logout API endpoint"]
+    token_removal [label="Implement client-side token removal"]
+    server_invalidate [label="Add server-side session invalidation"]
+    logout_confirm [label="Design logout confirmation UI"]
+    logout_redirect [label="Set up redirect after logout"]
+    logout_analytics [label="Create logout analytics tracking"]
+    forced_logout [label="Implement forced logout capability"]
+    cross_device [label="Add cross-device logout option"]
+    
+    ' REQ-5: Display authentication errors
+    auth_error_comp [label="Design authentication error components"]
+    auth_error_temp [label="Create error message templates"]
+    auth_field_errors [label="Implement field-specific error displays"]
+    auth_error_access [label="Set up accessibility for error notifications"]
+    auth_error_i18n [label="Add internationalization for errors"]
+    auth_error_state [label="Create error state management"]
+    secure_error_msg [label="Implement security-conscious error messages"]
+    auth_error_log [label="Add error logging system"]
+    
+    ' REQ-6: Maintain authentication state
+    auth_state_store [label="Implement client-side auth state store"]
+    persistent_login [label="Create persistent login capability"]
+    auth_token_refresh [label="Add token refresh mechanism"]
+    session_recovery [label="Implement session recovery"]
+    state_sync [label="Set up auth state synchronization"]
+    timeout_notify [label="Create session timeout notifications"]
+    auth_listeners [label="Add auth state listeners"]
+    state_restore [label="Develop state restoration on page load"]
+    
+    ' REQ-7: Redirect unauthenticated users
+    route_protection [label="Create route protection middleware"]
+    auth_checking [label="Implement authentication checking"]
+    login_redirect [label="Set up redirect to login mechanism"]
+    return_url [label="Add return URL parameter"]
+    redirect_message [label="Create user-friendly redirect messages"]
+    partial_access [label="Implement partial access controls"]
+    referrer_track [label="Add referrer tracking for redirects"]
+    redirect_analytics [label="Set up analytics for authentication redirects"]
+    
+    ' REQ-8: Password reset functionality
+    reset_workflow [label="Design password reset workflow"]
+    reset_request_form [label="Create reset request form"]
+    new_password_form [label="Implement new password form"]
+    reset_token_gen [label="Set up secure token generation"]
+    reset_token_expire [label="Add token expiration mechanism"]
+    reset_confirm [label="Create reset confirmation messaging"]
+    password_history [label="Implement password history checking"]
+    reset_notify [label="Add security notifications for resets"]
+    
+    ' REQ-9: Password reset request
+    reset_form_ui [label="Create reset request form UI"]
+    reset_email_valid [label="Implement email input validation"]
+    reset_rate_limit [label="Set up rate limiting for requests"]
+    reset_account_verify [label="Add account verification logic"]
+    reset_confirm_msg [label="Create request confirmation messaging"]
+    reset_security_log [label="Implement security logging"]
+    reset_analytics [label="Set up analytics for reset requests"]
+    reset_notify_system [label="Add user notification system"]
+    
+    ' REQ-10: Send reset email
+    reset_email_temp [label="Create email templates for reset"]
+    reset_email_service [label="Set up email sending service"]
+    reset_secure_tokens [label="Generate secure reset tokens"]
+    reset_token_expiry [label="Implement token expiration settings"]
+    reset_email_queue [label="Create email dispatch system"]
+    reset_delivery [label="Set up email delivery tracking"]
+    reset_retry [label="Implement retry logic for failed emails"]
+    reset_admin_notify [label="Add security notifications for admins"]
+    
+    ' REQ-11: Verify reset links
+    reset_token_valid [label="Create token validation logic"]
+    reset_expiry_check [label="Implement expiration checking"]
+    reset_token_storage [label="Set up secure token storage"]
+    one_time_use [label="Add one-time-use enforcement"]
+    reset_audit [label="Create audit logging for verification"]
+    reset_security [label="Implement security monitoring"]
+    reset_analytics_complete [label="Set up analytics for reset completions"]
+    reset_success [label="Develop success state handling"]
+    
+    ' REQ-12: Handle invalid reset links
+    reset_expired_detect [label="Create expired link detection"]
+    reset_error_pages [label="Design error pages for invalid tokens"]
+    reset_invalid_log [label="Implement security logging"]
+    reset_new_request [label="Set up new request option"]
+    reset_error_analytics [label="Add error analytics tracking"]
+    reset_support_info [label="Create user support information"]
+    reset_secure_redirect [label="Implement secure redirection"]
+    reset_brute_force [label="Develop brute force protection"]
+  }
+  
+  ' FR1 internal dependencies
+  reg_form -> form_validation
+  form_validation -> reg_api
+  reg_api -> user_db
+  password_hash -> user_db
+  reg_error -> reg_api
+  reg_api -> reg_analytics
+  responsive_ui -> reg_form
+  
+  email_regex -> realtime_check
+  realtime_check -> validation_error
+  domain_verify -> backend_validation
+  validation_helper -> realtime_check
+  validation_state -> realtime_check
+  backend_validation -> reg_api
+  validation_logging -> backend_validation
+  validation_error -> error_components
+  
+  min_length -> realtime_pass_valid
+  uppercase_valid -> realtime_pass_valid
+  number_valid -> realtime_pass_valid
+  special_char -> realtime_pass_valid
+  password_policies -> realtime_pass_valid
+  strength_indicator -> realtime_pass_valid
+  realtime_pass_valid -> pass_error_msg
+  pass_error_msg -> error_components
+  
+  users_table -> data_access
+  secure_storage -> users_table
+  data_encrypt -> secure_storage
+  timestamps -> users_table
+  transaction_handling -> data_access
+  data_backup -> users_table
+  data_access -> db_migration
+  data_access -> reg_api
+  
+  username_algo -> unique_verify
+  unique_verify -> username_validation
+  collision_handling -> unique_verify
+  username_normalize -> username_algo
+  readable_patterns -> username_algo
+  username_regen -> collision_handling
+  username_validation -> reg_api
+  username_logging -> username_validation
+  
+  error_components -> field_errors
+  error_templates -> error_components
+  field_errors -> error_state
+  error_accessibility -> error_components
+  error_i18n -> error_templates
+  error_state -> reg_error
+  error_logging -> error_state
+  mobile_errors -> error_components
+  
+  email_templates -> template_render
+  email_service -> email_queue
+  secure_tokens -> email_templates
+  token_expiry -> secure_tokens
+  email_queue -> delivery_tracking
+  retry_logic -> email_queue
+  template_render -> email_service
+  email_service -> reg_api
+  
+  token_validation -> account_activation
+  account_activation -> success_page
+  activation_timestamp -> account_activation
+  verify_analytics -> account_activation
+  expired_token -> token_validation
+  reverify_process -> expired_token
+  verify_status -> success_page
+  token_validation -> secure_tokens
+  
+  expired_detection -> invalid_token
+  error_pages -> error_redirect
+  invalid_token -> resend_option
+  security_logging -> invalid_token
+  error_customize -> error_pages
+  error_redirect -> resend_option
+  verif_failures -> security_logging
+  invalid_token -> token_validation
+  
+  ' FR2 internal dependencies
+  signin_form -> signin_validation
+  signin_validation -> auth_api
+  auth_api -> cred_verify
+  secure_input -> signin_form
+  auth_error_handle -> auth_api
+  remember_me -> persistent_login
+  auth_api -> signin_analytics
+  
+  password_compare -> cred_verify
+  account_status -> cred_verify
+  rate_limiting -> password_compare
+  ip_security -> cred_verify
+  verify_audit -> cred_verify
+  verify_error -> auth_error_handle
+  account_lockout -> rate_limiting
+  suspicious_activity -> ip_security
+  
+  jwt_generation -> cookie_storage
+  token_expiration -> jwt_generation
+  token_refresh -> auth_token_refresh
+  session_table -> jwt_generation
+  session_invalid -> token_removal
+  timeout_handling -> timeout_notify
+  session_monitor -> session_table
+  
+  logout_api -> token_removal
+  token_removal -> server_invalidate
+  server_invalidate -> session_invalid
+  logout_confirm -> logout_api
+  logout_redirect -> server_invalidate
+  logout_analytics -> logout_api
+  forced_logout -> server_invalidate
+  cross_device -> server_invalidate
+  
+  auth_error_comp -> auth_field_errors
+  auth_error_temp -> auth_error_comp
+  auth_field_errors -> auth_error_state
+  auth_error_access -> auth_error_comp
+  auth_error_i18n -> auth_error_temp
+  secure_error_msg -> auth_error_comp
+  auth_error_log -> auth_error_state
+  
+  auth_state_store -> auth_listeners
+  persistent_login -> auth_state_store
+  auth_token_refresh -> token_refresh
+  session_recovery -> state_restore
+  state_sync -> auth_listeners
+  timeout_notify -> auth_state_store
+  auth_listeners -> state_restore
+  
+  route_protection -> auth_checking
+  auth_checking -> login_redirect
+  login_redirect -> return_url
+  redirect_message -> login_redirect
+  partial_access -> route_protection
+  referrer_track -> login_redirect
+  redirect_analytics -> login_redirect
+  
+  reset_workflow -> reset_request_form
+  reset_request_form -> reset_token_gen
+  new_password_form -> reset_token_gen
+  reset_token_expire -> reset_token_gen
+  reset_confirm -> reset_workflow
+  password_history -> new_password_form
+  reset_notify -> reset_confirm
+  
+  reset_form_ui -> reset_email_valid
+  reset_email_valid -> reset_account_verify
+  reset_rate_limit -> reset_form_ui
+  reset_confirm_msg -> reset_form_ui
+  reset_security_log -> reset_account_verify
+  reset_analytics -> reset_form_ui
+  reset_notify_system -> reset_confirm_msg
+  
+  reset_email_temp -> reset_email_service
+  reset_secure_tokens -> reset_email_temp
+  reset_token_expiry -> reset_secure_tokens
+  reset_email_queue -> reset_email_service
+  reset_delivery -> reset_email_queue
+  reset_retry -> reset_email_queue
+  reset_admin_notify -> reset_security_log
+  
+  reset_token_valid -> reset_expiry_check
+  reset_expiry_check -> one_time_use
+  reset_token_storage -> reset_token_valid
+  reset_audit -> reset_token_valid
+  reset_security -> reset_audit
+  reset_analytics_complete -> reset_success
+  reset_success -> one_time_use
+  
+  reset_expired_detect -> reset_error_pages
+  reset_error_pages -> reset_secure_redirect
+  reset_invalid_log -> reset_expired_detect
+  reset_new_request -> reset_error_pages
+  reset_error_analytics -> reset_invalid_log
+  reset_support_info -> reset_error_pages
+  reset_brute_force -> reset_rate_limit
+  
+  ' Cross-REQ dependencies within FR1
+  realtime_check -> form_validation
+  realtime_pass_valid -> form_validation
+  backend_validation -> validation_logging
+  user_db -> data_access
+  secure_tokens -> token_validation
+  password_hash -> password_policies
+  error_components -> reg_error
+  error_pages -> error_components
+  reg_api -> email_service
+  account_activation -> transaction_handling
+  secure_tokens -> email_templates
+  error_logging -> security_logging
+  resend_option -> email_service
+  username_validation -> user_db
+  
+  ' Cross-REQ dependencies within FR2
+  cred_verify -> password_compare
+  auth_api -> jwt_generation
+  auth_error_handle -> auth_error_comp
+  auth_token_refresh -> jwt_generation
+  auth_checking -> auth_state_store
+  reset_token_gen -> reset_secure_tokens
+  reset_account_verify -> account_status
+  reset_token_valid -> reset_secure_tokens
+  reset_new_request -> reset_form_ui
+  
+  ' FR1 to FR2 dependencies
+  user_db -> cred_verify
+  password_hash -> password_compare
+  data_access -> account_status
+  email_regex -> reset_email_valid
+  error_components -> auth_error_comp
+  email_service -> reset_email_service
+  secure_tokens -> reset_secure_tokens
+  token_validation -> reset_token_valid
+  error_logging -> auth_error_log
+  backend_validation -> reset_email_valid
+  security_logging -> reset_security_log
+  error_redirect -> reset_secure_redirect
+  transaction_handling -> session_table
+  
+  ' FR2 to FR1 dependencies
+  auth_api -> reg_api
+  jwt_generation -> secure_tokens
+  account_status -> account_activation
+  reset_workflow -> reg_form
+  reset_secure_tokens -> secure_tokens
+  auth_checking -> account_activation
+  reset_token_storage -> token_validation
+}
+@enduml

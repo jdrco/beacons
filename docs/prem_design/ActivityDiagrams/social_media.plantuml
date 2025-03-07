@@ -1,0 +1,105 @@
+@startuml Social Activity Feed Activity Diagram
+|#LightSkyBlue|Client|
+|#LightGreen|Server|
+|#LightSalmon|Database|
+|#LightYellow|WebSocket Server|
+
+|Client|
+start
+:User Selects a Classroom;
+:View Room Activity Feed;
+|Server|
+:Request Activity Feed Data;
+|Database|
+:Query Recent Activities (24h);
+:Fetch Occupancy Count;
+:Fetch User Demographics;
+|Server|
+:Process Feed Data;
+|Client|
+:Display Chronological Activity Feed;
+:Show Current Occupancy Count;
+:Show Study Demographics;
+
+|Client|
+if (User Authenticated?) then (yes)
+  if (User Checks In?) then (yes)
+    :Display Check-In Form;
+    if (Optional Study Topic Provided?) then (yes)
+      :Collect Study Topic;
+    else (no)
+    endif
+    
+    |Server|
+    :Validate User Status;
+    |Database|
+    :Check for Active Check-Ins;
+    |Server|
+    if (Already Checked In Elsewhere?) then (yes)
+      :Generate Error;
+      |Client|
+      :Display Already Checked-In Error;
+    else (no)
+      |Database|
+      :Start New Check-In;
+      :Record Timestamp;
+      :Store Optional Study Topic;
+      :Increment Room Occupancy;
+      :Update Demographics;
+      
+      |WebSocket Server|
+      :Broadcast Check-In Event;
+      |Client|
+      :Show Check-In Success;
+      :Display Check-Out Option;
+      
+      fork
+        |Server|
+        :Start 4-Hour Expiration Timer;
+        if (Timer Expires?) then (yes)
+          |Database|
+          :Auto Check-Out User;
+          :Decrement Room Occupancy;
+          :Update Demographics;
+          |WebSocket Server|
+          :Broadcast Check-Out Event;
+        endif
+      fork again
+        |Client|
+        if (User Checks Out Manually?) then (yes)
+          |Server|
+          :Process Manual Check-Out;
+          |Database|
+          :Set Check-Out Timestamp;
+          :Decrement Room Occupancy;
+          :Update Demographics;
+          |WebSocket Server|
+          :Broadcast Check-Out Event;
+        endif
+      end fork
+    endif
+  endif
+  
+  |WebSocket Server|
+  :Maintain Real-Time Connection;
+  :Push Feed Updates to Client;
+  |Client|
+  :Update Activity Feed in Real-Time;
+else (no)
+  :Display Read-Only Feed;
+endif
+
+|Client|
+if (Classroom Status Changes?) then (yes)
+  |Server|
+  :Calculate New Availability Status;
+  |WebSocket Server|
+  :Broadcast Status Change;
+  |Client|
+  :Update Room Status Display;
+endif
+
+|Client|
+stop
+
+@enduml

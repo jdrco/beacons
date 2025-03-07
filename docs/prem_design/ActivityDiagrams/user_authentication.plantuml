@@ -1,0 +1,131 @@
+@startuml User Authentication Activity Diagram
+|#LightSkyBlue|Client|
+|#LightGreen|Server|
+|#LightSalmon|Database|
+|#Pink|Email System|
+
+|Client|
+start
+if (Has Account?) then (yes)
+  :Display Login Form;
+  :User Enters Credentials;
+  :Submit Login Data;
+  |Server|
+  :Validate Input Format;
+  if (Input Valid?) then (yes)
+    |Database|
+    :Query User Credentials;
+    |Server|
+    if (Credentials Match?) then (yes)
+      :Generate Session Token;
+      :Create JWT in HTTP-only Cookie;
+      |Database|
+      :Record Active Session;
+      |Server|
+      :Prepare Success Response;
+      |Client|
+      :Store Session Token;
+      :Redirect to Dashboard;
+      stop
+    else (no)
+      :Generate Auth Error;
+      |Client|
+      :Display Auth Error;
+      :Return to Login Form;
+    endif
+  else (no)
+    :Generate Validation Error;
+    |Client|
+    :Display Validation Error;
+  endif
+else (no)
+  :Display Registration Form;
+  repeat
+    :User Fills Registration Form;
+    :Submit Registration Data;
+    |Server|
+    :Validate Input Format;
+    if (Input Valid?) then (yes)
+      :Check Email Uniqueness;
+      |Database|
+      :Query Email Existence;
+      |Server|
+      if (Email Unique?) then (yes)
+        :Hash Password;
+        |Database|
+        :Store User Data;
+        |Server|
+        :Generate Verification Token;
+        |Email System|
+        :Send Verification Email;
+        |Server|
+        :Prepare Success Response;
+        |Client|
+        :Display Registration Success;
+        :Prompt User to Check Email;
+        
+        |Client|
+        :User Clicks Verification Link;
+        |Server|
+        :Verify Token;
+        |Database|
+        :Mark Account as Verified;
+        |Server|
+        :Redirect to Login Page;
+        stop
+      else (no)
+        :Generate Email Exists Error;
+        |Client|
+        :Display Email Error;
+      endif
+    else (no)
+      :Generate Validation Error;
+      |Client|
+      :Display Validation Error;
+    endif
+  repeat while (Try Again?) is (yes)
+  ->no;
+endif
+
+|Client|
+if (Reset Password?) then (yes)
+  :Display Password Reset Request Form;
+  :Submit Email for Password Reset;
+  |Server|
+  :Validate Email Format;
+  |Database|
+  :Check Email Existence;
+  |Server|
+  if (Email Exists?) then (yes)
+    :Generate Reset Token;
+    |Email System|
+    :Send Password Reset Email;
+    |Client|
+    :Show Reset Email Sent Confirmation;
+    :User Clicks Reset Link in Email;
+    :Display New Password Form;
+    :Submit New Password;
+    |Server|
+    :Validate Password Requirements;
+    if (Password Valid?) then (yes)
+      :Hash New Password;
+      |Database|
+      :Update User Password;
+      |Server|
+      :Invalidate Old Sessions;
+      :Redirect to Login Page;
+      stop
+    else (no)
+      :Show Password Requirement Error;
+    endif
+  else (no)
+    |Server|
+    :Generate Error Response;
+    |Client|
+    :Show Email Not Found Error;
+  endif
+else (no)
+endif
+
+stop
+@enduml

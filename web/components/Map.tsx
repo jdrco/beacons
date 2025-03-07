@@ -3,11 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { DoorOpen, Loader2 } from "lucide-react";
-import {
-  getAvailabilityColor,
-  getAvailabilityColorBrighter,
-} from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+import { getAvailabilityColorBrighter } from "@/lib/utils";
 
 interface Coordinates {
   latitude: number;

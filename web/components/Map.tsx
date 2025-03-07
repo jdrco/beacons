@@ -3,11 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { DoorOpen, Loader2 } from "lucide-react";
-import {
-  getAvailabilityColor,
-  getAvailabilityColorBrighter,
-} from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+import { getAvailabilityColorBrighter } from "@/lib/utils";
 
 interface Coordinates {
   latitude: number;
@@ -81,57 +78,40 @@ const MapLegend = () => {
 // Define interface for tooltip props
 interface BuildingTooltipProps {
   buildingName: string;
-  availableRooms: number;
-  totalRooms: number;
   onClose?: () => void;
 }
 
 // Custom tooltip component for the popups
 const BuildingTooltip = ({
   buildingName,
-  availableRooms,
-  totalRooms,
   onClose,
 }: BuildingTooltipProps & { onClose?: () => void }) => {
-  const backgroundColor = getAvailabilityColor(availableRooms, totalRooms);
-
   return (
-    <div className="bg-[#1e2329b3] border border-gray-700 rounded-lg p-3 shadow-lg min-w-[150px]">
-      <div className="flex items-center justify-between">
-        <div className="text-white font-medium">{buildingName}</div>
-        <div className="flex items-center gap-2">
-          <span
-            className="flex justify-center items-center gap-1 py-1 px-2 rounded-full text-xs text-white"
-            style={{ backgroundColor }}
+    <div className="bg-[#1e2329b3] border border-gray-700 rounded-lg p-3 shadow-lg">
+      <div className="flex items-center justify-between gap-x-1">
+        <div className="text-white font-medium">Building: {buildingName}</div>
+        {onClose && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose?.();
+            }}
+            className="text-gray-400 hover:text-white ml-1"
+            aria-label="Close"
           >
-            <DoorOpen className="h-3 w-3" strokeWidth={2} />
-            <span>
-              {availableRooms}/{totalRooms}
-            </span>
-          </span>
-          {onClose && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onClose?.();
-              }}
-              className="text-gray-400 hover:text-white ml-1"
-              aria-label="Close"
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
             >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          )}
-        </div>
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
@@ -281,8 +261,6 @@ const Map = ({
           ReactDOM.createRoot(tooltipNode).render(
             <BuildingTooltip
               buildingName={buildingName}
-              availableRooms={availableRooms}
-              totalRooms={totalRooms}
               onClose={() => {
                 popup.remove();
                 activePopupRef.current = null;
@@ -462,7 +440,7 @@ const Map = ({
       {!isMapLoaded && (
         <div className="absolute inset-0 bg-[#1e2329] rounded-xl md:rounded-2xl z-10 flex flex-col gap-4">
           <div
-            className="w-full h-full rounded-lg overflow-hidden"
+            className="w-full h-full rounded-2xl overflow-hidden"
             style={{
               background:
                 "linear-gradient(to bottom, #4AA69D, #DDAA5E, #F66A6A)",

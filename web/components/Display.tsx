@@ -376,9 +376,6 @@ export default function Display() {
               alt="Beacons Logo"
               className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
             />
-            <span className="absolute left-full top-4 md:top-1/2 -translate-y-1/2 text-xs md:text-sm text-gray-400 ml-4 font-medium whitespace-nowrap">
-              beta v0.1.0
-            </span>
           </div>
         </div>
       </div>

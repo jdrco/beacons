@@ -9,13 +9,17 @@ services:
       - ./alembic.ini:/code/alembic.ini
       - ./room_program_data:/code/room_program_data
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - .env
     command: >
-      sh -c "alembic upgrade head &&
-             python room_program_data/db_room.py &&
-             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+      sh -c "
+        echo 'Waiting for database...' &&
+        python -c 'import time; time.sleep(3)' &&
+        alembic upgrade head &&
+        python room_program_data/db_room.py &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
 
   db:
     image: postgres:15
@@ -27,6 +31,11 @@ services:
       - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

@@ -1,6 +1,10 @@
 # beacons backend
 
 ## Start
+Ensure you have a `.env` set up
+
+TODO: need to specify ENV flags
+
 ```
 docker compose up --build
 ```

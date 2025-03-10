@@ -10,6 +10,8 @@ from sqlalchemy.orm import Session
 from jose import jwt
 from passlib.context import CryptContext
 
+from itsdangerous import URLSafeTimedSerializer, BadData, SignatureExpired
+
 from app.core.config import settings
 from app.core.database import get_db
 from app.schemas.user import UserCreate, TokenResponse, PasswordReset
@@ -22,6 +24,30 @@ logging.getLogger("passlib").setLevel(logging.ERROR)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/signin", auto_error=False)
+
+ts = URLSafeTimedSerializer(settings.secret_key)
+
+def generate_email_verification_token(user_id: str) -> str:
+    """Generate email verification token."""
+    return ts.dumps(user_id)
+
+def verify_email_verification_token(token: str, max_age: int = 86400) -> str:
+    """Verify email verification token."""
+    try:
+        user_id = ts.loads(token, max_age=max_age)
+    except SignatureExpired:
+        return "expired"
+
+    return user_id
+
+def send_verification_email(recipient_email: str, token: str) -> None:
+    """
+    Placeholder function for sending the verification link via email.
+    In practice, integrate with an email-sending service here.
+    """
+    verification_link = f"https://your-frontend-url/verify-email?token={token}"
+    print(f"[Email sent to {recipient_email}] Verification link: {verification_link}")
+
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -144,6 +170,9 @@ def sign_up(user: UserCreate, db: Session = Depends(get_db)):
             education_level=user.education_level,
         )
 
+        token = generate_email_verification_token(str(new_user.id))
+        send_verification_email(new_user.email, token)
+
         return success_response(
             status_codes=201,
             status=True,
@@ -257,3 +286,32 @@ def update_password(
             status=False,
             message={"error": str(e)}
         )
+
+@router.get("/verify-email")
+def verify_email(token: str, db: Session = Depends(get_db)):
+    """
+    REQ-8: Activates the user if token is valid.
+    REQ-9: Shows an error if token is invalid or expired.
+    """
+    try:
+        user_id = verify_email_verification_token(token)
+    except SignatureExpired:
+        # Token is valid but expired
+        return error_response(400, False, "Email verification link has expired.")
+    except BadData:
+        # Token is invalid
+        return error_response(400, False, "Invalid email verification link.")
+
+    user = filter_query(db, model=User, filters=[User.id == user_id])
+    if not user:
+        return error_response(400, False, "Invalid verification link or user not found.")
+
+    if user[0].active:
+        # Already active => no error, just confirm success.
+        return success_response(200, True, "Account already verified.")
+
+    # Activate account
+    user[0].active = True
+    db.commit()
+
+    return success_response(200, True, "Account verified successfully.")

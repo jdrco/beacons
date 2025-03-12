@@ -12,6 +12,7 @@ from app.models.user import User, UserFavoriteRoom
 from app.models.building import Room
 from app.schemas.user import UserUpdate
 from app.schemas.building import AddFavoriteRooms
+from app.schemas.user import LocationUpdate
 
 router = APIRouter()
 
@@ -61,6 +62,10 @@ def update_user(
             update_data["share_profile"] = user_data.share_profile
         if user_data.education_level:
             update_data["education_level"] = user_data.education_level
+        if user_data.latitude is not None:
+            update_data["latitude"] = user_data.latitude
+        if user_data.longitude is not None:
+            update_data["longitude"] = user_data.longitude
 
         db.query(User).filter(User.id == user_data.user_id).update(update_data, synchronize_session=False)
         db.commit()
@@ -207,6 +212,42 @@ def remove_favorite_room(
 
         db.commit()
         return success_response(200, True, "Room removed from favorites")
+    except Exception as e:
+        db.rollback()
+        return error_response(500, False, str(e))
+
+@router.put("/user/update_location")
+def update_location(
+    location_data: LocationUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_active_user)  
+):
+    """
+    Update the authenticated user's latitude/longitude in the database.
+    """
+    try:
+        # Make sure the current_user is valid
+        if not current_user:
+            return error_response(401, False, "Unauthorized")
+
+        # Update the user's location columns
+        current_user.latitude = location_data.latitude
+        current_user.longitude = location_data.longitude
+
+        db.add(current_user)
+        db.commit()
+        db.refresh(current_user)
+
+        return success_response(
+            status_codes=200,
+            status=True,
+            message="Location updated successfully",
+            data={
+                "user_id": str(current_user.id),
+                "latitude": float(current_user.latitude),
+                "longitude": float(current_user.longitude)
+            }
+        )
     except Exception as e:
         db.rollback()
         return error_response(500, False, str(e))

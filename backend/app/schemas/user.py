@@ -1,6 +1,6 @@
 import re
 from typing import Literal, Optional
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from app.utils.response import error_response
 
 class UserCreate(BaseModel):
@@ -110,9 +110,16 @@ class UserUpdate(BaseModel):
     share_profile: Optional[bool] = None
     education_level: Optional[Literal["Undergraduate", "Graduate"]] = None
 
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+
     @field_validator("username", mode="before")
     @classmethod
     def trim_spaces(cls, value: str):
         if isinstance(value, str):
             return value.strip()
         return value
+
+class LocationUpdate(BaseModel):
+    latitude: float = Field(..., description="Latitude of the user's location.")
+    longitude: float = Field(..., description="Longitude of the user's location.")

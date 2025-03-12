@@ -17,6 +17,9 @@ class User(Base):
     share_profile = Column(Boolean, nullable=False, default=True)
     education_level = Column(String, nullable=True)
 
+    latitude = Column(DECIMAL(9, 6), nullable=True)
+    longitude = Column(DECIMAL(9, 6), nullable=True)
+    
     cookies = relationship("Cookie", back_populates="user", cascade="all, delete-orphan")
     favorite_rooms = relationship("UserFavoriteRoom", back_populates="user", cascade="all, delete-orphan")
 

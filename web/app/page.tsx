@@ -1,10 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { BorderBeam } from "@/components/magicui/border-beam";
-import { Ripple } from "@/components/magicui/ripple";
-import { Safari } from "@/components/magicui/safari";
-import Iphone15Pro from "@/components/magicui/iphone-15-pro";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { Ripple } from "@/components/ui/ripple";
+import { Safari } from "@/components/ui/safari";
+import Iphone15Pro from "@/components/ui/iphone-15-pro";
 
 export default function Landing() {
   return (

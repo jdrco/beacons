@@ -1,14 +1,13 @@
 "use client";
 
 import {
-  // Heart,
   Building2,
   DoorOpen,
   DoorClosed,
   ChevronDown,
   Plus,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -31,301 +30,37 @@ import { DisplaySettings } from "@/types";
 import Navbar from "./Navbar";
 
 export default function Display() {
-  const [buildingData, setBuildingData] = useState<BuildingData | null>(null);
-  // const [favorites, setFavorites] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedBuilding, setSelectedBuilding] = useState<string | null>(null);
+  // Get building data from custom hook
+  const { buildingData, loading, error } = useBuildingData();
+
+  // State for search and display settings
   const [searchQuery, setSearchQuery] = useState("");
   const [displaySettings, setDisplaySettings] =
     useState<DisplaySettings>("all");
-  const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
-  const [expandedAccordionItems, setExpandedAccordionItems] = useState<
-    string[]
-  >([]);
+
+  // Get current time from custom hook
+  const currentDateTime = useTimeUpdate();
+
+  // Refs for accordion items
   const accordionContainerRef = useRef<HTMLDivElement>(null);
   const buildingItemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
-  const [showMapTooltip, setShowMapTooltip] = useState<boolean>(true);
 
-  // Check if a single room is available
-  const isRoomAvailable = (schedules: Schedule[]): boolean => {
-    // Get current date and time
-    const now = currentDateTime;
+  // Building selection state from custom hook
+  const {
+    selectedBuilding,
+    expandedAccordionItems,
+    showMapTooltip,
+    setExpandedAccordionItems,
+    handleBuildingSelect,
+  } = useBuildingSelection({ accordionContainerRef, buildingItemRefs });
 
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes since midnight
-    const currentDay = now.getDay();
-
-    // const currentTime = 14 * 60 + 30; // 2:30 PM
-    // const currentDay = 3; // Wednesday
-
-    // Check each schedule
-    for (const schedule of schedules) {
-      // Parse the dates
-      if (schedule.dates.includes(" - ")) {
-        // Handle date range with weekday pattern
-        const [dateRange, weekdays] = schedule.dates.split(" (");
-        const [startDate, endDate] = dateRange
-          .split(" - ")
-          .map((d) => new Date(d));
-
-        // Check if current date is within range
-        if (now >= startDate && now <= endDate) {
-          // Parse weekday pattern
-          const weekdayPattern = weekdays.replace(")", "");
-          const scheduledDays = new Set();
-
-          if (weekdayPattern.includes("M")) scheduledDays.add(1); // Monday
-          if (weekdayPattern.includes("T") && !weekdayPattern.includes("R"))
-            scheduledDays.add(2); // Tuesday
-          if (weekdayPattern.includes("W")) scheduledDays.add(3); // Wednesday
-          if (weekdayPattern.includes("R")) scheduledDays.add(4); // Thursday
-          if (weekdayPattern.includes("F")) scheduledDays.add(5); // Friday
-
-          // Check if class runs on current day
-          if (scheduledDays.has(currentDay)) {
-            // Parse time range
-            const [startTime, endTime] = schedule.time.split(" - ").map((t) => {
-              const [hours, minutes] = t.split(":").map(Number);
-              return hours * 60 + minutes;
-            });
-
-            // Check if current time falls within class time
-            if (currentTime >= startTime && currentTime <= endTime) {
-              return false; // Room is occupied
-            }
-          }
-        }
-      } else {
-        // Handle single date
-        const scheduleDate = new Date(schedule.dates);
-
-        // Check if it's the same day
-        if (
-          scheduleDate.getFullYear() === now.getFullYear() &&
-          scheduleDate.getMonth() === now.getMonth() &&
-          scheduleDate.getDate() === now.getDate()
-        ) {
-          // Parse time range
-          const [startTime, endTime] = schedule.time.split(" - ").map((t) => {
-            const [hours, minutes] = t.split(":").map(Number);
-            return hours * 60 + minutes;
-          });
-
-          // Check if current time falls within class time
-          if (currentTime >= startTime && currentTime <= endTime) {
-            return false; // Room is occupied
-          }
-        }
-      }
-    }
-
-    return true; // Room is available if no conflicting schedules found
-  };
-
-  // Get available room count for a building
-  const getAvailableRoomCount = (building: Building): number => {
-    return Object.values(building.rooms).reduce((count, schedules) => {
-      return count + (isRoomAvailable(schedules) ? 1 : 0);
-    }, 0);
-  };
-
-  // Get availability ratio for a building
-  const getBuildingAvailabilityRatio = (building: Building): number => {
-    const totalRooms = Object.keys(building.rooms).length;
-    const availableRooms = getAvailableRoomCount(building);
-    return totalRooms > 0 ? availableRooms / totalRooms : 0;
-  };
-
-  // Check if a building matches the current availability filter
-  const buildingMatchesDisplaySettings = (building: Building): boolean => {
-    const availabilityRatio = getBuildingAvailabilityRatio(building);
-
-    switch (displaySettings) {
-      case "available":
-        return availabilityRatio >= 0.5;
-      case "limited":
-        return availabilityRatio >= 0.25 && availabilityRatio < 0.5;
-      case "unavailable":
-        return availabilityRatio < 0.25;
-      case "all":
-      default:
-        return true;
-    }
-  };
-
-  // Filter buildings and rooms based on search query and availability filter
-  const filteredBuildingData = buildingData
-    ? Object.entries(buildingData).reduce((acc, [buildingName, building]) => {
-        // First check if building matches availability filter
-        if (!buildingMatchesDisplaySettings(building)) {
-          return acc;
-        }
-
-        // Check if building name matches search query
-        const buildingMatches = buildingName
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase());
-
-        // Filter rooms that match the search query (only by room name, not by class name)
-        const matchingRooms = Object.entries(building.rooms).reduce(
-          (roomAcc, [roomName, schedules]) => {
-            if (roomName.toLowerCase().includes(searchQuery.toLowerCase())) {
-              roomAcc[roomName] = schedules;
-            }
-            return roomAcc;
-          },
-          {} as Room
-        );
-
-        // Include building if either the building name matches or there are matching rooms
-        if (buildingMatches || Object.keys(matchingRooms).length > 0) {
-          acc[buildingName] = {
-            ...building,
-            rooms: buildingMatches ? building.rooms : matchingRooms,
-          };
-        }
-        return acc;
-      }, {} as BuildingData)
-    : null;
-
-  useEffect(() => {
-    const fetchBuildingData = async () => {
-      try {
-        const response = await fetch("/processed_classroom_availability.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch building data");
-        }
-        const data: BuildingData = await response.json();
-        setBuildingData(data);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to load building data"
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBuildingData();
-  }, []);
-
-  useEffect(() => {
-    const calculateNextUpdateTime = () => {
-      const now = new Date();
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-
-      // Determine next update point (00, 20, 30, or 50 minutes)
-      let nextMinute;
-      if (minutes < 20) nextMinute = 20;
-      else if (minutes < 30) nextMinute = 30;
-      else if (minutes < 50) nextMinute = 50;
-      else nextMinute = 60; // Next hour
-
-      // Calculate milliseconds until next update
-      const millisecondsToNextUpdate =
-        ((nextMinute - minutes) * 60 - seconds) * 1000;
-
-      return millisecondsToNextUpdate;
-    };
-
-    // Function to schedule the next update
-    const scheduleNextUpdate = () => {
-      const delay = calculateNextUpdateTime();
-
-      // Set timeout for next update
-      const timerId = setTimeout(() => {
-        // Update the current time to trigger recalculation
-        setCurrentDateTime(new Date());
-        // Schedule the next update
-        scheduleNextUpdate();
-      }, delay);
-
-      // Clean up timeout on component unmount
-      return () => clearTimeout(timerId);
-    };
-
-    // Start the scheduling chain
-    const cleanup = scheduleNextUpdate();
-
-    return cleanup;
-  }, []);
-
-  useEffect(() => {
-    // This empty effect with searchQuery dependency helps isolate search state updates
-    // from time-related state updates
-  }, [searchQuery]);
-
-  // const toggleFavorite = (e: React.MouseEvent, roomId: string) => {
-  //   e.stopPropagation();
-  //   setFavorites((prev) =>
-  //     prev.includes(roomId)
-  //       ? prev.filter((id) => id !== roomId)
-  //       : [...prev, roomId]
-  //   );
-  // };
-
-  // Helper function to convert time string to minutes since midnight
-  const timeToMinutes = (timeStr: string): number => {
-    const [hours, minutes] = timeStr.split(":").map(Number);
-    return hours * 60 + minutes;
-  };
-
-  // Handle building selection from map or accordion
-  const handleBuildingSelect = (buildingName: string) => {
-    // Check if we're toggling the already selected building
-    const isToggling =
-      selectedBuilding === buildingName &&
-      expandedAccordionItems.includes(buildingName);
-
-    // Always update selected building first
-    setSelectedBuilding(buildingName);
-
-    if (isToggling) {
-      // If we're collapsing, update the accordion state without scrolling
-      setExpandedAccordionItems([]);
-      // Also hide the tooltip when collapsing
-      setShowMapTooltip(false);
-    } else {
-      // First collapse all
-      setExpandedAccordionItems([]);
-
-      // Show the tooltip
-      setShowMapTooltip(true);
-
-      // Then use a longer delay before expanding
-      setTimeout(() => {
-        // Expand the selected building
-        setExpandedAccordionItems([buildingName]);
-
-        // Add a much longer delay for scrolling on mobile
-        const scrollDelay = window.innerWidth < 768 ? 500 : 300;
-
-        setTimeout(() => {
-          if (
-            buildingItemRefs.current[buildingName] &&
-            accordionContainerRef.current
-          ) {
-            const container = accordionContainerRef.current;
-            const element = buildingItemRefs.current[buildingName];
-
-            if (element) {
-              // On mobile, use a simpler approach - just scroll the element into view
-              if (window.innerWidth < 768) {
-                element.scrollIntoView({ behavior: "smooth", block: "start" });
-              } else {
-                // On desktop, use the original approach with padding
-                const scrollPosition = element.offsetTop - 120;
-                container.scrollTo({
-                  top: Math.max(0, scrollPosition),
-                  behavior: "smooth",
-                });
-              }
-            }
-          }
-        }, scrollDelay);
-      }, 100); // Slightly longer initial delay
-    }
-  };
+  // Filter buildings based on search and display settings
+  const filteredBuildingData = filterBuildingData(
+    buildingData,
+    searchQuery,
+    displaySettings,
+    currentDateTime
+  );
 
   if (loading)
     return (
@@ -353,7 +88,9 @@ export default function Display() {
         {/* <div className="md:w-1/3 bg-red-400 h-full "></div> */}
         <Map
           buildingData={filteredBuildingData || undefined}
-          isRoomAvailable={isRoomAvailable}
+          isRoomAvailable={(schedules) =>
+            isRoomAvailable(schedules, currentDateTime)
+          }
           onBuildingClick={handleBuildingSelect}
           selectedBuilding={selectedBuilding}
           currentDateTime={currentDateTime}
@@ -392,8 +129,10 @@ export default function Display() {
                               const totalRooms = Object.keys(
                                 building.rooms
                               ).length;
-                              const availableRooms =
-                                getAvailableRoomCount(building);
+                              const availableRooms = getAvailableRoomCount(
+                                building,
+                                currentDateTime
+                              );
                               const backgroundColor = getAvailabilityColor(
                                 availableRooms,
                                 totalRooms
@@ -431,7 +170,10 @@ export default function Display() {
                     <Accordion type="multiple" className="mx-4">
                       {Object.entries(building.rooms).map(
                         ([roomName, schedules]) => {
-                          const isAvailable = isRoomAvailable(schedules);
+                          const roomAvailable = isRoomAvailable(
+                            schedules,
+                            currentDateTime
+                          );
                           return (
                             <AccordionItem key={roomName} value={roomName}>
                               <AccordionTrigger
@@ -443,7 +185,7 @@ export default function Display() {
                               >
                                 <div className="flex items-center gap-3">
                                   <div className="w-6 h-6">
-                                    {isAvailable ? (
+                                    {roomAvailable ? (
                                       <DoorOpen className="stroke-[#4AA69D]" />
                                     ) : (
                                       <DoorClosed className="stroke-[#f56565]" />

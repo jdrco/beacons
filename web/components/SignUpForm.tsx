@@ -1,25 +1,25 @@
-"use client"
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/useToast";
 
 interface ValidationError {
   msg: string;
@@ -28,135 +28,137 @@ interface ValidationError {
 export function SignUpForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const router = useRouter()
-  const { toast } = useToast()
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    re_password: '',
-    fname: '',
-    lname: '',
-    education_level: '',
+    email: "",
+    password: "",
+    re_password: "",
+    fname: "",
+    lname: "",
+    education_level: "",
     share_profile: true,
-    active: true
-  })
+    active: true,
+  });
 
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null);
 
   const validatePassword = (password: string) => {
     if (!/[A-Z]/.test(password)) {
-      return "Password must contain at least one uppercase letter."
+      return "Password must contain at least one uppercase letter.";
     }
     if (!/[0-9]/.test(password)) {
-      return "Password must contain at least one number."
+      return "Password must contain at least one number.";
     }
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      return "Password must contain at least one special character."
+      return "Password must contain at least one special character.";
     }
-    return null
-  }
+    return null;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
+    e.preventDefault();
+    setError(null);
 
     // Validate passwords match
     if (formData.password !== formData.re_password) {
-      setError("Passwords do not match")
-      return
+      setError("Passwords do not match");
+      return;
     }
 
     // Validate password strength
-    const passwordError = validatePassword(formData.password)
+    const passwordError = validatePassword(formData.password);
     if (passwordError) {
-      setError(passwordError)
-      return
+      setError(passwordError);
+      return;
     }
 
     // Validate education level
-    if (formData.education_level &&
-      !["Undergraduate", "Graduate"].includes(formData.education_level)) {
-      setError("Education level must be either Undergraduate or Graduate")
-      return
+    if (
+      formData.education_level &&
+      !["Undergraduate", "Graduate"].includes(formData.education_level)
+    ) {
+      setError("Education level must be either Undergraduate or Graduate");
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     const dataToSend = {
       ...formData,
       active: Boolean(formData.active),
-      share_profile: Boolean(formData.share_profile)
-    }
+      share_profile: Boolean(formData.share_profile),
+    };
 
-    console.log('Sending form data:', dataToSend)
+    console.log("Sending form data:", dataToSend);
 
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(dataToSend),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        console.error('Validation error:', data)
+        console.error("Validation error:", data);
         if (data.detail) {
-          throw new Error(Array.isArray(data.detail)
-            ? data.detail.map((err: ValidationError) => err.msg).join(', ')
-            : data.detail
-          )
+          throw new Error(
+            Array.isArray(data.detail)
+              ? data.detail.map((err: ValidationError) => err.msg).join(", ")
+              : data.detail
+          );
         }
-        throw new Error(data.message || 'Something went wrong')
+        throw new Error(data.message || "Something went wrong");
       }
 
       toast({
         title: "Success!",
         description: "Account created successfully. Please log in.",
-      })
+      });
 
-      router.push('/login')
+      router.push("/login");
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to create account"
-      setError(errorMessage)
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to create account";
+      setError(errorMessage);
       toast({
         title: "Error",
         description: errorMessage,
         variant: "destructive",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target
-    setFormData(prev => ({
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
-    setError(null)
-  }
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setError(null);
+  };
 
   const handleEducationChange = (value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      education_level: value
-    }))
-    setError(null)
-  }
+      education_level: value,
+    }));
+    setError(null);
+  };
 
   return (
     <div {...props}>
       <Card className="border-0 shadow-none">
         <CardHeader>
           <CardTitle className="text-2xl">Sign Up</CardTitle>
-          <CardDescription>
-            Create a new account to get started
-          </CardDescription>
+          <CardDescription>Create a new account to get started</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -239,11 +241,7 @@ export function SignUpForm({
                 </Select>
               </div>
 
-              {error && (
-                <div className="text-sm text-red-500">
-                  {error}
-                </div>
-              )}
+              {error && <div className="text-sm text-red-500">{error}</div>}
 
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating account..." : "Sign Up"}
@@ -251,7 +249,10 @@ export function SignUpForm({
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}
-              <a href="/signin" className="underline underline-offset-4 hover:text-primary">
+              <a
+                href="/signin"
+                className="underline underline-offset-4 hover:text-primary"
+              >
                 Login
               </a>
             </div>
@@ -259,5 +260,5 @@ export function SignUpForm({
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

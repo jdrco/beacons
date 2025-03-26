@@ -102,6 +102,7 @@ export function WeeklyCalendar({
     return colorPalette[index];
   };
 
+  // Fixed weekday pattern handling in the useEffect for parsing schedules
   useEffect(() => {
     if (!schedules || schedules.length === 0) return;
 
@@ -131,6 +132,7 @@ export function WeeklyCalendar({
         const weekdayPattern = schedule.dates.split("(")[1].replace(")", "");
 
         // Map weekday abbreviations to array indices (M=0, T=1, W=2, R=3, F=4)
+        // Fixed: Any "T" means Tuesday (index 1), regardless of whether "R" is present
         if (weekdayPattern.includes("M"))
           events.push({
             dayIndex: 0,
@@ -141,7 +143,8 @@ export function WeeklyCalendar({
             capacity: schedule.capacity,
             dates: schedule.dates,
           });
-        if (weekdayPattern.includes("T") && !weekdayPattern.includes("R"))
+        if (weekdayPattern.includes("T"))
+          // Removed the "!weekdayPattern.includes("R")" condition
           events.push({
             dayIndex: 1,
             startTime,

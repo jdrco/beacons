@@ -13,3 +13,4 @@ def get_user_by_username(db: Session, username: str):
 def get_user_by_id(db: Session, user_id: int):
     result = filter_query(db, model=User, filters=[User.id == user_id])
     return result[0] if result else None
+    

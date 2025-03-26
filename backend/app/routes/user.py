@@ -12,6 +12,8 @@ from app.models.user import User, UserFavoriteRoom
 from app.models.building import Room
 from app.schemas.user import UserUpdate
 from app.schemas.building import AddFavoriteRooms
+from app.schemas.location import UserLocation
+
 
 router = APIRouter()
 
@@ -210,3 +212,32 @@ def remove_favorite_room(
     except Exception as e:
         db.rollback()
         return error_response(500, False, str(e))
+
+@router.post("/user/location")
+def save_user_location(
+    user_location: UserLocation,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_active_user)
+):
+    """
+    Accept the user's latitude and longitude, and store them in the database.
+    """
+    try:
+        current_user.latitude = user_location.latitude
+        current_user.longitude = user_location.longitude
+        db.add(current_user) 
+        db.commit()
+        db.refresh(current_user)
+
+        return success_response(
+            status_codes=200,
+            status=True,
+            message="User location updated successfully.",
+            data={
+                "latitude": str(current_user.latitude),
+                "longitude": str(current_user.longitude)
+            }
+        )
+    except Exception as e:
+        db.rollback()
+        return error_response(500, False, f"Error updating user location: {str(e)}")

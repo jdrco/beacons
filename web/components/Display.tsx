@@ -16,36 +16,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Map from "./Map";
-import SearchBar from "./Search";
-import DisplaySettingsDropdown, { DisplaySettings } from "./DisplaySettings";
 import { WeeklyCalendar } from "./WeeklyCalendar";
 import { getAvailabilityColor } from "@/lib/utils";
-
-interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
-
-interface Schedule {
-  dates: string;
-  time: string;
-  location: string;
-  capacity: number;
-  course: string;
-}
-
-interface Room {
-  [roomName: string]: Schedule[];
-}
-
-interface Building {
-  coordinates: Coordinates;
-  rooms: Room;
-}
-
-interface BuildingData {
-  [buildingName: string]: Building;
-}
+import {
+  isRoomAvailable,
+  getAvailableRoomCount,
+  filterBuildingData,
+  timeToMinutes,
+} from "@/lib/availability";
+import { useBuildingData } from "@/hooks/useBuildingData";
+import { useTimeUpdate } from "@/hooks/useTimeUpdate";
+import { useBuildingSelection } from "@/hooks/useBuildingSelection";
+import { DisplaySettings } from "@/types";
+import Navbar from "./Navbar";
 
 export default function Display() {
   const [buildingData, setBuildingData] = useState<BuildingData | null>(null);
@@ -360,26 +343,14 @@ export default function Display() {
 
   return (
     <div className="flex flex-col h-full w-full gap-y-3 md:gap-y-6  max-h-screen overflow-hidden">
-      <div className="flex flex-col md:flex-row w-full md:gap-8">
-        <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
-          <SearchBar onSearch={setSearchQuery} />
-          <DisplaySettingsDropdown
-            onFilterChange={setDisplaySettings}
-            currentFilter={displaySettings}
-            currentDateTime={currentDateTime}
-          />
-        </div>
-        <div className="order-first md:order-last flex justify-center items-center md:w-1/3 relative">
-          <div className="relative">
-            <img
-              src="/beacons_logo.svg"
-              alt="Beacons Logo"
-              className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
-            />
-          </div>
-        </div>
-      </div>
+      <Navbar
+        setSearchQuery={setSearchQuery}
+        setDisplaySettings={setDisplaySettings}
+        displaySettings={displaySettings}
+        currentDateTime={currentDateTime}
+      />
       <div className="h-full w-full flex flex-col md:flex-row gap-3 md:gap-x-8 min-h-0">
+        {/* <div className="md:w-1/3 bg-red-400 h-full "></div> */}
         <Map
           buildingData={filteredBuildingData || undefined}
           isRoomAvailable={isRoomAvailable}

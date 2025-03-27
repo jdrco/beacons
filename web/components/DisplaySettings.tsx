@@ -7,15 +7,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DisplaySettings, DisplaySettingsProps } from "@/types";
 import { SlidersHorizontal, CircleCheck, Circle } from "lucide-react";
-
-export type DisplaySettings = "all" | "available" | "limited" | "unavailable";
-
-interface DisplaySettingsProps {
-  onFilterChange: (filter: DisplaySettings) => void;
-  currentFilter: DisplaySettings;
-  currentDateTime: Date;
-}
 
 export default function DisplaySettingsDropdown({
   onFilterChange,

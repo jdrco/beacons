@@ -1,3 +1,5 @@
+export type DisplaySettings = "all" | "available" | "limited" | "unavailable";
+
 export interface Coordinates {
   latitude: number;
   longitude: number;
@@ -22,4 +24,17 @@ export interface Building {
 
 export interface BuildingData {
   [buildingName: string]: Building;
+}
+
+export interface DisplaySettingsProps {
+  onFilterChange: (filter: DisplaySettings) => void;
+  currentFilter: DisplaySettings;
+  currentDateTime: Date;
+}
+
+export interface NavbarProps {
+  setSearchQuery: (query: string) => void;
+  setDisplaySettings: (settings: DisplaySettings) => void;
+  displaySettings: DisplaySettings;
+  currentDateTime: Date;
 }

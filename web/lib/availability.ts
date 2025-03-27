@@ -1,5 +1,4 @@
-import { Schedule, Building, BuildingData, Room } from "@/types";
-import { DisplaySettings } from "@/components/DisplaySettings";
+import { Schedule, Building, BuildingData, Room, DisplaySettings } from "@/types";
 
 // Check if a single room is available
 export const isRoomAvailable = (

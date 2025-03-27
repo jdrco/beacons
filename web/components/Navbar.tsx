@@ -9,8 +9,8 @@ export default function Navbar({
   currentDateTime,
 }: NavbarProps) {
   return (
-    <div className="flex flex-col md:flex-row w-full md:gap-8">
-      <div className="flex gap-2 md:gap-4 md:w-2/3 order-last md:order-first">
+    <div className="flex flex-col md:flex-row w-full md:gap-5">
+      <div className="flex gap-2 md:gap-3 md:w-2/3 order-last md:order-first">
         <SearchBar onSearch={setSearchQuery} />
         <DisplaySettingsDropdown
           onFilterChange={setDisplaySettings}
@@ -23,7 +23,7 @@ export default function Navbar({
           <img
             src="/beacons_logo.svg"
             alt="Beacons Logo"
-            className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
+            className="block next-image-unconstrained md:h-8 h-8 md:mb-0 mb-3"
           />
         </div>
       </div>

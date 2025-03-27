@@ -63,7 +63,7 @@ export default function SearchBar({
     <div className="w-full h-full flex">
       <div className="relative w-full group">
         <div className="relative flex items-center rounded-xl md:rounded-2xl border border-[#2b5f5a]">
-          <Search className="absolute left-3 md:left-6 w-4 h-4 md:h-6 md:w-6" />
+          <Search className="absolute left-3 md:left-6 w-4 h-4 md:h-4 md:w-6" />
           <input
             ref={inputRef}
             type="text"

@@ -38,7 +38,7 @@ export default function DisplaySettingsDropdown({
           }`}
         >
           <div className="relative">
-            <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6" />
+            <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-4 w-6" />
           </div>
         </button>
       </DropdownMenuTrigger>

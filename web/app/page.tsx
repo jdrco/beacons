@@ -35,11 +35,18 @@ export default function Landing() {
             <Sparkles className="w-4 h-4 mr-2" /> Introducing beacons for
             UAlberta <ArrowRight className="w-4 h-4 ml-2" />
           </Button> */}
-          <img
-            src="/beacons_logo.svg"
-            alt="Beacons Logo"
-            className="block next-image-unconstrained md:h-12 h-8 md:mb-0 mb-3"
-          />
+          <div className="relative flex gap-x-2 items-center">
+            <img
+              src="/beacons-symbol.svg"
+              alt="Beacons Logo"
+              className="block next-image-unconstrained md:h-8 h-6 md:mb-0 mb-3"
+            />
+            <img
+              src="/beacons-text.svg"
+              alt="Beacons Logo"
+              className="block next-image-unconstrained md:h-6 h-6 md:mb-0 mb-3"
+            />
+          </div>
         </div>
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 max-w-5xl">

@@ -17,6 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import Link from "next/link";
 
 export default function Navbar({
   setSearchQuery,
@@ -72,7 +73,9 @@ export default function Navbar({
         {/* Left section - Logo (hidden on mobile when search is expanded) */}
         {(!isSearchExpanded || !isMobile) && (
           <div className="flex items-center md:gap-x-24 md:w-1/4 lg:w-1/3">
-            <Logo className="ml-2" />
+            <Link href="/">
+              <Logo className="ml-2" />
+            </Link>
             {/* Time */}
             <div className="items-center whitespace-nowrap font-mono text-sm hidden lg:flex">
               <span>{time}</span>

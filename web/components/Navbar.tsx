@@ -2,6 +2,8 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
+import { LogIn } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Navbar({
   setSearchQuery,
@@ -11,7 +13,9 @@ export default function Navbar({
 }: NavbarProps) {
   const [time, setTime] = useState("");
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Update time every second
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -21,11 +25,20 @@ export default function Navbar({
       setTime(`${hours}:${minutes}:${seconds}`);
     };
 
-    // Update immediately and then every second
     updateTime();
     const interval = setInterval(updateTime, 1000);
-
     return () => clearInterval(interval);
+  }, []);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint is 768px
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Handle search expansion state change
@@ -34,54 +47,83 @@ export default function Navbar({
   };
 
   return (
-    <div className="flex rounded-full justify-between md:justify-start mt-4 mx-3 md:mx-4 px-3 md:px-5 py-2 bg-[#2b5f5a48]">
-      {/* Left section - Logo */}
+    <div className="flex rounded-full justify-between mt-4 mx-3 md:mx-4 px-2 md:px-4 py-2 bg-[#2b5f5a48]">
+      {/* Left section - Logo (hidden on mobile when search is expanded) */}
+      {(!isSearchExpanded || !isMobile) && (
+        <div className="flex items-center">
+          <div className="relative flex gap-x-3 items-center ml-2">
+            <img
+              src="/beacons-symbol.svg"
+              alt="Beacons Logo"
+              className="block next-image-unconstrained h-7"
+            />
+            <img
+              src="/beacons-text.svg"
+              alt="Beacons Logo"
+              className="block next-image-unconstrained h-5"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Middle section (desktop) and Right section (mobile) */}
       <div
-        className={`flex justify-left items-center md:w-1/4 ${
-          isSearchExpanded ? "hidden md:flex" : ""
-        }`}
+        className={cn(
+          "flex items-center",
+          isSearchExpanded && isMobile ? "w-full" : "",
+          !isMobile && "w-3/4" // On desktop, this section takes 3/4 of the width
+        )}
       >
-        <div className="relative flex gap-x-4 items-center">
-          <img
-            src="/beacons-symbol.svg"
-            alt="Beacons Logo"
-            className="block next-image-unconstrained h-7"
-          />
-          <img
-            src="/beacons-text.svg"
-            alt="Beacons Logo"
-            className="block next-image-unconstrained h-5"
-          />
+        <div
+          className={cn(
+            "flex w-full",
+            !isMobile ? "justify-between" : "justify-end"
+          )}
+        >
+          {/* Time (desktop only) */}
+          {!isMobile && (
+            <div className="items-center whitespace-nowrap font-mono text-sm flex">
+              <span>{time}</span>
+              <span className="ml-2 font-bold">Edmonton</span>
+            </div>
+          )}
+
+          {/* Controls group */}
+          <div
+            className={cn(
+              "flex items-center gap-x-2 md:gap-x-3",
+              isSearchExpanded && isMobile ? "w-full" : ""
+            )}
+          >
+            {/* SearchBar */}
+            <div
+              className={cn(
+                "flex items-center",
+                isSearchExpanded && isMobile ? "w-full" : ""
+              )}
+            >
+              <SearchBar
+                onSearch={setSearchQuery}
+                onExpandChange={handleSearchExpandChange}
+              />
+            </div>
+
+            {/* Display Settings */}
+            <div className="h-10 aspect-square">
+              <DisplaySettingsDropdown
+                onFilterChange={setDisplaySettings}
+                currentFilter={displaySettings}
+                currentDateTime={currentDateTime}
+              />
+            </div>
+
+            {/* Login Button */}
+            <button className="bg-white rounded-full h-10 aspect-square flex justify-center items-center">
+              <LogIn className="h-4 w-4 text-[#191f23]" />
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Middle section - Time, Search, Display Settings */}
-      <div
-        className={`flex gap-2 md:gap-12 ${
-          isSearchExpanded ? "w-full" : "md:w-1/2"
-        } items-center rounded-full`}
-      >
-        <div className="items-center whitespace-nowrap font-mono text-sm hidden md:flex">
-          <span>{time}</span>
-          <span className="ml-2 font-bold">Edmonton</span>
-        </div>
-        <div className="flex h-full items-center w-full gap-x-2 md:gap-x-3">
-          <SearchBar
-            onSearch={setSearchQuery}
-            onExpandChange={handleSearchExpandChange}
-          />
-          <DisplaySettingsDropdown
-            onFilterChange={setDisplaySettings}
-            currentFilter={displaySettings}
-            currentDateTime={currentDateTime}
-          />
-        </div>
-      </div>
-
-      {/* Right section - Login */}
-      {/* <div className="flex gap-2 md:gap-3 md:w-1/4 justify-end items-center">
-        Login
-      </div> */}
     </div>
   );
 }

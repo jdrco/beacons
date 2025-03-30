@@ -50,7 +50,7 @@ export default function Navbar({
     <div className="flex rounded-full justify-between mt-4 mx-3 md:mx-4 px-2 md:px-4 py-2 bg-[#2b5f5a48]">
       {/* Left section - Logo (hidden on mobile when search is expanded) */}
       {(!isSearchExpanded || !isMobile) && (
-        <div className="flex items-center">
+        <div className="flex items-center gap-x-20">
           <div className="relative flex gap-x-3 items-center ml-2">
             <img
               src="/beacons-symbol.svg"
@@ -63,45 +63,20 @@ export default function Navbar({
               className="block next-image-unconstrained h-5"
             />
           </div>
+          {/* Time */}
+          <div className="items-center whitespace-nowrap font-mono text-sm flex md:block hidden">
+            <span>{time}</span>
+            <span className="ml-2 font-bold">Edmonton</span>
+          </div>
         </div>
       )}
 
-      {/* Middle section (desktop) and Right section (mobile) */}
-      <div
-        className={cn(
-          "flex items-center",
-          isSearchExpanded && isMobile ? "w-full" : "",
-          !isMobile && "w-3/4" // On desktop, this section takes 3/4 of the width
-        )}
-      >
-        <div
-          className={cn(
-            "flex w-full",
-            !isMobile ? "justify-between" : "justify-end"
-          )}
-        >
-          {/* Time (desktop only) */}
-          {!isMobile && (
-            <div className="items-center whitespace-nowrap font-mono text-sm flex">
-              <span>{time}</span>
-              <span className="ml-2 font-bold">Edmonton</span>
-            </div>
-          )}
-
-          {/* Controls group */}
-          <div
-            className={cn(
-              "flex items-center gap-x-2 md:gap-x-3",
-              isSearchExpanded && isMobile ? "w-full" : ""
-            )}
-          >
+      {/* Middle section (only on desktop) */}
+      {!isMobile && (
+        <div className="flex items-center justify-center flex-1">
+          <div className="flex items-center gap-x-4 md:w-1/2">
             {/* SearchBar */}
-            <div
-              className={cn(
-                "flex items-center",
-                isSearchExpanded && isMobile ? "w-full" : ""
-              )}
-            >
+            <div className="flex items-center w-full">
               <SearchBar
                 onSearch={setSearchQuery}
                 onExpandChange={handleSearchExpandChange}
@@ -116,14 +91,62 @@ export default function Navbar({
                 currentDateTime={currentDateTime}
               />
             </div>
-
-            {/* Login Button */}
-            <button className="bg-white rounded-full h-10 aspect-square flex justify-center items-center">
-              <LogIn className="h-4 w-4 text-[#191f23]" />
-            </button>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Right section - mobile view retains the original layout */}
+      {isMobile && (
+        <div
+          className={cn("flex items-center", isSearchExpanded ? "w-full" : "")}
+        >
+          <div className={cn("flex w-full justify-end")}>
+            {/* Controls group */}
+            <div
+              className={cn(
+                "flex items-center gap-x-2",
+                isSearchExpanded ? "w-full" : ""
+              )}
+            >
+              {/* SearchBar */}
+              <div
+                className={cn(
+                  "flex items-center",
+                  isSearchExpanded ? "w-full" : ""
+                )}
+              >
+                <SearchBar
+                  onSearch={setSearchQuery}
+                  onExpandChange={handleSearchExpandChange}
+                />
+              </div>
+
+              {/* Display Settings */}
+              <div className="h-10 aspect-square">
+                <DisplaySettingsDropdown
+                  onFilterChange={setDisplaySettings}
+                  currentFilter={displaySettings}
+                  currentDateTime={currentDateTime}
+                />
+              </div>
+
+              {/* Login Button (inside the controls group for mobile) */}
+              <button className="bg-white rounded-full h-10 aspect-square flex justify-center items-center">
+                <LogIn className="h-4 w-4 text-[#191f23]" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Login Button (only for desktop, on right side) */}
+      {!isMobile && (
+        <div className="flex items-center">
+          <button className="bg-white rounded-full h-10 aspect-square flex justify-center items-center">
+            <LogIn className="h-4 w-4 text-[#191f23]" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

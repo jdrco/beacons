@@ -2,8 +2,9 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
-import { LogIn } from "lucide-react";
+import { User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function Navbar({
   setSearchQuery,
@@ -47,34 +48,38 @@ export default function Navbar({
   };
 
   return (
-    <div className="flex rounded-full justify-between mt-4 mx-3 md:mx-4 px-2 md:px-4 py-2 bg-[#2b5f5a48]">
+    <div className="flex rounded-full justify-between mt-4 mx-3 md:mx-4 px-2 py-2 bg-[#2b5f5a48]">
       {/* Left section - Logo (hidden on mobile when search is expanded) */}
       {(!isSearchExpanded || !isMobile) && (
-        <div className="flex items-center gap-x-20">
+        <div className="flex items-center md:gap-x-24 md:w-1/4 lg:w-1/3">
           <div className="relative flex gap-x-3 items-center ml-2">
-            <img
+            <Image
               src="/beacons-symbol.svg"
               alt="Beacons Logo"
               className="block next-image-unconstrained h-7"
+              width={28}
+              height={28}
             />
-            <img
+            <Image
               src="/beacons-text.svg"
               alt="Beacons Logo"
               className="block next-image-unconstrained h-5"
+              width={100}
+              height={28}
             />
           </div>
           {/* Time */}
-          <div className="items-center whitespace-nowrap font-mono text-sm flex md:block hidden">
+          <div className="items-center whitespace-nowrap font-mono text-sm hidden lg:flex">
             <span>{time}</span>
-            <span className="ml-2 font-bold">Edmonton</span>
+            <span className="ml-2 font-bold pr-2">Edmonton</span>
           </div>
         </div>
       )}
 
       {/* Middle section (only on desktop) */}
       {!isMobile && (
-        <div className="flex items-center justify-center flex-1">
-          <div className="flex items-center gap-x-4 md:w-1/2">
+        <div className="flex items-center justify-center flex-1 w-full md:pr-1">
+          <div className="flex items-center gap-x-2 w-full">
             {/* SearchBar */}
             <div className="flex items-center w-full">
               <SearchBar
@@ -132,7 +137,7 @@ export default function Navbar({
 
               {/* Login Button (inside the controls group for mobile) */}
               <button className="bg-white rounded-full h-10 aspect-square flex justify-center items-center">
-                <LogIn className="h-4 w-4 text-[#191f23]" />
+                <User className="h-4 w-4 text-[#191f23]" />
               </button>
             </div>
           </div>
@@ -141,9 +146,9 @@ export default function Navbar({
 
       {/* Login Button (only for desktop, on right side) */}
       {!isMobile && (
-        <div className="flex items-center">
+        <div className="flex justify-end items-center md:w-1/3">
           <button className="bg-white rounded-full h-10 aspect-square flex justify-center items-center">
-            <LogIn className="h-4 w-4 text-[#191f23]" />
+            <User className="h-4 w-4 text-[#191f23]" />
           </button>
         </div>
       )}

@@ -204,7 +204,7 @@ export default function SearchBar({
                 onBlur={handleBlur}
                 placeholder={
                   filterType === "limited"
-                    ? "Search for a building or room"
+                    ? "Search building or room"
                     : "Search building, room, or class"
                 }
                 className={cn(

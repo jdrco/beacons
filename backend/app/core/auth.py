@@ -170,6 +170,13 @@ def sign_in(
                 message="Invalid email or password."
             )
 
+        if not verify_password(form_data.password, user.password):
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Invalid email or password."
+            )
+
         if not user.active:
             return error_response(
                 status_codes=400,

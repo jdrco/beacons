@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-// Define user type
+// Define user type to match backend model
 interface User {
   id?: string;
   email?: string;
@@ -56,17 +56,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.ok) {
         const userData = await response.json();
-        // Make sure we have consistent user data with all fields we need
-        const enrichedUserData = {
-          id: userData.id,
-          email: userData.email,
-          username: userData.username,
-          share_profile: userData.share_profile,
-          education_level: userData.education_level,
-          active: userData.active,
-        };
-        setUser(enrichedUserData);
-        localStorage.setItem("user", JSON.stringify(enrichedUserData));
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
       } else {
         // If backend verification fails, clear everything
         setUser(null);
@@ -87,7 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       // Convert to FormData as that's what OAuth2 password flow expects
       const formData = new FormData();
-      formData.append("username", email);
+      formData.append("username", email); // Backend expects 'username' field for email
       formData.append("password", password);
 
       const response = await fetch("/api/auth/signin", {
@@ -95,25 +86,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: formData,
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json();
         throw new Error(data.message || "Failed to sign in");
       }
-
-      // For immediate UI feedback, set a basic user object
-      // This will be enhanced by checkAuth
-      setUser({
-        email: email,
-        username: email.split("@")[0], // Simple fallback
-      });
 
       // After successful login, fetch full user info
       await checkAuth();
 
       // Navigate to home page
       router.push("/home");
-      router.refresh();
     } catch (error) {
       console.error("Login error:", error);
       throw error;
@@ -127,21 +109,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     try {
       // Call logout endpoint
-      await fetch("/api/auth/signout", {
+      const response = await fetch("/api/auth/signout", {
         method: "POST",
         credentials: "include",
       });
+
+      if (!response.ok) {
+        console.warn(
+          "Server-side logout failed, continuing with client-side logout"
+        );
+      }
 
       // Clear local state
       setUser(null);
       localStorage.removeItem("user");
 
-      // Perform a hard redirect instead of using router.push
-      // This forces a complete page reload and avoids stale states
+      // Redirect to landing page
       window.location.href = "/";
     } catch (error) {
       console.error("Logout error:", error);
-      // Even if there's an error, try the hard redirect anyway
+      // Even if there's an error, clear local state and redirect
+      setUser(null);
+      localStorage.removeItem("user");
       window.location.href = "/";
     } finally {
       setIsLoading(false);

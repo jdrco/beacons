@@ -7,15 +7,25 @@ export async function POST(request: NextRequest) {
 
     if (token) {
       // Call the backend API to invalidate the token
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signout`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).catch((err) => {
-        // If the endpoint doesn't exist, we'll still clear the cookie
-        console.warn("Failed to call signout endpoint:", err);
-      });
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/signout`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // Log the response for debugging but continue regardless
+        if (!response.ok) {
+          console.warn("Backend signout failed:", await response.text());
+        }
+      } catch (err) {
+        // If the endpoint doesn't exist or has an error, we'll still clear the cookie
+        console.warn("Error calling signout endpoint:", err);
+      }
     }
 
     // Create a response that clears the cookie
@@ -33,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     // Even if there's an error, try to clear the cookie
     const response = NextResponse.json(
-      { message: "Error during logout" },
+      { message: "Error during logout but cookie cleared" },
       { status: 500 }
     );
     response.cookies.delete("access_token");

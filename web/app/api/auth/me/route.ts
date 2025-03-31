@@ -13,9 +13,9 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-      // Use the token to get user info from the backend
+      // Use the /user/details endpoint
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/me`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/useToast";
 
 export function SignUpForm({
@@ -83,12 +84,18 @@ export function SignUpForm({
       return;
     }
 
+    // Validate username
+    if (!formData.username.trim()) {
+      setError("Username is required");
+      return;
+    }
+
     setIsLoading(true);
 
     // Prepare the data in the format the backend expects
     const dataToSend = {
       email: formData.email,
-      username: formData.username || formData.email.split("@")[0], // Use part before @ if no username provided
+      username: formData.username,
       password: formData.password,
       re_password: formData.re_password,
       share_profile: formData.share_profile,
@@ -107,7 +114,6 @@ export function SignUpForm({
       const data = await response.json();
 
       if (!response.ok) {
-        console.error("Signup error:", data);
         throw new Error(data.message || "Something went wrong");
       }
 
@@ -146,6 +152,13 @@ export function SignUpForm({
       education_level: value,
     }));
     setError(null);
+  };
+
+  const handleCheckboxChange = (checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      share_profile: checked,
+    }));
   };
 
   return (
@@ -230,6 +243,17 @@ export function SignUpForm({
                     <SelectItem value="Graduate">Graduate</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="share_profile"
+                  checked={formData.share_profile}
+                  onCheckedChange={handleCheckboxChange}
+                />
+                <Label htmlFor="share_profile" className="cursor-pointer">
+                  Allow others to see my profile
+                </Label>
               </div>
 
               {error && <div className="text-sm text-red-500">{error}</div>}

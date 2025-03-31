@@ -4,7 +4,6 @@ from sqlalchemy import Column, String, Boolean, DateTime, UUID, ForeignKey
 from sqlalchemy.orm import relationship
 
 from app.core.database import Base
-from app.models import *
 
 class User(Base):
     __tablename__ = "users"
@@ -13,12 +12,21 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
     username = Column(String, nullable=False)
-    active = Column(Boolean, nullable=False, default=True)
-    share_profile = Column(Boolean, nullable=False, default=True)
-    education_level = Column(String, nullable=True)
+    active = Column(Boolean, nullable=False, default=False)
+    program_id = Column(UUID(as_uuid=True), ForeignKey("programs.id", ondelete="SET NULL"), nullable=True, index=True)
 
     cookies = relationship("Cookie", back_populates="user", cascade="all, delete-orphan")
     favorite_rooms = relationship("UserFavoriteRoom", back_populates="user", cascade="all, delete-orphan")
+    program = relationship("Program", back_populates="users")
+
+class Program(Base):
+    __tablename__ = "programs"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, nullable=False)
+    name = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+
+    users = relationship("User", back_populates="program")
 
 class Cookie(Base):
     __tablename__ = "cookies"
@@ -30,12 +38,3 @@ class Cookie(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     user = relationship("User", back_populates="cookies")
-
-class UserFavoriteRoom(Base):
-    __tablename__ = "user_favorite_rooms"
-
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
-    room_id = Column(UUID(as_uuid=True), ForeignKey("rooms.id", ondelete="CASCADE"), primary_key=True, nullable=False)
-
-    user = relationship("User", back_populates="favorite_rooms")
-    room = relationship("Room", back_populates="favorited_by")

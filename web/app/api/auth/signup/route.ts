@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Make request to backend
+    // Make request to backend API
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
       method: "POST",
       headers: {

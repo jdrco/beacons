@@ -8,7 +8,6 @@ interface User {
   id?: string;
   email?: string;
   username?: string;
-  share_profile?: boolean;
   education_level?: string;
   active?: boolean;
 }
@@ -43,13 +42,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const checkAuth = async () => {
     try {
       setIsLoading(true);
+
       // Check if we have user data in localStorage (for initial quick load)
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
 
-      // Verify with backend (we're using cookie-based auth, so this should work if cookie exists)
+      // Verify with backend
       const response = await fetch("/api/auth/me", {
         credentials: "include", // Include cookies
       });
@@ -125,13 +125,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem("user");
 
       // Redirect to landing page
-      window.location.href = "/";
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
       // Even if there's an error, clear local state and redirect
       setUser(null);
       localStorage.removeItem("user");
-      window.location.href = "/";
+      router.push("/");
     } finally {
       setIsLoading(false);
     }

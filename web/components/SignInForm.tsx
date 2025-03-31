@@ -11,37 +11,36 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/useToast";
 import { useAuth } from "@/contexts/AuthContext";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function SignInForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const { toast } = useToast();
   const { login, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     username: "", // Email field (named username for backend compatibility)
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     try {
-      await login(formData.username, formData.password);
+      // Validate email domain
+      if (!formData.username.endsWith("@ualberta.ca")) {
+        setError("Only @ualberta.ca email addresses are allowed");
+        return;
+      }
 
-      toast({
-        title: "Success!",
-        description: "Signed in successfully.",
-      });
+      await login(formData.username, formData.password);
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Failed to sign in";
-      toast({
-        title: "Error",
-        description: errorMessage,
-        variant: "destructive",
-      });
+        error instanceof Error ? error.message : "Invalid email or password";
+      setError(errorMessage);
     }
   };
 
@@ -51,6 +50,7 @@ export function SignInForm({
       ...prev,
       [name]: value,
     }));
+    setError(null);
   };
 
   return (
@@ -61,6 +61,15 @@ export function SignInForm({
           <CardDescription>Sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertDescription className="text-sm flex gap-x-2 items-center">
+                <AlertCircle className="w-4 h-4" />
+                {error}
+              </AlertDescription>
+            </Alert>
+          )}
+
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <div className="grid gap-2">

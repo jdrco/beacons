@@ -19,14 +19,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useToast } from "@/hooks/useToast";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function SignUpForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const router = useRouter();
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -34,7 +33,6 @@ export function SignUpForm({
     password: "",
     re_password: "",
     education_level: "",
-    share_profile: true,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +56,7 @@ export function SignUpForm({
 
     // Validate passwords match
     if (formData.password !== formData.re_password) {
-      setError("Passwords do not match");
+      setError("Passwords do not match.");
       return;
     }
 
@@ -71,7 +69,7 @@ export function SignUpForm({
 
     // Validate email domain
     if (!formData.email.endsWith("@ualberta.ca")) {
-      setError("Only @ualberta.ca email addresses are allowed");
+      setError("Only @ualberta.ca email addresses are allowed.");
       return;
     }
 
@@ -80,13 +78,13 @@ export function SignUpForm({
       formData.education_level &&
       !["Undergraduate", "Graduate"].includes(formData.education_level)
     ) {
-      setError("Education level must be either Undergraduate or Graduate");
+      setError("Education level must be either Undergraduate or Graduate.");
       return;
     }
 
     // Validate username
     if (!formData.username.trim()) {
-      setError("Username is required");
+      setError("Username is required.");
       return;
     }
 
@@ -98,7 +96,6 @@ export function SignUpForm({
       username: formData.username,
       password: formData.password,
       re_password: formData.re_password,
-      share_profile: formData.share_profile,
       education_level: formData.education_level || null,
     };
 
@@ -117,21 +114,11 @@ export function SignUpForm({
         throw new Error(data.message || "Something went wrong");
       }
 
-      toast({
-        title: "Success!",
-        description: "Account created successfully. Please log in.",
-      });
-
       router.push("/signin");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to create account";
       setError(errorMessage);
-      toast({
-        title: "Error",
-        description: errorMessage,
-        variant: "destructive",
-      });
     } finally {
       setIsLoading(false);
     }
@@ -154,13 +141,6 @@ export function SignUpForm({
     setError(null);
   };
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      share_profile: checked,
-    }));
-  };
-
   return (
     <div {...props}>
       <Card className="border-0 shadow-none">
@@ -169,6 +149,15 @@ export function SignUpForm({
           <CardDescription>Create a new account to get started</CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertDescription className="text-sm flex gap-x-2 items-center">
+                <AlertCircle className="w-4 h-4" />
+                {error}
+              </AlertDescription>
+            </Alert>
+          )}
+
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-4">
               <div className="grid gap-2">
@@ -244,19 +233,6 @@ export function SignUpForm({
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="share_profile"
-                  checked={formData.share_profile}
-                  onCheckedChange={handleCheckboxChange}
-                />
-                <Label htmlFor="share_profile" className="cursor-pointer">
-                  Allow others to see my profile
-                </Label>
-              </div>
-
-              {error && <div className="text-sm text-red-500">{error}</div>}
 
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating account..." : "Sign Up"}

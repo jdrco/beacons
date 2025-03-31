@@ -44,7 +44,6 @@ export default function ProfilePage() {
   const [profileData, setProfileData] = useState({
     username: "",
     education_level: "",
-    share_profile: true,
   });
 
   useEffect(() => {
@@ -53,8 +52,6 @@ export default function ProfilePage() {
       setProfileData({
         username: user.username || "",
         education_level: user.education_level || "",
-        share_profile:
-          user.share_profile !== undefined ? user.share_profile : true,
       });
     }
   }, [user]);
@@ -245,20 +242,6 @@ export default function ProfilePage() {
                   <SelectItem value="Graduate">Graduate</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="share_profile"
-                name="share_profile"
-                checked={profileData.share_profile}
-                onChange={handleChange}
-                className="h-4 w-4 rounded border-gray-300"
-              />
-              <Label htmlFor="share_profile" className="text-sm font-normal">
-                Share my profile with other users
-              </Label>
             </div>
 
             <div className="flex justify-between pt-4">

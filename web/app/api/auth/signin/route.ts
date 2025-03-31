@@ -4,7 +4,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
 
-    // Make request to backend
+    // Make request to backend API
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signin`, {
       method: "POST",
       body: formData,
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create response with the token
+    // Create response with success message
     const resp = NextResponse.json(
       { message: "Authentication successful" },
       { status: 200 }

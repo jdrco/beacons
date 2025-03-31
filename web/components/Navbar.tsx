@@ -4,20 +4,29 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
-import { User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/useToast";
+import Link from "next/link";
 
 import {
   AlertDialog,
   AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar({
   setSearchQuery,
@@ -29,6 +38,10 @@ export default function Navbar({
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const { toast } = useToast();
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
 
   // Update time every second
   useEffect(() => {
@@ -63,8 +76,25 @@ export default function Navbar({
 
   // Handle login button click
   const handleLoginClick = () => {
-    console.log("Login button clicked");
-    setIsAlertOpen(true);
+    // Redirect to login page
+    window.location.href = "/signin";
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast({
+        title: "Success",
+        description: "You have been logged out",
+      });
+      setIsLogoutDialogOpen(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to log out",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -146,34 +176,102 @@ export default function Navbar({
                   />
                 </div>
 
-                {/* Login Button (inside the controls group for mobile) */}
-                <button
-                  className="bg-white rounded-full h-10 aspect-square flex justify-center items-center"
-                  onClick={handleLoginClick}
-                  type="button"
-                >
-                  <User className="h-4 w-4 text-[#191f23]" />
-                </button>
+                {/* User Button (inside the controls group for mobile) */}
+                {isAuthenticated ? (
+                  <DropdownMenu
+                    open={isUserMenuOpen}
+                    onOpenChange={setIsUserMenuOpen}
+                  >
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="bg-primary text-primary-foreground rounded-full h-10 aspect-square flex justify-center items-center"
+                        type="button"
+                      >
+                        <User className="h-4 w-4" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56">
+                      <DropdownMenuItem className="cursor-default">
+                        <div>
+                          <p className="font-medium">
+                            {user?.username || "User"}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {user?.email}
+                          </p>
+                        </div>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="text-destructive focus:text-destructive cursor-pointer"
+                        onClick={() => setIsLogoutDialogOpen(true)}
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Log out</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <button
+                    className="bg-white rounded-full h-10 aspect-square flex justify-center items-center"
+                    onClick={handleLoginClick}
+                    type="button"
+                  >
+                    <User className="h-4 w-4 text-[#191f23]" />
+                  </button>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* Login Button (only for desktop, on right side) */}
+        {/* User Button (only for desktop, on right side) */}
         {!isMobile && (
           <div className="flex justify-end items-center md:w-1/3">
-            <button
-              className="bg-white rounded-full h-10 aspect-square flex justify-center items-center"
-              onClick={handleLoginClick}
-              type="button"
-            >
-              <User className="h-4 w-4 text-[#191f23]" />
-            </button>
+            {isAuthenticated ? (
+              <DropdownMenu
+                open={isUserMenuOpen}
+                onOpenChange={setIsUserMenuOpen}
+              >
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className="bg-primary text-primary-foreground rounded-full h-10 aspect-square flex justify-center items-center"
+                    type="button"
+                  >
+                    <User className="h-4 w-4" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem className="cursor-default">
+                    <div>
+                      <p className="font-medium">{user?.username || "User"}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {user?.email}
+                      </p>
+                    </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-destructive focus:text-destructive cursor-pointer"
+                    onClick={() => setIsLogoutDialogOpen(true)}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <button
+                className="bg-white rounded-full h-10 aspect-square flex justify-center items-center"
+                onClick={handleLoginClick}
+                type="button"
+              >
+                <User className="h-4 w-4 text-[#191f23]" />
+              </button>
+            )}
           </div>
         )}
       </div>
 
-      {/* Alert Dialog */}
+      {/* Account Alert Dialog (for not authenticated users) */}
       <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -184,6 +282,27 @@ export default function Navbar({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogAction>OK</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Logout Confirmation Dialog */}
+      <AlertDialog
+        open={isLogoutDialogOpen}
+        onOpenChange={setIsLogoutDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to log out?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleLogout}>
+              Log out
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

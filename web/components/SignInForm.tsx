@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,14 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/useToast";
+import { useAuth } from "@/contexts/AuthContext";
 
-// TODO: UI for no user etc.
 export function SignInForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const router = useRouter();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     username: "", // Email field (named username for backend compatibility)
     password: "",
@@ -28,33 +26,14 @@ export function SignInForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
     try {
-      // Convert to FormData as that's what OAuth2 password flow expects
-      const formDataToSend = new FormData();
-      formDataToSend.append("username", formData.username);
-      formDataToSend.append("password", formData.password);
-
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to sign in");
-      }
+      await login(formData.username, formData.password);
 
       toast({
         title: "Success!",
         description: "Signed in successfully.",
       });
-
-      // Always redirect to home page after successful login
-      router.push("/home");
-      router.refresh(); // Refresh the page to update authentication state
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to sign in";
@@ -63,8 +42,6 @@ export function SignInForm({
         description: errorMessage,
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 

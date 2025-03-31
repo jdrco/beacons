@@ -47,3 +47,16 @@ export function useTimeUpdate() {
 
   return currentDateTime;
 }
+
+// For hardcoded time
+// import { useState, useEffect } from "react";
+
+// export function useTimeUpdate() {
+//   const [currentDateTime, _] = useState<Date>(new Date("2025-03-26T11:00:00"));
+
+//   useEffect(() => {
+//     // Keep the hardcoded date, no updates needed
+//   }, []);
+
+//   return currentDateTime;
+// }

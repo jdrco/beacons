@@ -29,16 +29,33 @@ export default function DisplaySettingsDropdown({
     }
   };
 
+  // Get indicator color based on current filter
+  const getIndicatorColor = () => {
+    switch (currentFilter) {
+      case "available":
+        return "bg-[#4AA69D]";
+      case "limited":
+        return "bg-[#DDAA5E]";
+      case "unavailable":
+        return "bg-[#F66A6A]";
+      default:
+        return "bg-white";
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
-          className={`flex items-center h-full border border-[#2b5f5a] rounded-xl md:rounded-2xl hover:bg-[#2a3137] focus:outline-none focus:ring-0 ${
-            isFilterActive ? "bg-[#2a3137]" : ""
-          }`}
-        >
-          <div className="relative">
-            <SlidersHorizontal className="mx-2 p-1 md:p-0 md:mx-4 h-6 w-6" />
+        <button className="flex h-full aspect-square rounded-full focus:outline-none focus:ring-0 relative bg-[#191f23] justify-center items-center">
+          <div className="relative flex">
+            <SlidersHorizontal className="h-3 w-3 md:h-3 md:w-3" />
+            {/* Dot indicator - only shown when a filter is active */}
+            {isFilterActive && (
+              <div
+                className={`absolute -top-3 -right-3 w-3 h-3 rounded-full ${getIndicatorColor()}`}
+                aria-hidden="true"
+              />
+            )}
           </div>
         </button>
       </DropdownMenuTrigger>

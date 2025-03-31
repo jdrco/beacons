@@ -77,14 +77,14 @@ export default function Display() {
   if (!buildingData) return null;
 
   return (
-    <div className="flex flex-col h-full w-full gap-y-3 md:gap-y-6  max-h-screen overflow-hidden">
+    <div className="flex flex-col h-full w-full gap-y-3 md:gap-y-4 max-h-screen overflow-hidden">
       <Navbar
         setSearchQuery={setSearchQuery}
         setDisplaySettings={setDisplaySettings}
         displaySettings={displaySettings}
         currentDateTime={currentDateTime}
       />
-      <div className="h-full w-full flex flex-col md:flex-row gap-3 md:gap-x-8 min-h-0">
+      <div className="h-full w-full flex flex-col md:flex-row px-3 md:px-4 pb-4 gap-3 md:gap-4 min-h-0">
         {/* <div className="md:w-1/3 bg-red-400 h-full "></div> */}
         <Map
           buildingData={filteredBuildingData || undefined}
@@ -141,7 +141,9 @@ export default function Display() {
                               return (
                                 <span
                                   className="flex justify-center items-center gap-2 w-20 py-1 rounded-full text-sm text-white"
-                                  style={{ backgroundColor }}
+                                  style={{
+                                    backgroundColor,
+                                  }}
                                 >
                                   <div className="flex items-center h-4">
                                     <DoorOpen

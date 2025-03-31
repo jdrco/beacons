@@ -1,36 +1,44 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
+// Paths that are always accessible, even when not logged in
 const publicPaths = [
-  '/signin',
-  '/signup',
-  '/api/auth/signin',
-  '/api/auth/signup'
-]
+  "/", // Landing page
+  "/home", // Home page
+  "/signin", // Sign-in page
+  "/signup", // Sign-up page
+  "/api/auth/signin", // Sign-in API
+  "/api/auth/signup", // Sign-up API
+];
+
+// Paths that should redirect to home if the user is already authenticated
+const authRedirectPaths = ["/signin", "/signup"];
 
 export function middleware(request: NextRequest) {
-  return NextResponse.next() // Uncomment for simple pass through for development
+  // return NextResponse.next() // Uncomment for simple pass through for development
+  const accessToken = request.cookies.get("access_token");
+  const path = request.nextUrl.pathname;
 
-  const accessToken = request.cookies.get('access_token')
-  const path = request.nextUrl.pathname
-
-  // Allow public paths
-  if (publicPaths.some(publicPath => path.startsWith(publicPath))) {
-    // If user is authenticated and trying to access auth pages, redirect to home
-    if (accessToken) {
-      return NextResponse.redirect(new URL('/', request.url))
-    }
-    return NextResponse.next()
+  // If the user is already authenticated and trying to access auth pages, redirect to home
+  if (
+    accessToken &&
+    authRedirectPaths.some((authPath) => path.startsWith(authPath))
+  ) {
+    return NextResponse.redirect(new URL("/home", request.url));
   }
 
-  // Protect all other routes
-  if (!accessToken) {
-    const signinUrl = new URL('/signin', request.url)
-    signinUrl.searchParams.set('from', path)
-    return NextResponse.redirect(signinUrl)
+  // If path is public or user is authenticated, allow access
+  if (
+    publicPaths.some((publicPath) => path.startsWith(publicPath)) ||
+    accessToken
+  ) {
+    return NextResponse.next();
   }
 
-  return NextResponse.next()
+  // Otherwise, redirect to sign-in with the original path as a redirect parameter
+  const signinUrl = new URL("/signin", request.url);
+  signinUrl.searchParams.set("from", path);
+  return NextResponse.redirect(signinUrl);
 }
 
 export const config = {
@@ -42,6 +50,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public folder
      */
-    '/((?!_next/static|_next/image|favicon.ico|public).*)',
+    "/((?!_next/static|_next/image|favicon.ico|public).*)",
   ],
-}
+};

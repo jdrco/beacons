@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,12 +19,16 @@ export function SignInForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    username: "", // Using username instead of email as that's what the backend expects
+    username: "", // This is used as the email field in the backend
     password: "",
   });
+
+  // Get redirect destination from URL if it exists
+  const from = searchParams?.get("from") || "/home";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,8 +56,8 @@ export function SignInForm({
         description: "Signed in successfully.",
       });
 
-      // Redirect to home page after successful login
-      router.push("/");
+      // Redirect to the intended page or home page after successful login
+      router.push(from);
       router.refresh(); // Refresh the page to update authentication state
     } catch (error) {
       const errorMessage =
@@ -92,7 +96,7 @@ export function SignInForm({
                   id="username"
                   name="username"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="name@ualberta.ca"
                   value={formData.username}
                   onChange={handleChange}
                   required

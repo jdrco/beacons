@@ -21,10 +21,6 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/useToast";
 
-interface ValidationError {
-  msg: string;
-}
-
 export function SignUpForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
@@ -33,13 +29,11 @@ export function SignUpForm({
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
+    username: "",
     password: "",
     re_password: "",
-    fname: "",
-    lname: "",
     education_level: "",
     share_profile: true,
-    active: true,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -74,6 +68,12 @@ export function SignUpForm({
       return;
     }
 
+    // Validate email domain
+    if (!formData.email.endsWith("@ualberta.ca")) {
+      setError("Only @ualberta.ca email addresses are allowed");
+      return;
+    }
+
     // Validate education level
     if (
       formData.education_level &&
@@ -85,13 +85,15 @@ export function SignUpForm({
 
     setIsLoading(true);
 
+    // Prepare the data in the format the backend expects
     const dataToSend = {
-      ...formData,
-      active: Boolean(formData.active),
-      share_profile: Boolean(formData.share_profile),
+      email: formData.email,
+      username: formData.username || formData.email.split("@")[0], // Use part before @ if no username provided
+      password: formData.password,
+      re_password: formData.re_password,
+      share_profile: formData.share_profile,
+      education_level: formData.education_level || null,
     };
-
-    console.log("Sending form data:", dataToSend);
 
     try {
       const response = await fetch("/api/auth/signup", {
@@ -105,14 +107,7 @@ export function SignUpForm({
       const data = await response.json();
 
       if (!response.ok) {
-        console.error("Validation error:", data);
-        if (data.detail) {
-          throw new Error(
-            Array.isArray(data.detail)
-              ? data.detail.map((err: ValidationError) => err.msg).join(", ")
-              : data.detail
-          );
-        }
+        console.error("Signup error:", data);
         throw new Error(data.message || "Something went wrong");
       }
 
@@ -121,7 +116,7 @@ export function SignUpForm({
         description: "Account created successfully. Please log in.",
       });
 
-      router.push("/login");
+      router.push("/signin");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to create account";
@@ -169,36 +164,29 @@ export function SignUpForm({
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder="name@ualberta.ca"
                   value={formData.email}
                   onChange={handleChange}
                   required
                 />
+                <p className="text-xs text-muted-foreground">
+                  Only @ualberta.ca email addresses are allowed
+                </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="fname">First Name</Label>
-                  <Input
-                    id="fname"
-                    name="fname"
-                    type="text"
-                    value={formData.fname}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="lname">Last Name</Label>
-                  <Input
-                    id="lname"
-                    name="lname"
-                    type="text"
-                    value={formData.lname}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+              <div className="grid gap-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  name="username"
+                  type="text"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+                <p className="text-xs text-muted-foreground">
+                  This is your display name that others will see
+                </p>
               </div>
 
               <div className="grid gap-2">
@@ -211,10 +199,13 @@ export function SignUpForm({
                   onChange={handleChange}
                   required
                 />
+                <p className="text-xs text-muted-foreground">
+                  Must contain uppercase letter, number, and special character
+                </p>
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="re_password">Re-type Password</Label>
+                <Label htmlFor="re_password">Confirm Password</Label>
                 <Input
                   id="re_password"
                   name="re_password"
@@ -253,7 +244,7 @@ export function SignUpForm({
                 href="/signin"
                 className="underline underline-offset-4 hover:text-primary"
               >
-                Login
+                Sign In
               </a>
             </div>
           </form>

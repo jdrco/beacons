@@ -2,13 +2,14 @@ import logging
 from datetime import datetime, timedelta
 from uuid import UUID
 
+from jose import jwt
+from passlib.context import CryptContext
 from fastapi import Response, Depends, Security
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.routing import APIRouter
 from fastapi.security import OAuth2PasswordBearer
+from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from sqlalchemy.orm import Session
-from jose import jwt
-from passlib.context import CryptContext
 
 from app.core.config import settings
 from app.core.database import get_db
@@ -44,9 +45,7 @@ def create_user(
     email: str,
     username: str,
     password: str,
-    active: bool = True,
-    share_profile: bool = True,
-    education_level: str = None,
+    active: bool = False,
 ):
     hashed_password = get_password_hash(password)
     new_user = User(
@@ -54,8 +53,6 @@ def create_user(
         username=username,
         password=hashed_password,
         active=active,
-        share_profile=share_profile,
-        education_level=education_level,
     )
     db.add(new_user)
     db.commit()
@@ -116,7 +113,7 @@ def get_active_user(
         return error_response(401, False, {"error": str(e)})
 
 @router.post("/signup")
-def sign_up(user: UserCreate, db: Session = Depends(get_db)):
+async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
     try:
         existing_email = get_user_by_email(db, user.email)
         if existing_email:
@@ -140,9 +137,10 @@ def sign_up(user: UserCreate, db: Session = Depends(get_db)):
             username=user.username,
             password=user.password,
             active=False,
-            share_profile=user.share_profile,
-            education_level=user.education_level,
         )
+
+        verification_token = create_verification_token(new_user.email)
+        await send_verification_email(new_user.email, verification_token)
 
         return success_response(
             status_codes=201,
@@ -170,6 +168,13 @@ def sign_in(
                 status_codes=400,
                 status=False,
                 message="Invalid email or password."
+            )
+
+        if not user.active:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="User is not active. Please verify your email."
             )
 
         access_token_expires = timedelta(minutes=settings.access_token_expire_minutes)
@@ -257,3 +262,151 @@ def update_password(
             status=False,
             message={"error": str(e)}
         )
+
+def create_verification_token(
+    email: str
+):
+    expire = datetime.now() + timedelta(minutes=30)
+    payload = {"sub": email, "exp": expire}
+    token = jwt.encode(payload, settings.secret_key, algorithm=settings.algorithm)
+    return token
+
+conf = ConnectionConfig(
+    MAIL_USERNAME=settings.mail_username,
+    MAIL_PASSWORD=settings.mail_password,
+    MAIL_FROM=settings.mail_from,
+    MAIL_PORT=settings.mail_port,
+    MAIL_SERVER=settings.mail_server,
+    MAIL_STARTTLS=settings.mail_starttls,
+    MAIL_SSL_TLS=settings.mail_ssl_tls,
+    USE_CREDENTIALS=True
+)
+
+async def send_verification_email(
+    email: str,
+    token: str
+):
+    verification_url = f"http://localhost:8000/verify-email?token={token}"
+    message = MessageSchema(
+        subject="Email Verification",
+        recipients=[email],
+        body=f"Click on the link to verify your email: {verification_url}",
+        subtype="html"
+    )
+    fm = FastMail(conf)
+    await fm.send_message(message)
+
+@router.get("/verify-email")
+def verify_email(
+    token: str,
+    db: Session = Depends(get_db)
+):
+    try:
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+        email = payload.get("sub")
+
+        if email is None:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Invalid token."
+            )
+
+        user = get_user_by_email(db, email=email)
+        if not user:
+            return error_response(
+                status_codes=404,
+                status=False,
+                message="User not found."
+            )
+
+        user.active = True
+        db.commit()
+
+        # return RedirectResponse(url="http://localhost:8000/success-page")
+
+        return success_response(
+            status_codes=200,
+            status=True,
+            message="Email verified successfully."
+        )
+    
+    except Exception as e:
+        return error_response(
+            status_codes=500,
+            status=False,
+            message={"error": str(e)}
+        )
+
+@router.post("/resend-verification-email")
+async def resend_verification_email(
+    email: str,
+    db: Session = Depends(get_db)
+):
+    user = get_user_by_email(db, email)
+    if not user:
+        return error_response(
+            status_codes=404,
+            status=False,
+            message="User not found."
+        )
+
+    if user.active:
+        return error_response(
+            status_codes=400,
+            status=False,
+            message="User is already verified."
+        )
+
+    verification_token = create_verification_token(user.email)
+    await send_verification_email(user.email, verification_token)
+
+    return success_response(
+        status_codes=200,
+        status=True,
+        message="Verification email resent successfully."
+    )
+
+@router.post("/request-password-reset")
+async def request_password_reset(
+    email: str,
+    db: Session = Depends(get_db)
+):
+    user = get_user_by_email(db, email)
+
+    if not user:
+        return error_response(
+            status_codes=404,
+            status=False,
+            message="User not found."
+        )
+
+    if not user.is_verified:
+        return error_response(
+            status_codes=400,
+            status=False,
+            message="User is not verified."
+        )
+
+    reset_token = create_verification_token(user.email)
+    await send_reset_password_email(user.email, reset_token)
+
+    return success_response(
+        status_codes=200,
+        status=True,
+        message="Password reset email sent successfully."
+    )
+
+async def send_reset_password_email(
+    email: str,
+    token: str
+):
+    reset_url = f"http://localhost:8000/user/reset-password?token={token}"
+    message = MessageSchema(
+        subject="Password Reset Request",
+        recipients=[email],
+        body=f"Click on the link to reset your password: {reset_url}",
+        subtype="html"
+    )
+    fm = FastMail(conf)
+    await fm.send_message(message)

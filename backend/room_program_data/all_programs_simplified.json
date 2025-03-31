@@ -1,0 +1,2657 @@
+[
+  {
+    "name": "Nursing",
+    "level": "Undergraduate",
+    "faculty": "Nursing"
+  },
+  {
+    "name": "Medical Laboratory Science",
+    "level": "Undergraduate",
+    "faculty": "Medicine and Dentistry"
+  },
+  {
+    "name": "Women's and Gender Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Modern Languages and Cultural Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Dental Surgery",
+    "level": "Undergraduate",
+    "faculty": "Medicine and Dentistry"
+  },
+  {
+    "name": "Medicine",
+    "level": "Undergraduate",
+    "faculty": "Medicine and Dentistry"
+  },
+  {
+    "name": "Native Studies",
+    "level": "Undergraduate",
+    "faculty": "Native Studies"
+  },
+  {
+    "name": "Indigenous Governance and Partnership",
+    "level": "Undergraduate",
+    "faculty": "Native Studies"
+  },
+  {
+    "name": "Pharmacy (entry-to-practice)",
+    "level": "Undergraduate",
+    "faculty": "Pharmacy and Pharmaceutical Sciences"
+  },
+  {
+    "name": "Pharmacy (for practicing pharmacists)",
+    "level": "Undergraduate",
+    "faculty": "Pharmacy and Pharmaceutical Sciences"
+  },
+  {
+    "name": "Chemical Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Law",
+    "level": "Undergraduate",
+    "faculty": "Law"
+  },
+  {
+    "name": "Physical Activity and Health",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Sport Performance",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Dental Hygiene",
+    "level": "Undergraduate",
+    "faculty": "Medicine and Dentistry"
+  },
+  {
+    "name": "Sustainable Agricultural Systems",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Dietetics Specialization",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Science and Education - Mathematical Sciences",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Finance",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Accounting",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Business Minor",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Operations Management",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Music",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Art and Design",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "East Asian Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Generalist Degree",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Economics",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Psychologie",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Education - Music - Secondary",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Human Geography",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Économie",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Production - Design Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Chemical Engineering Computer Process Control Co-operative",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Land Reclamation",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Science, Technology and Society",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Business Technology Management",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Adapted Physical Activity",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Film Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Production - Stage Management Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "English",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "History",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Engineering Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Ecology, Evolution and Environmental Biology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Political Science",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Education - Music - Elementary",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Secondary Education - Native Studies",
+    "level": "Undergraduate",
+    "faculty": "Native Studies"
+  },
+  {
+    "name": "Religious Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Drama - Acting",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Business Studies",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Strategic Management and Organization",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Sociology",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Immunology and Infection",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Sociologie",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Mathematical Physics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Drama",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Vente",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Mathématique",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Mathematics and Economics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Français-langue et littérature",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Business Technology Management",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Français-littérature",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Anthropology",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Pharmacology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Chemical Engineering - Computer Process Control",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Statistics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Geophysics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Philosophy",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Second Languages - Spanish",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Paleontology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Elementary Education - Native Studies",
+    "level": "Undergraduate",
+    "faculty": "Native Studies"
+  },
+  {
+    "name": "Second Languages - Japanese",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Planning",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "History of Art, Design and Visual Culture",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Drama",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Integrative Physiology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Physics",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Geology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Psychology",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Études sociales",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Études canadiennes",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Sciences biologiques",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Entrepreneuriat et innovation",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "General Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Entrepreneurship and Innovation",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Computing Science - Software Practice Option",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Sciences mathématiques",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Commerce International",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Earth Sciences",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Mathematics and Finance",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Criminology",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Astrophysics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Psychology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Études interdisciplinaires",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Molecular, Cellular and Developmental Biology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Mathematics",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Music: Wind Band",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Planning",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Undeclared",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Ancient and Medieval Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Mathematics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Environmental Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Business and Marketing Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Biochemistry",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Business Economics and Law",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Classics",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Foundation Year",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Human Resources Management",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Chemistry",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Media Studies",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "International Business",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Physics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Finance",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Second Languages - Other",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Linguistics",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Career and Technology Studies: Design",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Career and Technology Studies: Computer Science",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Science and Education - Physical Sciences",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Physical Education",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Physique",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Français",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Mathematics",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Social Sciences Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Française-langue",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Composition + Sonic Arts",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "General Science",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Performance",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Sciences générales",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Histoire",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Psychologie sciences",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Art",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Gestion des operations",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Comptabilite",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Bioprocessing + Biomanufacturing Co-operative",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Économie et droit des affaires",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Computing Science",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Gestion Stratégique et Organisation",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Science politique",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Gestion des ressources humaines",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Neuroscience",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Chemistry",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Marketing",
+    "level": "Undergraduate",
+    "faculty": "Business"
+  },
+  {
+    "name": "Physical Sciences",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Environmental Earth Sciences",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Second Languages - Ukrainian",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Degré de Généraliste",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Chimie",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Sciences socio-politiques",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Clean Energy + Sustainable Process Systems Co-operative",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Career and Technology Studies: Natural Resources",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Physiology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Social Studies",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Nursing Collaborative Honors",
+    "level": "Undergraduate",
+    "faculty": "Nursing"
+  },
+  {
+    "name": "Biological Sciences",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Career and Technology Studies: Recreation",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Career and Technology Studies: Communication Arts",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Cell Biology",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Biological Sciences",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Career and Technology Studies: Health",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Applied Mathematics",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Career and Technology Studies: Human Sciences",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Career and Technology Studies: Trades, Manufacturing, and Transportation",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "English Language Arts",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Second Languages - French",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Sciences physiques",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Honors",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Second Languages - German",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Science and Education - Biological Sciences",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Computing Science - Artificial Intelligence Option",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Career and Technology Studies: Media",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Second Languages - Cree",
+    "level": "Undergraduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Radiation Therapy",
+    "level": "Undergraduate",
+    "faculty": "Medicine and Dentistry"
+  },
+  {
+    "name": "Clean Energy + Sustainable Process Systems",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Bioprocessing + Biomanufacturing",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Musique",
+    "level": "Undergraduate",
+    "faculty": "Faculté Saint-Jean"
+  },
+  {
+    "name": "Undeclared",
+    "level": "Undergraduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Family Science",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Ethics and Global Studies (Interdisciplinary)",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Food Science and Technology Specialization",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Nutrition",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Computing Science and Mathematics",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Performance-Based Pedagogy",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Environmental Economics and Policy",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Foundational/Qualifying Year",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Human Dimensions of Environmental Management",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Kinesiology",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Law, Crime and Justice Studies (Interdisciplinary)",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Conservation Biology",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Physical Education",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Food Animals",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Wildlife and Rangeland Resources Management",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Psychology and Mental Health",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Environmental Science",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Environmental Studies",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Chemical and Physical Sciences",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Forestry",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Recreation, Sport and Tourism",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Agricultural and Resource Economics",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Forest Business Management",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Companion and Performance Animals",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Animal Science",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "General Sciences",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "General Program",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Crop Science",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Sustainability Studies",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Undeclared",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Agricultural Business Management",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Integrative Biology",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Education - Kinesiology - Secondary",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Elementary Education",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Creativity and Culture (Interdisciplinary)",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Fashion Business Management",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Food Science",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Food Business Management",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Education - Kinesiology - Elementary",
+    "level": "Undergraduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Management",
+    "level": "Undergraduate",
+    "faculty": "Augustana"
+  },
+  {
+    "name": "Environmental Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Mechanical Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Nanoengineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Petroleum Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Clothing, Textiles and Material Culture",
+    "level": "Undergraduate",
+    "faculty": "Agricultural, Life and Environmental Sciences"
+  },
+  {
+    "name": "Biomedical Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Materials Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Mining Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Computer Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Computer Engineering Co-operative",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Engineering Physics",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Civil Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Electrical Engineering",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Nanoscale System Design",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Computer Engineering - Software",
+    "level": "Undergraduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Production - Technical Production Route",
+    "level": "Undergraduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Accounting (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Graduate Certificate in Adapted Physical Activity",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Certificat d’études supérieures en administration et leadership scolaire (Faculté Saint-Jean)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Certificat supérieur intégré en administration scolaire (Faculté Saint-Jean)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Doctor of Philosophy (Agricultural, Food, and Nutritional Science)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Agriculture (Agricultural, Food, and Nutritional Science)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Science (Agricultural, Food, and Nutritional Science)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Arts in Ancient Societies and Cultures (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Science (Anesthesiology and Pain Medicine)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Anthropology)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Anthropology)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Design and Master of Fine Arts (Art and Design)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Biochemistry)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Biochemistry)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Microbiology and Biotechnology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Molecular Biology and Genetics (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Plant Biology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Systematics and Evolution (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Ecology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Physiology, Cell, and Developmental Biology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with Specialization in Microbiology and Biotechnology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with Specialization in Molecular Biology and Genetics (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with Specialization in Ecology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with Specialization in Plant Biology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with Specialization in Physiology, Cell, and Developmental Biology (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with Specialization in Systematics and Evolution (Biological Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy (Biomedical Engineering)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry, Engineering"
+  },
+  {
+    "name": "Master of Science (Biomedical Engineering)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry, Engineering"
+  },
+  {
+    "name": "Doctor of Philosophy in Business with a Specialization in Marketing",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Doctor of Philosophy in Business with a Specialization in Operations & Information Systems",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Doctor of Philosophy in Business with a Specialization in Finance",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Doctor of Philosophy in Business with a Specialization in Accounting",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Doctor of Philosophy in Business",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Doctor of Philosophy in Business with a Specialization in Strategy, Entrepreneurship & Management",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Executive Master of Business Administration (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration with Specialization in Finance (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration with Specialization in Natural Resources, Energy and the Environment (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration with Specialization in International Business (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration with Specialization in Sustainability (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration with Specialization in Public Policy and Management (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Fast Track Master of Business Administration for Business Graduates (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration with Specialization in Innovation and Entrepreneurship (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Agriculture Combined Program (Agricultural, Food, and Nutritional Science)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Engineering Combined Degrees Program (Chemical and Materials Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Engineering Combined Degrees Program (Civil and Environmental Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Engineering Combined Degrees Program (Electrical and Computer Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Juris Doctor Combined Program (Law)",
+    "level": "Graduate",
+    "faculty": "Law, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Library and Information Studies Combined Program (Library and Information Studies)",
+    "level": "Graduate",
+    "faculty": "Education, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Engineering Combined Degrees Program (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering, Alberta School of Business"
+  },
+  {
+    "name": "Doctor of Medicine  Master of Business Administration Combined Program (Business)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Science (Occupational Therapy) Combined Program (Occupational Therapy)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Doctor of Pharmacy Combined Degrees Program (Business)",
+    "level": "Graduate",
+    "faculty": "Pharmacy and Pharmaceutical Sciences, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Science (Physical Therapy) Combined Program (Physical Therapy)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Forestry Combined Program (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Agriculture Combined Program (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences, Alberta School of Business"
+  },
+  {
+    "name": "Master of Business Administration  Master of Agriculture Combined Degrees Program (Resource Economics and Environmental Sociology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences, Alberta School of Business"
+  },
+  {
+    "name": "Post-Master’s Certificate in Business Fundamentals (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Science (Cell Biology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Cell Biology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Chemical and Materials Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Science (Chemical and Materials Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Engineering (Chemical and Materials Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Doctor of Philosophy (Chemistry)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science (Chemistry)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy (Civil and Environmental Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Science (Civil and Environmental Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Engineering (Civil and Environmental Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Engineering (Civil and Environmental Engineering) in the research area of Construction Engineering and Management",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Doctor of Philosophy in Classical Archaeology (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in Classical Archaeology (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy in Classical Languages (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in Classical Languages (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Climate Change and Health (Public Health)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Graduate Certificate in Coaching [Graduate]",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Communicable Diseases (Public Health)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Arts in Communications and Technology",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in Community Engagement",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Community-Based Research and Evaluation",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Doctor of Philosophy (Computing Science)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science (Computing Science)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy in Computing Science with Specialization in Statistical Machine Learning (Computing Science)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science in Computing Science with a Specialization in Multimedia (Computing Science)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science in Computing Science with a Specialization in Statistical Machine Learning (Computing Science)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Data Science (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Arts (Digital Humanities)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts  Master of Library and Information Studies (Digital Humanities)",
+    "level": "Graduate",
+    "faculty": "Arts, Education"
+  },
+  {
+    "name": "Master of Fine Arts with a specialization in Theatre Practice (Drama)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Fine Arts with a specialization in Design (Drama)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Fine Arts with a specialization in Directing (Drama)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Fine Arts with a specialization in Theatre Voice Pedagogy (Drama)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Drama)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Earth and Atmospheric Sciences) ",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Arts (Earth and Atmospheric Sciences) and Master of Science (Earth and Atmospheric Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Arts (East Asian Studies)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Economics)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Environmental and Natural Resource Economics (Economics)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts with a specialization in Economics and Finance (Economics)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Economics)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Education with a specialization in Studies in Educational Leadership (Educational Policy Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education with a specialization in Indigenous Peoples Education (Educational Policy Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education with a specialization in Social Justice and International Studies in Education (Educational Policy Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education with a specialization in Adult, Community and Higher Education (Educational Policy Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education (Educational Policy Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education (Educational Psychology)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education (Educational Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Graduate Certificate in Educational Studies (Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Doctor of Philosophy (Electrical and Computer Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Engineering (Electrical and Computer Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Science (Electrical and Computer Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Doctor of Philosophy (Elementary Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education (Elementary Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education with a specialization in Curriculum and Pedagogy (Elementary Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Doctor of Philosophy in English (English and Film Studies)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in English (English and Film Studies)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Epidemiology & Applied Biostatistics (Public Health)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Maîtrise en sciences de l’éducation - Études en langue et culture (Faculté Saint-Jean)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Maîtrise en arts en Études interdisciplinaires canadiennes (Faculté Saint-Jean)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Doctorat en études transdisciplinaires (Faculté Saint-Jean)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Master of Science in Family Ecology and Practice (Human Ecology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Financial Management (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Arts in Gender and Social Justice Studies (Women’s and Gender Studies)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Public Health in General Public Health (course-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Global Health Equity (Public Health)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Health Economic Evaluation (Public Health)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Health Promotion and Socio-behavioural Sciences (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Education (Health Sciences Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Doctor of Philosophy in History (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in History (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy in the History of Art, Design, and Visual Culture (Art and Design)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in the History of Art, Design, and Visual Culture (Art and Design)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Human Ecology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Graduate Certificate in Indigenous Sport and Recreation",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Doctor of Philosophy in Indigenous Studies (Native Studies)",
+    "level": "Graduate",
+    "faculty": "Native Studies"
+  },
+  {
+    "name": "Post-Master’s Certificate in Innovation and Entrepreneurship (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Science in Integrated Petroleum Geosciences (Earth and Atmospheric Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Maîtrise en sciences interdisciplinaire (English)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Master of Science (Internetworking)",
+    "level": "Graduate",
+    "faculty": "Engineering, Science"
+  },
+  {
+    "name": "Doctor of Philosophy (Kinesiology, Sport, and Recreation)",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Master of Science (Kinesiology, Sport, and Recreation)",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Master of Coaching (Kinesiology, Sport, and Recreation)",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Master of Arts (Kinesiology, Sport, and Recreation)",
+    "level": "Graduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Doctor of Philosophy (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Biopreservation (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Molecular Pathology (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy with Specialization in Analytical and Environmental Toxicology (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with Specialization in Analytical and Environmental Toxicology (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with Specialization in Molecular Pathology (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with Specialization in Biopreservation (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with Specialization in Pathologists’ Assistant (Laboratory Medicine and Pathology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Law)",
+    "level": "Graduate",
+    "faculty": "Law"
+  },
+  {
+    "name": "Master of Laws",
+    "level": "Graduate",
+    "faculty": "Law"
+  },
+  {
+    "name": "Master of Library and Information Studies (Library and Information Studies)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Science (Linguistics)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Linguistics)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Management Analytics (Business)",
+    "level": "Graduate",
+    "faculty": "Alberta School of Business"
+  },
+  {
+    "name": "Master of Arts in Material Culture (Human Ecology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Maternal and Child Health Research",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Applied Mathematics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Mathematical Physics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Mathematical Finance (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Statistical Machine Learning (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Mathematics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Statistics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Biostatistics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Mathematics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Modelling, Data and Predictions (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Applied Mathematics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Mathematical Finance (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Mathematical Physics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Statistical Machine Learning (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Statistics (Mathematical and Statistical Sciences)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy in Engineering Management (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Doctor of Philosophy (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Engineering (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Science (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Engineering in Engineering Management (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Master of Science in Engineering Management (Mechanical Engineering)",
+    "level": "Graduate",
+    "faculty": "Engineering"
+  },
+  {
+    "name": "Doctor of Philosophy (Medical Microbiology and Immunology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Medical Microbiology and Immunology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences (Obstetrics and Gynecology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences (Obstetrics and Gynecology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences - Orthodontics",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences (Paediatrics)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Medical Sciences)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences - Oral Biology",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences - Dentistry",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences (Medical Genetics)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences - Oral Medicine",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences - Orthodontics",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences (Radiology and Diagnostic Imaging)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences - Periodontology",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences - Dental Hygiene",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy in Medical Sciences (Radiology and Diagnostic Imaging)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences (Paediatrics)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences - Periodontology",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences - Dentistry",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences (Medical Genetics)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Medical Sciences - Oral Biology",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Medical Sciences)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Medicine)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with Specialization in Translational Medicine (Medicine)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Medicine)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Modern Languages and Cultural Studies)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Modern Languages and Cultural Studies)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Music",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Music)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Music with a specialization in Composition (Music)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Music with a specialization in Performance (Music)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Music)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Music",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Music with a specialization in Choral Conducting (Music)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Native Studies)",
+    "level": "Graduate",
+    "faculty": "Native Studies"
+  },
+  {
+    "name": "Doctor of Philosophy (Neuroscience)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Neuroscience)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Nursing)",
+    "level": "Graduate",
+    "faculty": "Nursing"
+  },
+  {
+    "name": "Master of Nursing",
+    "level": "Graduate",
+    "faculty": "Nursing"
+  },
+  {
+    "name": "Master of Nursing with a specialization in Aging (Nursing)",
+    "level": "Graduate",
+    "faculty": "Nursing"
+  },
+  {
+    "name": "Master of Science (Occupational Therapy)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Doctor of Philosophy with specialization in Medical Physics (Oncology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy with specialization in Cancer Sciences (Oncology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with specialization in Cancer Sciences (Oncology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science with specialization in Medical Physics (Oncology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Ophthalmology and Visual Sciences)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Ophthalmology and Visual Sciences)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Graduate Certificate in Pain Management (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Doctor of Philosophy in Performance Studies (Drama)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Pharmacology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Pharmacology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Pharmacy and Pharmaceutical Sciences)",
+    "level": "Graduate",
+    "faculty": "Pharmacy and Pharmaceutical Sciences"
+  },
+  {
+    "name": "Master of Science (Pharmacy and Pharmaceutical Sciences)",
+    "level": "Graduate",
+    "faculty": "Pharmacy and Pharmaceutical Sciences"
+  },
+  {
+    "name": "Master of Arts (Philosophy)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Philosophy)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Science (Physical Therapy) (course-based)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Master of Science (Physical Therapy)  Doctor of Philosophy (Rehabilitation Sciences) Combined Program (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Doctor of Philosophy (Physics)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy with a specialization in Geophysics (Physics)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science (Physics)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science with a specialization in Geophysics (Physics)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Doctor of Philosophy (Physiology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Physiology)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Arts in Policy Studies (Political Science)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Political Science)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts (Political Science)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Certificat d’études supérieures spécialisées en pratique orthophonique en milieu francophone (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Doctor of Philosophy (Psychiatry)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Psychiatry)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Doctor of Philosophy (Psychology)",
+    "level": "Graduate",
+    "faculty": "Arts, Science"
+  },
+  {
+    "name": "Master of Arts (Psychology)",
+    "level": "Graduate",
+    "faculty": "Arts, Science"
+  },
+  {
+    "name": "Master of Science (Psychology)",
+    "level": "Graduate",
+    "faculty": "Arts, Science"
+  },
+  {
+    "name": "Doctor of Philosophy in Public Health in the research area of Health Promotion and Socio-behavioural Sciences (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Doctor of Philosophy in Public Health in the research area of Health Services and Policy Research (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Doctor of Philosophy in Public Health in the research area of Epidemiology (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Doctor of Philosophy in Public Health in the research area of Public Health (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Public Health in Clinical Epidemiology (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Public Health in General Public Health (thesis-based) ",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Public Health in Global Health (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Public Health in Environmental Health Sciences (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Public Health in Epidemiology (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Science in Public Health in Health Policy Research (thesis-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Public Health (course-based)",
+    "level": "Graduate",
+    "faculty": "Public Health"
+  },
+  {
+    "name": "Master of Arts in Recreation and Leisure Studies (Kinesiology, Sport, and Recreation)",
+    "level": "Graduate",
+    "faculty": "Kinesiology, Sport, and Recreation"
+  },
+  {
+    "name": "Doctor of Philosophy in Rehabilitation Science (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Master of Science in Rehabilitation Science (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Doctor of Philosophy in Religious Studies (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Arts in Religious Studies (History, Classics, and Religion)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Agriculture Specialization in Conservation and Restoration of Land and Water (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Agriculture (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Doctor of Philosophy (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Forestry with Specialization in Environmental and Wildlife Conservation (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Forestry with Specialization in International Forestry (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Forestry (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Science (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Forestry with Specialization in Ecology and Ecosystem Restoration (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Forestry with Specialization in Sustainable Forest Management (Renewable Resources)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Agriculture (Resource Economics and Environmental Sociology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Science (Resource Economics and Environmental Sociology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Doctor of Philosophy (Resource Economics and Environmental Sociology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Graduate Certificate in School Leadership (Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Certificat supérieur en sciences de l’éducation (En Français)",
+    "level": "Graduate",
+    "faculty": "Campus Saint-Jean"
+  },
+  {
+    "name": "Master of Education with Specialization in Technology in Education (Secondary Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Doctor of Education and Doctor of Philosophy (Secondary Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Master of Education (Secondary Education)",
+    "level": "Graduate",
+    "faculty": "Education"
+  },
+  {
+    "name": "Graduate Certificate in Sexual Health (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Master of Arts (Sociology)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Doctor of Philosophy (Sociology)",
+    "level": "Graduate",
+    "faculty": "Arts"
+  },
+  {
+    "name": "Master of Science (Speech Language Pathology)  Doctor of Philosophy (Rehabilitation Sciences) Combined Program (Rehabilitation Medicine)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Master of Science in Speech-Language Pathology (Communication Sciences and Disorders)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Master of Science in Speech-Language Pathology  Doctor of Philosophy Combined Program (Communication Sciences and Disorders)",
+    "level": "Graduate",
+    "faculty": "Rehabilitation Medicine"
+  },
+  {
+    "name": "Graduate Certificate in Sport and Recreation Management",
+    "level": "Graduate",
+    "faculty": "Kinesiology Sport and Recreation"
+  },
+  {
+    "name": "Doctor of Philosophy (Surgery)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science in Surgery with a specialization in Surgical Education (Surgery)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Master of Science (Surgery)",
+    "level": "Graduate",
+    "faculty": "Medicine & Dentistry"
+  },
+  {
+    "name": "Graduate Embedded Certificate in Teaching and Learning in Nursing Education",
+    "level": "Graduate",
+    "faculty": "Nursing"
+  },
+  {
+    "name": "Master of Science in Textiles and Clothing (Human Ecology)",
+    "level": "Graduate",
+    "faculty": "Agricultural Life and Environmental Sciences"
+  },
+  {
+    "name": "Master of Science in Urban and Regional Planning (Accelerated 1 year)",
+    "level": "Graduate",
+    "faculty": "Science"
+  },
+  {
+    "name": "Master of Science in Urban and Regional Planning (2 year)",
+    "level": "Graduate",
+    "faculty": "Science"
+  }
+]

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,16 +19,12 @@ export function SignInForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    username: "", // This is used as the email field in the backend
+    username: "", // Email field (named username for backend compatibility)
     password: "",
   });
-
-  // Get redirect destination from URL if it exists
-  const from = searchParams?.get("from") || "/home";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,8 +52,8 @@ export function SignInForm({
         description: "Signed in successfully.",
       });
 
-      // Redirect to the intended page or home page after successful login
-      router.push(from);
+      // Always redirect to home page after successful login
+      router.push("/home");
       router.refresh(); // Refresh the page to update authentication state
     } catch (error) {
       const errorMessage =

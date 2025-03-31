@@ -1,0 +1,68 @@
+@startuml Location Services Activity Diagram
+|#LightSkyBlue|Client|
+|#LightGreen|Server|
+|#LightSalmon|Database|
+|#LightYellow|Device Location Services|
+
+|Client|
+start
+:User Opens Beacons Application;
+:Request Location Permission;
+|Device Location Services|
+if (User Grants Permission?) then (yes)
+  :Access Device GPS/Location;
+  :Determine Current Coordinates;
+  |Client|
+  :Send Location Data to Server;
+  |Server|
+  :Receive User Location;
+  |Database|
+  :Fetch All Available Classrooms;
+  |Server|
+  :Calculate Distance to Each Classroom;
+  :Sort Classrooms by Proximity;
+  :Generate Proximity-Based Results;
+  |Client|
+  :Display Sorted Results;
+  :Show Distance Indicators;
+  
+  |Client|
+  repeat
+    if (User Moves Location?) then (yes)
+      |Device Location Services|
+      :Detect Location Change;
+      :Update Coordinates;
+      |Client|
+      :Send Updated Location;
+      |Server|
+      :Recalculate Proximities;
+      :Update Sorted Results;
+      |Client|
+      :Refresh Display Order;
+    endif
+    
+    if (User Applies Filters?) then (yes)
+      |Client|
+      :Apply Proximity + Filter Criteria;
+      :Update Display;
+    endif
+    
+  repeat while (User Continues Using App?) is (yes)
+  ->no;
+  
+else (no)
+  |Client|
+  :Display Permission Denied Message;
+  :Offer Manual Building Selection;
+  :Present Unordered Results;
+endif
+
+|Client|
+if (User Disables Location Later?) then (yes)
+  :Update Permission Status;
+  :Remove Proximity Sorting;
+  :Display Standard Results View;
+endif
+
+stop
+@enduml

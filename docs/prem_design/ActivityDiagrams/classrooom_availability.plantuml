@@ -1,0 +1,93 @@
+@startuml Classroom Availability Activity Diagram
+|#LightGreen|Data Collector|
+|#LightSalmon|Database|
+|#LightSkyBlue|Client|
+|#LightYellow|User Location Services|
+
+|Data Collector|
+start
+note right: Runs at start of each semester
+:Initialize Data Collection Workflow;
+:Connect to University Course Catalogue;
+:Fetch Classroom Schedule Data;
+if (Data Available?) then (yes)
+  repeat
+    :Extract Classroom Information;
+    :Format Schedule Data;
+    |Database|
+    :Store Classroom Schedule;
+    |Data Collector|
+  repeat while (More Classrooms?) is (yes)
+  ->no;
+  
+  |Data Collector|
+  :Fetch Building Coordinate Data;
+  |Database|
+  :Associate Coordinates with Classrooms;
+  
+else (no)
+  :Log Collection Error;
+  :Send Error Notification to Maintainers;
+  :Preserve Previous Data;
+  stop
+endif
+
+|Client|
+:User Accesses Availability Dashboard;
+fork
+  :Render Map View;
+  :Display Building Markers;
+  :Color-Code by Availability Percentage;
+fork again
+  :Render List View;
+  :Display All Buildings;
+  :Sort by Availability;
+end fork
+
+|Client|
+repeat
+  if (User Toggles View?) then (map)
+    :User Interacts with Map;
+    if (User Clicks Building?) then (yes)
+      :Highlight Building;
+      :Expand Building in List View;
+      :Center Map on Building;
+    endif
+  else (list)
+    :User Expands Building in List;
+    :Show Classrooms in Building;
+    :Display Room Details and Occupancy;
+    :Highlight Building on Map;
+  endif
+
+  if (User Applies Filter?) then (yes)
+    :Process Filter Criteria;
+    fork
+      :Update Map View with Filtered Results;
+    fork again
+      :Update List View with Filtered Results;
+    end fork
+  endif
+
+  if (User Location Enabled?) then (yes)
+    |User Location Services|
+    :Get User's Current Coordinates;
+    |Client|
+    :Calculate Distance to Each Classroom;
+    :Sort List by Proximity;
+  endif
+
+  |Database|
+  :Refresh Availability Data on Set Intervals;
+  |Client|
+  fork
+    :Update Map Markers;
+  fork again
+    :Update List Status Indicators;
+  end fork
+  
+repeat while (User Continues Browsing?) is (yes)
+->no;
+stop
+
+@enduml

@@ -1,0 +1,112 @@
+@startuml Profile and Notification Management Activity Diagram
+|#LightSkyBlue|Client|
+|#LightGreen|Server|
+|#LightSalmon|Database|
+|#Pink|Notification Service|
+
+|Client|
+start
+:Authenticated User Accesses Profile;
+fork
+  :Display Profile Management Interface;
+  :Show Current Profile Information;
+  :User Edits Profile;
+  if (Save Changes?) then (yes)
+    :Submit Updated Profile Data;
+    |Server|
+    :Validate Profile Data;
+    if (Data Valid?) then (yes)
+      |Database|
+      :Update User Profile;
+      |Server|
+      :Generate Success Response;
+      |Client|
+      :Display Success Message;
+    else (no)
+      |Server|
+      :Generate Validation Error;
+      |Client|
+      :Display Error Message;
+    endif
+  else (no)
+  endif
+  
+  if (Delete Profile?) then (yes)
+    :Display Confirmation Dialog;
+    if (Confirm Deletion?) then (yes)
+      |Server|
+      :Process Account Deletion;
+      |Database|
+      :Remove User Data;
+      :Remove Favourite Rooms;
+      :Remove Check-In History;
+      |Server|
+      :Invalidate User Session;
+      |Client|
+      :Redirect to Homepage;
+      stop
+    else (no)
+    endif
+  endif
+fork again
+  :Display Favourite Classrooms;
+  repeat
+    if (Add Favourite?) then (yes)
+      :Select Classroom to Favourite;
+      |Server|
+      :Process Favourite Request;
+      |Database|
+      :Add to User's Favourites;
+      |Client|
+      :Update Favourites Display;
+    else if (Remove Favourite?) then (yes)
+      :Select Classroom to Remove;
+      |Server|
+      :Process Removal Request;
+      |Database|
+      :Remove from User's Favourites;
+      |Client|
+      :Update Favourites Display;
+    endif
+  repeat while (Manage More Favourites?) is (yes)
+  ->no;
+fork again
+  :Display Notification Settings;
+  repeat
+    :Toggle Room Notifications;
+    |Server|
+    :Update Notification Preferences;
+    |Database|
+    :Store Notification Settings;
+    |Client|
+    :Update Toggle Display;
+  repeat while (Configure More Notifications?) is (yes)
+  ->no;
+end fork
+
+|Database|
+:Monitor Favourite Room Status;
+if (Favourite Room Becomes Available?) then (yes)
+  :Identify Subscribed Users;
+  |Notification Service|
+  repeat
+    :Check User Notification Preferences;
+    if (Notifications Enabled?) then (yes)
+      :Prepare Notification Content;
+      :Send Push Notification;
+      |Client|
+      :Display Room Available Notification;
+      :Show Room Name and Building;
+    endif
+  repeat while (More Subscribed Users?) is (yes)
+  ->no;
+endif
+
+|Client|
+if (User Clicks Notification?) then (yes)
+  :Navigate to Room Details;
+else (no)
+endif
+
+stop
+@enduml

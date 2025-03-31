@@ -8,8 +8,6 @@ class UserCreate(BaseModel):
     username: str
     password: str
     re_password: str
-    share_profile: bool = True
-    education_level: Literal["Undergraduate", "Graduate"] = None
 
     @field_validator("email", "username", mode="before")
     @classmethod
@@ -107,8 +105,6 @@ class UserUpdate(BaseModel):
     user_id: str
     username: Optional[str] = None
     active: Optional[bool] = None
-    share_profile: Optional[bool] = None
-    education_level: Optional[Literal["Undergraduate", "Graduate"]] = None
 
     @field_validator("username", mode="before")
     @classmethod

@@ -4,7 +4,7 @@ from sqlalchemy import Column, String, UUID, DECIMAL, ForeignKey, DateTime, Bool
 from sqlalchemy.orm import relationship
 
 from app.core.database import Base
-from app.models import *
+from app.models.user import User
 
 class Building(Base):
     __tablename__ = "buildings"
@@ -60,3 +60,12 @@ class SingleEventSchedule(Base):
     __table_args__ = (
         Index("idx_single_event_start_time", "room_id", "start_time"),
     )
+
+class UserFavoriteRoom(Base):
+    __tablename__ = "user_favorite_rooms"
+
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    room_id = Column(UUID(as_uuid=True), ForeignKey("rooms.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+
+    user = relationship("User", back_populates="favorite_rooms")
+    room = relationship("Room", back_populates="favorited_by")

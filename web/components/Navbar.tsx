@@ -88,7 +88,7 @@ export default function Navbar({
         description: "You have been logged out",
       });
       setIsLogoutDialogOpen(false);
-    } catch (error) {
+    } catch (_) {
       toast({
         title: "Error",
         description: "Failed to log out",

@@ -39,6 +39,25 @@ def get_user(
 
     return success_response(200, True, "User found", data=user_data)
 
+@router.get("/user/me")
+def get_current_user_details(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_active_user)):
+    
+    if not current_user:
+        return error_response(404, False, "User not found")
+
+    user_data = {
+        "id": str(current_user.id),
+        "email": current_user.email,
+        "username": current_user.username,
+        "active": current_user.active,
+        "share_profile": current_user.share_profile,
+        "education_level": current_user.education_level
+    }
+
+    return success_response(200, True, "User found", data=user_data)
+
 @router.put("/user/update")
 def update_user(
     user_data: UserUpdate,

@@ -8,6 +8,9 @@ interface User {
   id?: string;
   email?: string;
   username?: string;
+  share_profile?: boolean;
+  education_level?: string;
+  active?: boolean;
 }
 
 // Define the shape of the context
@@ -53,8 +56,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.ok) {
         const userData = await response.json();
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+        // Make sure we have consistent user data with all fields we need
+        const enrichedUserData = {
+          id: userData.id,
+          email: userData.email,
+          username: userData.username,
+          share_profile: userData.share_profile,
+          education_level: userData.education_level,
+          active: userData.active,
+        };
+        setUser(enrichedUserData);
+        localStorage.setItem("user", JSON.stringify(enrichedUserData));
       } else {
         // If backend verification fails, clear everything
         setUser(null);

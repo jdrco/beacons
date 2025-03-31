@@ -10,6 +10,7 @@ import Logo from "./Logo";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/useToast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import {
   AlertDialog,
@@ -42,6 +43,7 @@ export default function Navbar({
   const { toast } = useToast();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const router = useRouter();
 
   // Update time every second
   useEffect(() => {
@@ -191,7 +193,10 @@ export default function Navbar({
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-56">
-                      <DropdownMenuItem className="cursor-default">
+                      <DropdownMenuItem
+                        className="cursor-default"
+                        onClick={() => router.push("/profile")}
+                      >
                         <div>
                           <p className="font-medium">
                             {user?.username || "User"}
@@ -241,7 +246,10 @@ export default function Navbar({
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuItem className="cursor-default">
+                  <DropdownMenuItem
+                    className="cursor-default"
+                    onClick={() => router.push("/profile")}
+                  >
                     <div>
                       <p className="font-medium">{user?.username || "User"}</p>
                       <p className="text-xs text-muted-foreground">

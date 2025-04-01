@@ -167,7 +167,7 @@ export default function Navbar({
             {/* Time */}
             <div className="items-center whitespace-nowrap font-mono text-sm hidden lg:flex">
               <span>{time}</span>
-              <span className="ml-3 font-bold pr-2">Edmonton</span>
+              <span className="ml-3 font-bold">Edmonton</span>
             </div>
             <div></div>
           </div>

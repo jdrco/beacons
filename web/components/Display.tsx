@@ -1,6 +1,12 @@
 "use client";
 
-import { Building2, DoorOpen, DoorClosed, ChevronDown } from "lucide-react";
+import {
+  Building2,
+  DoorOpen,
+  DoorClosed,
+  ChevronDown,
+  Loader2,
+} from "lucide-react";
 import { useState, useRef } from "react";
 import {
   Accordion,
@@ -25,6 +31,7 @@ import Navbar from "./Navbar";
 import FavoriteButton from "./FavoriteButton";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/hooks/useFavorites";
+import Logo from "@/components/Logo";
 
 export default function Display() {
   // Get building data from custom hook
@@ -65,13 +72,12 @@ export default function Display() {
 
   if (loading)
     return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        <img
-          src="/beacons_logo_load.svg"
-          alt="Loading"
-          className="animate-spin w-12 h-12"
-        />
-        <div className="p-4 text-white">Loading data...</div>
+      <div className="flex w-screen h-screen flex-col justify-center items-center">
+        <Logo />
+        <div className="flex items-center gap-2 mt-8">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span className="text-white">Loading building data</span>
+        </div>
       </div>
     );
   if (error) return <div className="p-4 text-red-500">{error}</div>;

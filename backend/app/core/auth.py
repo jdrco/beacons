@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 from uuid import UUID
+from typing import Optional
 
 from jose import jwt
 from passlib.context import CryptContext
@@ -17,7 +18,7 @@ from app.core.database import get_db
 from app.schemas.user import UserCreate, TokenResponse, PasswordReset, EmailPasswordReset
 from app.crud.user import get_user_by_email, get_user_by_username
 from app.utils.response import success_response, error_response
-from app.models.user import User, Cookie
+from app.models.user import User, Program, Cookie
 from app.utils.query import filter_query
 
 logging.getLogger("passlib").setLevel(logging.ERROR)
@@ -47,6 +48,7 @@ def create_user(
     username: str,
     password: str,
     active: bool = False,
+    program_id: UUID = None
 ):
     hashed_password = get_password_hash(password)
     new_user = User(
@@ -54,6 +56,7 @@ def create_user(
         username=username,
         password=hashed_password,
         active=active,
+        program_id=program_id
     )
     db.add(new_user)
     db.commit()
@@ -114,7 +117,10 @@ def get_active_user(
         return error_response(401, False, {"error": str(e)})
 
 @router.post("/signup")
-async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
+async def sign_up(
+    user: UserCreate,
+    db: Session = Depends(get_db)
+):
     try:
         existing_email = get_user_by_email(db, user.email)
         if existing_email:
@@ -132,12 +138,25 @@ async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
                 message="Username already taken."
             )
 
+        program_id = None
+        if user.program:
+            programs = filter_query(db, model=Program, filters=[Program.name == user.program])
+            if programs:
+                program_id = programs[0].id
+            else:
+                return error_response(
+                    status_codes=400,
+                    status=False,
+                    message="Program not found."
+                )
+
         new_user = create_user(
             db,
             email=user.email,
             username=user.username,
             password=user.password,
             active=False,
+            program_id=program_id
         )
 
         verification_token = create_verification_token(new_user.email)
@@ -147,7 +166,7 @@ async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
             status_codes=201,
             status=True,
             message="User successfully registered",
-            data={"id": str(new_user.id), "email": new_user.email, "username": new_user.username}
+            data={"id": str(new_user.id), "email": new_user.email, "username": new_user.username, "program": user.program}
         )
     except Exception as e:
         return error_response(
@@ -501,4 +520,61 @@ async def reset_password(
             status_codes=500,
             status=False,
             message=str(e)
+        )
+
+@router.get("/list_programs")
+def list_programs(
+    keyword: Optional[str] = None,
+    faculty: Optional[str] = None,
+    is_undergrad: Optional[bool] = None,
+    page: int = 1,
+    per_page: int = 10,
+    db: Session = Depends(get_db)
+):
+    try:
+        filters = []
+
+        if faculty:
+            filters.append(Program.faculty.ilike(f"%{faculty}%"))
+
+        if keyword:
+            filters.append(Program.name.ilike(f"%{keyword}%"))
+
+        total_count = db.query(Program).filter(*filters).count()
+
+        programs = filter_query(
+            db,
+            model=Program,
+            filters=filters,
+            limit=per_page,
+            offset=(page - 1) * per_page
+        )
+
+        program_data = [{
+            "id": str(program.id),
+            "name": program.name,
+            "is_undergrad": program.is_undergrad,
+            "faculty": program.faculty
+        } for program in programs]
+
+        pagination = {
+            "total": total_count,
+            "page": page,
+            "per_page": per_page,
+            "total_pages": (total_count + per_page - 1) // per_page
+        }
+
+        return success_response(
+            200,
+            True,
+            "Programs retrieved successfully",
+            data=program_data,
+            pagination=pagination
+        )
+
+    except Exception as e:
+        return error_response(
+            500,
+            False,
+            str(e)
         )

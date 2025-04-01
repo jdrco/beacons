@@ -98,8 +98,8 @@ export default function Landing() {
         </div>
       </main>
       <Ripple className="mb-24" />
-      <h1>Live and ready to use!</h1>
-      <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+      {/* <h1>Live and ready to use!</h1>
+      <AnimatedTestimonials testimonials={testimonials} autoplay={true} /> */}
     </div>
   );
 }

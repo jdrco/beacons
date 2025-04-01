@@ -66,6 +66,7 @@ class UserFavoriteRoom(Base):
 
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True, nullable=False)
     room_id = Column(UUID(as_uuid=True), ForeignKey("rooms.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    notification_sent = Column(Boolean, nullable=False, default=True)
 
     user = relationship("User", back_populates="favorite_rooms")
     room = relationship("Room", back_populates="favorited_by")

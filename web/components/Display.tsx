@@ -97,7 +97,7 @@ export default function Display() {
           showTooltip={showMapTooltip}
           className="w-full md:w-2/3 h-[600px] md:h-full rounded-xl md:rounded-2xl"
         />
-        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
+        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4 rounded-2xl">
           <Accordion
             type="multiple"
             className="w-full h-full overflow-y-auto"

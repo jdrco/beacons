@@ -160,7 +160,7 @@ export default function Navbar({
       <div className="flex rounded-full justify-between mt-4 mx-3 md:mx-4 px-2 py-2 bg-[#2b5f5a48]">
         {/* Left section - Logo (hidden on mobile when search is expanded) */}
         {(!isSearchExpanded || !isMobile) && (
-          <div className="flex items-center md:gap-x-24 md:w-1/4 lg:w-1/3">
+          <div className="flex justify-between items-center md:w-1/4 lg:w-1/3">
             <Link href="/">
               <Logo className="ml-2" />
             </Link>
@@ -169,6 +169,7 @@ export default function Navbar({
               <span>{time}</span>
               <span className="ml-3 font-bold pr-2">Edmonton</span>
             </div>
+            <div></div>
           </div>
         )}
 

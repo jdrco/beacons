@@ -63,7 +63,7 @@ export default function FavoriteButton({
       aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
-          toggleFavorite(e as any);
+          toggleFavorite(e as unknown as React.MouseEvent);
         }
       }}
     >

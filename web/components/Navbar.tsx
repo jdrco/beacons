@@ -38,7 +38,6 @@ export default function Navbar({
   const [time, setTime] = useState("");
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
   const { toast } = useToast();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);

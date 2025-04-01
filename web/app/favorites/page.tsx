@@ -77,7 +77,7 @@ export default function FavoritesPage() {
             <Star className="mx-auto h-12 w-12 text-gray-500 mb-4" />
             <h2 className="text-xl font-semibold mb-2">No Favorite Rooms</h2>
             <p className="text-gray-400 mb-6">
-              You haven't added any rooms to your favorites yet.
+              You haven&apos;t added any rooms to your favorites yet.
             </p>
             <Button asChild>
               <Link href="/home">Browse Rooms</Link>

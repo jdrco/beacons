@@ -112,3 +112,41 @@ class UserUpdate(BaseModel):
         if isinstance(value, str):
             return value.strip()
         return value
+
+class EmailPasswordReset(BaseModel):
+    password: str
+    re_password: str
+
+    @field_validator("password", mode="after")
+    @classmethod
+    def validate_password_strength(cls, password):
+        if not re.search(r"[A-Z]", password):
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Password must contain at least one uppercase letter."
+            )
+        if not re.search(r"[0-9]", password):
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Password must contain at least one number."
+            )
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Password must contain at least one special character."
+            )
+        return password
+
+    @field_validator("re_password", mode="after")
+    @classmethod
+    def passwords_match(cls, re_password, values):
+        if "password" in values.data and re_password != values.data["password"]:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Passwords do not match."
+            )
+        return re_password

@@ -4,7 +4,7 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
-import { LogOut, User, LogIn } from "lucide-react";
+import { LogOut, User, LogIn, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 import { useAuth } from "@/contexts/AuthContext";
@@ -120,6 +120,13 @@ export default function Navbar({
                 <p className="font-medium">{user?.username || "User"}</p>
                 <p className="text-xs text-muted-foreground">{user?.email}</p>
               </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => router.push("/favorites")}
+            >
+              <Heart className="mr-2 h-4 w-4" />
+              <span>My Favorites</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="text-destructive focus:text-destructive cursor-pointer"
@@ -242,21 +249,6 @@ export default function Navbar({
           </div>
         )}
       </div>
-
-      {/* Account Alert Dialog (for not authenticated users) */}
-      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Account Settings</AlertDialogTitle>
-            <AlertDialogDescription>
-              Account settings coming soon
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction>OK</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
       {/* Logout Confirmation Dialog */}
       <AlertDialog

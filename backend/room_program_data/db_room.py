@@ -61,7 +61,7 @@ try:
         session.flush()
 
         for full_room_name, schedules in details["rooms"].items():
-            room_name = full_room_name[len(building_name) + 1 :] if full_room_name.startswith(building_name + " ") else full_room_name
+            room_name = full_room_name
 
             room = Room(
                 id=uuid.uuid4(),

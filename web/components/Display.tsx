@@ -24,6 +24,7 @@ import { DisplaySettings } from "@/types";
 import Navbar from "./Navbar";
 import FavoriteButton from "./FavoriteButton";
 import { useAuth } from "@/contexts/AuthContext";
+import { useFavorites } from "@/hooks/useFavorites";
 
 export default function Display() {
   // Get building data from custom hook
@@ -52,6 +53,7 @@ export default function Display() {
 
   // Authentication and favorites
   const { isAuthenticated } = useAuth();
+  const { favorites, toggleFavorite } = useFavorites();
 
   // Filter buildings based on search and display settings
   const filteredBuildingData = filterBuildingData(
@@ -180,7 +182,13 @@ export default function Display() {
                                 className="flex items-center justify-between px-3 py-5 hover:no-underline"
                                 usePlusMinusToggle={true}
                                 additionalControls={
-                                  isAuthenticated ? <FavoriteButton /> : null
+                                  isAuthenticated ? (
+                                    <FavoriteButton
+                                      roomName={roomName}
+                                      isFavorite={favorites.includes(roomName)}
+                                      onToggle={toggleFavorite}
+                                    />
+                                  ) : null
                                 }
                               >
                                 <div className="flex items-center gap-3">

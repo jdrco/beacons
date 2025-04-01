@@ -1,11 +1,12 @@
 import logging
+import re
 from datetime import datetime, timedelta
 from uuid import UUID
 from typing import Optional
 
 from jose import jwt
 from passlib.context import CryptContext
-from fastapi import Response, Depends, Security
+from fastapi import Response, Depends, Security, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.routing import APIRouter
 from fastapi.security import OAuth2PasswordBearer
@@ -100,21 +101,21 @@ def get_active_user(
     db: Session = Depends(get_db)
 ):
     if not token:
-        return error_response(401, False, "Unauthorized: Please provide a valid token")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized: Please provide a valid token")
 
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         email = payload.get("sub")
         if email is None:
-            return error_response(401, False, "Invalid token")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 
         user = filter_query(db, model=User, filters=[User.email == email])
         if not user:
-            return error_response(401, False, "User not found")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
 
         return user[0]
     except Exception as e:
-        return error_response(401, False, {"error": str(e)})
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
 
 @router.post("/signup")
 async def sign_up(
@@ -122,6 +123,21 @@ async def sign_up(
     db: Session = Depends(get_db)
 ):
     try:
+        if not user.email.endswith("@ualberta.ca"):
+            return error_response(400, False, "Only @ualberta.ca emails are allowed.")
+
+        if not re.search(r"[A-Z]", user.password):
+            return error_response(400, False, "Password must contain at least one uppercase letter.")
+
+        if not re.search(r"[0-9]", user.password):
+            return error_response(400, False, "Password must contain at least one number.")
+
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", user.password):
+            return error_response(400, False, "Password must contain at least one special character.")
+
+        if user.password != user.re_password:
+            return error_response(400, False, "Passwords do not match.")
+
         existing_email = get_user_by_email(db, user.email)
         if existing_email:
             return error_response(
@@ -266,6 +282,21 @@ def update_password(
     db: Session = Depends(get_db)
 ):
     try:
+        if not verify_password(password.old_password, current_user.password):
+            return error_response(400, False, "Old password is incorrect.")
+
+        if not re.search(r"[A-Z]", password.new_password):
+            return error_response(400, False, "Password must contain at least one uppercase letter.")
+
+        if not re.search(r"[0-9]", password.new_password):
+            return error_response(400, False, "Password must contain at least one number.")
+
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password.new_password):
+            return error_response(400, False, "Password must contain at least one special character.")
+
+        if password.new_password != password.re_password:
+            return error_response(400, False, "Passwords do not match.")
+
         if not verify_password(password.old_password, current_user.password):
             return error_response(
                 status_codes=400,
@@ -480,14 +511,20 @@ async def reset_password(
     data: EmailPasswordReset,
     db: Session = Depends(get_db)
 ):
-    if data.password != data.re_password:
-        return error_response(
-            status_codes=400,
-            status=False,
-            message="Passwords do not match."
-        )
 
     try:
+        if not re.search(r"[A-Z]", data.password):
+            return error_response(400, False, "Password must contain at least one uppercase letter.")
+
+        if not re.search(r"[0-9]", data.password):
+            return error_response(400, False, "Password must contain at least one number.")
+
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", data.password):
+            return error_response(400, False, "Password must contain at least one special character.")
+
+        if data.password != data.re_password:
+            return error_response(400, False, "Passwords do not match.")
+
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         email = payload.get("sub")
 
@@ -539,6 +576,9 @@ def list_programs(
 
         if keyword:
             filters.append(Program.name.ilike(f"%{keyword}%"))
+
+        if is_undergrad is not None:
+            filters.append(Program.is_undergrad == is_undergrad)
 
         total_count = db.query(Program).filter(*filters).count()
 

@@ -1,6 +1,7 @@
 import re
-from typing import Literal, Optional
+from typing import Optional
 from pydantic import BaseModel, EmailStr, field_validator
+from fastapi import HTTPException
 from app.utils.response import error_response
 
 class UserCreate(BaseModel):
@@ -8,6 +9,7 @@ class UserCreate(BaseModel):
     username: str
     password: str
     re_password: str
+    program: Optional[str] = None
 
     @field_validator("email", "username", mode="before")
     @classmethod
@@ -28,33 +30,29 @@ class UserCreate(BaseModel):
     @classmethod
     def validate_password_strength(cls, password):
         if not re.search(r"[A-Z]", password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one uppercase letter."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one uppercase letter."
             )
         if not re.search(r"[0-9]", password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one number."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one number."
             )
         if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one special character."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one special character."
             )
         return password
 
     @field_validator("re_password", mode="after")
     @classmethod
     def passwords_match(cls, re_password, values):
-        if "password" in values.data and re_password != values.data["password"]:
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Passwords do not match."
+        if "password" in values and re_password != values["password"]:
+            raise HTTPException(
+                status_code=400,
+                detail="Passwords do not match."
             )
         return re_password
 
@@ -71,33 +69,29 @@ class PasswordReset(BaseModel):
     @classmethod
     def validate_password_strength(cls, new_password):
         if not re.search(r"[A-Z]", new_password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one uppercase letter."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one uppercase letter."
             )
         if not re.search(r"[0-9]", new_password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one number."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one number."
             )
         if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", new_password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one special character."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one special character."
             )
         return new_password
 
     @field_validator("re_password", mode="after")
     @classmethod
     def passwords_match(cls, re_password, values):
-        if "new_password" in values.data and re_password != values.data["new_password"]:
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Passwords do not match."
+        if "new_password" in values and re_password != values["new_password"]:
+            raise HTTPException(
+                status_code=400,
+                detail="Passwords do not match."
             )
         return re_password
 
@@ -121,32 +115,28 @@ class EmailPasswordReset(BaseModel):
     @classmethod
     def validate_password_strength(cls, password):
         if not re.search(r"[A-Z]", password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one uppercase letter."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one uppercase letter."
             )
         if not re.search(r"[0-9]", password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one number."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one number."
             )
         if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Password must contain at least one special character."
+            raise HTTPException(
+                status_code=400,
+                detail="Password must contain at least one special character."
             )
         return password
 
     @field_validator("re_password", mode="after")
     @classmethod
     def passwords_match(cls, re_password, values):
-        if "password" in values.data and re_password != values.data["password"]:
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Passwords do not match."
+        if "password" in values and re_password != values["password"]:
+            raise HTTPException(
+                status_code=400,
+                detail="Passwords do not match."
             )
         return re_password

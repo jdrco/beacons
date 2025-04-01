@@ -127,9 +127,6 @@ except SQLAlchemyError as e:
     session.rollback()
     print(f"❌ Error occurred: {e}")
 
-# finally:
-#     session.close()
-
 WORKING_HOURS_START = time(8, 0)
 WORKING_HOURS_END = time(22, 0)
 MINIMUM_GAP_MINUTES = 15

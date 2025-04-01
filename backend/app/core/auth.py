@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 from uuid import UUID
+from typing import Optional
 
 from jose import jwt
 from passlib.context import CryptContext
@@ -519,4 +520,61 @@ async def reset_password(
             status_codes=500,
             status=False,
             message=str(e)
+        )
+
+@router.get("/list_programs")
+def list_programs(
+    keyword: Optional[str] = None,
+    faculty: Optional[str] = None,
+    is_undergrad: Optional[bool] = None,
+    page: int = 1,
+    per_page: int = 10,
+    db: Session = Depends(get_db)
+):
+    try:
+        filters = []
+
+        if faculty:
+            filters.append(Program.faculty.ilike(f"%{faculty}%"))
+
+        if keyword:
+            filters.append(Program.name.ilike(f"%{keyword}%"))
+
+        total_count = db.query(Program).filter(*filters).count()
+
+        programs = filter_query(
+            db,
+            model=Program,
+            filters=filters,
+            limit=per_page,
+            offset=(page - 1) * per_page
+        )
+
+        program_data = [{
+            "id": str(program.id),
+            "name": program.name,
+            "is_undergrad": program.is_undergrad,
+            "faculty": program.faculty
+        } for program in programs]
+
+        pagination = {
+            "total": total_count,
+            "page": page,
+            "per_page": per_page,
+            "total_pages": (total_count + per_page - 1) // per_page
+        }
+
+        return success_response(
+            200,
+            True,
+            "Programs retrieved successfully",
+            data=program_data,
+            pagination=pagination
+        )
+
+    except Exception as e:
+        return error_response(
+            500,
+            False,
+            str(e)
         )

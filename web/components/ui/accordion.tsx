@@ -21,71 +21,85 @@ const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = "AccordionItem";
 
-// Calendar toggle icon component
-const CalendarToggleIcon = ({ isOpen }: { isOpen: boolean }) => {
-  return (
-    <div className="relative w-6 h-6 transition-opacity duration-200">
-      <CalendarArrowUp
-        className={cn(
-          "absolute inset-0 transition-opacity duration-200",
-          isOpen ? "opacity-100" : "opacity-0"
-        )}
-      />
-      <CalendarArrowDown
-        className={cn(
-          "absolute inset-0 transition-opacity duration-200",
-          isOpen ? "opacity-0" : "opacity-100"
-        )}
-      />
-    </div>
-  );
-};
-
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
     rightElement?: React.ReactNode;
-    usePlusMinusToggle?: boolean; // Now controls Calendar toggles
+    usePlusMinusToggle?: boolean;
+    additionalControls?: React.ReactNode;
   }
 >(
   (
-    { className, children, rightElement, usePlusMinusToggle = false, ...props },
+    {
+      className,
+      children,
+      rightElement,
+      usePlusMinusToggle = false,
+      additionalControls,
+      ...props
+    },
     ref
   ) => {
-    // Get the open state from data attribute for the icon transition
+    // Get the open state from data attribute
+    const triggerRef = React.useRef<HTMLButtonElement>(null);
     const [isOpen, setIsOpen] = React.useState(false);
+
+    // Update open state when the component's open state changes
+    React.useEffect(() => {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === "data-state") {
+            const element = mutation.target as HTMLElement;
+            setIsOpen(element.getAttribute("data-state") === "open");
+          }
+        });
+      });
+
+      if (triggerRef.current) {
+        observer.observe(triggerRef.current, { attributes: true });
+      }
+
+      return () => observer.disconnect();
+    }, []);
+
     return (
       <AccordionPrimitive.Header className="flex">
         <AccordionPrimitive.Trigger
-          ref={ref}
+          ref={(el) => {
+            // Handle refs properly
+            if (typeof ref === "function") ref(el);
+            else if (ref) ref.current = el;
+            triggerRef.current = el;
+          }}
           className={cn(
             "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]_.chevron-icon]:rotate-180",
             className
           )}
-          onPointerDown={() => setIsOpen(!isOpen)} // Toggle the state on click
           {...props}
         >
           {children}
-          <div className="flex items-center gap-4">
-            {rightElement ? (
-              // If rightElement contains an icon that should toggle, replace it
-              usePlusMinusToggle ? (
-                <>
-                  {/* Replace only the Plus/Minus with CalendarToggleIcon if present in rightElement */}
-                  {React.Children.map(
-                    rightElement as React.ReactElement,
-                    (child) => {
-                      if (React.isValidElement(child)) {
-                        return <CalendarToggleIcon isOpen={isOpen} />;
-                      }
-                      return child;
-                    }
+          <div className="flex items-center gap-6">
+            {additionalControls}
+
+            {usePlusMinusToggle ? (
+              // Calendar toggle icons
+              <div className="relative w-6 h-6 transition-opacity duration-200">
+                <CalendarArrowUp
+                  className={cn(
+                    "absolute inset-0 transition-opacity duration-200",
+                    isOpen ? "opacity-100" : "opacity-0"
                   )}
-                </>
-              ) : (
-                // Use rightElement as is
-                rightElement
-              )
+                />
+                <CalendarArrowDown
+                  className={cn(
+                    "absolute inset-0 transition-opacity duration-200",
+                    isOpen ? "opacity-0" : "opacity-100"
+                  )}
+                />
+              </div>
+            ) : rightElement ? (
+              // Use provided rightElement
+              rightElement
             ) : (
               // Default to ChevronDown if no rightElement provided
               <ChevronDown className="shrink-0 transition-transform duration-200 chevron-icon" />

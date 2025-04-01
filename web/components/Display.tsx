@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Building2,
-  DoorOpen,
-  DoorClosed,
-  ChevronDown,
-  Plus,
-} from "lucide-react";
+import { Building2, DoorOpen, DoorClosed, ChevronDown } from "lucide-react";
 import { useState, useRef } from "react";
 import {
   Accordion,
@@ -28,6 +22,8 @@ import { useTimeUpdate } from "@/hooks/useTimeUpdate";
 import { useBuildingSelection } from "@/hooks/useBuildingSelection";
 import { DisplaySettings } from "@/types";
 import Navbar from "./Navbar";
+import FavoriteButton from "./FavoriteButton";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Display() {
   // Get building data from custom hook
@@ -53,6 +49,9 @@ export default function Display() {
     setExpandedAccordionItems,
     handleBuildingSelect,
   } = useBuildingSelection({ accordionContainerRef, buildingItemRefs });
+
+  // Authentication and favorites
+  const { isAuthenticated } = useAuth();
 
   // Filter buildings based on search and display settings
   const filteredBuildingData = filterBuildingData(
@@ -85,7 +84,6 @@ export default function Display() {
         currentDateTime={currentDateTime}
       />
       <div className="h-full w-full flex flex-col md:flex-row px-3 md:px-4 pb-4 gap-3 md:gap-4 min-h-0">
-        {/* <div className="md:w-1/3 bg-red-400 h-full "></div> */}
         <Map
           buildingData={filteredBuildingData || undefined}
           isRoomAvailable={(schedules) =>
@@ -180,10 +178,10 @@ export default function Display() {
                             <AccordionItem key={roomName} value={roomName}>
                               <AccordionTrigger
                                 className="flex items-center justify-between px-3 py-5 hover:no-underline"
-                                rightElement={
-                                  <Plus className="shrink-0 transition-transform duration-200" />
-                                }
                                 usePlusMinusToggle={true}
+                                additionalControls={
+                                  isAuthenticated ? <FavoriteButton /> : null
+                                }
                               >
                                 <div className="flex items-center gap-3">
                                   <div className="w-6 h-6">

@@ -8,7 +8,7 @@ from app.core.database import get_db
 from app.utils.query import filter_query
 from app.utils.response import success_response, error_response
 from app.core.auth import get_active_user
-from app.models.user import User
+from app.models.user import User, Program
 from app.models.building import Room, UserFavoriteRoom
 from app.schemas.user import UserUpdate
 from app.schemas.building import AddFavoriteRooms
@@ -33,24 +33,26 @@ def get_user(
 def update_user(
     user_data: UserUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_active_user)):
-
-    user = filter_query(db, model=User, filters=[User.id == user_data.user_id])
+    current_user: User = Depends(get_active_user)
+):
+    user = filter_query(db, model=User, filters=[User.id == current_user.id])
     if not user:
         return error_response(404, False, "User not found")
-    if current_user.id != user[0].id:
-        return error_response(403, False, "Unauthorized. You can only update your own profile.")
 
     try:
         update_data = {}
         if user_data.username:
             update_data["username"] = user_data.username
-        if user_data.active is not None:
-            update_data["active"] = user_data.active
 
-        db.query(User).filter(User.id == user_data.user_id).update(update_data, synchronize_session=False)
+        if user_data.program:
+            program = db.query(Program).filter(Program.name == user_data.program).first()
+            if not program:
+                return error_response(404, False, "Program not found")
+            update_data["program_id"] = program.id
+
+        db.query(User).filter(User.id == current_user.id).update(update_data, synchronize_session=False)
         db.commit()
-        return success_response(200, True, "User updated")
+        return success_response(200, True, "User updated successfully")
     except Exception as e:
         return error_response(500, False, str(e))
 
@@ -87,16 +89,22 @@ def get_favorite_rooms(
             .count()
         )
 
-        favorite_rooms = filter_query(
-            db,
-            model=Room,
-            join_models=[UserFavoriteRoom],
-            filters=[UserFavoriteRoom.user_id == current_user.id],
-            limit=per_page,
-            offset=(page - 1) * per_page
+        favorite_rooms = (
+            db.query(Room, UserFavoriteRoom.notification_sent)
+            .join(UserFavoriteRoom)
+            .filter(UserFavoriteRoom.user_id == current_user.id)
+            .limit(per_page)
+            .offset((page - 1) * per_page)
+            .all()
         )
 
-        favorite_rooms_data = [room.name for room in favorite_rooms]
+        favorite_rooms_data = [
+            {
+                "room_name": room.name,
+                "notification_sent": notification_sent
+            }
+            for room, notification_sent in favorite_rooms
+        ]
 
         pagination = {
             "total": total_count,
@@ -175,7 +183,7 @@ def add_favorite_room(
         if existing_favorite:
             return error_response(409, False, "Room already favorited")
 
-        favorite = UserFavoriteRoom(user_id=current_user.id, room_id=room.id)
+        favorite = UserFavoriteRoom(user_id=current_user.id, room_id=room.id, notification_sent=True)
         db.add(favorite)
         db.commit()
 
@@ -228,3 +236,39 @@ def remove_favorite_room(
             False,
             str(e)
         )
+
+@router.put("/user/toggle_notification")
+def toggle_notification(
+    room_name: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_active_user)
+):
+    try:
+        room = db.query(Room).filter(Room.name == room_name).first()
+
+        if not room:
+            return error_response(404, False, "Room not found")
+
+        user_favorite_room = db.query(UserFavoriteRoom).filter(
+            UserFavoriteRoom.user_id == current_user.id,
+            UserFavoriteRoom.room_id == room.id
+        ).first()
+
+        if not user_favorite_room:
+            return error_response(404, False, "Room not favorited by the user")
+
+        user_favorite_room.notification_sent = not user_favorite_room.notification_sent
+
+        db.commit()
+        db.refresh(user_favorite_room)
+
+        return success_response(
+            200,
+            True,
+            f"Notification status toggled successfully. Current status: {user_favorite_room.notification_sent}",
+            data={"room_name": room_name, "notification_sent": user_favorite_room.notification_sent}
+        )
+
+    except Exception as e:
+        db.rollback()
+        return error_response(500, False, str(e))

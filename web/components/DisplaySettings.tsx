@@ -48,7 +48,7 @@ export default function DisplaySettingsDropdown({
       <DropdownMenuTrigger asChild>
         <button className="flex h-full aspect-square rounded-full focus:outline-none focus:ring-0 relative bg-[#191f23] justify-center items-center">
           <div className="relative flex">
-            <SlidersHorizontal className="h-3 w-3 md:h-3 md:w-3" />
+            <SlidersHorizontal className="h-4 w-4" />
             {/* Dot indicator - only shown when a filter is active */}
             {isFilterActive && (
               <div

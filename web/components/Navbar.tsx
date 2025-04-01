@@ -4,7 +4,7 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
-import { LogOut, User } from "lucide-react";
+import { LogOut, User, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 import { useAuth } from "@/contexts/AuthContext";
@@ -78,8 +78,7 @@ export default function Navbar({
 
   // Handle login button click
   const handleLoginClick = () => {
-    // Redirect to login page
-    window.location.href = "/signin";
+    router.push("/signin");
   };
 
   const handleLogout = async () => {
@@ -96,6 +95,57 @@ export default function Navbar({
         description: "Failed to log out",
         variant: "destructive",
       });
+    }
+  };
+
+  // User profile button or sign in button based on authentication status
+  const renderUserControls = () => {
+    if (isAuthenticated) {
+      return (
+        <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
+          <DropdownMenuTrigger asChild>
+            <button
+              className="bg-primary text-primary-foreground rounded-full h-10 aspect-square flex justify-center items-center"
+              type="button"
+            >
+              <User className="h-4 w-4" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => router.push("/profile")}
+            >
+              <div>
+                <p className="font-medium">{user?.username || "User"}</p>
+                <p className="text-xs text-muted-foreground">{user?.email}</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="text-destructive focus:text-destructive cursor-pointer"
+              onClick={() => setIsLogoutDialogOpen(true)}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    } else {
+      return (
+        <button
+          className={cn(
+            "bg-white text-[#191f23] rounded-full flex items-center justify-center gap-2 transition-colors",
+            "hover:bg-gray-200 active:bg-gray-300",
+            isMobile ? "h-10 aspect-square" : "h-10 px-4"
+          )}
+          onClick={handleLoginClick}
+          type="button"
+        >
+          {!isMobile && <span className="font-medium">Sign In</span>}
+          <LogIn className="h-4 w-4" />
+        </button>
+      );
     }
   };
 
@@ -179,51 +229,7 @@ export default function Navbar({
                 </div>
 
                 {/* User Button (inside the controls group for mobile) */}
-                {isAuthenticated ? (
-                  <DropdownMenu
-                    open={isUserMenuOpen}
-                    onOpenChange={setIsUserMenuOpen}
-                  >
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        className="bg-primary text-primary-foreground rounded-full h-10 aspect-square flex justify-center items-center"
-                        type="button"
-                      >
-                        <User className="h-4 w-4" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56">
-                      <DropdownMenuItem
-                        className="cursor-default"
-                        onClick={() => router.push("/profile")}
-                      >
-                        <div>
-                          <p className="font-medium">
-                            {user?.username || "User"}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {user?.email}
-                          </p>
-                        </div>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-destructive focus:text-destructive cursor-pointer"
-                        onClick={() => setIsLogoutDialogOpen(true)}
-                      >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Log out</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <button
-                    className="bg-white rounded-full h-10 aspect-square flex justify-center items-center"
-                    onClick={handleLoginClick}
-                    type="button"
-                  >
-                    <User className="h-4 w-4 text-[#191f23]" />
-                  </button>
-                )}
+                {renderUserControls()}
               </div>
             </div>
           </div>
@@ -232,49 +238,7 @@ export default function Navbar({
         {/* User Button (only for desktop, on right side) */}
         {!isMobile && (
           <div className="flex justify-end items-center md:w-1/3">
-            {isAuthenticated ? (
-              <DropdownMenu
-                open={isUserMenuOpen}
-                onOpenChange={setIsUserMenuOpen}
-              >
-                <DropdownMenuTrigger asChild>
-                  <button
-                    className="bg-primary text-primary-foreground rounded-full h-10 aspect-square flex justify-center items-center"
-                    type="button"
-                  >
-                    <User className="h-4 w-4" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuItem
-                    className="cursor-default"
-                    onClick={() => router.push("/profile")}
-                  >
-                    <div>
-                      <p className="font-medium">{user?.username || "User"}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {user?.email}
-                      </p>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="text-destructive focus:text-destructive cursor-pointer"
-                    onClick={() => setIsLogoutDialogOpen(true)}
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <button
-                className="bg-white rounded-full h-10 aspect-square flex justify-center items-center"
-                onClick={handleLoginClick}
-                type="button"
-              >
-                <User className="h-4 w-4 text-[#191f23]" />
-              </button>
-            )}
+            {renderUserControls()}
           </div>
         )}
       </div>

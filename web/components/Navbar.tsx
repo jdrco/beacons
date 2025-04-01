@@ -142,7 +142,7 @@ export default function Navbar({
           onClick={handleLoginClick}
           type="button"
         >
-          {!isMobile && <span className="font-medium">Sign In</span>}
+          {!isMobile && <span className="font-medium text-sm">Sign In</span>}
           <LogIn className="h-4 w-4" />
         </button>
       );

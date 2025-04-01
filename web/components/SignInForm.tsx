@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -23,14 +22,12 @@ export function SignInForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
     try {
       // Validate email domain
       if (!formData.username.endsWith("@ualberta.ca")) {
         setError("Only @ualberta.ca email addresses are allowed");
         return;
       }
-
       await login(formData.username, formData.password);
     } catch (error) {
       const errorMessage =
@@ -85,8 +82,14 @@ export function SignInForm({
         </div>
 
         <div className="grid gap-2">
-          <div className="flex items-center">
+          <div className="flex items-center justify-between">
             <Label htmlFor="password">Password</Label>
+            <a
+              href="/forgot-password"
+              className="text-sm text-muted-foreground underline-offset-4 hover:text-primary hover:underline"
+            >
+              Forgot password?
+            </a>
           </div>
           <Input
             id="password"

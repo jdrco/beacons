@@ -151,18 +151,6 @@ export function SignUpForm({
             The verification link will expire in 24 hours. If you don't see the
             email, please check your spam or junk folder.
           </p>
-
-          <p className="text-sm">
-            You'll be redirected to the sign-in page in a few seconds, or you
-            can{" "}
-            <a
-              href="/signin"
-              className="underline underline-offset-4 hover:text-primary"
-            >
-              sign in now
-            </a>
-            .
-          </p>
         </div>
       </div>
     );

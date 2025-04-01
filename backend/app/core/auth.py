@@ -453,7 +453,7 @@ async def send_reset_password_email(
     email: str,
     token: str
 ):
-    reset_url = f"http://localhost:8000/user/reset-password?token={token}"
+    reset_url = f"http://localhost:3000/reset-password?token={token}"
     message = MessageSchema(
         subject="Password Reset Request",
         recipients=[email],

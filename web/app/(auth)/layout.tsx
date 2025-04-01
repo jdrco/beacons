@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         {/* Info text aligned bottom right as a vertical list */}
-        <div className="absolute bottom-6 right-6 z-10 text-right text-white space-y-1">
+        <div className="absolute bottom-10 right-10 z-10 text-right text-white space-y-1">
           <h1 className="font-bold text-xl">Sign up for more features</h1>
           <br />
           <p>Save and manage your favourite classrooms</p>

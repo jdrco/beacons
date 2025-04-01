@@ -1,5 +1,5 @@
 import re
-from typing import Literal, Optional
+from typing import Optional
 from pydantic import BaseModel, EmailStr, field_validator
 from app.utils.response import error_response
 
@@ -8,6 +8,7 @@ class UserCreate(BaseModel):
     username: str
     password: str
     re_password: str
+    program: Optional[str] = None
 
     @field_validator("email", "username", mode="before")
     @classmethod

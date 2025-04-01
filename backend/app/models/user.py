@@ -24,7 +24,8 @@ class Program(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, nullable=False)
     name = Column(String, nullable=False)
-    description = Column(String, nullable=True)
+    is_undergrad = Column(Boolean, nullable=False, default=True)
+    faculty = Column(String, nullable=False)
 
     users = relationship("User", back_populates="program")
 

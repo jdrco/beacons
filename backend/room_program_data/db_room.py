@@ -61,7 +61,7 @@ try:
         session.flush()
 
         for full_room_name, schedules in details["rooms"].items():
-            room_name = full_room_name[len(building_name) + 1 :] if full_room_name.startswith(building_name + " ") else full_room_name
+            room_name = full_room_name
 
             room = Room(
                 id=uuid.uuid4(),
@@ -126,9 +126,6 @@ try:
 except SQLAlchemyError as e:
     session.rollback()
     print(f"❌ Error occurred: {e}")
-
-# finally:
-#     session.close()
 
 WORKING_HOURS_START = time(8, 0)
 WORKING_HOURS_END = time(22, 0)

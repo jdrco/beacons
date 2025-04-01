@@ -17,7 +17,7 @@ from app.core.database import get_db
 from app.schemas.user import UserCreate, TokenResponse, PasswordReset, EmailPasswordReset
 from app.crud.user import get_user_by_email, get_user_by_username
 from app.utils.response import success_response, error_response
-from app.models.user import User, Cookie
+from app.models.user import User, Program, Cookie
 from app.utils.query import filter_query
 
 logging.getLogger("passlib").setLevel(logging.ERROR)
@@ -47,6 +47,7 @@ def create_user(
     username: str,
     password: str,
     active: bool = False,
+    program_id: UUID = None
 ):
     hashed_password = get_password_hash(password)
     new_user = User(
@@ -54,6 +55,7 @@ def create_user(
         username=username,
         password=hashed_password,
         active=active,
+        program_id=program_id
     )
     db.add(new_user)
     db.commit()
@@ -114,7 +116,10 @@ def get_active_user(
         return error_response(401, False, {"error": str(e)})
 
 @router.post("/signup")
-async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
+async def sign_up(
+    user: UserCreate,
+    db: Session = Depends(get_db)
+):
     try:
         existing_email = get_user_by_email(db, user.email)
         if existing_email:
@@ -132,12 +137,25 @@ async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
                 message="Username already taken."
             )
 
+        program_id = None
+        if user.program:
+            programs = filter_query(db, model=Program, filters=[Program.name == user.program])
+            if programs:
+                program_id = programs[0].id
+            else:
+                return error_response(
+                    status_codes=400,
+                    status=False,
+                    message="Program not found."
+                )
+
         new_user = create_user(
             db,
             email=user.email,
             username=user.username,
             password=user.password,
             active=False,
+            program_id=program_id
         )
 
         verification_token = create_verification_token(new_user.email)
@@ -147,7 +165,7 @@ async def sign_up(user: UserCreate, db: Session = Depends(get_db)):
             status_codes=201,
             status=True,
             message="User successfully registered",
-            data={"id": str(new_user.id), "email": new_user.email, "username": new_user.username}
+            data={"id": str(new_user.id), "email": new_user.email, "username": new_user.username, "program": user.program}
         )
     except Exception as e:
         return error_response(

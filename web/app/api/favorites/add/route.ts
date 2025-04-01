@@ -21,13 +21,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the request for debugging
-    console.log(
-      `Making request to: ${
-        process.env.NEXT_PUBLIC_API_URL
-      }/user/add_favorite_room?room_name=${encodeURIComponent(roomName)}`
-    );
-
     // Call the backend API to add the favorite
     const response = await fetch(
       `${
@@ -42,16 +35,16 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    // Log the response status for debugging
-    console.log(`Backend response status: ${response.status}`);
-
     // Try to parse the response as JSON
     let data;
     try {
       data = await response.json();
     } catch (error) {
       console.error("Failed to parse response as JSON:", error);
-      data = { message: "Failed to parse response" };
+      return NextResponse.json(
+        { message: "Failed to parse response" },
+        { status: 500 }
+      );
     }
 
     if (!response.ok) {

@@ -30,13 +30,25 @@ export async function POST(request: NextRequest) {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       }
     );
 
-    const data = await response.json();
+    // Try to parse the response as JSON
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      console.error("Failed to parse response as JSON:", error);
+      return NextResponse.json(
+        { message: "Failed to parse response" },
+        { status: 500 }
+      );
+    }
 
     if (!response.ok) {
+      console.error("Error response from backend:", data);
       return NextResponse.json(
         { message: data.message || "Failed to remove favorite" },
         { status: response.status }

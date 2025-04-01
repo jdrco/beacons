@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
+    const { roomName } = await request.json();
+
+    if (!roomName) {
+      return NextResponse.json(
+        { message: "Room name is required" },
+        { status: 400 }
+      );
+    }
+
     // Get the token from the cookie
     const token = request.cookies.get("access_token")?.value;
 
@@ -12,11 +21,13 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Call the backend API to fetch favorite rooms
+    // Call the backend API to toggle notification
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/list_favorite_rooms`,
+      `${
+        process.env.NEXT_PUBLIC_API_URL
+      }/user/toggle_notification?room_name=${encodeURIComponent(roomName)}`,
       {
-        method: "GET",
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -39,14 +50,14 @@ export async function GET(request: NextRequest) {
     if (!response.ok) {
       console.error("Error response from backend:", data);
       return NextResponse.json(
-        { message: data.message || "Failed to fetch favorites" },
+        { message: data.message || "Failed to toggle notification" },
         { status: response.status }
       );
     }
 
     return NextResponse.json(data);
   } catch (error) {
-    console.error("Error fetching favorites:", error);
+    console.error("Error toggling notification:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

@@ -381,7 +381,7 @@ def verify_email(
         user.active = True
         db.commit()
 
-        return RedirectResponse(url="") #TODO
+        return RedirectResponse(url="http://localhost:3000/signin") #TODO: switch to prod or env vars
 
     except Exception as e:
         return error_response(

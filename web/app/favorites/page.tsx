@@ -6,7 +6,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/hooks/useFavorites";
 import Logo from "@/components/Logo";
 import Link from "next/link";
-import { ChevronLeft, DoorOpen, Star, Trash2 } from "lucide-react";
+import {
+  ChevronLeft,
+  DoorOpen,
+  Star,
+  Trash2,
+  Bell,
+  BellOff,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -19,12 +26,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Switch } from "@/components/ui/switch";
 
 export default function FavoritesPage() {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const router = useRouter();
-  const { favorites, isLoading, error, toggleFavorite, fetchFavorites } =
-    useFavorites();
+  const {
+    favorites,
+    favoriteDetails,
+    isLoading,
+    error,
+    toggleFavorite,
+    fetchFavorites,
+    toggleNotification,
+    getNotificationStatus,
+  } = useFavorites();
   const [roomToDelete, setRoomToDelete] = useState<string | null>(null);
 
   // Redirect to login if not authenticated
@@ -44,6 +60,10 @@ export default function FavoritesPage() {
   const handleRemoveFavorite = async (roomName: string) => {
     await toggleFavorite(roomName, false);
     setRoomToDelete(null);
+  };
+
+  const handleToggleNotification = async (roomName: string) => {
+    await toggleNotification(roomName);
   };
 
   return (
@@ -93,14 +113,30 @@ export default function FavoritesPage() {
                       <DoorOpen className="h-5 w-5 text-primary" />
                       <CardTitle>{roomName}</CardTitle>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setRoomToDelete(roomName)}
-                      className="text-gray-400 hover:text-red-500"
-                    >
-                      <Trash2 className="h-5 w-5" />
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 mr-2">
+                        <Switch
+                          checked={getNotificationStatus(roomName)}
+                          onCheckedChange={() =>
+                            handleToggleNotification(roomName)
+                          }
+                          aria-label="Toggle notifications"
+                        />
+                        {getNotificationStatus(roomName) ? (
+                          <Bell className="h-4 w-4 text-primary" />
+                        ) : (
+                          <BellOff className="h-4 w-4 text-gray-400" />
+                        )}
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setRoomToDelete(roomName)}
+                        className="text-gray-400 hover:text-red-500"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardFooter>

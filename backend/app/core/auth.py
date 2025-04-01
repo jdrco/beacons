@@ -8,12 +8,13 @@ from fastapi import Response, Depends, Security
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.routing import APIRouter
 from fastapi.security import OAuth2PasswordBearer
+from fastapi.responses import RedirectResponse
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.schemas.user import UserCreate, TokenResponse, PasswordReset
+from app.schemas.user import UserCreate, TokenResponse, PasswordReset, EmailPasswordReset
 from app.crud.user import get_user_by_email, get_user_by_username
 from app.utils.response import success_response, error_response
 from app.models.user import User, Cookie
@@ -330,14 +331,8 @@ def verify_email(
         user.active = True
         db.commit()
 
-        # return RedirectResponse(url="http://localhost:8000/success-page")
+        return RedirectResponse(url="") #TODO
 
-        return success_response(
-            status_codes=200,
-            status=True,
-            message="Email verified successfully."
-        )
-    
     except Exception as e:
         return error_response(
             status_codes=500,
@@ -388,7 +383,7 @@ async def request_password_reset(
             message="User not found."
         )
 
-    if not user.is_verified:
+    if not user.active:
         return error_response(
             status_codes=400,
             status=False,
@@ -417,3 +412,93 @@ async def send_reset_password_email(
     )
     fm = FastMail(conf)
     await fm.send_message(message)
+
+@router.get("/verify-password-reset")
+async def verify_password_reset(token: str, db: Session = Depends(get_db)):
+    try:
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+        email = payload.get("sub")
+
+        if email is None:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Invalid token."
+            )
+
+        user = get_user_by_email(db, email=email)
+        if not user:
+            return error_response(
+                status_codes=404,
+                status=False,
+                message="User not found."
+            )
+
+        return RedirectResponse(url="") #TODO
+
+    except jwt.ExpiredSignatureError:
+        return error_response(
+            status_codes=400,
+            status=False,
+            message="Token has expired."
+        )
+    except jwt.JWTError:
+        return error_response(
+            status_codes=400,
+            status=False,
+            message="Invalid token."
+        )
+    except Exception as e:
+        return error_response(
+            status_codes=500,
+            status=False,
+            message={"error": str(e)}
+        )
+
+@router.post("/reset-password")
+async def reset_password(
+    token: str,
+    data: EmailPasswordReset,
+    db: Session = Depends(get_db)
+):
+    if data.password != data.re_password:
+        return error_response(
+            status_codes=400,
+            status=False,
+            message="Passwords do not match."
+        )
+
+    try:
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+        email = payload.get("sub")
+
+        if email is None:
+            return error_response(
+                status_codes=400,
+                status=False,
+                message="Invalid token."
+            )
+
+        user = get_user_by_email(db, email=email)
+        if not user:
+            return error_response(
+                status_codes=404,
+                status=False,
+                message="User not found."
+            )
+
+        user.password = get_password_hash(data.password)
+        db.commit()
+        db.refresh(user)
+
+        return success_response(
+            status_codes=200,
+            status=True,
+            message="Password reset successfully."
+        )
+    except Exception as e:
+        return error_response(
+            status_codes=500,
+            status=False,
+            message=str(e)
+        )

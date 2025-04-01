@@ -96,13 +96,7 @@ def get_favorite_rooms(
             offset=(page - 1) * per_page
         )
 
-        favorite_rooms_data = [
-            {
-                "id": str(room.id),
-                "building_id": str(room.building_id),
-                "name": room.name
-            } for room in favorite_rooms
-        ]
+        favorite_rooms_data = [room.name for room in favorite_rooms]
 
         pagination = {
             "total": total_count,
@@ -111,11 +105,20 @@ def get_favorite_rooms(
             "total_pages": (total_count + per_page - 1) // per_page
         }
 
-        return success_response(200, True, "Favorite rooms found", data=favorite_rooms_data, pagination=pagination)
+        return success_response(
+            200,
+            True,
+            "Favorite rooms found",
+            data=favorite_rooms_data,
+            pagination=pagination
+        )
 
     except Exception as e:
-        return error_response(500, False, str(e))
-
+        return error_response(
+            500,
+            False,
+            str(e)
+        )
 
 @router.put("/user/add_multiple_favorite_rooms")
 def add_multiple_favorite_rooms(
@@ -128,69 +131,100 @@ def add_multiple_favorite_rooms(
             UserFavoriteRoom.user_id == current_user.id
         ).delete()
 
-        valid_room_ids = {
-            room_id[0] for room_id in db.query(Room.id).filter(Room.id.in_(request.room_ids)).all()
-        }
+        valid_rooms = db.query(Room).filter(Room.name.in_(request.room_names)).all()
+        valid_room_ids = {room.id for room in valid_rooms}
 
         new_favorites = [
             UserFavoriteRoom(user_id=current_user.id, room_id=room_id)
-            for room_id in request.room_ids if room_id in valid_room_ids
+            for room_id in valid_room_ids
         ]
 
         db.add_all(new_favorites)
         db.commit()
 
-        return success_response(200, True, "Favorite rooms updated successfully")
+        return success_response(
+            200,
+            True,
+            "Favorite rooms updated successfully"
+        )
 
     except Exception as e:
         db.rollback()
-        return error_response(500, False, str(e))
+        return error_response(
+            500,
+            False,
+            str(e)
+        )
 
 @router.put("/user/add_favorite_room")
 def add_favorite_room(
-    room_id: UUID,
+    room_name: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_active_user)):
-
+    current_user: User = Depends(get_active_user)
+):
     try:
-        room_exists = db.query(Room.id).filter(Room.id == room_id).scalar()
-        if not room_exists:
+        room = db.query(Room).filter(Room.name == room_name).first()
+        if not room:
             return error_response(404, False, "Room not found")
 
         existing_favorite = db.query(UserFavoriteRoom).filter(
             UserFavoriteRoom.user_id == current_user.id,
-            UserFavoriteRoom.room_id == room_id
+            UserFavoriteRoom.room_id == room.id
         ).first()
 
         if existing_favorite:
             return error_response(409, False, "Room already favorited")
 
-        favorite = UserFavoriteRoom(user_id=current_user.id, room_id=room_id)
+        favorite = UserFavoriteRoom(user_id=current_user.id, room_id=room.id)
         db.add(favorite)
         db.commit()
 
-        return success_response(200, True, "Room favorited")
+        return success_response(
+            200,
+            True,
+            "Room favorited successfully"
+        )
     except Exception as e:
         db.rollback()
-        return error_response(500, False, str(e))
+        return error_response(
+            500,
+            False,
+            str(e)
+        )
 
 @router.delete("/user/remove_favorite_room")
 def remove_favorite_room(
-    room_id: UUID,
+    room_name: str,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_active_user)):
-
+    current_user: User = Depends(get_active_user)
+):
     try:
+        room = db.query(Room).filter(Room.name == room_name).first()
+        if not room:
+            return error_response(404, False, "Room not found")
+
         deleted_count = db.query(UserFavoriteRoom).filter(
             UserFavoriteRoom.user_id == current_user.id,
-            UserFavoriteRoom.room_id == room_id
+            UserFavoriteRoom.room_id == room.id
         ).delete(synchronize_session="fetch")
 
         if deleted_count == 0:
-            return error_response(404, False, "Room not favorited or does not exist")
+            return error_response(
+                404,
+                False,
+                "Room not favorited or does not exist"
+            )
 
         db.commit()
-        return success_response(200, True, "Room removed from favorites")
+        return success_response(
+            200,
+            True,
+            "Room removed from favorites successfully"
+        )
     except Exception as e:
         db.rollback()
-        return error_response(500, False, str(e))
+        return error_response(
+            500,
+            False,
+            str(e)
+        )

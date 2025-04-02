@@ -139,11 +139,11 @@ export default function FavoritesPage() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardFooter>
+                {/* <CardFooter>
                   <Button variant="outline" className="w-full" asChild>
                     <Link href={`/home?room=${roomName}`}>View Room</Link>
                   </Button>
-                </CardFooter>
+                </CardFooter> */}
               </Card>
             ))}
           </div>

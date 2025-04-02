@@ -1,8 +1,6 @@
 import re
-from typing import Optional
+from typing import Optional, List, Union
 from pydantic import BaseModel, EmailStr, field_validator
-from fastapi import HTTPException
-from app.utils.response import error_response
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -34,3 +32,8 @@ class UserUpdate(BaseModel):
 class EmailPasswordReset(BaseModel):
     password: str
     re_password: str
+
+class LocationData(BaseModel):
+    start_lat: float
+    start_long: float
+    destinations: List[List[Union[str, float, float]]]

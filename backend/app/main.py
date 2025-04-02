@@ -1,14 +1,41 @@
+import logging
+from datetime import datetime, timedelta
+from contextlib import asynccontextmanager
+from collections import defaultdict
+
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_mail import FastMail, MessageSchema
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from sqlalchemy.orm import Session
 
 from app.core.auth import get_active_user, router as auth_router
 from app.routes.user import router as user_router
 from app.utils.response import success_response, error_response
 from app.models.user import User
+from app.core.database import get_db
+from app.models.building import Room, RoomSchedule, SingleEventSchedule, UserFavoriteRoom
+from app.core.auth import conf
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+scheduler = AsyncIOScheduler()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    scheduler.add_job(scheduled_task, 'interval', seconds=300)
+    scheduler.start()
+    logger.info("Scheduler started.")
+    yield
+    scheduler.shutdown()
+    logger.info("Scheduler stopped.")
+
 
 app = FastAPI(
     title="Beacons API",
     description="API for Beacons application",
+    # lifespan=lifespan
 )
 
 app.add_middleware(
@@ -35,3 +62,107 @@ async def private_health_check(
     if not current_user:
         return error_response(401, False, "Unauthorized. Please log in.")
     return success_response(200, True, "Private health check.")
+
+async def send_email(subject: str, email_to: str, body: str):
+    try:
+        message = MessageSchema(
+            subject=subject,
+            recipients=[email_to],
+            body=body,
+            subtype="html"
+        )
+        fm = FastMail(conf)
+        await fm.send_message(message)
+    except Exception as e:
+        logger.error(f"Error sending email to {email_to}: {e}")
+
+def check_available_rooms(db: Session):
+    now = datetime.now()
+    five_minutes_ago = now - timedelta(minutes=5)
+
+    weekday_map = {
+        0: 'M',  # Monday
+        1: 'T',  # Tuesday
+        2: 'W',  # Wednesday
+        3: 'R',  # Thursday
+        4: 'F',  # Friday
+        5: 'S',  # Saturday
+        6: 'U'   # Sunday
+    }
+
+    current_day_abbreviation = weekday_map[now.weekday()]
+
+    try:
+        available_rooms = db.query(Room).join(RoomSchedule).filter(
+            RoomSchedule.occupied == False,
+            RoomSchedule.day == current_day_abbreviation,
+            RoomSchedule.start_time >= five_minutes_ago.time(),
+            RoomSchedule.start_time <= now.time()
+        ).all()
+
+        available_rooms += db.query(Room).join(SingleEventSchedule).filter(
+            SingleEventSchedule.start_time >= five_minutes_ago,
+            SingleEventSchedule.start_time <= now
+        ).all()
+
+        filtered_rooms = []
+        for room in available_rooms:
+
+            favorites = db.query(UserFavoriteRoom).filter(
+                UserFavoriteRoom.room_id == room.id,
+                UserFavoriteRoom.notification_sent == True
+            ).all()
+
+            if favorites:
+                filtered_rooms.append((room, favorites))
+
+        return filtered_rooms
+
+    except Exception as e:
+        logger.error(f"Error checking available rooms: {e}")
+
+async def scheduled_task():
+    logger.info(f"Scheduled task triggered at {datetime.now()}")
+    db = next(get_db())
+
+    try:
+        available_rooms = check_available_rooms(db)
+
+        if available_rooms:
+            logger.info(f"Found {len(available_rooms)} available rooms. Sending notifications...")
+
+            user_notifications = defaultdict(list)
+            for room, favorites in available_rooms:
+                for favorite in favorites:
+                    user_notifications[favorite.user.email].append(room.name)
+
+            for user_email, room_names in user_notifications.items():
+                room_list_html = "".join([f"<li>{room}</li>" for room in room_names])
+                subject = "Available Room Notifications"
+                body = f"""
+                <html>
+                <body>
+                    <h1>Available Rooms Notification</h1>
+                    <p>The following rooms are now available:</p>
+                    <ul>
+                        {room_list_html}
+                    </ul>
+                    <p>Please book them quickly!</p>
+                </body>
+                </html>
+                """
+                try:
+                    await send_email(subject, user_email, body)
+                    logger.info(f"Notification sent successfully to {user_email} for rooms: {', '.join(room_names)}")
+                except Exception as e:
+                    logger.error(f"Failed to send notification to {user_email}: {e}")
+        else:
+            logger.info("No available rooms found to notify users.")
+
+    except Exception as e:
+        logger.error(f"Error during scheduled task: {e}")
+
+    finally:
+        db.close()
+
+    logger.info(f"Scheduled task completed at {datetime.now()}")

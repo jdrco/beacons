@@ -59,7 +59,7 @@ export function useBuildingSelection({
                 element.scrollIntoView({ behavior: "smooth", block: "start" });
               } else {
                 // On desktop, use the original approach with padding
-                const scrollPosition = element.offsetTop - 88;
+                const scrollPosition = element.offsetTop - 130;
                 container.scrollTo({
                   top: Math.max(0, scrollPosition),
                   behavior: "smooth",

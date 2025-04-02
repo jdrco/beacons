@@ -1,8 +1,6 @@
 import re
 from typing import Optional
 from pydantic import BaseModel, EmailStr, field_validator
-from fastapi import HTTPException
-from app.utils.response import error_response
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -34,3 +32,16 @@ class UserUpdate(BaseModel):
 class EmailPasswordReset(BaseModel):
     password: str
     re_password: str
+
+class LocationData(BaseModel):
+    start_lat: float
+    start_long: float
+    end_lat: float
+    end_long: float
+
+    @field_validator("start_lat", "start_long", "end_lat", "end_long")
+    @classmethod
+    def trim_spaces(cls, value: float):
+        if isinstance(value, float):
+            return value
+        return value

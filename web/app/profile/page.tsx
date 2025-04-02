@@ -35,6 +35,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Logo from "@/components/Logo";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import ProfilePhoto from "@/components/ProfilePhoto";
 
 interface Program {
   id: string;
@@ -356,9 +357,7 @@ export default function ProfilePage() {
           {/* Left column - Profile picture and buttons */}
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
-              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#4AA69D] via-[#DDAA5E] to-[#F66A6A] overflow-hidden flex items-center justify-center text-white text-6xl font-bold">
-                {getInitial()}
-              </div>
+              <ProfilePhoto username={profileData.username} />
               {/* Online indicator */}
               <div className="absolute bottom-2 right-2 w-4 h-4 rounded-full bg-green-500 border-2 border-[#111518]"></div>
             </div>
@@ -527,9 +526,7 @@ export default function ProfilePage() {
                   className="flex flex-col items-center gap-4 md:gap-6"
                 >
                   <div className="relative">
-                    <div className="w-28 h-28 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-[#4AA69D] via-[#DDAA5E] to-[#F66A6A] overflow-hidden flex items-center justify-center text-white text-4xl md:text-6xl font-bold">
-                      {getInitial()}
-                    </div>
+                    <ProfilePhoto username={profileData.username} />
                     {/* Online indicator */}
                     <div className="absolute bottom-1 right-1 md:bottom-2 md:right-2 w-3 h-3 md:w-4 md:h-4 rounded-full bg-green-500 border-2 border-[#111518]"></div>
                   </div>

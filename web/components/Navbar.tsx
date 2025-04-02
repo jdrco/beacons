@@ -4,13 +4,14 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
-import { LogOut, User, LogIn, Heart } from "lucide-react";
+import { LogOut, LogIn, Heart, AlignJustify, User2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/useToast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ProfilePhoto from "@/components/ProfilePhoto";
 
 import {
   AlertDialog,
@@ -97,45 +98,70 @@ export default function Navbar({
     }
   };
 
+  // Navigate to favorites page
+  const handleFavoritesClick = () => {
+    router.push("/favorites");
+  };
+
   // User profile button or sign in button based on authentication status
   const renderUserControls = () => {
     if (isAuthenticated) {
       return (
-        <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
-          <DropdownMenuTrigger asChild>
+        <div className="flex items-center gap-2">
+          {/* Favorites button - only shown on desktop */}
+          {!isMobile && (
             <button
-              className="bg-primary text-primary-foreground rounded-full h-10 aspect-square flex justify-center items-center"
+              className="bg-[#e4e4e4] text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 w-10 flex justify-center items-center"
+              onClick={handleFavoritesClick}
               type="button"
+              aria-label="My Favorites"
             >
-              <User className="h-4 w-4" />
+              <Heart className="h-4 w-4" />
             </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => router.push("/profile")}
-            >
-              <div>
-                <p className="font-medium">{user?.username || "User"}</p>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => router.push("/favorites")}
-            >
-              <Heart className="mr-2 h-4 w-4" />
-              <span>My Favorites</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="text-destructive focus:text-destructive cursor-pointer"
-              onClick={() => setIsLogoutDialogOpen(true)}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          )}
+
+          <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
+            <DropdownMenuTrigger asChild>
+              <button
+                className="bg-[#e4e4e4] text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 flex justify-center items-center px-2 gap-x-2"
+                type="button"
+              >
+                {/* <User className="h-4 w-4" /> */}
+                <AlignJustify className="w-4 h-4 ml-1" />
+                <ProfilePhoto
+                  username={user?.username || ""}
+                  is_navbar={true}
+                />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => router.push("/profile")}
+              >
+                <User2 className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </DropdownMenuItem>
+              {/* Show Favorites in dropdown only on mobile */}
+              {isMobile && (
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => router.push("/favorites")}
+                >
+                  <Heart className="mr-2 h-4 w-4" />
+                  <span>My Favorites</span>
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem
+                className="text-destructive focus:text-destructive cursor-pointer"
+                onClick={() => setIsLogoutDialogOpen(true)}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       );
     } else {
       return (

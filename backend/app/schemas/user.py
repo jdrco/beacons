@@ -1,5 +1,5 @@
 import re
-from typing import Optional
+from typing import Optional, List, Union
 from pydantic import BaseModel, EmailStr, field_validator
 
 class UserCreate(BaseModel):
@@ -36,12 +36,4 @@ class EmailPasswordReset(BaseModel):
 class LocationData(BaseModel):
     start_lat: float
     start_long: float
-    end_lat: float
-    end_long: float
-
-    @field_validator("start_lat", "start_long", "end_lat", "end_long")
-    @classmethod
-    def trim_spaces(cls, value: float):
-        if isinstance(value, float):
-            return value
-        return value
+    destinations: List[List[Union[str, float, float]]]

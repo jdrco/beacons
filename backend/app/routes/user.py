@@ -273,24 +273,40 @@ def toggle_notification(
         db.rollback()
         return error_response(500, False, str(e))
 
-@router.post("/calculate_distance")
-async def calculate_distance(
-    locations: LocationData
-):
+@router.post("/calculate_distances")
+async def calculate_distances(locations: LocationData):
     try:
-        start_lat = radians(locations.start_lat)
-        start_long = radians(locations.start_long)
-        dest_lat = radians(locations.end_lat)
-        dest_long = radians(locations.end_long)
+        def calculate_distance(start_lat, start_long, dest_lat, dest_long):
+            start_lat = radians(start_lat)
+            start_long = radians(start_long)
+            dest_lat = radians(dest_lat)
+            dest_long = radians(dest_long)
 
-        dlon = dest_long - start_long
-        dlat = dest_lat - start_lat
-        a = sin(dlat / 2)**2 + cos(start_lat) * cos(dest_lat) * sin(dlon / 2)**2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        radius = 6371.0
+            dlon = dest_long - start_long
+            dlat = dest_lat - start_lat
+            a = sin(dlat / 2)**2 + cos(start_lat) * cos(dest_lat) * sin(dlon / 2)**2
+            c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            radius = 6371.0
 
-        distance = radius * c
+            return radius * c
 
-        return {"distance_km": distance}
+        results = []
+        for destination in locations.destinations:
+            if len(destination) != 3:
+                return error_response(400, False, "Each destination must have exactly three items: [name, latitude, longitude].")
+
+            name, dest_lat, dest_long = destination
+            distance = calculate_distance(
+                locations.start_lat,
+                locations.start_long,
+                dest_lat,
+                dest_long
+            )
+            results.append({
+                "name": name,
+                "distance_km": distance
+            })
+
+        return {"distances": results}
     except Exception as e:
         return {"error": str(e)}

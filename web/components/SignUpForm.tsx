@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+interface Program {
+  id: string;
+  name: string;
+  is_undergrad: boolean;
+  faculty: string;
+}
+
+interface Faculty {
+  name: string;
+}
 
 export function SignUpForm({
   className,
@@ -20,11 +38,77 @@ export function SignUpForm({
     username: "",
     password: "",
     re_password: "",
-    education_level: "",
+    is_undergrad: true,
+    faculty: "",
+    program: null as string | null,
   });
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  const [faculties, setFaculties] = useState<Faculty[]>([]);
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [filteredPrograms, setFilteredPrograms] = useState<Program[]>([]);
+  const [isLoadingPrograms, setIsLoadingPrograms] = useState(false);
+
+  // Fetch faculties and programs on initial load
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        setIsLoadingPrograms(true);
+        // Fetch all programs without pagination limit
+        const response = await fetch(`/api/programs`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch programs");
+        }
+
+        const data = await response.json();
+
+        if (data.status && data.data) {
+          setPrograms(data.data);
+
+          // First collect all faculty names that are strings
+          const allFacultyNames: string[] = [];
+          data.data.forEach((program: Program) => {
+            if (typeof program.faculty === "string" && program.faculty) {
+              allFacultyNames.push(program.faculty);
+            }
+          });
+
+          // Then get unique values and create Faculty objects
+          const uniqueFacultyNames = [...new Set(allFacultyNames)].sort();
+          const facultyObjects: Faculty[] = uniqueFacultyNames.map((name) => ({
+            name,
+          }));
+
+          setFaculties(facultyObjects);
+        }
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      } finally {
+        setIsLoadingPrograms(false);
+      }
+    };
+
+    fetchPrograms();
+  }, []);
+
+  // The rest of the component remains the same...
+
+  // Filter programs when faculty or education level changes
+  useEffect(() => {
+    if (formData.faculty) {
+      const filtered = programs.filter(
+        (program) =>
+          program.faculty === formData.faculty &&
+          program.is_undergrad === formData.is_undergrad
+      );
+      setFilteredPrograms(filtered);
+    } else {
+      setFilteredPrograms([]);
+    }
+  }, [formData.faculty, programs, formData.is_undergrad]);
 
   const validatePassword = (password: string) => {
     if (!/[A-Z]/.test(password)) {
@@ -62,15 +146,6 @@ export function SignUpForm({
       return;
     }
 
-    // Validate education level
-    if (
-      formData.education_level &&
-      !["Undergraduate", "Graduate"].includes(formData.education_level)
-    ) {
-      setError("Education level must be either Undergraduate or Graduate.");
-      return;
-    }
-
     // Validate username
     if (!formData.username.trim()) {
       setError("Username is required.");
@@ -85,7 +160,7 @@ export function SignUpForm({
       username: formData.username,
       password: formData.password,
       re_password: formData.re_password,
-      education_level: formData.education_level || null,
+      program: formData.program,
     };
 
     try {
@@ -123,6 +198,30 @@ export function SignUpForm({
     setError(null);
   };
 
+  const handleFacultyChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      faculty: value,
+      program: null, // Reset program when faculty changes
+    }));
+  };
+
+  const handleEducationLevelChange = (value: string) => {
+    const isUndergrad = value === "Undergraduate";
+    setFormData((prev) => ({
+      ...prev,
+      is_undergrad: isUndergrad,
+      program: null, // Reset program when education level changes
+    }));
+  };
+
+  const handleProgramChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      program: value,
+    }));
+  };
+
   // If registration was successful, show the verification message
   if (success) {
     return (
@@ -148,8 +247,8 @@ export function SignUpForm({
           </p>
 
           <p className="text-sm text-muted-foreground">
-            The verification link will expire in 24 hours. If you don't see the
-            email, please check your spam or junk folder.
+            The verification link will expire in 30 minutes. If you don't see
+            the email, please check your spam or junk folder.
           </p>
         </div>
       </div>
@@ -165,7 +264,7 @@ export function SignUpForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create an account</h1>
         <p className="text-balance text-sm text-muted-foreground">
-          Enter your information below to sign up for Beacons
+          Enter your information below to sign up
         </p>
       </div>
 
@@ -208,6 +307,70 @@ export function SignUpForm({
           <p className="text-xs text-muted-foreground">
             This is your display name that others will see
           </p>
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="education">Education Level</Label>
+          <Select
+            value={formData.is_undergrad ? "Undergraduate" : "Graduate"}
+            onValueChange={handleEducationLevelChange}
+          >
+            <SelectTrigger id="education">
+              <SelectValue placeholder="Select education level" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Undergraduate">Undergraduate</SelectItem>
+              <SelectItem value="Graduate">Graduate</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="faculty">Faculty</Label>
+          <Select
+            value={formData.faculty}
+            onValueChange={handleFacultyChange}
+            disabled={isLoadingPrograms}
+          >
+            <SelectTrigger id="faculty">
+              <SelectValue placeholder="Select faculty" />
+            </SelectTrigger>
+            <SelectContent className="max-h-60 overflow-y-auto">
+              {faculties.map((faculty) => (
+                <SelectItem key={faculty.name} value={faculty.name}>
+                  {faculty.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="program">Program</Label>
+          <Select
+            value={formData.program || ""}
+            onValueChange={handleProgramChange}
+            disabled={!formData.faculty || isLoadingPrograms}
+          >
+            <SelectTrigger id="program">
+              <SelectValue placeholder="Select program" />
+            </SelectTrigger>
+            <SelectContent className="max-h-60 overflow-y-auto">
+              {filteredPrograms.map((program) => (
+                <SelectItem key={program.id} value={program.id}>
+                  {program.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {formData.faculty &&
+            filteredPrograms.length === 0 &&
+            !isLoadingPrograms && (
+              <p className="text-xs text-red-400">
+                No {formData.is_undergrad ? "undergraduate" : "graduate"}{" "}
+                programs found for this faculty.
+              </p>
+            )}
         </div>
 
         <div className="grid gap-2">

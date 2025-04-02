@@ -3,12 +3,20 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-// Define user type
+// Define user type with program and faculty information
 interface User {
   id?: string;
   email?: string;
   username?: string;
-  education_level?: string;
+  program_id?: string;
+  program?: {
+    id?: string;
+    name?: string;
+    is_undergrad?: boolean;
+    faculty?: string;
+  };
+  faculty?: string;
+  is_undergrad?: boolean;
   active?: boolean;
 }
 
@@ -55,8 +63,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (response.ok) {
         const userData = await response.json();
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+
+        // Process program information to make it easily accessible
+        const enhancedUser: User = {
+          ...userData,
+          faculty: userData.program?.faculty || "",
+          is_undergrad: userData.program?.is_undergrad !== false,
+        };
+
+        setUser(enhancedUser);
+        localStorage.setItem("user", JSON.stringify(enhancedUser));
       } else {
         // If backend verification fails, clear everything
         setUser(null);

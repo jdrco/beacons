@@ -20,11 +20,32 @@ def get_user(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    # Get program information if it exists
+    program_data = None
+    faculty = None
+    
+    if current_user.program_id is not None:
+        # Direct query for the program
+        program = db.query(Program).filter(Program.id == current_user.program_id).first()
+        
+        if program:
+            program_data = {
+                "id": str(program.id),
+                "name": program.name,
+                "is_undergrad": program.is_undergrad,
+                "faculty": program.faculty
+            }
+            faculty = program.faculty
+    
+    # Construct user data with program information
     user_data = {
         "id": str(current_user.id),
         "email": current_user.email,
         "username": current_user.username,
         "active": current_user.active,
+        "program_id": str(current_user.program_id) if current_user.program_id else None,
+        "program": program_data,
+        "faculty": faculty
     }
 
     return success_response(200, True, "User found", data=user_data)

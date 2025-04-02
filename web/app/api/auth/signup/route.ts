@@ -1,44 +1,55 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    // Get request body
     const body = await request.json();
 
-    // Make request to backend API
+    // Validate required fields
+    if (!body.email || !body.username || !body.password || !body.re_password) {
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Validate email domain
+    if (!body.email.endsWith("@ualberta.ca")) {
+      return NextResponse.json(
+        { message: "Only @ualberta.ca email addresses are allowed" },
+        { status: 400 }
+      );
+    }
+
+    // Call backend API
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        email: body.email,
+        username: body.username,
+        password: body.password,
+        re_password: body.re_password,
+        program: body.program || null,
+      }),
     });
 
-    // Parse response data
     const data = await response.json();
 
     if (!response.ok) {
-      // Return the exact error message from the backend
       return NextResponse.json(
-        {
-          message:
-            typeof data.message === "string"
-              ? data.message
-              : data.message?.error || "Registration failed",
-        },
+        { message: data.message || "Failed to create account" },
         { status: response.status }
       );
     }
 
-    // Return success response
-    return NextResponse.json({
-      message: "Account created successfully",
-      data: data.data,
-    });
-  } catch (error: unknown) {
-    const errorMessage =
-      error instanceof Error ? error.message : "An unexpected error occurred";
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Sign up error:", error);
     return NextResponse.json(
-      { message: `Internal server error: ${errorMessage}` },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

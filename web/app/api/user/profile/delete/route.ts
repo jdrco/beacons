@@ -12,20 +12,10 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // Get the user_id from the query parameters
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get("user_id");
-
-    if (!userId) {
-      return NextResponse.json(
-        { message: "User ID is required" },
-        { status: 400 }
-      );
-    }
-
     // Call backend API to delete the user
+    // The backend API uses the token to identify the user to delete
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/delete?user_id=${userId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/user/delete`,
       {
         method: "DELETE",
         headers: {

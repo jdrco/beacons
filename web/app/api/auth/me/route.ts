@@ -4,7 +4,6 @@ export async function GET(request: NextRequest) {
   try {
     // Get the token from the cookie
     const token = request.cookies.get("access_token")?.value;
-
     if (!token) {
       return NextResponse.json(
         { message: "Not authenticated" },
@@ -12,7 +11,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Call the backend user details endpoint to verify the token and get user data
+    // Call the backend API to get the current user
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
       {
@@ -23,15 +22,14 @@ export async function GET(request: NextRequest) {
     );
 
     if (!response.ok) {
+      const errorData = await response.json();
       return NextResponse.json(
-        { message: "Invalid or expired token" },
-        { status: 401 }
+        { message: errorData.message || "Failed to fetch user data" },
+        { status: response.status }
       );
     }
 
-    // Parse the user data from the response
     const data = await response.json();
-
     if (!data.status || !data.data) {
       return NextResponse.json(
         { message: "Failed to retrieve user data" },
@@ -39,8 +37,20 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Return the user data
-    return NextResponse.json(data.data);
+    // Get the user data from the response
+    const userData = data.data;
+
+    // Now userData should already have the program and faculty properties
+    // We just pass it through directly
+    return NextResponse.json({
+      id: userData.id,
+      email: userData.email,
+      username: userData.username,
+      program_id: userData.program_id,
+      program: userData.program,
+      faculty: userData.faculty,
+      active: userData.active,
+    });
   } catch (error) {
     console.error("Error fetching user data:", error);
     return NextResponse.json(

@@ -1,4 +1,4 @@
-from uuid import UUID
+from math import radians, sin, cos, sqrt, atan2
 
 from fastapi import Depends
 from fastapi.routing import APIRouter
@@ -10,7 +10,7 @@ from app.utils.response import success_response, error_response
 from app.core.auth import get_active_user
 from app.models.user import User, Program
 from app.models.building import Room, UserFavoriteRoom
-from app.schemas.user import UserUpdate
+from app.schemas.user import UserUpdate, LocationData
 from app.schemas.building import AddFavoriteRooms
 
 router = APIRouter()
@@ -293,3 +293,41 @@ def toggle_notification(
     except Exception as e:
         db.rollback()
         return error_response(500, False, str(e))
+
+@router.post("/calculate_distances")
+async def calculate_distances(locations: LocationData):
+    try:
+        def calculate_distance(start_lat, start_long, dest_lat, dest_long):
+            start_lat = radians(start_lat)
+            start_long = radians(start_long)
+            dest_lat = radians(dest_lat)
+            dest_long = radians(dest_long)
+
+            dlon = dest_long - start_long
+            dlat = dest_lat - start_lat
+            a = sin(dlat / 2)**2 + cos(start_lat) * cos(dest_lat) * sin(dlon / 2)**2
+            c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            radius = 6371.0
+
+            return radius * c
+
+        results = []
+        for destination in locations.destinations:
+            if len(destination) != 3:
+                return error_response(400, False, "Each destination must have exactly three items: [name, latitude, longitude].")
+
+            name, dest_lat, dest_long = destination
+            distance = calculate_distance(
+                locations.start_lat,
+                locations.start_long,
+                dest_lat,
+                dest_long
+            )
+            results.append({
+                "name": name,
+                "distance_km": distance
+            })
+
+        return {"distances": results}
+    except Exception as e:
+        return {"error": str(e)}

@@ -11,12 +11,13 @@ from sqlalchemy.orm import Session
 
 from app.core.auth import get_active_user, router as auth_router
 from app.routes.user import router as user_router
+from app.routes.occupancy import router as occupancy_router
 from app.utils.response import success_response, error_response
 from app.models.user import User
 from app.core.database import get_db
 from app.models.building import Room, RoomSchedule, SingleEventSchedule, UserFavoriteRoom
 from app.core.auth import conf
-from app.core.activity import websocket_endpoint
+from app.core.activity import websocket_endpoint, run_expiry_checker
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -25,7 +26,12 @@ scheduler = AsyncIOScheduler()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Start the regular scheduler for room availability check
     scheduler.add_job(scheduled_task, 'interval', seconds=300)
+    
+    # Add the check-in expiry task to the scheduler
+    scheduler.add_job(run_expiry_checker, 'interval', seconds=60)
+    
     scheduler.start()
     logger.info("Scheduler started.")
     yield
@@ -36,7 +42,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Beacons API",
     description="API for Beacons application",
-    # lifespan=lifespan
+    lifespan=lifespan
 )
 
 app.add_middleware(
@@ -47,9 +53,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# app.middleware("http")(validate_session_middleware)
+# Include routers
 app.include_router(auth_router, tags=["auth"])
 app.include_router(user_router, tags=["user"])
+app.include_router(occupancy_router, prefix="/api", tags=["occupancy"])
 
 # Add the WebSocket endpoint using the imported handler
 @app.websocket("/ws")
@@ -63,7 +70,6 @@ async def public_health_check():
 @app.get("/private_health", tags=["health"])
 async def private_health_check(
     current_user: User = Depends(get_active_user)):
-    print("testing")
     if not current_user:
         return error_response(401, False, "Unauthorized. Please log in.")
     return success_response(200, True, "Private health check.")

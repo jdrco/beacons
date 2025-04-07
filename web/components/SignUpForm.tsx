@@ -154,13 +154,23 @@ export function SignUpForm({
 
     setIsLoading(true);
 
+    // Find the program name from the selected program ID
+    let programName = null;
+
+    if (formData.program) {
+      const selectedProgram = programs.find((p) => p.id === formData.program);
+      if (selectedProgram) {
+        programName = selectedProgram.name;
+      }
+    }
+
     // Prepare the data in the format the backend expects
     const dataToSend = {
       email: formData.email,
       username: formData.username,
       password: formData.password,
       re_password: formData.re_password,
-      program: formData.program,
+      program: programName,
     };
 
     try {
@@ -357,7 +367,7 @@ export function SignUpForm({
             </SelectTrigger>
             <SelectContent className="max-h-60 overflow-y-auto">
               {filteredPrograms.map((program) => (
-                <SelectItem key={program.id} value={program.name}>
+                <SelectItem key={program.id} value={program.id}>
                   {program.name}
                 </SelectItem>
               ))}

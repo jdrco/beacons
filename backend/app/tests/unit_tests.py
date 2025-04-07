@@ -15,7 +15,6 @@ from app.models.building import Room
 from jose import jwt
 from app.core.config import settings
 
-
 fake_user = User(
     id=uuid4(),
     email="test@ualberta.ca",
@@ -36,6 +35,7 @@ app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 
+
 # ---------------------------
 # Public and Health Endpoints
 # ---------------------------
@@ -46,12 +46,14 @@ def test_public_health():
     assert data["status"] is True
     assert data["message"] == "Public health check."
 
+
 def test_private_health():
     response = client.get("/private_health")
     assert response.status_code == 200
     data = response.json()
     assert data["status"] is True
     assert data["message"] == "Private health check."
+
 
 # ---------------------------
 # Distance Endpoint
@@ -63,6 +65,18 @@ def test_nearest_buildings():
     data = response.json()
     assert "user_location" in data
     assert "nearest_buildings" in data
+
+
+def test_nearest_buildings_invalid_coordinates():
+    """
+    Provide invalid latitude/longitude and expect a 422 or an error response.
+    """
+    params = {"lat": "not_a_number", "lon": "not_a_number"}
+    response = client.get("/nearest_buildings/", params=params)
+    assert response.status_code == 422
+    data = response.json()
+    assert "detail" in data
+
 
 # ---------------------------
 # Auth Endpoints
@@ -95,6 +109,70 @@ def test_signup(monkeypatch):
     assert "User successfully registered" in data["message"]
     assert "email" in data["data"]
 
+
+@pytest.mark.parametrize(
+    "payload, error_msg",
+    [
+        (
+            {
+                "email": "alreadyexists@ualberta.ca",
+                "username": "whatever",
+                "password": "TestPass123!",
+                "re_password": "TestPass123!"
+            },
+            "Email already registered."
+        ),
+        (
+            {
+                "email": "goodemail@ualberta.ca",
+                "username": "testuser",
+                "password": "TestPass123!",
+                "re_password": "TestPass123!"
+            },
+            "Username already taken"
+        ),
+        (
+            {
+                "email": "goodemail@ualberta.ca",
+                "username": "doesnotexist",
+                "password": "Mismatch1!",
+                "re_password": "Mismatch2!"
+            },
+            "Passwords do not match"
+        ),
+    ],
+)
+def test_signup_negative(monkeypatch, payload, error_msg):
+    """
+    Tests for invalid signup scenarios:
+      - Email already in use
+      - Username already taken
+      - Password mismatch
+    """
+    def fake_get_user_by_email(db, email):
+        if email == "alreadyexists@ualberta.ca":
+            return fake_user
+        return None
+
+    def fake_get_user_by_username(db, username):
+        if username == "testuser":
+            return fake_user
+        return None
+
+    async def fake_send_verification_email(email, token):
+        return None
+
+    monkeypatch.setattr("app.core.auth.get_user_by_email", fake_get_user_by_email)
+    monkeypatch.setattr("app.core.auth.get_user_by_username", fake_get_user_by_username)
+    monkeypatch.setattr("app.core.auth.send_verification_email", fake_send_verification_email)
+
+    response = client.post("/signup", json=payload)
+    assert response.status_code in (400, 409)
+    data = response.json()
+    assert data["status"] is False
+    assert error_msg in data["message"]
+
+
 def test_signin(monkeypatch):
     def fake_get_user_by_email(db, email):
         return fake_user
@@ -113,6 +191,31 @@ def test_signin(monkeypatch):
     data = response.json()
     assert "access_token" in data
     assert data["token_type"] == "bearer"
+
+
+def test_signin_wrong_password(monkeypatch):
+    """
+    Attempt to sign in with a wrong password for an existing user.
+    """
+    def fake_get_user_by_email(db, email):
+        return fake_user
+
+    def fake_verify_password(plain, hashed):
+        return False
+
+    monkeypatch.setattr("app.core.auth.get_user_by_email", fake_get_user_by_email)
+    monkeypatch.setattr("app.core.auth.verify_password", fake_verify_password)
+
+    form_data = {
+        "username": "test@ualberta.ca",
+        "password": "WrongPassword"
+    }
+    response = client.post("/signin", data=form_data)
+    assert response.status_code == 400
+    data = response.json()
+    assert data["status"] is False
+    assert "Invalid email or password." in data["message"]
+
 
 def test_signout(monkeypatch):
     class FakeCookie:
@@ -133,6 +236,7 @@ def test_signout(monkeypatch):
     assert data["status"] is True
     assert "User signed out successfully" in data["message"]
 
+
 def test_update_password(monkeypatch):
     monkeypatch.setattr("app.core.auth.verify_password", lambda plain, hashed: True)
     payload = {
@@ -146,9 +250,11 @@ def test_update_password(monkeypatch):
     assert data["status"] is True
     assert "Password updated successfully" in data["message"]
 
+
 def test_verify_email(monkeypatch):
     def fake_get_user_by_email(db, email):
         return fake_user
+
     monkeypatch.setattr("app.core.auth.get_user_by_email", fake_get_user_by_email)
 
     def create_verification_token_utc(email: str):
@@ -165,6 +271,27 @@ def test_verify_email(monkeypatch):
     data = response.json()
     assert data["status"] is True
     assert "Email verified successfully" in data["message"]
+
+
+def test_verify_email_invalid_token(monkeypatch):
+    """
+    Attempt to verify email with an invalid or expired token.
+    """
+    def fake_get_user_by_email(db, email):
+        return None
+
+    monkeypatch.setattr("app.core.auth.get_user_by_email", fake_get_user_by_email)
+
+    invalid_token = "some.invalid.token"
+    response = client.get(f"/verify-email?token={invalid_token}")
+    assert response.status_code in (400, 401, 403, 500)
+    data = response.json()
+    assert data.get("status") is False
+    error_msg = data.get("error") or data.get("message", "")
+    if not isinstance(error_msg, str):
+        error_msg = str(error_msg)
+    assert "Invalid header" in error_msg
+
 
 def test_resend_verification_email(monkeypatch):
     fake_unverified_user = User(
@@ -190,6 +317,7 @@ def test_resend_verification_email(monkeypatch):
     assert data["status"] is True
     assert "Verification email resent successfully" in data["message"]
 
+
 def test_request_password_reset(monkeypatch):
     def fake_get_user_by_email(db, email):
         return fake_user
@@ -206,6 +334,23 @@ def test_request_password_reset(monkeypatch):
     assert data["status"] is True
     assert "Password reset email sent successfully" in data["message"]
 
+
+def test_request_password_reset_user_not_found(monkeypatch):
+    """
+    Attempt to request a password reset for a user that doesn't exist.
+    """
+    def fake_get_user_by_email(db, email):
+        return None  # user not found
+
+    monkeypatch.setattr("app.core.auth.get_user_by_email", fake_get_user_by_email)
+
+    response = client.post("/request-password-reset", params={"email": "unknown@ualberta.ca"})
+    assert response.status_code == 404
+    data = response.json()
+    assert data["status"] is False
+    assert "User not found" in data["message"]
+
+
 # ---------------------------
 # User Routes Endpoints
 # ---------------------------
@@ -217,6 +362,7 @@ def test_get_user_details():
     assert "User found" in data["message"]
     user_data = data["data"]
     assert user_data["email"] == fake_user.email
+
 
 def test_update_user(monkeypatch):
     monkeypatch.setattr(
@@ -234,6 +380,7 @@ def test_update_user(monkeypatch):
     assert data["status"] is True
     assert "User updated" in data["message"]
 
+
 def test_delete_user(monkeypatch):
     monkeypatch.setattr(
         "app.routes.user.filter_query",
@@ -244,6 +391,22 @@ def test_delete_user(monkeypatch):
     data = response.json()
     assert data["status"] is True
     assert "User deleted" in data["message"]
+
+
+def test_delete_user_not_found(monkeypatch):
+    """
+    Attempt to delete a user that doesn't exist.
+    """
+    monkeypatch.setattr(
+        "app.routes.user.filter_query",
+        lambda db, model, filters, **kwargs: []
+    )
+    response = client.delete("/user/delete")
+    assert response.status_code == 404
+    data = response.json()
+    assert data["status"] is False
+    assert "User not found" in data["message"]
+
 
 def test_list_favorite_rooms(monkeypatch):
     fake_room = Room(id=uuid4(), building_id=uuid4(), name="Room1")
@@ -260,17 +423,16 @@ def test_list_favorite_rooms(monkeypatch):
     fake_query.count.return_value = 1
     fake_db.query.return_value = fake_query
 
-
     app.dependency_overrides[get_db] = lambda: fake_db
 
     response = client.get("/user/list_favorite_rooms", params={"page": 1, "per_page": 10})
-
     app.dependency_overrides[get_db] = override_get_db
 
     assert response.status_code == 200, response.json()
     data = response.json()
     assert data["status"] is True
     assert "Favorite rooms found" in data["message"]
+
 
 def test_add_multiple_favorite_rooms(monkeypatch):
     room_id = uuid4()
@@ -282,6 +444,7 @@ def test_add_multiple_favorite_rooms(monkeypatch):
     payload = {"room_ids": [str(room_id)]}
     response = client.put("/user/add_multiple_favorite_rooms", json=payload)
     assert response.status_code == 200
+
 
 def test_add_favorite_room(monkeypatch):
     room_id = uuid4()
@@ -298,7 +461,6 @@ def test_add_favorite_room(monkeypatch):
     favorite_query_mock.filter.return_value.first.return_value = None
 
     fake_db.query.side_effect = [room_query_mock, favorite_query_mock]
-
     app.dependency_overrides[get_db] = lambda: fake_db
 
     response = client.put(f"/user/add_favorite_room?room_id={room_id}")
@@ -309,6 +471,7 @@ def test_add_favorite_room(monkeypatch):
 
     # Reset dependency
     app.dependency_overrides[get_db] = override_get_db
+
 
 def test_remove_favorite_room(monkeypatch):
     room_id = uuid4()
@@ -323,7 +486,19 @@ def test_remove_favorite_room(monkeypatch):
     assert data["status"] is True
     assert "Room removed from favorites" in data["message"]
 
-# -------------------------------------------------
-# To run these tests:
-#   PYTHONPATH=. pytest app/tests/unit_tests.py
-# -------------------------------------------------
+
+def test_remove_favorite_room_not_found(monkeypatch):
+    """
+    Attempt to remove a room from favorites that does not exist in user’s favorites.
+    """
+    room_id = uuid4()
+    fake_db = MagicMock()
+    fake_db.query.return_value.filter.return_value.delete.return_value = 0
+
+    monkeypatch.setattr("app.routes.user.get_db", lambda: iter([fake_db]))
+
+    response = client.delete(f"/user/remove_favorite_room?room_id={room_id}")
+    assert response.status_code == 404
+    data = response.json()
+    assert data["status"] is False
+    assert "Room not found in favorites" in data["message"]

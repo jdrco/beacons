@@ -30,6 +30,8 @@ import { useBuildingSelection } from "@/hooks/useBuildingSelection";
 import { DisplaySettings } from "@/types";
 import Navbar from "./Navbar";
 import FavoriteButton from "./FavoriteButton";
+import CheckInButton from "./CheckInButton";
+import ActivityFeed from "./ActivityFeed";
 import { useAuth } from "@/contexts/AuthContext";
 import { useFavorites } from "@/hooks/useFavorites";
 import Logo from "@/components/Logo";
@@ -171,11 +173,17 @@ export default function Display() {
                         usePlusMinusToggle={true}
                         additionalControls={
                           isAuthenticated ? (
-                            <FavoriteButton
-                              roomName={roomName}
-                              isFavorite={favorites.includes(roomName)}
-                              onToggle={toggleFavorite}
-                            />
+                            <div className="flex items-center gap-6">
+                              <CheckInButton
+                                roomId={roomName}
+                                roomName={roomName}
+                              />
+                              <FavoriteButton
+                                roomName={roomName}
+                                isFavorite={favorites.includes(roomName)}
+                                onToggle={toggleFavorite}
+                              />
+                            </div>
                           ) : null
                         }
                       >
@@ -288,9 +296,7 @@ export default function Display() {
                 value="feed"
                 className="flex-1 h-full overflow-hidden m-0 rounded-2xl"
               >
-                <div className="h-full w-full flex items-center justify-center text-gray-400">
-                  Feed content coming soon
-                </div>
+                <ActivityFeed />
               </TabsContent>
             </Tabs>
           ) : (

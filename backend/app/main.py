@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from contextlib import asynccontextmanager
 from collections import defaultdict
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_mail import FastMail, MessageSchema
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -16,6 +16,7 @@ from app.models.user import User
 from app.core.database import get_db
 from app.models.building import Room, RoomSchedule, SingleEventSchedule, UserFavoriteRoom
 from app.core.auth import conf
+from app.core.websocket import websocket_endpoint
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -50,6 +51,10 @@ app.add_middleware(
 app.include_router(auth_router, tags=["auth"])
 app.include_router(user_router, tags=["user"])
 
+# Add the WebSocket endpoint using the imported handler
+@app.websocket("/ws")
+async def websocket_route(websocket: WebSocket):
+    await websocket_endpoint(websocket)
 
 @app.get("/public_health", tags=["health"])
 async def public_health_check():

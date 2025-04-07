@@ -16,7 +16,7 @@ from app.models.user import User
 from app.core.database import get_db
 from app.models.building import Room, RoomSchedule, SingleEventSchedule, UserFavoriteRoom
 from app.core.auth import conf
-from app.core.websocket import websocket_endpoint
+from app.core.activity import websocket_endpoint
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -54,17 +54,17 @@ export default function CheckInButton({
   };
 
   // If checked in to another room, show disabled icon
-  if (isCheckedIn && !isCheckedInThisRoom) {
-    return (
-      <div
-        className="h-8 w-8 flex items-center justify-center opacity-50 cursor-not-allowed"
-        title={`You are already checked in to ${checkedInRoom?.name}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <CheckCircle className="h-6 w-6" />
-      </div>
-    );
-  }
+  // if (isCheckedIn && !isCheckedInThisRoom) {
+  //   return (
+  //     <div
+  //       className="h-8 w-8 flex items-center justify-center opacity-50 cursor-not-allowed"
+  //       title={`You are already checked in to ${checkedInRoom?.name}`}
+  //       onClick={(e) => e.stopPropagation()}
+  //     >
+  //       <CheckCircle className="h-6 w-6" />
+  //     </div>
+  //   );
+  // }
 
   // If checked in to this room, show check out button
   if (isCheckedInThisRoom) {

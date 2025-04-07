@@ -109,6 +109,10 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
 
   // Connect to WebSocket
   useEffect(() => {
+    if (!user) {
+      // User is not authenticated, don't try to connect
+      return;
+    }
     const connectWebSocket = () => {
       // If already connecting or connected, don't create a new connection
       if (
@@ -327,7 +331,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
         clearTimeout(reconnectTimeout);
       }
     };
-  }, [user?.username]); // Only re-run if username changes
+  }, [user, user?.username]); // Only re-run if username changes
 
   // Check-in function
   const checkIn = (roomId: string, roomName: string, studyTopic?: string) => {

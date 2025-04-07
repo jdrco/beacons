@@ -4,6 +4,9 @@ import logging
 import asyncio
 from datetime import datetime, timedelta
 from typing import List, Dict
+from jose import jwt
+from app.models.user import User
+from app.core.config import settings
 
 from fastapi import WebSocket, WebSocketDisconnect
 from sqlalchemy.orm import Session
@@ -138,13 +141,16 @@ class ConnectionManager:
             db.add(room_count)
             return 0
 
-    async def connect(self, websocket: WebSocket, username: str = None):
+    async def connect(self, websocket: WebSocket, username: str = None, user_id: str = None):
         await websocket.accept()
         self.active_connections.append(websocket)
 
-        # Generate a user ID for this connection (full UUID)
-        user_id = str(uuid.uuid4())
-        self.user_ids[websocket] = user_id
+        # Use provided user_id from authentication if available, otherwise generate a UUID
+        if user_id:
+            self.user_ids[websocket] = user_id
+        else:
+            # Generate a user ID for this connection (only for unauthenticated connections)
+            self.user_ids[websocket] = str(uuid.uuid4())
         
         # Store username if provided
         if username:
@@ -153,10 +159,10 @@ class ConnectionManager:
         # Create connection event with user_id (only in memory, not in DB)
         connection_event = {
             "type": "connection",
-            "user_id": user_id,
+            "user_id": self.user_ids[websocket],
             "username": username,
             "timestamp": datetime.now().isoformat(),
-            "message": f"User {username or user_id} has joined the feed!"
+            "message": f"User {username or self.user_ids[websocket]} has joined the feed!"
         }
         
         # Clean old events before adding new ones
@@ -178,7 +184,7 @@ class ConnectionManager:
             await websocket.send_json({
                 "type": "history",
                 "feed": activity_feed,
-                "user_id": user_id,
+                "user_id": self.user_ids[websocket],
                 "username": username,
                 "current_checkins": current_checkins
             })
@@ -521,67 +527,98 @@ async def run_expiry_checker_task():
     except Exception as e:
         logger.error(f"Error in expiry checker: {e}")
 
-# Create a websocket endpoint handler that can be imported in main.py
 async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
+    # Extract the authentication token from the cookie header
+    cookies_header = websocket.headers.get('cookie', '')
+    token = None
     
-    # Set up a task to expire check-ins
-    expiry_task = asyncio.create_task(run_expiry_checker_task())
+    # Parse cookies to find access_token
+    if cookies_header:
+        for cookie in cookies_header.split('; '):
+            if cookie.startswith('access_token='):
+                token = cookie.split('=', 1)[1]
+                break
     
+    # Get the authenticated user
+    db = SessionLocal()
     try:
-        while True:
-            # Wait for messages from the client
-            data_str = await websocket.receive_text()
-            
-            # Skip ping messages used to keep connection alive
-            if data_str == "ping":
-                continue
-                
+        user = None
+        if token:
             try:
-                # Parse the message as JSON
-                data = json.loads(data_str)
-                message_type = data.get("type")
-                
-                if message_type == "checkin":
-                    await manager.handle_checkin(websocket, data)
-                elif message_type == "checkout":
-                    await manager.handle_checkout(websocket, data)
-                elif message_type == "setUsername":
-                    # Update the username for this connection
-                    user_id = manager.user_ids.get(websocket)
-                    username = data.get("username")
-                    manager.usernames[websocket] = username
-                    
-                    # Update any existing check-in in the database
-                    db = manager._get_db()
-                    try:
-                        active_checkin = db.query(RoomOccupancy).filter(
-                            RoomOccupancy.user_id == user_id,
-                            RoomOccupancy.is_active == True
-                        ).first()
-                        
-                        if active_checkin:
-                            active_checkin.username = username
-                            db.commit()
-                    except Exception as e:
-                        db.rollback()
-                        logger.error(f"Error updating username: {e}")
-                    finally:
-                        db.close()
-            except json.JSONDecodeError:
-                # Not JSON, treat as ping/keepalive
-                pass
-                
-    except WebSocketDisconnect:
-        # Clean up and notify other clients
-        disconnect_event = manager.disconnect(websocket)
-        await manager.broadcast(disconnect_event)
-        # Cancel the expiry task
-        expiry_task.cancel()
-    except Exception as e:
-        logger.error(f"Error in websocket endpoint: {e}")
-        # Make sure to clean up the task
+                payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+                email = payload.get("sub")
+                if email:
+                    user = db.query(User).filter(User.email == email).first()
+            except Exception as e:
+                logger.error(f"Authentication error: {e}")
+        
+        # If user is not authenticated, reject the connection
+        if not user:
+            await websocket.close(code=1008, reason="Unauthorized")
+            return
+            
+        # Connect with the authenticated user info
+        await manager.connect(websocket, username=user.username, user_id=str(user.id))
+        
+        # Set up a task to expire check-ins
+        expiry_task = asyncio.create_task(run_expiry_checker_task())
+        
         try:
+            while True:
+                # Wait for messages from the client
+                data_str = await websocket.receive_text()
+                
+                # Skip ping messages used to keep connection alive
+                if data_str == "ping":
+                    continue
+                    
+                try:
+                    # Parse the message as JSON
+                    data = json.loads(data_str)
+                    message_type = data.get("type")
+                    
+                    if message_type == "checkin":
+                        await manager.handle_checkin(websocket, data)
+                    elif message_type == "checkout":
+                        await manager.handle_checkout(websocket, data)
+                    elif message_type == "setUsername":
+                        # Update the username for this connection
+                        user_id = manager.user_ids.get(websocket)
+                        username = data.get("username")
+                        manager.usernames[websocket] = username
+                        
+                        # Update any existing check-in in the database
+                        db = manager._get_db()
+                        try:
+                            active_checkin = db.query(RoomOccupancy).filter(
+                                RoomOccupancy.user_id == user_id,
+                                RoomOccupancy.is_active == True
+                            ).first()
+                            
+                            if active_checkin:
+                                active_checkin.username = username
+                                db.commit()
+                        except Exception as e:
+                            db.rollback()
+                            logger.error(f"Error updating username: {e}")
+                        finally:
+                            db.close()
+                except json.JSONDecodeError:
+                    # Not JSON, treat as ping/keepalive
+                    pass
+                    
+        except WebSocketDisconnect:
+            # Clean up and notify other clients
+            disconnect_event = manager.disconnect(websocket)
+            await manager.broadcast(disconnect_event)
+            # Cancel the expiry task
             expiry_task.cancel()
-        except:
-            pass
+        except Exception as e:
+            logger.error(f"Error in websocket endpoint: {e}")
+            # Make sure to clean up the task
+            try:
+                expiry_task.cancel()
+            except:
+                pass
+    finally:
+        db.close()

@@ -121,8 +121,13 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
       isConnecting = true;
       setIsReconnecting(true);
 
-      // TODO: make configurable
-      const wsUrl = "ws://localhost:8000/ws";
+      // TODO: make configurable based on env
+      const isIOS =
+        typeof navigator !== "undefined" &&
+        /iPhone|iPad|iPod/.test(navigator.userAgent);
+      const wsUrl = isIOS
+        ? "ws://100.98.95.126:8000/ws"
+        : "ws://localhost:8000/ws";
 
       console.log("Creating new WebSocket connection...");
       const ws = new WebSocket(wsUrl);

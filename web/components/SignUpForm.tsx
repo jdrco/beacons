@@ -357,7 +357,7 @@ export function SignUpForm({
             </SelectTrigger>
             <SelectContent className="max-h-60 overflow-y-auto">
               {filteredPrograms.map((program) => (
-                <SelectItem key={program.id} value={program.id}>
+                <SelectItem key={program.id} value={program.name}>
                   {program.name}
                 </SelectItem>
               ))}

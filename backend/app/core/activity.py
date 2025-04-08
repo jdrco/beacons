@@ -2,7 +2,8 @@ import json
 import uuid
 import logging
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+import pytz
 from typing import List, Dict
 from jose import jwt
 from app.models.user import User
@@ -17,6 +18,13 @@ from app.models.occupancy import RoomOccupancy, RoomCount, ActivityEvent
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Define Edmonton timezone
+EDMONTON_TZ = pytz.timezone('America/Edmonton')
+
+def get_edmonton_time():
+    """Get current time in Edmonton (Mountain Time)"""
+    return datetime.now(EDMONTON_TZ)
 
 class ConnectionManager:
     def __init__(self):
@@ -35,11 +43,11 @@ class ConnectionManager:
             
     def _clean_old_events(self):
         """Remove events older than 24 hours from memory (REQ-7)"""
-        now = datetime.now()
+        now = get_edmonton_time()
         cutoff = now - timedelta(hours=24)
         self.activity_feed = [
             event for event in self.activity_feed 
-            if datetime.fromisoformat(event["timestamp"]) > cutoff
+            if datetime.fromisoformat(event["timestamp"]).replace(tzinfo=EDMONTON_TZ) > cutoff
         ]
         
         # Also clean up old events in database
@@ -47,7 +55,7 @@ class ConnectionManager:
         try:
             # Delete old events from the database
             db.query(ActivityEvent).filter(
-                ActivityEvent.timestamp < cutoff
+                ActivityEvent.timestamp < cutoff.replace(tzinfo=None)
             ).delete(synchronize_session=False)
             db.commit()
         except Exception as e:
@@ -58,12 +66,12 @@ class ConnectionManager:
             
     def _get_activity_feed(self, db: Session, limit: int = 100):
         """Get combined activity feed from memory and database, sorted by newest first (REQ-8)"""
-        now = datetime.now()
+        now = get_edmonton_time()
         cutoff = now - timedelta(hours=24)
         
         # Get events from database (check-ins and check-outs)
         db_events = db.query(ActivityEvent).filter(
-            ActivityEvent.timestamp > cutoff
+            ActivityEvent.timestamp > cutoff.replace(tzinfo=None)
         ).order_by(desc(ActivityEvent.timestamp)).all()
         
         # Convert to dictionaries for JSON serialization
@@ -74,8 +82,8 @@ class ConnectionManager:
                 "username": event.username,
                 "room_name": event.room_name,
                 "study_topic": event.study_topic,
-                "timestamp": event.timestamp.isoformat(),
-                "expiry_time": event.expiry_time.isoformat() if event.expiry_time else None,
+                "timestamp": event.timestamp.replace(tzinfo=timezone.utc).astimezone(EDMONTON_TZ).isoformat(),
+                "expiry_time": event.expiry_time.replace(tzinfo=timezone.utc).astimezone(EDMONTON_TZ).isoformat() if event.expiry_time else None,
                 "message": event.message
             }
             for event in db_events
@@ -92,11 +100,11 @@ class ConnectionManager:
         
     def _get_current_checkins(self, db: Session):
         """Get all active check-ins from database"""
-        now = datetime.now()
+        now = get_edmonton_time()
         
         checkins = db.query(RoomOccupancy).filter(
             RoomOccupancy.is_active == True,
-            RoomOccupancy.expiry_time > now
+            RoomOccupancy.expiry_time > now.replace(tzinfo=None)
         ).all()
         
         # Convert to dictionaries for JSON serialization
@@ -106,8 +114,8 @@ class ConnectionManager:
                 "username": checkin.username,
                 "room_name": checkin.room_name,
                 "study_topic": checkin.study_topic,
-                "checkin_time": checkin.checkin_time.isoformat(),
-                "expiry_time": checkin.expiry_time.isoformat()
+                "checkin_time": checkin.checkin_time.replace(tzinfo=timezone.utc).astimezone(EDMONTON_TZ).isoformat(),
+                "expiry_time": checkin.expiry_time.replace(tzinfo=timezone.utc).astimezone(EDMONTON_TZ).isoformat()
             }
             for checkin in checkins
         ]
@@ -118,9 +126,9 @@ class ConnectionManager:
         
         if room_count:
             room_count.occupant_count += 1
-            room_count.last_updated = datetime.now()
+            room_count.last_updated = get_edmonton_time().replace(tzinfo=None)
         else:
-            room_count = RoomCount(room_name=room_name, occupant_count=1, last_updated=datetime.now())
+            room_count = RoomCount(room_name=room_name, occupant_count=1, last_updated=get_edmonton_time().replace(tzinfo=None))
             db.add(room_count)
         
         return room_count.occupant_count
@@ -133,11 +141,11 @@ class ConnectionManager:
             # Prevent negative counts
             if room_count.occupant_count > 0:
                 room_count.occupant_count -= 1
-            room_count.last_updated = datetime.now()
+            room_count.last_updated = get_edmonton_time().replace(tzinfo=None)
             return room_count.occupant_count
         else:
             # Room not found, add it with count 0
-            room_count = RoomCount(room_name=room_name, occupant_count=0, last_updated=datetime.now())
+            room_count = RoomCount(room_name=room_name, occupant_count=0, last_updated=get_edmonton_time().replace(tzinfo=None))
             db.add(room_count)
             return 0
 
@@ -171,7 +179,7 @@ class ConnectionManager:
             "type": "connection",
             "user_id": self.user_ids[websocket],
             "username": username,
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": get_edmonton_time().isoformat(),
             "message": f"User {username or self.user_ids[websocket]} has joined the feed!"
         }
         
@@ -219,7 +227,7 @@ class ConnectionManager:
             "type": "disconnection",
             "user_id": user_id,
             "username": username,
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": get_edmonton_time().isoformat(),
             "message": f"User {username or user_id} has left the feed."
         }
 
@@ -285,7 +293,7 @@ class ConnectionManager:
                 })
             
             # Record the check-in in the database
-            checkin_time = datetime.now()
+            checkin_time = get_edmonton_time()
             expiry_time = checkin_time + timedelta(hours=4)  # 4-hour expiry (REQ-5)
             
             # Create new check-in record
@@ -293,8 +301,8 @@ class ConnectionManager:
                 user_id=user_id_str,
                 room_name=room_name,
                 study_topic=study_topic,
-                checkin_time=checkin_time,
-                expiry_time=expiry_time,
+                checkin_time=checkin_time.replace(tzinfo=None),
+                expiry_time=expiry_time.replace(tzinfo=None),
                 is_active=True,
                 username=username
             )
@@ -315,8 +323,8 @@ class ConnectionManager:
                 username=username,
                 room_name=room_name,
                 study_topic=study_topic,
-                timestamp=checkin_time,
-                expiry_time=expiry_time,
+                timestamp=checkin_time.replace(tzinfo=None),
+                expiry_time=expiry_time.replace(tzinfo=None),
                 message=message
             )
             db.add(new_event)
@@ -406,7 +414,7 @@ class ConnectionManager:
             new_count = self._decrement_room_count(db, checkout_room_name)
             
             # Create and store check-out event
-            checkout_time = datetime.now()
+            checkout_time = get_edmonton_time()
             message = f"@{username or user_id} has checked out from {checkout_room_name}"
             
             new_event = ActivityEvent(
@@ -414,7 +422,7 @@ class ConnectionManager:
                 user_id=user_id_str,
                 username=username,
                 room_name=checkout_room_name,
-                timestamp=checkout_time,
+                timestamp=checkout_time.replace(tzinfo=None),
                 message=message
             )
             db.add(new_event)
@@ -447,14 +455,14 @@ class ConnectionManager:
 
     async def expire_checkins(self):
         """Check for and expire check-ins older than 4 hours"""
-        now = datetime.now()
+        now = get_edmonton_time()
         db = self._get_db()
         
         try:
             # Find expired check-ins
             expired_checkins = db.query(RoomOccupancy).filter(
                 RoomOccupancy.is_active == True,
-                RoomOccupancy.expiry_time < now
+                RoomOccupancy.expiry_time < now.replace(tzinfo=None)
             ).all()
             
             # Process each expired check-in
@@ -473,7 +481,7 @@ class ConnectionManager:
                     user_id=checkin.user_id,
                     username=checkin.username,
                     room_name=checkin.room_name,
-                    timestamp=now,
+                    timestamp=now.replace(tzinfo=None),
                     message=message
                 )
                 db.add(new_event)

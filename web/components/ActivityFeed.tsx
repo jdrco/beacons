@@ -29,31 +29,23 @@ export default function ActivityFeed() {
     }
   }, [error]);
 
-  // Format date for longer timestamp display
-  const formatDate = (timestamp: string) => {
+  // Format timestamp in the requested format: "MM/DD/YYYY @ 1:00 PM"
+  const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
-    return date.toLocaleDateString([], { month: "short", day: "numeric" });
-  };
 
-  // Show relative time (e.g., "2 minutes ago")
-  const getRelativeTime = (timestamp: string) => {
-    const now = new Date();
-    const eventTime = new Date(timestamp);
-    const diffMs = now.getTime() - eventTime.getTime();
-    const diffSeconds = Math.floor(diffMs / 1000);
+    // Format date part: MM/DD/YYYY
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const year = date.getFullYear();
 
-    if (diffSeconds < 60) {
-      return "just now";
-    } else if (diffSeconds < 3600) {
-      const mins = Math.floor(diffSeconds / 60);
-      return `${mins} ${mins === 1 ? "minute" : "minutes"} ago`;
-    } else if (diffSeconds < 86400) {
-      const hours = Math.floor(diffSeconds / 3600);
-      return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
-    } else {
-      // If more than a day, show the date
-      return formatDate(timestamp);
-    }
+    // Format time part: 1:00 PM
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // Convert 0 to 12 for 12 AM
+
+    return `${month}/${day}/${year} @ ${hours}:${minutes} ${ampm}`;
   };
 
   // Get event icon based on type
@@ -155,9 +147,7 @@ export default function ActivityFeed() {
                   <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
                     <div className="flex items-center">
                       <Clock className="h-3 w-3 mr-1" />
-                      <span title={new Date(item.timestamp).toLocaleString()}>
-                        {getRelativeTime(item.timestamp)}
-                      </span>
+                      <span>{formatTimestamp(item.timestamp)}</span>
                     </div>
 
                     {item.study_topic && (

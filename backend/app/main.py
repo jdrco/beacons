@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from app.core.auth import get_active_user, router as auth_router
 from app.routes.user import router as user_router
 from app.routes.occupancy import router as occupancy_router
+from app.routes.demographics import router as demographics_router
 from app.utils.response import success_response, error_response
 from app.models.user import User
 from app.core.database import get_db
@@ -56,6 +57,7 @@ app.add_middleware(
 # Include routers
 app.include_router(auth_router, tags=["auth"])
 app.include_router(user_router, tags=["user"])
+app.include_router(demographics_router, prefix="/rooms", tags=["rooms"])
 app.include_router(occupancy_router, prefix="/api", tags=["occupancy"])
 
 # Add the WebSocket endpoint using the imported handler

@@ -38,6 +38,7 @@ import Logo from "@/components/Logo";
 import { useLocation } from "@/hooks/useLocation";
 import { toast } from "@/hooks/use-toast";
 import OccupancyBadge from "./OccupancyBadge";
+import ProgramDemographicsChart from "./ProgramDemographicsChart";
 
 export default function Display() {
   // Get building data from custom hook
@@ -335,6 +336,9 @@ export default function Display() {
                               currentDateTime={currentDateTime}
                             />
                           </div>
+                          {isAuthenticated && (
+                            <ProgramDemographicsChart roomName={roomName} />
+                          )}
                         </div>
                       </AccordionContent>
                     </AccordionItem>

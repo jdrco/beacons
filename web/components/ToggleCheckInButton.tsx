@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { CircleCheckBig, LogOut, Loader2 } from "lucide-react";
 import { useCheckIn } from "@/hooks/useCheckIn";
 import {
@@ -25,33 +25,29 @@ export default function ToggleCheckInButton({
 }: ToggleCheckInButtonProps) {
   const [showAlertDialog, setShowAlertDialog] = useState<boolean>(false);
   const [studyTopic, setStudyTopic] = useState<string>("");
-  const [localCheckedIn, setLocalCheckedIn] = useState<boolean>(false);
   const { isCheckedIn, checkedInRoom, checkIn, checkOut, isLoading } =
     useCheckIn();
 
-  // Update local state whenever the check-in state changes
-  useEffect(() => {
-    const isCheckedInThisRoom = isCheckedIn && checkedInRoom?.id === roomId;
-    setLocalCheckedIn(isCheckedInThisRoom);
-
-    // Debug output to console
-    console.log(`Room ${roomId} check-in state:`, {
+  // Memoize this calculation to ensure stable renders
+  const isCheckedInThisRoom = useCallback(() => {
+    const result = isCheckedIn && checkedInRoom?.id === roomId;
+    console.log(`Checked in status for room ${roomId}:`, {
       isCheckedIn,
       checkedInRoomId: checkedInRoom?.id,
-      isCheckedInThisRoom,
+      roomId,
+      result,
     });
+    return result;
   }, [isCheckedIn, checkedInRoom, roomId]);
 
   const handleButtonClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (localCheckedIn) {
+    if (isCheckedInThisRoom()) {
       // If already checked in to this room, check out directly
       console.log(`Checking out from room ${roomId}`);
       checkOut();
-      // Optimistically update UI
-      setLocalCheckedIn(false);
     } else if (!isLoading) {
       // Otherwise show dialog for check-in
       setShowAlertDialog(true);
@@ -65,21 +61,22 @@ export default function ToggleCheckInButton({
     checkIn(roomId, roomName, studyTopic);
     setShowAlertDialog(false);
     setStudyTopic("");
-    // Optimistically update UI
-    setLocalCheckedIn(true);
   };
 
-  // Determine button appearance based on localCheckedIn state
-  const buttonClass = localCheckedIn
+  // Determine current status
+  const currentlyCheckedInThisRoom = isCheckedInThisRoom();
+
+  // Determine button appearance based on currentlyCheckedInThisRoom
+  const buttonClass = currentlyCheckedInThisRoom
     ? "bg-red-600 hover:bg-red-700 text-white"
     : "bg-green-600 hover:bg-green-700 text-white";
 
   const buttonContent = isLoading ? (
     <>
       <Loader2 className="h-4 w-4 animate-spin" />
-      {localCheckedIn ? "Checking Out..." : "Checking In..."}
+      {currentlyCheckedInThisRoom ? "Checking Out..." : "Checking In..."}
     </>
-  ) : localCheckedIn ? (
+  ) : currentlyCheckedInThisRoom ? (
     <>
       <LogOut className="h-4 w-4" />
       Check Out
@@ -95,7 +92,7 @@ export default function ToggleCheckInButton({
     <>
       <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>
         {/* Only wrap in AlertDialogTrigger if not checked in */}
-        {localCheckedIn ? (
+        {currentlyCheckedInThisRoom ? (
           <button
             className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${buttonClass}`}
             onClick={handleButtonClick}

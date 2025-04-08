@@ -324,9 +324,7 @@ export default function Display() {
                             <h1>Schedule</h1>
                             {isAuthenticated && (
                               <ToggleCheckInButton
-                                key={`check-in-button-${roomName}-${isCheckedIn}-${
-                                  checkedInRoom?.id === roomName
-                                }`}
+                                key={`check-in-button-${roomName}-${Date.now()}`}
                                 roomId={roomName}
                                 roomName={roomName}
                               />

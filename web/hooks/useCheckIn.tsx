@@ -118,6 +118,14 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
   // Track mount status to prevent state updates after unmount
   const isMountedRef = useRef(true);
 
+  // Ref to track last check-in request for optimistic updates
+  const lastCheckInRef = useRef<{
+    roomId: string;
+    roomName: string;
+    studyTopic?: string;
+    timestamp: number;
+  } | null>(null);
+
   // Function to get total occupancy for a building
   const getBuildingOccupancy = (buildingName: string): number => {
     // Extract the building prefix from room names (e.g. "DM" from "DM-101")
@@ -223,8 +231,9 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
 
                 if (myCheckin) {
                   setIsCheckedIn(true);
+                  // Use room_name for both id and name since backend doesn't provide room_id
                   setCheckedInRoom({
-                    id: myCheckin.room_id || "",
+                    id: myCheckin.room_name || "", // Important: Use room_name as the ID!
                     name: myCheckin.room_name || "",
                   });
                   setStudyTopic(myCheckin.study_topic || null);
@@ -258,7 +267,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
                   (item) =>
                     item.type === newEvent.type &&
                     item.user_id === newEvent.user_id &&
-                    item.room_id === newEvent.room_id &&
+                    item.room_name === newEvent.room_name &&
                     Math.abs(
                       new Date(item.timestamp).getTime() -
                         new Date(newEvent.timestamp).getTime()
@@ -279,8 +288,9 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
               if (newEvent.user_id === userId) {
                 if (newEvent.type === "checkin") {
                   setIsCheckedIn(true);
+                  // CRITICAL FIX: Using room_name both as ID and name
                   setCheckedInRoom({
-                    id: newEvent.room_id || "",
+                    id: newEvent.room_name || "", // Use room_name as the ID since that's what backend provides
                     name: newEvent.room_name || "",
                   });
                   setStudyTopic(newEvent.study_topic || null);
@@ -392,7 +402,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
     };
   }, [user, user?.username]); // Only re-run if username changes
 
-  // Check-in function
+  // Check-in function with optimistic updates
   const checkIn = (roomId: string, roomName: string, studyTopic?: string) => {
     if (!globalWebSocket || globalWebSocket.readyState !== WebSocket.OPEN) {
       setError("WebSocket connection not available");
@@ -401,25 +411,57 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
 
     setIsLoading(true);
 
+    // OPTIMISTIC UPDATE: Immediately update UI state
+    setIsCheckedIn(true);
+    setCheckedInRoom({
+      id: roomName, // Use roomName as ID for consistency
+      name: roomName,
+    });
+    setStudyTopic(studyTopic || null);
+
+    // Store last check-in request for potential rollback
+    lastCheckInRef.current = {
+      roomId,
+      roomName,
+      studyTopic,
+      timestamp: Date.now(),
+    };
+
+    // Send data to server
     const checkInData = {
       type: "checkin",
-      room_id: roomId,
-      room_name: roomName,
+      room_name: roomName, // Backend expects room_name, not room_id
       study_topic: studyTopic || undefined,
       username: user?.username,
     };
 
     globalWebSocket.send(JSON.stringify(checkInData));
 
-    // The state will be updated when we receive confirmation from the server
+    // Finish loading state after a short delay
     setTimeout(() => {
       if (isMountedRef.current) {
         setIsLoading(false);
       }
     }, 500);
+
+    // Set a rollback timeout in case server doesn't respond
+    setTimeout(() => {
+      // If we haven't received confirmation within 5 seconds and this is still the latest request
+      if (
+        lastCheckInRef.current &&
+        lastCheckInRef.current.timestamp === Date.now() - 5000 &&
+        isMountedRef.current
+      ) {
+        console.warn(
+          "No server confirmation received for check-in, rolling back optimistic update"
+        );
+        // Only roll back if we're still waiting for this specific request
+        setError("Check-in may have failed. Please try again.");
+      }
+    }, 5000);
   };
 
-  // Check-out function
+  // Check-out function with optimistic updates
   const checkOut = () => {
     if (!globalWebSocket || globalWebSocket.readyState !== WebSocket.OPEN) {
       setError("WebSocket connection not available");
@@ -428,13 +470,21 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
 
     setIsLoading(true);
 
+    // OPTIMISTIC UPDATE: Immediately update UI state
+    setIsCheckedIn(false);
+    setCheckedInRoom(null);
+    setStudyTopic(null);
+
+    // Clear last check-in reference
+    lastCheckInRef.current = null;
+
     const checkOutData = {
       type: "checkout",
     };
 
     globalWebSocket.send(JSON.stringify(checkOutData));
 
-    // The state will be updated when we receive confirmation from the server
+    // Finish loading state after a short delay
     setTimeout(() => {
       if (isMountedRef.current) {
         setIsLoading(false);

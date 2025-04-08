@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 interface TimePickerButtonProps {
   className?: string;
@@ -21,21 +22,21 @@ export function TimePickerButton({ className }: TimePickerButtonProps) {
   const [time, setTime] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // Update displayed time
+  // Update displayed time - without showing seconds
   useEffect(() => {
     const hours = currentTime.getHours().toString().padStart(2, "0");
     const minutes = currentTime.getMinutes().toString().padStart(2, "0");
-    const seconds = currentTime.getSeconds().toString().padStart(2, "0");
-    setTime(`${hours}:${minutes}:${seconds}`);
+    setTime(`${hours}:${minutes}`);
   }, [currentTime]);
 
+  // Handle selecting a date/time from the picker
   const handleSelect = (date: Date | undefined) => {
     if (date) {
       setCustomTime(date);
     }
-    setIsOpen(false);
   };
 
+  // Handle resetting to current time
   const handleReset = () => {
     resetToRealTime();
     setIsOpen(false);
@@ -65,16 +66,17 @@ export function TimePickerButton({ className }: TimePickerButtonProps) {
         </PopoverTrigger>
         <PopoverContent className="w-auto p-4">
           <div className="flex flex-col gap-4">
-            <div className="font-medium text-center">Select custom time</div>
+            <h3 className="font-medium text-center">Select custom time</h3>
             <DateTimePicker selected={currentTime} onSelect={handleSelect} />
             {isCustomTime && (
-              <button
+              <Button
+                variant="outline"
                 onClick={handleReset}
-                className="flex items-center justify-center gap-2 p-2 rounded-md bg-gray-200 dark:bg-gray-800 text-sm"
+                className="flex items-center justify-center gap-2"
               >
                 <RotateCcw className="h-4 w-4" />
                 <span>Reset to current time</span>
-              </button>
+              </Button>
             )}
           </div>
         </PopoverContent>

@@ -1,3 +1,4 @@
+import random
 import logging
 import re
 from datetime import datetime, timedelta
@@ -122,6 +123,16 @@ async def sign_up(
     user: UserCreate,
     db: Session = Depends(get_db)
 ):
+    """
+    1.1 User Registration
+    REQ-1: The system shall provide user registration via email and password.
+    REQ-2: The system shall verify that the provided email address is valid.
+    REQ-3: The system shall enforce password security requirements (minimum length, complexity).
+    REQ-4: The system shall store valid user information in the database after successful registration (Email, Password hash, Registration timestamp).
+
+    REQ-6: The system shall display appropriate error messages for invalid email format, password requirements, or existing email.
+    REQ-7: The system shall send an email verification link upon successful registration
+    """
     try:
         if not user.email.endswith("@ualberta.ca"):
             return error_response(400, False, "Only @ualberta.ca emails are allowed.")
@@ -146,13 +157,11 @@ async def sign_up(
                 message="Email already registered."
             )
 
-        existing_username = get_user_by_username(db, user.username)
-        if existing_username:
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Username already taken."
-            )
+        while True:
+            random_username = f"student_{random.randint(0, 99999)}"
+            existing_username = get_user_by_username(db, random_username)
+            if not existing_username:
+                break
 
         program_id = None
         if user.program:
@@ -169,7 +178,7 @@ async def sign_up(
         new_user = create_user(
             db,
             email=user.email,
-            username=user.username,
+            username=random_username,
             password=user.password,
             active=False,
             program_id=program_id
@@ -182,7 +191,7 @@ async def sign_up(
             status_codes=201,
             status=True,
             message="User successfully registered",
-            data={"id": str(new_user.id), "email": new_user.email, "username": new_user.username, "program": user.program}
+            data={"id": str(new_user.id), "email": new_user.email, "username": random_username, "program": user.program}
         )
     except Exception as e:
         return error_response(

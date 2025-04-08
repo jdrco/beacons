@@ -4,7 +4,6 @@ from pydantic import BaseModel, EmailStr, field_validator
 
 class UserCreate(BaseModel):
     email: EmailStr
-    username: str
     password: str
     re_password: str
     program: Optional[str] = None

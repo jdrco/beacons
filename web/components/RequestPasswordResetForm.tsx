@@ -80,8 +80,8 @@ export function RequestPasswordResetForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Reset your password</h1>
         <p className="text-balance text-sm text-muted-foreground">
-          Enter your university email below and we'll send you a password reset
-          link
+          Enter your university email below and we&apos;ll send you a password
+          reset link
         </p>
       </div>
 
@@ -95,9 +95,7 @@ export function RequestPasswordResetForm({
       )}
 
       {success && (
-        <Alert
-          className="bg-green-50 border-green-500 text-green-700"
-        >
+        <Alert className="bg-green-50 border-green-500 text-green-700">
           <AlertDescription className="text-sm flex gap-x-2 items-center">
             <CheckCircle2 className="w-4 h-4" />
             {success}
@@ -125,7 +123,7 @@ export function RequestPasswordResetForm({
       </div>
 
       <div className="text-center text-sm">
-        Remember your password?{" "}
+        Remember your password?&nbsp;
         <a
           href="/signin"
           className="underline underline-offset-4 hover:text-primary"

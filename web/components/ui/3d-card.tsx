@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import React, {
   createContext,
   useState,
@@ -35,7 +34,7 @@ export const CardContainer = ({
     containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
   };
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseEnter = () => {
     setIsMouseEntered(true);
     if (!containerRef.current) return;
   };
@@ -95,6 +94,7 @@ export const CardBody = ({
   );
 };
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const CardItem = ({
   as: Tag = "div",
   children,

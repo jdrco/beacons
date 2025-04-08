@@ -295,13 +295,6 @@ export default function ProfilePage() {
     }
   };
 
-  // Function to get first letter of username for avatar
-  const getInitial = () => {
-    return profileData.username
-      ? profileData.username.charAt(0).toUpperCase()
-      : "U";
-  };
-
   // Function to get program name from program_id
   const getProgramName = () => {
     if (!profileData.program_id && !user?.program?.name) return "Not specified";

@@ -15,7 +15,7 @@ import {
   BellOff,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,7 +33,6 @@ export default function FavoritesPage() {
   const router = useRouter();
   const {
     favorites,
-    favoriteDetails,
     isLoading,
     error,
     toggleFavorite,

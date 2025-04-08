@@ -42,7 +42,6 @@ export function SignUpForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -255,13 +254,14 @@ export function SignUpForm({
 
         <div className="space-y-4">
           <p>
-            We've sent a verification link to <strong>{formData.email}</strong>.
-            Please check your inbox and click the link to verify your account.
+            We&apos;ve sent a verification link to{" "}
+            <strong>{formData.email}</strong>. Please check your inbox and click
+            the link to verify your account.
           </p>
 
           <p className="text-sm text-muted-foreground">
-            The verification link will expire in 30 minutes. If you don't see
-            the email, please check your spam or junk folder.
+            The verification link will expire in 30 minutes. If you don&apos;t
+            see the email, please check your spam or junk folder.
           </p>
         </div>
       </div>

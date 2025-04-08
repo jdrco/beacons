@@ -29,12 +29,6 @@ export default function ActivityFeed() {
     }
   }, [error]);
 
-  // Format the timestamp for display
-  const formatTime = (timestamp: string) => {
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  };
-
   // Format date for longer timestamp display
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);

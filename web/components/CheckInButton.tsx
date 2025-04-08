@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CircleCheckBig, LogOut, CheckCircle } from "lucide-react";
+import { CircleCheckBig, LogOut } from "lucide-react";
 import { useCheckIn } from "@/hooks/useCheckIn";
 import {
   AlertDialog,

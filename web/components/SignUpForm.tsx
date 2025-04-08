@@ -27,6 +27,17 @@ interface Faculty {
   name: string;
 }
 
+/*
+  4.1 User Registration
+  REQ-1: The system shall provide user registration via email and password.
+  REQ-2: The system shall verify that the provided email address is valid.
+  REQ-3: The system shall enforce password security requirements (minimum length, complexity).
+  REQ-4: The system shall store valid user information in the database after successful registration (Email, Password hash, Registration timestamp).
+  REQ-5: The system shall generate a random appropriate unique username (display name) for the user after successful registration.
+  REQ-6: The system shall display appropriate error messages for invalid email format, password requirements, or existing email.
+  REQ-7: The system shall send an email verification link upon successful registration
+  REQ-8: The system shall verify and activate the user’s account upon clicking the email verification link
+*/
 export function SignUpForm({
   className,
   ...props

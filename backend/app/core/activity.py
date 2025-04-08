@@ -141,6 +141,16 @@ class ConnectionManager:
             db.add(room_count)
             return 0
 
+    def _get_all_room_occupancy(self, db: Session):
+        """Get all room occupancy counts from database"""
+        room_counts = db.query(RoomCount).all()
+        
+        # Convert to dictionary for JSON serialization
+        return {
+            room_count.room_name: room_count.occupant_count
+            for room_count in room_counts
+        }
+
     async def connect(self, websocket: WebSocket, username: str = None, user_id: str = None):
         await websocket.accept()
         self.active_connections.append(websocket)
@@ -180,13 +190,17 @@ class ConnectionManager:
             activity_feed = self._get_activity_feed(db)
             current_checkins = self._get_current_checkins(db)
             
+            # Get all room occupancy data
+            occupancy_data = self._get_all_room_occupancy(db)
+            
             # Send activity feed history to the new client, including their user_id
             await websocket.send_json({
                 "type": "history",
                 "feed": activity_feed,
                 "user_id": self.user_ids[websocket],
                 "username": username,
-                "current_checkins": current_checkins
+                "current_checkins": current_checkins,
+                "occupancy_data": occupancy_data  # Include occupancy data in history message
             })
         except Exception as e:
             logger.error(f"Error retrieving activity feed: {e}")

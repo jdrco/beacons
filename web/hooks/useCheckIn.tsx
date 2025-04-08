@@ -28,6 +28,7 @@ type FeedItem = {
   room_name?: string;
   study_topic?: string;
   expiry_time?: string;
+  current_occupancy?: number;
 };
 
 type HistoryMessage = {
@@ -36,6 +37,7 @@ type HistoryMessage = {
   user_id?: string;
   username?: string;
   current_checkins: FeedItem[];
+  occupancy_data?: Record<string, number>;
 };
 
 // Context types
@@ -55,6 +57,10 @@ interface CheckInContextType {
   // Feed data
   feedItems: FeedItem[];
 
+  // Occupancy data
+  roomOccupancy: Record<string, number>; // Maps room names to occupant counts
+  getBuildingOccupancy: (buildingName: string) => number; // Gets total occupancy for a building
+
   // Loading state
   isLoading: boolean;
   error: string | null;
@@ -73,6 +79,8 @@ const CheckInContext = createContext<CheckInContextType>({
   checkedInRoom: null,
   studyTopic: null,
   feedItems: [],
+  roomOccupancy: {},
+  getBuildingOccupancy: () => 0,
   isLoading: false,
   error: null,
   checkIn: () => {},
@@ -98,6 +106,9 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
   } | null>(null);
   const [studyTopic, setStudyTopic] = useState<string | null>(null);
   const [feedItems, setFeedItems] = useState<FeedItem[]>([]);
+  const [roomOccupancy, setRoomOccupancy] = useState<Record<string, number>>(
+    {}
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -106,6 +117,21 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
 
   // Track mount status to prevent state updates after unmount
   const isMountedRef = useRef(true);
+
+  // Function to get total occupancy for a building
+  const getBuildingOccupancy = (buildingName: string): number => {
+    // Extract the building prefix from room names (e.g. "DM" from "DM-101")
+    let total = 0;
+    Object.entries(roomOccupancy).forEach(([roomName, count]) => {
+      if (
+        roomName.startsWith(buildingName + "-") ||
+        roomName.startsWith(buildingName + " ")
+      ) {
+        total += count;
+      }
+    });
+    return total;
+  };
 
   // Connect to WebSocket
   useEffect(() => {
@@ -178,6 +204,14 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
                 setUserId(data.user_id);
               }
 
+              // Initialize room occupancy data from occupancy_data
+              if (
+                data.occupancy_data &&
+                typeof data.occupancy_data === "object"
+              ) {
+                setRoomOccupancy(data.occupancy_data);
+              }
+
               // Check if user is already checked in
               if (
                 data.current_checkins &&
@@ -201,6 +235,20 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
           // Handle individual events
           else if ((data as FeedItem).type) {
             const newEvent = data as FeedItem;
+
+            if (
+              newEvent.room_name &&
+              typeof newEvent.current_occupancy === "number"
+            ) {
+              const roomName = newEvent.room_name;
+              const count = newEvent.current_occupancy;
+
+              setRoomOccupancy((prev) => {
+                const updated = { ...prev };
+                updated[roomName] = count;
+                return updated;
+              });
+            }
 
             // Add to feed - with deduplication
             if (isMountedRef.current) {
@@ -243,6 +291,17 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
                 }
               }
             }
+          }
+          // Handle occupancy update broadcasts
+          else if (
+            data.type === "occupancyUpdate" &&
+            data.room_name &&
+            typeof data.count === "number"
+          ) {
+            setRoomOccupancy((prev) => ({
+              ...prev,
+              [data.room_name]: data.count,
+            }));
           }
 
           // Handle error messages
@@ -392,6 +451,8 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
     checkedInRoom,
     studyTopic,
     feedItems,
+    roomOccupancy,
+    getBuildingOccupancy,
     isLoading,
     error,
     checkIn,

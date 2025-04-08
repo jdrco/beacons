@@ -33,14 +33,19 @@ import FavoriteButton from "./FavoriteButton";
 import CheckInButton from "./CheckInButton";
 import ActivityFeed from "./ActivityFeed";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCheckIn } from "@/hooks/useCheckIn";
 import { useFavorites } from "@/hooks/useFavorites";
 import Logo from "@/components/Logo";
 import { useLocation } from "@/hooks/useLocation";
 import { toast } from "@/hooks/use-toast";
+import OccupancyBadge from "./OccupancyBadge";
 
 export default function Display() {
   // Get building data from custom hook
   const { buildingData, loading, error } = useBuildingData();
+
+  // Get occupancy data from CheckInContext
+  const { roomOccupancy, getBuildingOccupancy } = useCheckIn();
 
   // State for search and display settings
   const [searchQuery, setSearchQuery] = useState("");
@@ -178,164 +183,192 @@ export default function Display() {
       onValueChange={setExpandedAccordionItems}
       ref={accordionContainerRef}
     >
-      {getSortedBuildingEntries().map(([buildingName, building]) => (
-        <AccordionItem
-          key={buildingName}
-          value={buildingName}
-          ref={(el) => {
-            buildingItemRefs.current[buildingName] = el as HTMLElement;
-          }}
-        >
-          <AccordionTrigger
-            className="flex items-center justify-between px-3 py-4 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
-            onClick={(e) => {
-              // Prevent the default accordion behavior
-              e.preventDefault();
-              handleBuildingSelect(buildingName);
+      {getSortedBuildingEntries().map(([buildingName, building]) => {
+        // Get total building occupancy
+        const buildingOccupancy = getBuildingOccupancy(buildingName);
+
+        return (
+          <AccordionItem
+            key={buildingName}
+            value={buildingName}
+            ref={(el) => {
+              buildingItemRefs.current[buildingName] = el as HTMLElement;
             }}
-            rightElement={
-              <>
-                <div className="flex items-end">
-                  <div className="flex items-center gap-2">
-                    {(() => {
-                      const totalRooms = Object.keys(building.rooms).length;
-                      const availableRooms = getAvailableRoomCount(
-                        building,
-                        currentDateTime
-                      );
-                      const backgroundColor = getAvailabilityColor(
-                        availableRooms,
-                        totalRooms
-                      );
-
-                      return (
-                        <span
-                          className="flex justify-center items-center gap-2 w-20 py-1 rounded-full text-sm text-white"
-                          style={{
-                            backgroundColor,
-                          }}
-                        >
-                          <div className="flex items-center h-4">
-                            <DoorOpen
-                              className="h-full w-auto"
-                              strokeWidth={2}
-                            />
-                          </div>
-                          <span className="leading-4">
-                            {availableRooms}/{totalRooms}
-                          </span>
-                        </span>
-                      );
-                    })()}
-                  </div>
-                </div>
-                <ChevronDown className="shrink-0 transition-transform duration-200 chevron-icon" />
-              </>
-            }
           >
-            <div className="flex items-center gap-3">
-              <Building2 className="w-6 h-6" />
-              <span className="text-xl">{buildingName}</span>
-              {sortByDistance && location.buildingDistances[buildingName] && (
-                <span className="text-sm text-gray-400 ml-2">
-                  {location.buildingDistances[buildingName] < 1
-                    ? `${(
-                        location.buildingDistances[buildingName] * 1000
-                      ).toFixed(0)} m`
-                    : `${location.buildingDistances[buildingName].toFixed(
-                        1
-                      )} km`}
-                </span>
-              )}
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <Accordion type="multiple" className="mx-4">
-              {Object.entries(building.rooms).map(([roomName, schedules]) => {
-                const roomAvailable = isRoomAvailable(
-                  schedules,
-                  currentDateTime
-                );
-                return (
-                  <AccordionItem key={roomName} value={roomName}>
-                    <AccordionTrigger
-                      className="flex items-center justify-between px-3 py-5 hover:no-underline"
-                      usePlusMinusToggle={true}
-                      additionalControls={
-                        isAuthenticated ? (
-                          <div className="flex items-center gap-6">
-                            <CheckInButton
-                              roomId={roomName}
-                              roomName={roomName}
+            <AccordionTrigger
+              className="flex items-center justify-between px-3 py-4 hover:bg-[#2a3137] hover:no-underline transition-colors data-[state=open]:bg-[#2a3137]"
+              onClick={(e) => {
+                // Prevent the default accordion behavior
+                e.preventDefault();
+                handleBuildingSelect(buildingName);
+              }}
+              rightElement={
+                <>
+                  <div className="flex items-end gap-2">
+                    {/* Occupancy badge for building */}
+                    {buildingOccupancy > 0 && (
+                      <OccupancyBadge
+                        count={buildingOccupancy}
+                        className="bg-[#3a464e]"
+                      />
+                    )}
+                    <div className="flex items-center gap-2">
+                      {(() => {
+                        const totalRooms = Object.keys(building.rooms).length;
+                        const availableRooms = getAvailableRoomCount(
+                          building,
+                          currentDateTime
+                        );
+                        const backgroundColor = getAvailabilityColor(
+                          availableRooms,
+                          totalRooms
+                        );
+
+                        return (
+                          <span
+                            className="flex justify-center items-center gap-2 w-20 py-1 rounded-full text-sm text-white"
+                            style={{
+                              backgroundColor,
+                            }}
+                          >
+                            <div className="flex items-center h-4">
+                              <DoorOpen
+                                className="h-full w-auto"
+                                strokeWidth={2}
+                              />
+                            </div>
+                            <span className="leading-4">
+                              {availableRooms}/{totalRooms}
+                            </span>
+                          </span>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                  <ChevronDown className="shrink-0 transition-transform duration-200 chevron-icon" />
+                </>
+              }
+            >
+              <div className="flex items-center gap-3">
+                <Building2 className="w-6 h-6" />
+                <span className="text-xl">{buildingName}</span>
+                {sortByDistance && location.buildingDistances[buildingName] && (
+                  <span className="text-sm text-gray-400 ml-2">
+                    {location.buildingDistances[buildingName] < 1
+                      ? `${(
+                          location.buildingDistances[buildingName] * 1000
+                        ).toFixed(0)} m`
+                      : `${location.buildingDistances[buildingName].toFixed(
+                          1
+                        )} km`}
+                  </span>
+                )}
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Accordion type="multiple" className="mx-4">
+                {Object.entries(building.rooms).map(([roomName, schedules]) => {
+                  const roomAvailable = isRoomAvailable(
+                    schedules,
+                    currentDateTime
+                  );
+                  // Get room occupancy count
+                  const roomCount = roomOccupancy[roomName] || 0;
+
+                  return (
+                    <AccordionItem key={roomName} value={roomName}>
+                      <AccordionTrigger
+                        className="flex items-center justify-between px-3 py-5 hover:no-underline"
+                        usePlusMinusToggle={true}
+                        additionalControls={
+                          isAuthenticated ? (
+                            <div className="flex items-center gap-6">
+                              {/* Room occupancy badge */}
+                              {roomCount > 0 && (
+                                <OccupancyBadge
+                                  count={roomCount}
+                                  className="bg-[#3a464e]"
+                                />
+                              )}
+                              <CheckInButton
+                                roomId={roomName}
+                                roomName={roomName}
+                              />
+                              <FavoriteButton
+                                roomName={roomName}
+                                isFavorite={favorites.includes(roomName)}
+                                onToggle={toggleFavorite}
+                              />
+                            </div>
+                          ) : // Show occupancy badge even for non-authenticated users
+                          roomCount > 0 ? (
+                            <OccupancyBadge
+                              count={roomCount}
+                              className="bg-[#3a464e]"
                             />
-                            <FavoriteButton
-                              roomName={roomName}
-                              isFavorite={favorites.includes(roomName)}
-                              onToggle={toggleFavorite}
+                          ) : null
+                        }
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6">
+                            {roomAvailable ? (
+                              <DoorOpen className="stroke-[#4AA69D]" />
+                            ) : (
+                              <DoorClosed className="stroke-[#f56565]" />
+                            )}
+                          </div>
+                          <span className="text-lg">{roomName}</span>
+                        </div>
+                      </AccordionTrigger>
+
+                      <AccordionContent className="mt-2">
+                        <div className="space-y-4">
+                          {/* Weekly calendar integration */}
+                          <div className="border border-gray-700 rounded-lg p-3 bg-[#1e2329]">
+                            <WeeklyCalendar
+                              schedules={schedules}
+                              currentDateTime={currentDateTime}
                             />
                           </div>
-                        ) : null
-                      }
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6">
-                          {roomAvailable ? (
-                            <DoorOpen className="stroke-[#4AA69D]" />
-                          ) : (
-                            <DoorClosed className="stroke-[#f56565]" />
-                          )}
-                        </div>
-                        <span className="text-lg">{roomName}</span>
-                      </div>
-                    </AccordionTrigger>
 
-                    <AccordionContent className="mt-2">
-                      <div className="space-y-4">
-                        {/* Weekly calendar integration */}
-                        <div className="border border-gray-700 rounded-lg p-3 bg-[#1e2329]">
-                          <WeeklyCalendar
-                            schedules={schedules}
-                            currentDateTime={currentDateTime}
-                          />
-                        </div>
-
-                        {/* Original schedule details */}
-                        <div className="space-y-2 text-sm text-gray-300">
-                          <h2 className="text-sm font-bold">
-                            Schedule Details
-                          </h2>
-                          <div className="space-y-2">
-                            {[...schedules]
-                              .sort((a, b) => {
-                                const timeA = timeToMinutes(
-                                  a.time.split(" - ")[0]
-                                );
-                                const timeB = timeToMinutes(
-                                  b.time.split(" - ")[0]
-                                );
-                                return timeA - timeB;
-                              })
-                              .map((schedule, index) => (
-                                <div key={index} className="space-y-1">
-                                  <p>Course: {schedule.course}</p>
-                                  <p>Dates: {schedule.dates}</p>
-                                  <p>Time: {schedule.time}</p>
-                                  {index < schedules.length - 1 && (
-                                    <hr className="border-gray-700 my-2" />
-                                  )}
-                                </div>
-                              ))}
+                          {/* Original schedule details */}
+                          <div className="space-y-2 text-sm text-gray-300">
+                            <h2 className="text-sm font-bold">
+                              Schedule Details
+                            </h2>
+                            <div className="space-y-2">
+                              {[...schedules]
+                                .sort((a, b) => {
+                                  const timeA = timeToMinutes(
+                                    a.time.split(" - ")[0]
+                                  );
+                                  const timeB = timeToMinutes(
+                                    b.time.split(" - ")[0]
+                                  );
+                                  return timeA - timeB;
+                                })
+                                .map((schedule, index) => (
+                                  <div key={index} className="space-y-1">
+                                    <p>Course: {schedule.course}</p>
+                                    <p>Dates: {schedule.dates}</p>
+                                    <p>Time: {schedule.time}</p>
+                                    {index < schedules.length - 1 && (
+                                      <hr className="border-gray-700 my-2" />
+                                    )}
+                                  </div>
+                                ))}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </AccordionContent>
+          </AccordionItem>
+        );
+      })}
     </Accordion>
   );
 

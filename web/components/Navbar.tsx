@@ -4,11 +4,18 @@ import { NavbarProps } from "@/types";
 import SearchBar from "./Search";
 import DisplaySettingsDropdown from "./DisplaySettings";
 import { useEffect, useState } from "react";
-import { LogOut, LogIn, Heart, AlignJustify, User2 } from "lucide-react";
+import {
+  LogOut,
+  LogIn,
+  Heart,
+  AlignJustify,
+  User2,
+  MapPin,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ProfilePhoto from "@/components/ProfilePhoto";
@@ -35,6 +42,9 @@ export default function Navbar({
   setDisplaySettings,
   displaySettings,
   currentDateTime,
+  onLocationRequest,
+  sortByDistance,
+  toggleSortByDistance,
 }: NavbarProps) {
   const [time, setTime] = useState("");
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
@@ -103,11 +113,38 @@ export default function Navbar({
     router.push("/favorites");
   };
 
+  // Handle location button click
+  const handleLocationButtonClick = () => {
+    console.log("heelllooo");
+    if (!sortByDistance) {
+      onLocationRequest();
+    }
+    toggleSortByDistance();
+  };
+
   // User profile button or sign in button based on authentication status
   const renderUserControls = () => {
     if (isAuthenticated) {
       return (
         <div className="flex items-center gap-2">
+          {/* Location button */}
+          <button
+            className={cn(
+              "rounded-full h-10 w-10 flex justify-center items-center",
+              sortByDistance
+                ? "bg-[#4AA69D] text-white"
+                : "bg-[#e4e4e4] text-[#191f23]",
+              "border-2 border-[#4AA69D]"
+            )}
+            onClick={handleLocationButtonClick}
+            type="button"
+            aria-label={
+              sortByDistance ? "Sorting by distance" : "Sort by distance"
+            }
+          >
+            <MapPin className="h-4 w-4" />
+          </button>
+
           {/* Favorites button - only shown on desktop */}
           {!isMobile && (
             <button
@@ -165,18 +202,38 @@ export default function Navbar({
       );
     } else {
       return (
-        <button
-          className={cn(
-            "bg-white text-[#191f23] rounded-full flex items-center justify-center gap-2 transition-colors",
-            "hover:bg-gray-200 active:bg-gray-300",
-            isMobile ? "h-10 aspect-square" : "h-10 px-4"
-          )}
-          onClick={handleLoginClick}
-          type="button"
-        >
-          {!isMobile && <span className="font-medium text-sm">Sign In</span>}
-          <LogIn className="h-4 w-4" />
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Location button - also shown for non-authenticated users */}
+          <button
+            className={cn(
+              "rounded-full h-10 w-10 flex justify-center items-center",
+              sortByDistance
+                ? "bg-[#4AA69D] text-white"
+                : "bg-[#e4e4e4] text-[#191f23]",
+              "border-2 border-[#4AA69D]"
+            )}
+            onClick={handleLocationButtonClick}
+            type="button"
+            aria-label={
+              sortByDistance ? "Sorting by distance" : "Sort by distance"
+            }
+          >
+            <MapPin className="h-4 w-4" />
+          </button>
+
+          <button
+            className={cn(
+              "bg-white text-[#191f23] rounded-full flex items-center justify-center gap-2 transition-colors",
+              "hover:bg-gray-200 active:bg-gray-300",
+              isMobile ? "h-10 aspect-square" : "h-10 px-4"
+            )}
+            onClick={handleLoginClick}
+            type="button"
+          >
+            {!isMobile && <span className="font-medium text-sm">Sign In</span>}
+            <LogIn className="h-4 w-4" />
+          </button>
+        </div>
       );
     }
   };

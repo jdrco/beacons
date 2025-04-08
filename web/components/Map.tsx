@@ -40,6 +40,7 @@ interface MapProps {
   selectedBuilding?: string | null;
   currentDateTime: Date;
   showTooltip?: boolean;
+  userLocation?: Coordinates;
 }
 
 const getAvailableRoomCount = (
@@ -117,6 +118,15 @@ const BuildingTooltip = ({
   );
 };
 
+// Custom tooltip component for the popups
+const UserLocationTooltip = () => {
+  return (
+    <div className="bg-[#1e2329b3] border border-gray-700 rounded-lg p-3 shadow-lg">
+      <div className="text-white font-medium">Your Location</div>
+    </div>
+  );
+};
+
 const Map = ({
   className = "",
   buildingData,
@@ -125,12 +135,14 @@ const Map = ({
   selectedBuilding,
   currentDateTime,
   showTooltip = true,
+  userLocation,
 }: MapProps) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<{ [key: string]: mapboxgl.Marker }>({});
   const popupsRef = useRef<{ [key: string]: mapboxgl.Popup }>({});
   const activePopupRef = useRef<string | null>(null);
+  const userMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const isMobileRef = useRef<boolean>(false);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
@@ -191,12 +203,78 @@ const Map = ({
     return () => {
       Object.values(markersRef.current).forEach((marker) => marker.remove());
       Object.values(popupsRef.current).forEach((popup) => popup.remove());
+      if (userMarkerRef.current) {
+        userMarkerRef.current.remove();
+      }
       if (mapRef.current) {
         mapRef.current.remove();
         activePopupRef.current = null;
       }
     };
   }, []);
+
+  // Update user location marker when it changes
+  useEffect(() => {
+    if (!mapRef.current || !isMapLoaded || !userLocation) return;
+
+    // Remove existing user marker if it exists
+    if (userMarkerRef.current) {
+      userMarkerRef.current.remove();
+    }
+
+    // Create the user marker element
+    const el = document.createElement("div");
+    el.className = "user-marker";
+
+    // Create tooltip content for user location
+    const tooltipNode = document.createElement("div");
+    ReactDOM.createRoot(tooltipNode).render(<UserLocationTooltip />);
+
+    // Create popup for user location
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      offset: 15,
+      className: "map-tooltip",
+    }).setDOMContent(tooltipNode);
+
+    // Create and add the user marker to the map
+    const userMarker = new mapboxgl.Marker(el)
+      .setLngLat([userLocation.longitude, userLocation.latitude])
+      .addTo(mapRef.current);
+
+    // Add hover behavior for desktop
+    el.addEventListener("mouseenter", () => {
+      if (!isMobileRef.current) {
+        popup
+          .setLngLat([userLocation.longitude, userLocation.latitude])
+          .addTo(mapRef.current!);
+      }
+    });
+
+    el.addEventListener("mouseleave", () => {
+      if (!isMobileRef.current) {
+        popup.remove();
+      }
+    });
+
+    // Add touch behavior for mobile
+    el.addEventListener("touchstart", () => {
+      if (isMobileRef.current) {
+        popup
+          .setLngLat([userLocation.longitude, userLocation.latitude])
+          .addTo(mapRef.current!);
+
+        // Auto-remove after 3 seconds on mobile
+        setTimeout(() => {
+          popup.remove();
+        }, 3000);
+      }
+    });
+
+    // Store the marker reference
+    userMarkerRef.current = userMarker;
+  }, [userLocation, isMapLoaded, selectedBuilding]);
 
   // Update markers when buildingData or filters change
   useEffect(() => {
@@ -494,6 +572,38 @@ const Map = ({
         .map-tooltip button:focus-visible {
           box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
           border-radius: 2px;
+        }
+        @keyframes pulse {
+          0% {
+            transform: scale(0.8);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+        .user-marker:hover {
+          cursor: pointer;
+        }
+        .user-marker {
+          position: relative;
+          width: 16px;
+          height: 16px;
+          background-color: #5767e5;
+          border-radius: 50%;
+          box-shadow: 0 0 0 4px rgba(87, 103, 229, 0.5);
+        }
+        .user-marker::after {
+          content: "";
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background-color: rgba(87, 103, 229, 0.3);
+          animation: pulse 2s infinite;
+          top: -8px;
+          left: -8px;
         }
       `}</style>
     </div>

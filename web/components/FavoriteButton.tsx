@@ -2,7 +2,7 @@
 
 import { Heart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface FavoriteButtonProps {

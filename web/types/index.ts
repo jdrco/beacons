@@ -37,4 +37,7 @@ export interface NavbarProps {
   setDisplaySettings: (settings: DisplaySettings) => void;
   displaySettings: DisplaySettings;
   currentDateTime: Date;
+  onLocationRequest: () => void;
+  sortByDistance: boolean;
+  toggleSortByDistance: () => void;
 }

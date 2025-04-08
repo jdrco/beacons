@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/hooks/use-toast";
 
 // Define the structure of a favorite room from the API
 interface FavoriteRoom {

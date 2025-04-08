@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Clock, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 import { DateTimePicker } from "./DateTimePicker";
 import { useTime } from "@/contexts/TimeContext";
 import {
@@ -22,11 +23,10 @@ export function TimePickerButton({ className }: TimePickerButtonProps) {
   const [time, setTime] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // Update displayed time - without showing seconds
   useEffect(() => {
-    const hours = currentTime.getHours().toString().padStart(2, "0");
-    const minutes = currentTime.getMinutes().toString().padStart(2, "0");
-    setTime(`${hours}:${minutes}`);
+    // Use date-fns to format time in 12-hour format with AM/PM
+    const formattedTime = format(currentTime, "h:mm a");
+    setTime(formattedTime);
   }, [currentTime]);
 
   // Handle selecting a date/time from the picker
@@ -48,7 +48,6 @@ export function TimePickerButton({ className }: TimePickerButtonProps) {
         <span className={cn(isCustomTime ? "text-[#4AA69D]" : "")}>{time}</span>
         <span className="ml-3 font-bold">Edmonton</span>
       </div>
-
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <button
@@ -66,7 +65,6 @@ export function TimePickerButton({ className }: TimePickerButtonProps) {
         </PopoverTrigger>
         <PopoverContent className="w-auto p-4">
           <div className="flex flex-col gap-4">
-            <h3 className="font-medium text-center">Select custom time</h3>
             <DateTimePicker selected={currentTime} onSelect={handleSelect} />
             {isCustomTime && (
               <Button

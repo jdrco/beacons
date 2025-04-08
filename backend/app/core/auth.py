@@ -58,7 +58,8 @@ def create_user(
         username=username,
         password=hashed_password,
         active=active,
-        program_id=program_id
+        program_id=program_id,
+        created_at=datetime.now()
     )
     db.add(new_user)
     db.commit()
@@ -103,7 +104,7 @@ def get_active_user(
     db: Session = Depends(get_db)
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-6: The system shall maintain the user's authentication state across sessions until explicit logout.
     REQ-7: The system shall redirect unauthenticated users to the login page when attempting to access protected features.
     """
@@ -130,7 +131,7 @@ async def sign_up(
     db: Session = Depends(get_db)
 ):
     """
-    1.1 User Registration
+    4.1 User Registration
     REQ-1: The system shall provide user registration via email and password.
     REQ-2: The system shall verify that the provided email address is valid.
     REQ-3: The system shall enforce password security requirements (minimum length, complexity).
@@ -197,7 +198,12 @@ async def sign_up(
             status_codes=201,
             status=True,
             message="User successfully registered",
-            data={"id": str(new_user.id), "email": new_user.email, "username": random_username, "program": user.program}
+            data={
+                "id": str(new_user.id), 
+                "email": new_user.email, 
+                "username": random_username, 
+                "program": user.program,
+            }
         )
     except Exception as e:
         return error_response(
@@ -213,7 +219,7 @@ def sign_in(
     response: Response = None
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-1: The system shall provide user authentication via email and password.
     REQ-2: The system shall verify user credentials against stored information in the database.
     REQ-3: The system shall securely manage user sessions after successful authentication.
@@ -276,7 +282,7 @@ def sign_out(
     response: Response = None
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-4: The system shall provide the option to log out of the system.
     """
     try:
@@ -309,7 +315,7 @@ def update_password(
     db: Session = Depends(get_db)
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-8: The system shall provide a secure password reset functionality.
     """
     try:
@@ -456,7 +462,7 @@ async def request_password_reset(
     db: Session = Depends(get_db)
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-9: The system shall allow users to request a password reset by submitting their registered email.
     """
     user = get_user_by_email(db, email)
@@ -489,7 +495,7 @@ async def send_reset_password_email(
     token: str
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-10: The system shall send an email containing a password reset link upon request.
     """
     reset_url = f"http://localhost:3000/reset-password?token={token}"
@@ -505,7 +511,7 @@ async def send_reset_password_email(
 @router.get("/verify-password-reset")
 async def verify_password_reset(token: str, db: Session = Depends(get_db)):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-11: The system shall verify and allow users to reset their password upon clicking the password reset link.
     REQ-12: The system shall display an appropriate error message for invalid or expired password reset links.
     """
@@ -556,7 +562,7 @@ async def reset_password(
     db: Session = Depends(get_db)
 ):
     """
-    1.2 User Sign-In
+    4.2 User Sign-In
     REQ-9: The system shall allow users to request a password reset by submitting their registered email.
     """
     try:

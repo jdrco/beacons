@@ -80,7 +80,8 @@ def create_cookie(db: Session, user_id: str, access_token: str, expires_at: date
 def get_active_cookie(
         db: Session,
         access_token: str = None,
-        user_id: UUID = None):
+        user_id: UUID = None
+):
     filters = [Cookie.is_active == True, Cookie.expires_at > datetime.now()]
     if access_token:
         filters.append(Cookie.access_token == access_token)
@@ -101,6 +102,11 @@ def get_active_user(
     token: str = Security(oauth2_scheme),
     db: Session = Depends(get_db)
 ):
+    """
+    1.2 User Sign-In
+    REQ-6: The system shall maintain the user's authentication state across sessions until explicit logout.
+    REQ-7: The system shall redirect unauthenticated users to the login page when attempting to access protected features.
+    """
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized: Please provide a valid token")
 
@@ -129,7 +135,7 @@ async def sign_up(
     REQ-2: The system shall verify that the provided email address is valid.
     REQ-3: The system shall enforce password security requirements (minimum length, complexity).
     REQ-4: The system shall store valid user information in the database after successful registration (Email, Password hash, Registration timestamp).
-
+    REQ-5: The system shall generate a random appropriate unique username (display name) for the user after successful registration.
     REQ-6: The system shall display appropriate error messages for invalid email format, password requirements, or existing email.
     REQ-7: The system shall send an email verification link upon successful registration
     """
@@ -206,6 +212,14 @@ def sign_in(
     db: Session = Depends(get_db),
     response: Response = None
 ):
+    """
+    1.2 User Sign-In
+    REQ-1: The system shall provide user authentication via email and password.
+    REQ-2: The system shall verify user credentials against stored information in the database.
+    REQ-3: The system shall securely manage user sessions after successful authentication.
+    REQ-5: The system shall display appropriate error messages for invalid credentials.
+
+    """
     try:
         user = get_user_by_email(db, form_data.username)
         if not user:
@@ -261,6 +275,10 @@ def sign_out(
     db: Session = Depends(get_db),
     response: Response = None
 ):
+    """
+    1.2 User Sign-In
+    REQ-4: The system shall provide the option to log out of the system.
+    """
     try:
         active_cookie = get_active_cookie(db, user_id=current_user.id)
         if active_cookie:
@@ -290,6 +308,10 @@ def update_password(
     current_user: User = Depends(get_active_user),
     db: Session = Depends(get_db)
 ):
+    """
+    1.2 User Sign-In
+    REQ-8: The system shall provide a secure password reset functionality.
+    """
     try:
         if not verify_password(password.old_password, current_user.password):
             return error_response(400, False, "Old password is incorrect.")
@@ -433,6 +455,10 @@ async def request_password_reset(
     email: str,
     db: Session = Depends(get_db)
 ):
+    """
+    1.2 User Sign-In
+    REQ-9: The system shall allow users to request a password reset by submitting their registered email.
+    """
     user = get_user_by_email(db, email)
 
     if not user:
@@ -462,6 +488,10 @@ async def send_reset_password_email(
     email: str,
     token: str
 ):
+    """
+    1.2 User Sign-In
+    REQ-10: The system shall send an email containing a password reset link upon request.
+    """
     reset_url = f"http://localhost:3000/reset-password?token={token}"
     message = MessageSchema(
         subject="Password Reset Request",
@@ -474,6 +504,11 @@ async def send_reset_password_email(
 
 @router.get("/verify-password-reset")
 async def verify_password_reset(token: str, db: Session = Depends(get_db)):
+    """
+    1.2 User Sign-In
+    REQ-11: The system shall verify and allow users to reset their password upon clicking the password reset link.
+    REQ-12: The system shall display an appropriate error message for invalid or expired password reset links.
+    """
     try:
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         email = payload.get("sub")
@@ -520,7 +555,10 @@ async def reset_password(
     data: EmailPasswordReset,
     db: Session = Depends(get_db)
 ):
-
+    """
+    1.2 User Sign-In
+    REQ-9: The system shall allow users to request a password reset by submitting their registered email.
+    """
     try:
         if not re.search(r"[A-Z]", data.password):
             return error_response(400, False, "Password must contain at least one uppercase letter.")

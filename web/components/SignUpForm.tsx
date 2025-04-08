@@ -35,7 +35,6 @@ export function SignUpForm({
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
     password: "",
     re_password: "",
     is_undergrad: true,
@@ -146,12 +145,6 @@ export function SignUpForm({
       return;
     }
 
-    // Validate username
-    if (!formData.username.trim()) {
-      setError("Username is required.");
-      return;
-    }
-
     setIsLoading(true);
 
     // Find the program name from the selected program ID
@@ -167,7 +160,6 @@ export function SignUpForm({
     // Prepare the data in the format the backend expects
     const dataToSend = {
       email: formData.email,
-      username: formData.username,
       password: formData.password,
       re_password: formData.re_password,
       program: programName,
@@ -301,21 +293,6 @@ export function SignUpForm({
           />
           <p className="text-xs text-muted-foreground">
             Only @ualberta.ca email addresses are allowed
-          </p>
-        </div>
-
-        <div className="grid gap-2">
-          <Label htmlFor="username">Username</Label>
-          <Input
-            id="username"
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-          <p className="text-xs text-muted-foreground">
-            This is your display name that others will see
           </p>
         </div>
 

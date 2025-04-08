@@ -320,7 +320,7 @@ export default function Display() {
                       <AccordionContent className="mt-2">
                         <div className="space-y-4">
                           <div className="w-full flex justify-between items-center">
-                            <h1>Schedule</h1>
+                            <div className="text-lg">Room Schedule</div>
                             {isAuthenticated && (
                               <ToggleCheckInButton
                                 key={`check-in-button-${roomName}-${Date.now()}`}

@@ -137,7 +137,7 @@ const ProgramDemographicsChart: React.FC<ProgramDemographicsChartProps> = ({
     return (
       <Card className="w-full bg-[#1e2329] border-gray-700">
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Check In Demographics for {roomName}</CardTitle>
+          <CardTitle className="text-base text-center">Check In Demographics for {roomName}</CardTitle>
         </CardHeader>
         <CardContent className="text-sm text-center py-6 text-gray-400">
           No occupancy data available for this room

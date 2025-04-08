@@ -8,19 +8,17 @@ interface DemographicsResponseData {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { roomName: string } }
+  context: { params: { roomName: string } }
 ): Promise<NextResponse> {
   try {
     // Get the room name from the URL
-    const roomName = params.roomName;
-
+    const roomName = context.params.roomName;
     if (!roomName) {
       return NextResponse.json(
         { message: "Room name is required" },
         { status: 400 }
       );
     }
-
     // Get the token from the cookie
     const token = request.cookies.get("access_token")?.value;
     if (!token) {
@@ -29,7 +27,6 @@ export async function GET(
         { status: 401 }
       );
     }
-
     // Call the backend API to get the room demographics
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/rooms/${encodeURIComponent(
@@ -41,7 +38,6 @@ export async function GET(
         },
       }
     );
-
     if (!response.ok) {
       const errorData = await response.json();
       return NextResponse.json(
@@ -49,16 +45,13 @@ export async function GET(
         { status: response.status }
       );
     }
-
     const data: DemographicsResponseData = await response.json();
-
     if (!data.status) {
       return NextResponse.json(
         { message: "Failed to retrieve demographics data" },
         { status: 500 }
       );
     }
-
     // Return the demographics data from the response
     return NextResponse.json({
       status: true,

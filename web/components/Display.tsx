@@ -22,7 +22,6 @@ import {
   isRoomAvailable,
   getAvailableRoomCount,
   filterBuildingData,
-  timeToMinutes,
 } from "@/lib/availability";
 import { useBuildingData } from "@/hooks/useBuildingData";
 import { useTimeUpdate } from "@/hooks/useTimeUpdate";
@@ -335,35 +334,6 @@ export default function Display() {
                               schedules={schedules}
                               currentDateTime={currentDateTime}
                             />
-                          </div>
-
-                          {/* Original schedule details */}
-                          <div className="space-y-2 text-sm text-gray-300">
-                            <h2 className="text-sm font-bold">
-                              Schedule Details
-                            </h2>
-                            <div className="space-y-2">
-                              {[...schedules]
-                                .sort((a, b) => {
-                                  const timeA = timeToMinutes(
-                                    a.time.split(" - ")[0]
-                                  );
-                                  const timeB = timeToMinutes(
-                                    b.time.split(" - ")[0]
-                                  );
-                                  return timeA - timeB;
-                                })
-                                .map((schedule, index) => (
-                                  <div key={index} className="space-y-1">
-                                    <p>Course: {schedule.course}</p>
-                                    <p>Dates: {schedule.dates}</p>
-                                    <p>Time: {schedule.time}</p>
-                                    {index < schedules.length - 1 && (
-                                      <hr className="border-gray-700 my-2" />
-                                    )}
-                                  </div>
-                                ))}
-                            </div>
                           </div>
                         </div>
                       </AccordionContent>

@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ProfilePhoto from "@/components/ProfilePhoto";
+import { TimePickerButton } from "@/components/TimePickerButton";
 
 import {
   AlertDialog,
@@ -46,7 +47,6 @@ export default function Navbar({
   sortByDistance,
   toggleSortByDistance,
 }: NavbarProps) {
-  const [time, setTime] = useState("");
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
@@ -54,21 +54,6 @@ export default function Navbar({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const router = useRouter();
-
-  // Update time every second
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, "0");
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      const seconds = now.getSeconds().toString().padStart(2, "0");
-      setTime(`${hours}:${minutes}:${seconds}`);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Check if device is mobile
   useEffect(() => {
@@ -115,7 +100,6 @@ export default function Navbar({
 
   // Handle location button click
   const handleLocationButtonClick = () => {
-    console.log("heelllooo");
     if (!sortByDistance) {
       onLocationRequest();
     }
@@ -247,10 +231,9 @@ export default function Navbar({
             <Link href="/">
               <Logo className="ml-2" />
             </Link>
-            {/* Time */}
-            <div className="items-center whitespace-nowrap font-mono text-sm hidden lg:flex">
-              <span>{time}</span>
-              <span className="ml-3 font-bold">Edmonton</span>
+            {/* Time Picker Button instead of static time display */}
+            <div className="items-center whitespace-nowrap hidden lg:flex">
+              <TimePickerButton />
             </div>
             <div></div>
           </div>

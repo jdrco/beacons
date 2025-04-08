@@ -30,7 +30,7 @@ import { useBuildingSelection } from "@/hooks/useBuildingSelection";
 import { DisplaySettings } from "@/types";
 import Navbar from "./Navbar";
 import FavoriteButton from "./FavoriteButton";
-import CheckInButton from "./CheckInButton";
+import ToggleCheckInButton from "./ToggleCheckInButton";
 import ActivityFeed from "./ActivityFeed";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCheckIn } from "@/hooks/useCheckIn";
@@ -44,8 +44,9 @@ export default function Display() {
   // Get building data from custom hook
   const { buildingData, loading, error } = useBuildingData();
 
-  // Get occupancy data from CheckInContext
-  const { roomOccupancy, getBuildingOccupancy } = useCheckIn();
+  // Get occupancy and check-in data from CheckInContext
+  const { roomOccupancy, getBuildingOccupancy, isCheckedIn, checkedInRoom } =
+    useCheckIn();
 
   // State for search and display settings
   const [searchQuery, setSearchQuery] = useState("");
@@ -290,10 +291,6 @@ export default function Display() {
                                   className="bg-[#3a464e]"
                                 />
                               )}
-                              <CheckInButton
-                                roomId={roomName}
-                                roomName={roomName}
-                              />
                               <FavoriteButton
                                 roomName={roomName}
                                 isFavorite={favorites.includes(roomName)}
@@ -323,6 +320,18 @@ export default function Display() {
 
                       <AccordionContent className="mt-2">
                         <div className="space-y-4">
+                          <div className="w-full flex justify-between items-center">
+                            <h1>Schedule</h1>
+                            {isAuthenticated && (
+                              <ToggleCheckInButton
+                                key={`check-in-button-${roomName}-${isCheckedIn}-${
+                                  checkedInRoom?.id === roomName
+                                }`}
+                                roomId={roomName}
+                                roomName={roomName}
+                              />
+                            )}
+                          </div>
                           {/* Weekly calendar integration */}
                           <div className="border border-gray-700 rounded-lg p-3 bg-[#1e2329]">
                             <WeeklyCalendar

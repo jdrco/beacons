@@ -14,6 +14,8 @@ class User(Base):
     username = Column(String, nullable=False)
     active = Column(Boolean, nullable=False, default=False)
     program_id = Column(UUID(as_uuid=True), ForeignKey("programs.id", ondelete="SET NULL"), nullable=True, index=True)
+    created_at = Column(DateTime, default=datetime.now, nullable=False)
+
 
     cookies = relationship("Cookie", back_populates="user", cascade="all, delete-orphan")
     favorite_rooms = relationship("UserFavoriteRoom", back_populates="user", cascade="all, delete-orphan")

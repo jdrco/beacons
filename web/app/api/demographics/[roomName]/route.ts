@@ -8,11 +8,11 @@ interface DemographicsResponseData {
 
 export async function GET(
   request: NextRequest,
-  context: { params: { roomName: string } }
+  { params }: { params: Promise<{ roomName: string }> }
 ): Promise<NextResponse> {
   try {
     // Get the room name from the URL
-    const roomName = context.params.roomName;
+    const { roomName } = await params;
     if (!roomName) {
       return NextResponse.json(
         { message: "Room name is required" },

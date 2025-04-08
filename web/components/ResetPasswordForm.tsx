@@ -138,9 +138,7 @@ export function ResetPasswordForm({
       )}
 
       {success && (
-        <Alert
-          className="bg-green-50 border-green-500 text-green-700"
-        >
+        <Alert className="bg-green-50 border-green-500 text-green-700">
           <AlertDescription className="text-sm flex gap-x-2 items-center">
             <CheckCircle2 className="w-4 h-4" />
             {success}
@@ -187,7 +185,7 @@ export function ResetPasswordForm({
                   : "text-gray-500"
               }
             >
-              • At least one special character (!@#$%^&*(),.?":{}|&lt;&gt;)
+              • At least one special character (!@#$%^&*(),.?&quot;:{}|&lt;&gt;)
             </div>
           </div>
         </div>

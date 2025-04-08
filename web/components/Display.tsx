@@ -45,8 +45,7 @@ export default function Display() {
   const { buildingData, loading, error } = useBuildingData();
 
   // Get occupancy and check-in data from CheckInContext
-  const { roomOccupancy, getBuildingOccupancy, isCheckedIn, checkedInRoom } =
-    useCheckIn();
+  const { roomOccupancy, getBuildingOccupancy } = useCheckIn();
 
   // State for search and display settings
   const [searchQuery, setSearchQuery] = useState("");

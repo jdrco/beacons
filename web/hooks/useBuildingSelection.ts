@@ -64,7 +64,7 @@ export function useBuildingSelection({
               } else {
                 // Determine the appropriate offset based on authentication status
                 // Use a larger offset when authenticated (e.g., due to tabs or additional UI elements)
-                const scrollOffset = isAuthenticated ? 130 : 89;
+                const scrollOffset = isAuthenticated ? 130 : 88;
 
                 // On desktop, use the original approach with padding
                 const scrollPosition = element.offsetTop - scrollOffset;

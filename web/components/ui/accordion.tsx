@@ -40,41 +40,50 @@ const AccordionTrigger = React.forwardRef<
     },
     ref
   ) => {
-    // Get the open state from data attribute
+    // Use React's context to access the open state directly
+    const [open, setOpen] = React.useState(false);
+
+    // Get the value from the Accordion context if available
+    // Use a ref to track the element and its state
     const triggerRef = React.useRef<HTMLButtonElement>(null);
-    const [isOpen, setIsOpen] = React.useState(false);
 
-    // Update open state when the component's open state changes
-    React.useEffect(() => {
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.attributeName === "data-state") {
-            const element = mutation.target as HTMLElement;
-            setIsOpen(element.getAttribute("data-state") === "open");
-          }
-        });
-      });
+    // This function will be called when the element is rendered
+    const handleRef = React.useCallback(
+      (element: HTMLButtonElement | null) => {
+        // Handle the forwarded ref properly
+        if (typeof ref === "function") {
+          ref(element);
+        } else if (ref) {
+          ref.current = element;
+        }
 
-      if (triggerRef.current) {
-        observer.observe(triggerRef.current, { attributes: true });
-      }
+        // Store our own ref for state tracking
+        triggerRef.current = element;
 
-      return () => observer.disconnect();
+        // Check the initial state
+        if (element) {
+          setOpen(element.getAttribute("data-state") === "open");
+        }
+      },
+      [ref]
+    );
+
+    // Handle clicks manually
+    const handleClick = React.useCallback(() => {
+      // We just toggle our local state - the actual toggle happens
+      // through Radix UI's built-in behavior
+      setOpen((prev) => !prev);
     }, []);
 
     return (
       <AccordionPrimitive.Header className="flex">
         <AccordionPrimitive.Trigger
-          ref={(el) => {
-            // Handle refs properly
-            if (typeof ref === "function") ref(el);
-            else if (ref) ref.current = el;
-            triggerRef.current = el;
-          }}
+          ref={handleRef}
           className={cn(
             "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]_.chevron-icon]:rotate-180",
             className
           )}
+          onClick={handleClick}
           {...props}
         >
           {children}
@@ -87,13 +96,13 @@ const AccordionTrigger = React.forwardRef<
                 <CalendarArrowUp
                   className={cn(
                     "absolute inset-0 transition-opacity duration-200",
-                    isOpen ? "opacity-100" : "opacity-0"
+                    open ? "opacity-100" : "opacity-0"
                   )}
                 />
                 <CalendarArrowDown
                   className={cn(
                     "absolute inset-0 transition-opacity duration-200",
-                    isOpen ? "opacity-0" : "opacity-100"
+                    open ? "opacity-0" : "opacity-100"
                   )}
                 />
               </div>

@@ -1,4 +1,5 @@
-import { useState, useRef, RefObject, MutableRefObject } from "react";
+import { useState, RefObject, MutableRefObject } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export interface BuildingSelectionProps {
   accordionContainerRef: RefObject<HTMLDivElement | null>;
@@ -14,6 +15,9 @@ export function useBuildingSelection({
     string[]
   >([]);
   const [showMapTooltip, setShowMapTooltip] = useState<boolean>(true);
+
+  // Get authentication status
+  const { isAuthenticated } = useAuth();
 
   // Handle building selection from map or accordion
   const handleBuildingSelect = (buildingName: string) => {
@@ -58,8 +62,12 @@ export function useBuildingSelection({
               if (window.innerWidth < 768) {
                 element.scrollIntoView({ behavior: "smooth", block: "start" });
               } else {
+                // Determine the appropriate offset based on authentication status
+                // Use a larger offset when authenticated (e.g., due to tabs or additional UI elements)
+                const scrollOffset = isAuthenticated ? 130 : 89;
+
                 // On desktop, use the original approach with padding
-                const scrollPosition = element.offsetTop - 130;
+                const scrollPosition = element.offsetTop - scrollOffset;
                 container.scrollTo({
                   top: Math.max(0, scrollPosition),
                   behavior: "smooth",

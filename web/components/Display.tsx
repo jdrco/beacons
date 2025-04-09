@@ -25,6 +25,7 @@ import {
 } from "@/lib/availability";
 import { useBuildingData } from "@/hooks/useBuildingData";
 import { useTimeUpdate } from "@/hooks/useTimeUpdate";
+import { useScrollPreservation } from "@/hooks/useScrollPreservation";
 import { useBuildingSelection } from "@/hooks/useBuildingSelection";
 import { DisplaySettings } from "@/types";
 import Navbar from "./Navbar";
@@ -78,6 +79,9 @@ export default function Display() {
   } = useBuildingSelection({ accordionContainerRef, buildingItemRefs });
 
   const [expandedRoomItems, setExpandedRoomItems] = useState<string[]>([]);
+  const { scrollContainerRef, saveScrollPosition } = useScrollPreservation([
+    expandedRoomItems,
+  ]);
 
   // Authentication and favorites
   const { isAuthenticated } = useAuth();
@@ -183,7 +187,15 @@ export default function Display() {
       className="w-full h-full overflow-y-auto"
       value={expandedAccordionItems}
       onValueChange={setExpandedAccordionItems}
-      ref={accordionContainerRef}
+      ref={(el) => {
+        // Maintain both refs
+        if (accordionContainerRef) {
+          accordionContainerRef.current = el as HTMLDivElement;
+        }
+        if (scrollContainerRef) {
+          scrollContainerRef.current = el as HTMLDivElement;
+        }
+      }}
     >
       {getSortedBuildingEntries().map(([buildingName, building]) => {
         // Get total building occupancy
@@ -272,7 +284,11 @@ export default function Display() {
                 type="multiple"
                 className="mx-4"
                 value={expandedRoomItems}
-                onValueChange={setExpandedRoomItems}
+                onValueChange={(value) => {
+                  // Save scroll position before updating state
+                  saveScrollPosition();
+                  setExpandedRoomItems(value);
+                }}
               >
                 {Object.entries(building.rooms).map(([roomName, schedules]) => {
                   const roomAvailable = isRoomAvailable(
@@ -289,7 +305,10 @@ export default function Display() {
                         usePlusMinusToggle={true}
                         additionalControls={
                           isAuthenticated ? (
-                            <div className="flex items-center gap-6">
+                            <div
+                              className="flex items-center gap-6"
+                              onClick={(e) => e.stopPropagation()}
+                            >
                               {/* Room occupancy badge */}
                               {roomCount > 0 && (
                                 <OccupancyBadge
@@ -300,7 +319,14 @@ export default function Display() {
                               <FavoriteButton
                                 roomName={roomName}
                                 isFavorite={favorites.includes(roomName)}
-                                onToggle={toggleFavorite}
+                                onToggle={(roomName, shouldBeFavorite) => {
+                                  // Save scroll position before toggling favorite
+                                  saveScrollPosition();
+                                  return toggleFavorite(
+                                    roomName,
+                                    shouldBeFavorite
+                                  );
+                                }}
                               />
                             </div>
                           ) : // Show occupancy badge even for non-authenticated users
@@ -326,14 +352,16 @@ export default function Display() {
 
                       <AccordionContent className="mt-2">
                         <div className="space-y-4">
-                          <div className="w-full flex justify-between items-center">
+                          <div className="w-full flex justify-between items-center px-3">
                             <div className="text-lg">Room Schedule</div>
                             {isAuthenticated && (
-                              <ToggleCheckInButton
-                                key={`check-in-button-${roomName}-${Date.now()}`}
-                                roomId={roomName}
-                                roomName={roomName}
-                              />
+                              <div onClick={(e) => e.stopPropagation()}>
+                                <ToggleCheckInButton
+                                  key={`check-in-${roomName}`}
+                                  roomId={roomName}
+                                  roomName={roomName}
+                                />
+                              </div>
                             )}
                           </div>
                           {/* Weekly calendar integration */}
@@ -390,7 +418,7 @@ export default function Display() {
               : undefined
           }
         />
-        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
+        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4 rounded-2xl">
           {isAuthenticated ? (
             <Tabs
               defaultValue="rooms"

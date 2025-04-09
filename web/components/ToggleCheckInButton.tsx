@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { CircleCheckBig, LogOut, Loader2, Users } from "lucide-react";
 import { useCheckIn } from "@/hooks/useCheckIn";
 import {
@@ -27,7 +27,8 @@ interface ToggleCheckInButtonProps {
   maxOccupancy?: number;
 }
 
-export default function ToggleCheckInButton({
+// Create a non-memoized internal component
+function ToggleCheckInButtonInternal({
   roomId,
   roomName,
   maxOccupancy = 40, // Default maximum occupancy
@@ -44,84 +45,95 @@ export default function ToggleCheckInButton({
   } = useCheckIn();
   const { toast } = useToast();
 
-  // Memoize this calculation to ensure stable renders
-  const isCheckedInThisRoom = useCallback(() => {
-    const result = isCheckedIn && checkedInRoom?.id === roomId;
-    return result;
-  }, [isCheckedIn, checkedInRoom, roomId]);
+  // Check if user is checked into this specific room
+  const isCheckedInThisRoom = isCheckedIn && checkedInRoom?.id === roomId;
 
   // Check if the room is at or over max capacity
-  const isRoomFull = useCallback(() => {
-    const currentOccupancy = roomOccupancy[roomName] || 0;
-    return currentOccupancy >= maxOccupancy;
-  }, [roomOccupancy, roomName, maxOccupancy]);
+  const currentOccupancy = roomOccupancy[roomName] || 0;
+  const isRoomFull = currentOccupancy >= maxOccupancy;
+  const roomIsFull = isRoomFull && !isCheckedInThisRoom;
 
-  const handleButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleButtonClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (isCheckedInThisRoom()) {
-      // If already checked in to this room, check out directly
-      console.log(`Checking out from room ${roomId}`);
-      checkOut();
-    } else if (!isLoading) {
-      // Check if room is full before showing dialog - should never happen with disabled button
-      if (isRoomFull()) {
+      if (isCheckedInThisRoom) {
+        // If already checked in to this room, check out directly
+        checkOut();
+      } else if (!isLoading) {
+        // Check if room is full before showing dialog
+        if (isRoomFull) {
+          toast({
+            title: "Room is at capacity",
+            description: `${roomName} currently has ${currentOccupancy} people and has reached its maximum capacity of ${maxOccupancy}.`,
+            variant: "destructive",
+          });
+          return;
+        }
+
+        // Otherwise show dialog for check-in
+        setShowAlertDialog(true);
+      }
+    },
+    [
+      isCheckedInThisRoom,
+      isLoading,
+      isRoomFull,
+      checkOut,
+      roomName,
+      currentOccupancy,
+      maxOccupancy,
+      toast,
+    ]
+  );
+
+  const handleCheckIn = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Double-check that room isn't full
+      if (isRoomFull) {
         toast({
           title: "Room is at capacity",
-          description: `${roomName} currently has ${
-            roomOccupancy[roomName] || 0
-          } people and has reached its maximum capacity of ${maxOccupancy}.`,
+          description: `${roomName} currently has ${currentOccupancy} people and has reached its maximum capacity of ${maxOccupancy}.`,
           variant: "destructive",
         });
+        setShowAlertDialog(false);
         return;
       }
 
-      // Otherwise show dialog for check-in
-      setShowAlertDialog(true);
-    }
-  };
-
-  const handleCheckIn = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    // Double-check that room isn't full (in case occupancy changed while dialog was open)
-    if (isRoomFull()) {
-      toast({
-        title: "Room is at capacity",
-        description: `${roomName} currently has ${
-          roomOccupancy[roomName] || 0
-        } people and has reached its maximum capacity of ${maxOccupancy}.`,
-        variant: "destructive",
-      });
+      checkIn(roomId, roomName, studyTopic);
       setShowAlertDialog(false);
-      return;
-    }
-
-    console.log(`Checking into room ${roomId} with topic: ${studyTopic}`);
-    checkIn(roomId, roomName, studyTopic);
-    setShowAlertDialog(false);
-    setStudyTopic("");
-  };
-
-  // Determine current status
-  const currentlyCheckedInThisRoom = isCheckedInThisRoom();
-  const roomIsFull = isRoomFull() && !currentlyCheckedInThisRoom;
+      setStudyTopic("");
+    },
+    [
+      isRoomFull,
+      roomName,
+      currentOccupancy,
+      maxOccupancy,
+      toast,
+      checkIn,
+      roomId,
+      studyTopic,
+    ]
+  );
 
   // Determine button appearance
-  const buttonClass = currentlyCheckedInThisRoom
+  const buttonClass = isCheckedInThisRoom
     ? "bg-red-600 hover:bg-red-700 text-white"
     : roomIsFull
     ? "bg-gray-400 text-gray-600 cursor-not-allowed opacity-70"
     : "bg-green-600 hover:bg-green-700 text-white";
 
+  // Create button content
   const buttonContent = isLoading ? (
     <>
       <Loader2 className="h-4 w-4 animate-spin" />
-      {currentlyCheckedInThisRoom ? "Checking Out..." : "Checking In..."}
+      {isCheckedInThisRoom ? "Checking Out..." : "Checking In..."}
     </>
-  ) : currentlyCheckedInThisRoom ? (
+  ) : isCheckedInThisRoom ? (
     <>
       <LogOut className="h-4 w-4" />
       Check Out
@@ -145,6 +157,7 @@ export default function ToggleCheckInButton({
         className={`px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 ${buttonClass}`}
         onClick={handleButtonClick}
         disabled={isLoading || roomIsFull}
+        type="button"
       >
         {buttonContent}
       </button>
@@ -167,11 +180,16 @@ export default function ToggleCheckInButton({
     return button;
   };
 
+  // Add event handlers to prevent event bubbling
+  const handleDialogClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
-    <>
+    <div onClick={handleDialogClick}>
       <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>
         {/* If checked in or room is full, don't wrap in trigger */}
-        {currentlyCheckedInThisRoom || roomIsFull ? (
+        {isCheckedInThisRoom || roomIsFull ? (
           renderButton()
         ) : (
           <AlertDialogTrigger asChild>{renderButton()}</AlertDialogTrigger>
@@ -179,7 +197,7 @@ export default function ToggleCheckInButton({
 
         <AlertDialogContent
           className="sm:max-w-[425px]"
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleDialogClick}
         >
           <AlertDialogHeader>
             <AlertDialogTitle>Check In to {roomName}</AlertDialogTitle>
@@ -187,7 +205,7 @@ export default function ToggleCheckInButton({
           <AlertDialogDescription>
             Show others where you are studying at
           </AlertDialogDescription>
-          <div className="grid gap-4 py-4" onClick={(e) => e.stopPropagation()}>
+          <div className="grid gap-4 py-4" onClick={handleDialogClick}>
             <div className="grid gap-2">
               <Label htmlFor="study-topic">
                 What are you studying? (optional)
@@ -197,14 +215,11 @@ export default function ToggleCheckInButton({
                 placeholder="e.g., CMPUT 174, Biology, Math..."
                 value={studyTopic}
                 onChange={(e) => setStudyTopic(e.target.value)}
-                onClick={(e) => e.stopPropagation()}
+                onClick={handleDialogClick}
               />
             </div>
           </div>
-          <div
-            className="flex justify-end gap-2"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="flex justify-end gap-2" onClick={handleDialogClick}>
             <div
               className="flex items-center justify-center px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm font-medium"
               onClick={(e) => {
@@ -223,6 +238,10 @@ export default function ToggleCheckInButton({
           </div>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </div>
   );
 }
+
+// Export a memoized version to prevent unnecessary re-renders
+const ToggleCheckInButton = memo(ToggleCheckInButtonInternal);
+export default ToggleCheckInButton;

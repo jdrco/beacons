@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -11,7 +11,24 @@ import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export default function ResendVerificationEmailPage() {
+// Loading component to show while the content is loading
+function EmailVerificationFormLoading() {
+  return (
+    <div className="max-w-md mx-auto px-4 py-10">
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-2xl font-bold">Verify your email</h1>
+          <p className="text-balance text-sm text-muted-foreground">
+            Loading...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Client component that uses useSearchParams
+function EmailVerificationForm() {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -97,63 +114,71 @@ export default function ResendVerificationEmailPage() {
   };
 
   return (
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6")}>
+      <div className="flex flex-col items-center gap-2 text-center">
+        <h1 className="text-2xl font-bold">Verify your email</h1>
+        <p className="text-balance text-sm text-muted-foreground">
+          Enter your university email below and we&apos;ll send you a new
+          verification link
+        </p>
+      </div>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription className="text-sm flex gap-x-2 items-center">
+            <AlertCircle className="w-4 h-4" />
+            {error}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {success && (
+        <Alert className="bg-green-50 border-green-500 text-green-700">
+          <AlertDescription className="text-sm flex gap-x-2 items-center">
+            <CheckCircle2 className="w-4 h-4" />
+            {success}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      <div className="grid gap-6">
+        <div className="grid gap-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="name@ualberta.ca"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? "Sending..." : "Resend Verification Email"}
+        </Button>
+      </div>
+
+      <div className="text-center text-sm">
+        Already verified?&nbsp;
+        <Link
+          href="/signin"
+          className="underline underline-offset-4 hover:text-primary"
+        >
+          Sign In
+        </Link>
+      </div>
+    </form>
+  );
+}
+
+export default function ResendVerificationEmailPage() {
+  return (
     <div className="max-w-md mx-auto px-4 py-10">
-      <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6")}>
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-bold">Verify your email</h1>
-          <p className="text-balance text-sm text-muted-foreground">
-            Enter your university email below and we&apos;ll send you a new
-            verification link
-          </p>
-        </div>
-
-        {error && (
-          <Alert variant="destructive">
-            <AlertDescription className="text-sm flex gap-x-2 items-center">
-              <AlertCircle className="w-4 h-4" />
-              {error}
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {success && (
-          <Alert className="bg-green-50 border-green-500 text-green-700">
-            <AlertDescription className="text-sm flex gap-x-2 items-center">
-              <CheckCircle2 className="w-4 h-4" />
-              {success}
-            </AlertDescription>
-          </Alert>
-        )}
-
-        <div className="grid gap-6">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="name@ualberta.ca"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Sending..." : "Resend Verification Email"}
-          </Button>
-        </div>
-
-        <div className="text-center text-sm">
-          Already verified?&nbsp;
-          <Link
-            href="/signin"
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Sign In
-          </Link>
-        </div>
-      </form>
+      <Suspense fallback={<EmailVerificationFormLoading />}>
+        <EmailVerificationForm />
+      </Suspense>
     </div>
   );
 }

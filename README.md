@@ -1,7 +1,7 @@
 # Beacons Web Application
 
 This project consists of two main parts:
-- **Frontend**: Built with Vite + React
+- **Frontend**: Built with React
 - **Backend**: FastAPI application with a PostgreSQL database, managed using Docker
 
 ---
@@ -26,9 +26,6 @@ docker -v || echo "Docker is not installed. Please install it from https://www.d
 
 # Check Docker Compose
 docker compose version || echo "Docker Compose is not installed. Please install it with Docker Desktop."
-
-# Check PostgreSQL (if using local DB or psql CLI)
-psql --version || echo "PostgreSQL is not installed. Get it from https://www.postgresql.org/download/"
 ```
 
 ---
@@ -51,7 +48,7 @@ beacons/
 
 ## Running the Application
 
-> 🛑 **Make sure you have the `.env` file placed inside `backend/` before running these commands.**  
+> 🛑 **Make sure you have the `.env` file placed inside `web/` and `backend/` before running these commands.**  
 > It contains necessary configuration such as `DATABASE_URL`, `SECRET_KEY`, and email credentials.
 
 ---
@@ -65,7 +62,7 @@ npm run dev
 ```
 
 - Starts the Vite development server for React.
-- Open your browser to: [http://localhost:5173](http://localhost:5173)
+- Open your browser to: [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -119,10 +116,9 @@ Use these routes to verify the backend is working:
 
 - Ensure Docker and Node.js are correctly installed.
 - Ensure `.env` exists and is correctly filled out.
-- Make sure ports 5173 and 8000 are not blocked or in use.
+- Make sure ports 3000 and 8000 are not blocked or in use.
 
 ---
 
 ## 📚 Credits
 
-Developed as a capstone project by Nam Son.

@@ -77,6 +77,10 @@ async def private_health_check(
     return success_response(200, True, "Private health check.")
 
 async def send_email(subject: str, email_to: str, body: str):
+    """
+    1.6 Notifications
+    REQ-1: The system shall send notifications to users when their favourite rooms become available, including the room name and building location in the notification content.
+    """
     try:
         message = MessageSchema(
             subject=subject,
@@ -90,6 +94,10 @@ async def send_email(subject: str, email_to: str, body: str):
         logger.error(f"Error sending email to {email_to}: {e}")
 
 def check_available_rooms(db: Session):
+    """
+    1.6 Notifications
+    REQ-3: The system shall verify and respect device-level notification permissions before attempting to send any notifications.
+    """
     now = datetime.now()
     five_minutes_ago = now - timedelta(minutes=5)
 
@@ -135,6 +143,10 @@ def check_available_rooms(db: Session):
         logger.error(f"Error checking available rooms: {e}")
 
 async def scheduled_task():
+    """
+    1.6 Notifications
+    REQ-1: The system shall send notifications to users when their favourite rooms become available, including the room name and building location in the notification content.
+    """
     logger.info(f"Scheduled task triggered at {datetime.now()}")
     db = next(get_db())
 

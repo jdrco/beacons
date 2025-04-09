@@ -129,10 +129,7 @@ function ToggleCheckInButtonInternal({
 
   // Create button content
   const buttonContent = isLoading ? (
-    <>
-      <Loader2 className="h-4 w-4 animate-spin" />
-      {isCheckedInThisRoom ? "Checking Out..." : "Checking In..."}
-    </>
+    <Loader2 className="h-4 w-4 animate-spin" />
   ) : isCheckedInThisRoom ? (
     <>
       <LogOut className="h-4 w-4" />

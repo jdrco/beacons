@@ -418,7 +418,7 @@ export default function Display() {
               : undefined
           }
         />
-        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4 md:rounded-2xl">
+        <div className="flex flex-col items-center w-full md:w-1/3 h-full overflow-hidden gap-4">
           {isAuthenticated ? (
             <Tabs
               defaultValue="rooms"

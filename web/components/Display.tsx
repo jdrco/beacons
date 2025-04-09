@@ -77,6 +77,8 @@ export default function Display() {
     handleBuildingSelect,
   } = useBuildingSelection({ accordionContainerRef, buildingItemRefs });
 
+  const [expandedRoomItems, setExpandedRoomItems] = useState<string[]>([]);
+
   // Authentication and favorites
   const { isAuthenticated } = useAuth();
   const { favorites, toggleFavorite } = useFavorites();
@@ -266,7 +268,12 @@ export default function Display() {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              <Accordion type="multiple" className="mx-4">
+              <Accordion
+                type="multiple"
+                className="mx-4"
+                value={expandedRoomItems}
+                onValueChange={setExpandedRoomItems}
+              >
                 {Object.entries(building.rooms).map(([roomName, schedules]) => {
                   const roomAvailable = isRoomAvailable(
                     schedules,

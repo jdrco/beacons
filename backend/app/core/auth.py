@@ -401,31 +401,22 @@ def verify_email(
         email = payload.get("sub")
 
         if email is None:
-            return error_response(
-                status_codes=400,
-                status=False,
-                message="Invalid token."
-            )
+            # Redirect to frontend with error message
+            return RedirectResponse(url="http://localhost:3000/resend-verification-email?error=invalid_token")
 
         user = get_user_by_email(db, email=email)
         if not user:
-            return error_response(
-                status_codes=404,
-                status=False,
-                message="User not found."
-            )
+            # Redirect to frontend with error message
+            return RedirectResponse(url="http://localhost:3000/resend-verification-email?error=user_not_found")
 
         user.active = True
         db.commit()
 
-        return RedirectResponse(url="http://localhost:3000/signin") #TODO: switch to prod or env vars
+        return RedirectResponse(url="http://localhost:3000/signin") 
 
     except Exception as e:
-        return error_response(
-            status_codes=500,
-            status=False,
-            message={"error": str(e)}
-        )
+        # Redirect to frontend with general error
+        return RedirectResponse(url="http://localhost:3000/resend-verification-email?error=verification_failed")
 
 @router.post("/resend-verification-email")
 async def resend_verification_email(
@@ -534,7 +525,7 @@ async def verify_password_reset(token: str, db: Session = Depends(get_db)):
                 message="User not found."
             )
 
-        return RedirectResponse(url="") #TODO
+        return RedirectResponse(url="http://localhost:3000/signin") #TODO: change env var
 
     except jwt.ExpiredSignatureError:
         return error_response(

@@ -21,7 +21,7 @@ def get_user(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.5 Profile Management
+    4.5 Profile Management
     REQ-1: The system shall display the user's current profile information such as username, educational background, favourite classrooms, and an option to delete the profile.
     """
     # Get program information if it exists
@@ -61,7 +61,7 @@ def update_user(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.5 Profile Management
+    4.5 Profile Management
     REQ-2: The system shall enable users to edit their profile fields such as:
         Username (display name)
         Educational background (faculty and program)
@@ -95,7 +95,7 @@ def delete_user(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.5 Profile Management
+    4.5 Profile Management
     REQ-1: The system shall display the user's current profile information such as username, educational background, favourite classrooms, and an option to delete the profile.
     REQ-5: The system shall enable users to delete their profiles entirely.
     """
@@ -120,7 +120,7 @@ def get_favorite_rooms(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.5 Profile Management
+    4.5 Profile Management
     REQ-3: The system shall show a list of classrooms the user selected as "favourites".
     """
     try:
@@ -177,7 +177,7 @@ def add_multiple_favorite_rooms(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.5 Profile Management
+    4.5 Profile Management
     REQ-4: The system shall allow users to select and update their favourite classrooms for easier access and personalization.
     """
     try:
@@ -217,7 +217,7 @@ def add_favorite_room(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.5 Profile Management
+    4.5 Profile Management
     REQ-4: The system shall allow users to select and update their favourite classrooms for easier access and personalization.
     """
     try:
@@ -294,7 +294,7 @@ def toggle_notification(
     current_user: User = Depends(get_active_user)
 ):
     """
-    1.6 Notifications
+    4.6 Notifications
     REQ-2: The system shall provide users with granular controls to enable or disable notifications for each of their favourite rooms individually.
     """
     try:
@@ -330,7 +330,7 @@ def toggle_notification(
 @router.post("/calculate_distances")
 async def calculate_distances(locations: LocationData):
     """
-    1.7 Location Services
+    4.7 Location Services
     REQ-2: The system shall calculate distances from the user's location to all available study spaces.
     """
     try:

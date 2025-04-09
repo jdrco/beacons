@@ -11,6 +11,7 @@ import {
   AlignJustify,
   User2,
   MapPin,
+  Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "./Logo";
@@ -37,6 +38,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { DateTimePicker } from "./DateTimePicker";
+import { useTime } from "@/contexts/TimeContext";
+import { format } from "date-fns";
 
 export default function Navbar({
   setSearchQuery,
@@ -53,7 +64,18 @@ export default function Navbar({
   const { toast } = useToast();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
+  const [isTimePickerDialogOpen, setIsTimePickerDialogOpen] = useState(false);
   const router = useRouter();
+  const { currentTime, isCustomTime, setCustomTime, resetToRealTime } =
+    useTime();
+  const [time, setTime] = useState("");
+
+  // Set formatted time
+  useEffect(() => {
+    // Use date-fns to format time in 12-hour format with AM/PM
+    const formattedTime = format(currentTime, "h:mm a");
+    setTime(formattedTime);
+  }, [currentTime]);
 
   // Check if device is mobile
   useEffect(() => {
@@ -65,6 +87,29 @@ export default function Navbar({
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+  // Handle time picker
+  const handleTimeSelect = (date: Date | undefined) => {
+    if (date) {
+      setCustomTime(date);
+      setIsTimePickerDialogOpen(false);
+      setIsUserMenuOpen(false);
+    }
+  };
+
+  const handleTimeReset = () => {
+    resetToRealTime();
+    setIsTimePickerDialogOpen(false);
+    setIsUserMenuOpen(false);
+  };
+
+  // Handle opening the time picker modal
+  const handleOpenTimePicker = () => {
+    setIsTimePickerDialogOpen(true);
+    if (isMobile) {
+      setIsUserMenuOpen(false);
+    }
+  };
 
   // Handle search expansion state change
   const handleSearchExpandChange = (expanded: boolean) => {
@@ -96,6 +141,7 @@ export default function Navbar({
   // Navigate to favorites page
   const handleFavoritesClick = () => {
     router.push("/favorites");
+    setIsUserMenuOpen(false);
   };
 
   // Handle location button click
@@ -104,6 +150,9 @@ export default function Navbar({
       onLocationRequest();
     }
     toggleSortByDistance();
+    if (isMobile) {
+      setIsUserMenuOpen(false);
+    }
   };
 
   // User profile button or sign in button based on authentication status
@@ -111,28 +160,30 @@ export default function Navbar({
     if (isAuthenticated) {
       return (
         <div className="flex items-center gap-2">
-          {/* Location button */}
-          <button
-            className={cn(
-              "rounded-full h-10 w-10 flex justify-center items-center",
-              sortByDistance
-                ? "bg-[#4AA69D] text-white"
-                : "bg-[#e4e4e4] text-[#191f23]",
-              "border-2 border-[#4AA69D]"
-            )}
-            onClick={handleLocationButtonClick}
-            type="button"
-            aria-label={
-              sortByDistance ? "Sorting by distance" : "Sort by distance"
-            }
-          >
-            <MapPin className="h-4 w-4" />
-          </button>
+          {/* Location button - Only visible on desktop */}
+          {!isMobile && (
+            <button
+              className={cn(
+                "rounded-full h-10 w-10 flex justify-center items-center",
+                sortByDistance
+                  ? "bg-[#4AA69D] text-white"
+                  : "bg-white text-[#191f23]",
+                "border-2 border-[#4AA69D]"
+              )}
+              onClick={handleLocationButtonClick}
+              type="button"
+              aria-label={
+                sortByDistance ? "Sorting by distance" : "Sort by distance"
+              }
+            >
+              <MapPin className="h-4 w-4" />
+            </button>
+          )}
 
           {/* Favorites button - only shown on desktop */}
           {!isMobile && (
             <button
-              className="bg-[#e4e4e4] text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 w-10 flex justify-center items-center"
+              className="bg-white text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 w-10 flex justify-center items-center"
               onClick={handleFavoritesClick}
               type="button"
               aria-label="My Favorites"
@@ -144,10 +195,9 @@ export default function Navbar({
           <DropdownMenu open={isUserMenuOpen} onOpenChange={setIsUserMenuOpen}>
             <DropdownMenuTrigger asChild>
               <button
-                className="bg-[#e4e4e4] text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 flex justify-center items-center px-2 gap-x-2"
+                className="bg-white text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 flex justify-center items-center px-2 gap-x-2"
                 type="button"
               >
-                {/* <User className="h-4 w-4" /> */}
                 <AlignJustify className="w-4 h-4 ml-1" />
                 <ProfilePhoto
                   username={user?.username || ""}
@@ -158,21 +208,58 @@ export default function Navbar({
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => router.push("/profile")}
+                onClick={() => {
+                  router.push("/profile");
+                  setIsUserMenuOpen(false);
+                }}
               >
                 <User2 className="mr-2 h-4 w-4" />
                 <span>Profile</span>
               </DropdownMenuItem>
-              {/* Show Favorites in dropdown only on mobile */}
+
+              {/* Mobile-only menu items */}
               {isMobile && (
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={() => router.push("/favorites")}
-                >
-                  <Heart className="mr-2 h-4 w-4" />
-                  <span>My Favorites</span>
-                </DropdownMenuItem>
+                <>
+                  {/* Location button in dropdown for mobile */}
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleLocationButtonClick}
+                  >
+                    <MapPin className="mr-2 h-4 w-4" />
+                    <span>
+                      {sortByDistance
+                        ? "Sorting by distance"
+                        : "Sort by distance"}
+                    </span>
+                  </DropdownMenuItem>
+
+                  {/* Favorites in dropdown for mobile */}
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleFavoritesClick}
+                  >
+                    <Heart className="mr-2 h-4 w-4" />
+                    <span>My Favorites</span>
+                  </DropdownMenuItem>
+
+                  {/* Time picker in dropdown for mobile */}
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleOpenTimePicker}
+                  >
+                    <Clock className="mr-2 h-4 w-4" />
+                    <span>Set time</span>
+                    <div className="ml-auto font-mono text-sm">
+                      <span
+                        className={cn(isCustomTime ? "text-[#4AA69D]" : "")}
+                      >
+                        {time}
+                      </span>
+                    </div>
+                  </DropdownMenuItem>
+                </>
               )}
+
               <DropdownMenuItem
                 className="text-destructive focus:text-destructive cursor-pointer"
                 onClick={() => setIsLogoutDialogOpen(true)}
@@ -187,36 +274,89 @@ export default function Navbar({
     } else {
       return (
         <div className="flex items-center gap-2">
-          {/* Location button - also shown for non-authenticated users */}
-          <button
-            className={cn(
-              "rounded-full h-10 w-10 flex justify-center items-center",
-              sortByDistance
-                ? "bg-[#4AA69D] text-white"
-                : "bg-[#e4e4e4] text-[#191f23]",
-              "border-2 border-[#4AA69D]"
-            )}
-            onClick={handleLocationButtonClick}
-            type="button"
-            aria-label={
-              sortByDistance ? "Sorting by distance" : "Sort by distance"
-            }
-          >
-            <MapPin className="h-4 w-4" />
-          </button>
+          {/* Location button - Only visible on desktop for non-authenticated users */}
+          {!isMobile && (
+            <button
+              className={cn(
+                "rounded-full h-10 w-10 flex justify-center items-center",
+                sortByDistance
+                  ? "bg-[#4AA69D] text-white"
+                  : "bg-white text-[#191f23]",
+                "border-2 border-[#4AA69D]"
+              )}
+              onClick={handleLocationButtonClick}
+              type="button"
+              aria-label={
+                sortByDistance ? "Sorting by distance" : "Sort by distance"
+              }
+            >
+              <MapPin className="h-4 w-4" />
+            </button>
+          )}
 
-          <button
-            className={cn(
-              "bg-white text-[#191f23] rounded-full flex items-center justify-center gap-2 transition-colors",
-              "hover:bg-gray-200 active:bg-gray-300",
-              isMobile ? "h-10 aspect-square" : "h-10 px-4"
-            )}
-            onClick={handleLoginClick}
-            type="button"
-          >
-            {!isMobile && <span className="font-medium text-sm">Sign In</span>}
-            <LogIn className="h-4 w-4" />
-          </button>
+          {/* For mobile, we need a menu even for non-authenticated users */}
+          {isMobile ? (
+            <DropdownMenu
+              open={isUserMenuOpen}
+              onOpenChange={setIsUserMenuOpen}
+            >
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="bg-white text-[#191f23] border-2 border-[#4AA69D] rounded-full h-10 w-10 flex justify-center items-center"
+                  type="button"
+                >
+                  <AlignJustify className="w-4 h-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                {/* Location button in dropdown for mobile */}
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleLocationButtonClick}
+                >
+                  <MapPin className="mr-2 h-4 w-4" />
+                  <span>
+                    {sortByDistance
+                      ? "Sorting by distance"
+                      : "Sort by distance"}
+                  </span>
+                </DropdownMenuItem>
+
+                {/* Time picker in dropdown for mobile */}
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleOpenTimePicker}
+                >
+                  <Clock className="mr-2 h-4 w-4" />
+                  <span>Set time</span>
+                  <div className="ml-auto font-mono text-sm">
+                    <span className={cn(isCustomTime ? "text-[#4AA69D]" : "")}>
+                      {time}
+                    </span>
+                  </div>
+                </DropdownMenuItem>
+
+                {/* Sign in button in dropdown for mobile */}
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleLoginClick}
+                >
+                  <LogIn className="mr-2 h-4 w-4" />
+                  <span>Sign In</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            // Desktop Sign In button
+            <button
+              className="bg-white text-[#191f23] rounded-full flex items-center justify-center gap-2 transition-colors hover:bg-gray-200 active:bg-gray-300 h-10 px-4"
+              onClick={handleLoginClick}
+              type="button"
+            >
+              <span className="font-medium text-sm">Sign In</span>
+              <LogIn className="h-4 w-4" />
+            </button>
+          )}
         </div>
       );
     }
@@ -231,9 +371,27 @@ export default function Navbar({
             <Link href="/">
               <Logo className="ml-2" />
             </Link>
-            {/* Time Picker Button instead of static time display */}
-            <div className="items-center whitespace-nowrap hidden lg:flex">
-              <TimePickerButton />
+            {/* Time display - only visible on desktop */}
+            <div className="items-center whitespace-nowrap hidden lg:flex gap-2">
+              <div className="flex items-center font-mono text-sm">
+                <span className={cn(isCustomTime ? "text-[#4AA69D]" : "")}>
+                  {time}
+                </span>
+                <span className="ml-3 font-bold">Edmonton</span>
+              </div>
+              <button
+                className={cn(
+                  "rounded-full h-8 w-8 flex justify-center items-center",
+                  isCustomTime
+                    ? "bg-[#4AA69D] text-white"
+                    : "bg-[#2b5f5a48] text-white hover:bg-[#2b5f5a80]"
+                )}
+                onClick={handleOpenTimePicker}
+                type="button"
+                aria-label="Select time"
+              >
+                <Clock className="h-4 w-4" />
+              </button>
             </div>
             <div></div>
           </div>
@@ -336,6 +494,39 @@ export default function Navbar({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Time Picker Dialog */}
+      <Dialog
+        open={isTimePickerDialogOpen}
+        onOpenChange={setIsTimePickerDialogOpen}
+      >
+        <DialogContent className="sm:max-w-md p-6">
+          <DialogHeader>
+            <DialogTitle className="text-center text-lg mb-4">
+              Set Time
+            </DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col gap-6 py-2">
+            <div className="flex justify-center">
+              <DateTimePicker
+                selected={currentTime}
+                onSelect={handleTimeSelect}
+                className="w-full max-w-[320px] mx-auto"
+              />
+            </div>
+            {isCustomTime && (
+              <Button
+                variant="outline"
+                onClick={handleTimeReset}
+                className="flex items-center justify-center gap-2 mx-auto w-full max-w-[280px]"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Reset to current time</span>
+              </Button>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

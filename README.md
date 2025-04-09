@@ -118,5 +118,3 @@ Use these routes to verify the backend is working:
 ---
 
 ## 📚 Credits
-
-Developed as a capstone project by Nam Son.

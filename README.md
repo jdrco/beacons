@@ -1,7 +1,7 @@
 # Beacons Web Application
 
 This project consists of two main parts:
-- **Frontend**: Built with React
+- **Frontend**: Built with React and Next.js
 - **Backend**: FastAPI application with a PostgreSQL database, managed using Docker
 
 ---
@@ -35,12 +35,8 @@ docker compose version || echo "Docker Compose is not installed. Please install 
 ```bash
 beacons/
 ├── backend/
-│   ├── app/
-│   ├── Dockerfile
-│   ├── docker-compose.yml
 │   └── ...
 └── web/
-    ├── package.json
     ├── ...
 ```
 
@@ -48,20 +44,22 @@ beacons/
 
 ## Running the Application
 
-> 🛑 **Make sure you have the `.env` file placed inside `web/` and `backend/` before running these commands.**  
-> It contains necessary configuration such as `DATABASE_URL`, `SECRET_KEY`, and email credentials.
-> You can use the .env file example below
+> 🛑 **Make sure you have the `.env` file placed inside both `web/` and `backend/` directories before running these commands.**  
+> It contains necessary configuration such as `DATABASE_URL`, `SECRET_KEY`, email credentials, and API URLs.
+
+---
 
 ## 📦 .env File Example
 
-Place this `.env` file inside the `web/` directory:
+### Place this `.env` file inside the `web/` directory:
 
 ```env
 NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1IjoiamRyY28iLCJhIjoiY201eXl0Y3UyMGlwazJtbXgzNmgwbXN4bSJ9.agXYuQ1r9mqa-WpVPODitg
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-Place this `.env` file inside the `backend/` directory:
+### Place this `.env` file inside the `backend/` directory:
+
 ```env
 DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
 SECRET_KEY=8f6aff488cc9f21d8676202403b0d4130b7139e81eb1c744fabcc208ebe452aa
@@ -75,7 +73,9 @@ MAIL_FROM=phamnamson175@gmail.com
 
 ---
 
-### 🖥️ Terminal 1: Start the Frontend
+## 🚀 How to Run
+
+### 🖥️ Terminal 1: Start the Frontend (Next.js)
 
 ```bash
 cd beacons/web
@@ -83,7 +83,7 @@ npm install
 npm run dev
 ```
 
-- Starts the Vite development server for React.
+- Starts the Next.js development server.
 - Open your browser to: [http://localhost:3000](http://localhost:3000)
 
 ---
@@ -95,12 +95,8 @@ cd beacons/backend
 docker compose up --build
 ```
 
-- Builds the Docker image
-- Runs FastAPI and PostgreSQL containers
-- Backend API is available at: [http://localhost:8000](http://localhost:8000)
-
----
-
+- Builds and starts the FastAPI + PostgreSQL containers.
+- Backend API will be live at: [http://localhost:8000](http://localhost:8000)
 
 ---
 
@@ -109,17 +105,18 @@ docker compose up --build
 Use these routes to verify the backend is working:
 
 - **Public Check**: `GET http://localhost:8000/public_health`
-- **Private Check** (requires auth): `GET http://localhost:8000/private_health`
+- **Private Check** (requires authentication): `GET http://localhost:8000/private_health`
 
 ---
 
 ## 🛠️ Troubleshooting Tips
 
-- Ensure Docker and Node.js are correctly installed.
-- Ensure `.env` exists and is correctly filled out.
-- Make sure ports 3000 and 8000 are not blocked or in use.
+- Ensure Docker, Docker Compose, and Node.js are correctly installed.
+- Confirm both `.env` files are present and contain the correct information.
+- Make sure no other apps are using ports `3000` or `8000`.
 
 ---
 
 ## 📚 Credits
 
+Developed as a capstone project by Nam Son.

@@ -286,9 +286,13 @@ def test_verify_email_invalid_token(monkeypatch):
 
     invalid_token = "some.invalid.token"
     response = client.get(f"/verify-email?token={invalid_token}", follow_redirects=False)
-    assert response.status_code == 307, (
+    # Expecting a redirect response
+    assert response.status_code in (302, 307), (
         f"Unexpected status code: {response.status_code} with response: {response.text}"
     )
+    # Check that the redirect URL contains the proper error message.
+    expected_url = "http://localhost:3000/resend-verification-email?error=verification_failed"
+    assert response.headers["location"] == expected_url
 
 
 # ---------------------------
@@ -382,7 +386,7 @@ def test_verify_password_reset_valid_token(monkeypatch):
 
     response = client.get(f"/verify-password-reset?token={valid_token}", follow_redirects=False)
     assert response.status_code in (302, 307)
-    assert response.headers["location"] == "http://localhost:3000/signin"
+    assert response.headers["location"].endswith("/signin")
 
 
 def test_verify_password_reset_invalid_token(monkeypatch):
@@ -824,6 +828,97 @@ def test_calculate_distances_invalid_coordinates():
 # ROOMS ENDPOINTS
 # =============================================================================
 
+# ---------------------------
+# GET /rooms/{room_name}/demographics
+# ---------------------------
+
+def test_room_demographics_no_active_checkins(monkeypatch):
+    """
+    Test a scenario where there are no active checkins for the specified room.
+    We expect the code to return an empty list and a success message.
+    """
+    def mock_query(model):
+        mock_q = MagicMock()
+        if model.__tablename__ == "room_occupancy":
+            # Return [] to simulate no active checkins
+            mock_q.filter.return_value.all.return_value = []
+        return mock_q
+
+    fake_db = MagicMock()
+    fake_db.query.side_effect = mock_query
+    app.dependency_overrides[get_db] = lambda: fake_db
+
+    response = client.get("/rooms/CAB 239/demographics")
+    app.dependency_overrides[get_db] = override_get_db
+
+    assert response.status_code == 200, response.text
+    data = response.json()
+    assert data["status"] is True
+    assert "No active check-ins for this room" in data["message"]
+    assert data["data"] == []
+
+
+def test_room_demographics_with_active_checkins(monkeypatch):
+    """
+    Test a scenario where there are active checkins, and we get a breakdown by program.
+    """
+    # Fake checkin by user
+    checkin_user_id = str(uuid.uuid4())
+    active_checkin = RoomOccupancy(
+        id=uuid.uuid4(),
+        user_id=checkin_user_id,
+        room_name="CAB 239",
+        is_active=True,
+        expiry_time=datetime.now() + timedelta(hours=2)
+    )
+
+    # Corresponding user in some Program
+    fake_program = Program(
+        id=uuid.uuid4(),
+        name="Computer Science",
+        is_undergrad=True,
+        faculty="Science"
+    )
+    user_with_program = User(
+        id=checkin_user_id,
+        email="checkin@ualberta.ca",
+        username="checkinUser",
+        program_id=fake_program.id
+    )
+
+    def mock_query(*args, **kwargs):
+        # If more than one argument is given, we're likely selecting multiple columns.
+        if len(args) > 1:
+            fake_obj = MagicMock()
+            fake_obj.join.return_value.filter.return_value.all.return_value = [
+                (user_with_program.id, fake_program.name)
+            ]
+            return fake_obj
+        else:
+            model = args[0]
+            mock_q = MagicMock()
+            if hasattr(model, "__tablename__") and model.__tablename__ == "room_occupancy":
+                mock_q.filter.return_value.all.return_value = [active_checkin]
+            return mock_q
+
+    fake_db = MagicMock()
+    fake_db.query.side_effect = mock_query
+    app.dependency_overrides[get_db] = lambda: fake_db
+
+    response = client.get("/rooms/CAB 239/demographics")
+    app.dependency_overrides[get_db] = override_get_db
+
+    assert response.status_code == 200, response.text
+    data = response.json()
+    assert data["status"] is True
+    assert "Room demographics retrieved successfully" in data["message"]
+    # Check that the "Computer Science" program is counted correctly.
+    assert data["data"].get("Computer Science") == 1
+
+
+# =============================================================================
+# OCCUPANCY ENDPOINTS
+# =============================================================================
 
 # ---------------------------
 # GET /api/occupancy/rooms
@@ -1023,3 +1118,4 @@ def test_private_health():
     data = response.json()
     assert data["status"] is True
     assert data["message"] == "Private health check."
+

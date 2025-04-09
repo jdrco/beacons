@@ -78,7 +78,7 @@ async def private_health_check(
 
 async def send_email(subject: str, email_to: str, body: str):
     """
-    1.6 Notifications
+    4.6 Notifications
     REQ-1: The system shall send notifications to users when their favourite rooms become available, including the room name and building location in the notification content.
     """
     try:
@@ -95,7 +95,7 @@ async def send_email(subject: str, email_to: str, body: str):
 
 def check_available_rooms(db: Session):
     """
-    1.6 Notifications
+    4.6 Notifications
     REQ-3: The system shall verify and respect device-level notification permissions before attempting to send any notifications.
     """
     now = datetime.now()
@@ -144,7 +144,7 @@ def check_available_rooms(db: Session):
 
 async def scheduled_task():
     """
-    1.6 Notifications
+    4.6 Notifications
     REQ-1: The system shall send notifications to users when their favourite rooms become available, including the room name and building location in the notification content.
     """
     logger.info(f"Scheduled task triggered at {datetime.now()}")

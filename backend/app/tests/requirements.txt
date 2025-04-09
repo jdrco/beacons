@@ -1,0 +1,8 @@
+fastapi
+SQLAlchemy
+pytz
+python-jose[cryptography]
+
+pytest
+pytest-cov
+pytest-html

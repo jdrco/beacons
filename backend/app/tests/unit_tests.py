@@ -286,7 +286,7 @@ def test_verify_email_invalid_token(monkeypatch):
 
     invalid_token = "some.invalid.token"
     response = client.get(f"/verify-email?token={invalid_token}", follow_redirects=False)
-    assert response.status_code == 500, (
+    assert response.status_code == 307, (
         f"Unexpected status code: {response.status_code} with response: {response.text}"
     )
 
@@ -382,7 +382,7 @@ def test_verify_password_reset_valid_token(monkeypatch):
 
     response = client.get(f"/verify-password-reset?token={valid_token}", follow_redirects=False)
     assert response.status_code in (302, 307)
-    assert response.headers["location"] == ""
+    assert response.headers["location"] == "http://localhost:3000/signin"
 
 
 def test_verify_password_reset_invalid_token(monkeypatch):

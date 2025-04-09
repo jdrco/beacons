@@ -125,7 +125,7 @@ function ToggleCheckInButtonInternal({
     ? "bg-red-600 hover:bg-red-700 text-white"
     : roomIsFull
     ? "bg-gray-400 text-gray-600 cursor-not-allowed opacity-70"
-    : "bg-green-600 hover:bg-green-700 text-white";
+    : "bg-white hover:bg-green-700 text-[#191f23]";
 
   // Create button content
   const buttonContent = isLoading ? (

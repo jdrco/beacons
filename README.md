@@ -50,6 +50,28 @@ beacons/
 
 > 🛑 **Make sure you have the `.env` file placed inside `web/` and `backend/` before running these commands.**  
 > It contains necessary configuration such as `DATABASE_URL`, `SECRET_KEY`, and email credentials.
+> You can use the .env file example below
+
+## 📦 .env File Example
+
+Place this `.env` file inside the `web/` directory:
+
+```env
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1IjoiamRyY28iLCJhIjoiY201eXl0Y3UyMGlwazJtbXgzNmgwbXN4bSJ9.agXYuQ1r9mqa-WpVPODitg
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+Place this `.env` file inside the `backend/` directory:
+```env
+DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+SECRET_KEY=8f6aff488cc9f21d8676202403b0d4130b7139e81eb1c744fabcc208ebe452aa
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+MAIL_USERNAME=phamnamson175@gmail.com
+MAIL_PASSWORD=gqzp zrbi iseo mkbh
+MAIL_FROM=phamnamson175@gmail.com
+```
 
 ---
 
@@ -79,27 +101,6 @@ docker compose up --build
 
 ---
 
-## 📦 .env File Example
-
-Place this `.env` file inside the `backend/` directory:
-
-```env
-DATABASE_URL=postgresql://postgres:postgres@db:5432/beacons
-SECRET_KEY=your_secret_key_here
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=180
-
-MAIL_USERNAME=your_email@gmail.com
-MAIL_PASSWORD=your_password
-MAIL_FROM=your_email@gmail.com
-MAIL_PORT=587
-MAIL_SERVER=smtp.gmail.com
-MAIL_STARTTLS=True
-MAIL_SSL_TLS=False
-```
-
-> ⚠️ **Warning:** Never push your `.env` file to a public repository.  
-> For academic submission, you may include it in your zipped folder if required.
 
 ---
 

@@ -27,6 +27,9 @@ docker -v || echo "Docker is not installed. Please install it from https://www.d
 
 # Check Docker Compose
 docker compose version || echo "Docker Compose is not installed. Please install it with Docker Desktop."
+
+# Check Python
+python3 --version || echo "Python 3 is not installed. Please install it from https://www.python.org/downloads/"
 ```
 
 ---
@@ -66,7 +69,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 ### Place this `.env` file inside the `backend/` directory:
 
 ```env
-DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+DATABASE_URL=<your_postgress_database_url>
 SECRET_KEY=<your_secret_key>
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
@@ -174,3 +177,10 @@ Use these routes to verify the backend is working:
 ---
 
 ## 📚 Credits
+
+ECE 493 Instructors and TAs of Winter 2025 at University of Alberta
+
+ECE 493 Group 14:
+- Jared Drueco
+- Pham Nam Son
+- Bassam Dakhel

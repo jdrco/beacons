@@ -52,6 +52,18 @@ const getAvailableRoomCount = (
   }, 0);
 };
 
+/*
+  4.4 Clasroom Availability: Display
+
+  REQ-3: The system shall provide an expandable list view that:
+
+    Shows all buildings with collapsible room lists
+    Displays room availability status using synced colour coding with the map view
+    Shows current occupancy count for each room
+    Demographics of educational backgrounds in the room (e.g., "4 CS students, 3 Mechanical Engineers currently studying here")
+    Highlights building when a list item is selected on the corresponding map marker
+    Updates status in real-time as availability changes
+*/
 const MapLegend = () => {
   return (
     <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1e2329b3] border border-gray-700 rounded-lg p-2 shadow-lg z-10 min-w-fit whitespace-nowrap">

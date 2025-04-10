@@ -10,6 +10,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from sqlalchemy.orm import Session
 
 from app.core.auth import get_active_user, router as auth_router
+from app.models.occupancy import ActivityEvent, RoomOccupancy, RoomCount
+from app.core.activity import get_edmonton_time
 from app.routes.user import router as user_router
 from app.routes.occupancy import router as occupancy_router
 from app.routes.demographics import router as demographics_router
@@ -32,6 +34,10 @@ async def lifespan(app: FastAPI):
     
     # Add the check-in expiry task to the scheduler
     scheduler.add_job(run_expiry_checker, 'interval', seconds=60)
+    
+    # REQ-7: Clean old activity data (run once per hour)
+    scheduler.add_job(clean_old_activity_data, 'interval', seconds=3600)
+    await test_clear_occupancy_for_lectures()
     
     scheduler.start()
     logger.info("Scheduler started.")
@@ -191,3 +197,59 @@ async def scheduled_task():
         db.close()
 
     logger.info(f"Scheduled task completed at {datetime.now()}")
+
+async def clean_old_activity_data():
+    """
+    REQ-7: Limit the social media feed history to last 24 hours
+    """
+    logger.info("Cleaning old activity data...")
+    db = next(get_db())
+    try:
+        
+        now = get_edmonton_time()
+        cutoff = now - timedelta(hours=24)
+        
+        # Delete old events from the database
+        deleted_events = db.query(ActivityEvent).filter(
+            ActivityEvent.timestamp < cutoff.replace(tzinfo=None)
+        ).delete(synchronize_session=False)
+        
+        # Mark all check-ins older than 24 hours as inactive
+        expired_checkins = db.query(RoomOccupancy).filter(
+            RoomOccupancy.checkin_time < cutoff.replace(tzinfo=None),
+            RoomOccupancy.is_active == True
+        ).all()
+        
+        for checkin in expired_checkins:
+            checkin.is_active = False
+            
+        # Reset room counts for rooms with expired check-ins
+        rooms_to_reset = set(checkin.room_name for checkin in expired_checkins)
+        for room_name in rooms_to_reset:
+            # Get current active check-ins count for this room
+            active_count = db.query(RoomOccupancy).filter(
+                RoomOccupancy.room_name == room_name,
+                RoomOccupancy.is_active == True
+            ).count()
+            
+            # Update room count to match actual active check-ins
+            room_count = db.query(RoomCount).filter(RoomCount.room_name == room_name).first()
+            if room_count:
+                room_count.occupant_count = active_count
+                room_count.last_updated = now.replace(tzinfo=None)
+                logger.info(f"Updated count for room {room_name} to {active_count}")
+        
+        # Delete old inactive check-ins
+        deleted_checkins = db.query(RoomOccupancy).filter(
+            RoomOccupancy.checkin_time < cutoff.replace(tzinfo=None),
+            RoomOccupancy.is_active == False
+        ).delete(synchronize_session=False)
+        
+        db.commit()
+        logger.info(f"Cleaned {deleted_events} old activity events, marked {len(expired_checkins)} check-ins as inactive, and deleted {deleted_checkins} old inactive check-ins")
+        
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error cleaning old activity data: {e}")
+    finally:
+        db.close()

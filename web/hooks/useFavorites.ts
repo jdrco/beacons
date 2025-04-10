@@ -26,7 +26,8 @@ export function useFavorites() {
       const response = await fetch("/api/favorites/list");
 
       if (!response.ok) {
-        throw new Error("Failed to fetch favorites");
+        console.warn("Failed to fetch favorites:", response.statusText);
+        return; // just bail out silently
       }
 
       const data = await response.json();

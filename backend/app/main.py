@@ -37,7 +37,6 @@ async def lifespan(app: FastAPI):
     
     # REQ-7: Clean old activity data (run once per hour)
     scheduler.add_job(clean_old_activity_data, 'interval', seconds=3600)
-    await test_clear_occupancy_for_lectures()
     
     scheduler.start()
     logger.info("Scheduler started.")

@@ -20,11 +20,36 @@ def get_user(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.5 Profile Management
+    REQ-1: The system shall display the user's current profile information such as username, educational background, favourite classrooms, and an option to delete the profile.
+    """
+    # Get program information if it exists
+    program_data = None
+    faculty = None
+
+    if current_user.program_id is not None:
+        # Direct query for the program
+        program = db.query(Program).filter(Program.id == current_user.program_id).first()
+
+        if program:
+            program_data = {
+                "id": str(program.id),
+                "name": program.name,
+                "is_undergrad": program.is_undergrad,
+                "faculty": program.faculty
+            }
+            faculty = program.faculty
+
+    # Construct user data with program information
     user_data = {
         "id": str(current_user.id),
         "email": current_user.email,
         "username": current_user.username,
         "active": current_user.active,
+        "program_id": str(current_user.program_id) if current_user.program_id else None,
+        "program": program_data,
+        "faculty": faculty
     }
 
     return success_response(200, True, "User found", data=user_data)
@@ -35,6 +60,14 @@ def update_user(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.5 Profile Management
+    REQ-2: The system shall enable users to edit their profile fields such as:
+        Username (display name)
+        Educational background (faculty and program)
+        Favourite classrooms
+    REQ-6: The system will ensure that the user's username is unique
+    """
     user = filter_query(db, model=User, filters=[User.id == current_user.id])
     if not user:
         return error_response(404, False, "User not found")
@@ -42,6 +75,15 @@ def update_user(
     try:
         update_data = {}
         if user_data.username:
+            # Check if username is unique before updating
+            existing_username = filter_query(db, model=User, filters=[
+                User.username == user_data.username,
+                User.id != current_user.id  # Exclude the current user
+            ])
+            
+            if existing_username:
+                return error_response(400, False, "Username already exists")
+                
             update_data["username"] = user_data.username
 
         if user_data.program:
@@ -61,6 +103,11 @@ def delete_user(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.5 Profile Management
+    REQ-1: The system shall display the user's current profile information such as username, educational background, favourite classrooms, and an option to delete the profile.
+    REQ-5: The system shall enable users to delete their profiles entirely.
+    """
     user_id = current_user.id
 
     user = filter_query(db, model=User, filters=[User.id == user_id])
@@ -81,6 +128,10 @@ def get_favorite_rooms(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.5 Profile Management
+    REQ-3: The system shall show a list of classrooms the user selected as "favourites".
+    """
     try:
         total_count = (
             db.query(Room)
@@ -134,6 +185,10 @@ def add_multiple_favorite_rooms(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.5 Profile Management
+    REQ-4: The system shall allow users to select and update their favourite classrooms for easier access and personalization.
+    """
     try:
         db.query(UserFavoriteRoom).filter(
             UserFavoriteRoom.user_id == current_user.id
@@ -170,6 +225,10 @@ def add_favorite_room(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.5 Profile Management
+    REQ-4: The system shall allow users to select and update their favourite classrooms for easier access and personalization.
+    """
     try:
         room = db.query(Room).filter(Room.name == room_name).first()
         if not room:
@@ -243,6 +302,10 @@ def toggle_notification(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_active_user)
 ):
+    """
+    4.6 Notifications
+    REQ-2: The system shall provide users with granular controls to enable or disable notifications for each of their favourite rooms individually.
+    """
     try:
         room = db.query(Room).filter(Room.name == room_name).first()
 
@@ -275,6 +338,10 @@ def toggle_notification(
 
 @router.post("/calculate_distances")
 async def calculate_distances(locations: LocationData):
+    """
+    4.7 Location Services
+    REQ-2: The system shall calculate distances from the user's location to all available study spaces.
+    """
     try:
         def calculate_distance(start_lat, start_long, dest_lat, dest_long):
             start_lat = radians(start_lat)

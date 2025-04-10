@@ -36,5 +36,8 @@ export interface NavbarProps {
   setSearchQuery: (query: string) => void;
   setDisplaySettings: (settings: DisplaySettings) => void;
   displaySettings: DisplaySettings;
-  currentDateTime: Date;
+  currentDateTime: Date; // We'll still pass this for now, but it will come from the TimeContext
+  onLocationRequest: () => void;
+  sortByDistance: boolean;
+  toggleSortByDistance: () => void;
 }

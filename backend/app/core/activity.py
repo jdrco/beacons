@@ -550,7 +550,7 @@ async def run_expiry_checker_task():
         logger.error(f"Error in expiry checker: {e}")
 
 async def websocket_endpoint(websocket: WebSocket):
-    # Extract the authentication token from the cookie header
+    # Extract the authentication token either from cookie header or query parameter
     cookies_header = websocket.headers.get('cookie', '')
     token = None
     
@@ -560,6 +560,13 @@ async def websocket_endpoint(websocket: WebSocket):
             if cookie.startswith('access_token='):
                 token = cookie.split('=', 1)[1]
                 break
+    
+    # If token not found in cookies, check query parameters
+    if not token:
+        # Get query parameters - adjust this based on your FastAPI version
+        # For newer FastAPI versions:
+        query_params = dict(websocket.query_params)
+        token = query_params.get('token')
     
     # Get the authenticated user
     db = SessionLocal()

@@ -31,14 +31,6 @@ type FeedItem = {
   current_occupancy?: number;
 };
 
-type HistoryMessage = {
-  type: "history";
-  feed: FeedItem[];
-  user_id?: string;
-  username?: string;
-  current_checkins: FeedItem[];
-  occupancy_data?: Record<string, number>;
-};
 
 // Context types
 interface CheckInContextType {
@@ -113,7 +105,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   // Auth context
-  const { user } = useAuth();
+  const { user, getAuthToken } = useAuth();
 
   // Track mount status to prevent state updates after unmount
   const isMountedRef = useRef(true);
@@ -147,7 +139,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
       // User is not authenticated, don't try to connect
       return;
     }
-    const connectWebSocket = () => {
+    const connectWebSocket = async () => {
       // If already connecting or connected, don't create a new connection
       if (
         isConnecting ||
@@ -163,7 +155,12 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
       // const isIOS =
       //   typeof navigator !== "undefined" &&
       //   /iPhone|iPad|iPod/.test(navigator.userAgent);
-      const wsUrl = `wss://${process.env.NEXT_PUBLIC_API_DOMAIN}/ws`;
+      const token = await getAuthToken();
+
+      // Create the WebSocket URL with the token as a query parameter
+      const wsUrl = `wss://${process.env.NEXT_PUBLIC_API_DOMAIN}/ws${
+        token ? `?token=${token}` : ""
+      }`;
 
       console.log("Creating new WebSocket connection...");
       const ws = new WebSocket(wsUrl);
@@ -398,7 +395,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
         clearTimeout(reconnectTimeout);
       }
     };
-  }, [user, user?.username]); // Only re-run if username changes
+  }, [user, user?.username, getAuthToken]); // Only re-run if username changes
 
   // Check-in function with optimistic updates
   const checkIn = (roomId: string, roomName: string, studyTopic?: string) => {

@@ -28,6 +28,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  getAuthToken: () => Promise<string | null>;
 }
 
 // Create the context with a default value
@@ -38,6 +39,7 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   logout: async () => {},
   checkAuth: async () => {},
+  getAuthToken: async () => null,
 });
 
 // Export the provider component
@@ -159,6 +161,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkAuth();
   }, []);
 
+  // Add this function to expose the token
+  const getAuthToken = async () => {
+    try {
+      // Make a request to a custom endpoint that will return the token
+      const response = await fetch("/api/auth/get-token", {
+        method: "GET",
+        credentials: "include", // Important: include cookies in the request
+      });
+
+      if (!response.ok) {
+        console.error("Failed to fetch auth token");
+        return null;
+      }
+
+      const data = await response.json();
+      return data.token;
+    } catch (error) {
+      console.error("Error fetching auth token:", error);
+      return null;
+    }
+  };
+
   // Create the context value object
   const value = {
     user,
@@ -167,6 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     login,
     logout,
     checkAuth,
+    getAuthToken,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

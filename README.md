@@ -1,8 +1,9 @@
 # Beacons Web Application
 
-This project consists of two main parts:
+This project consists of three main parts:
 - **Frontend**: Built with React and Next.js
 - **Backend**: FastAPI application with a PostgreSQL database, managed using Docker
+- **Scraper**: A web scraper to collect classroom information
 
 ---
 
@@ -36,8 +37,12 @@ docker compose version || echo "Docker Compose is not installed. Please install 
 beacons/
 ├── backend/
 │   └── ...
-└── web/
-    ├── ...
+├── web/
+│   └── ...
+└── scraper/
+    ├── output/
+    ├── process_classroom_availability.py
+    └── ...
 ```
 
 ---
@@ -54,7 +59,7 @@ beacons/
 ### Place this `.env` file inside the `web/` directory:
 
 ```env
-NEXT_PUBLIC_MAPBOX_TOKEN=pk.eyJ1IjoiamRyY28iLCJhIjoiY201eXl0Y3UyMGlwazJtbXgzNmgwbXN4bSJ9.agXYuQ1r9mqa-WpVPODitg
+NEXT_PUBLIC_MAPBOX_TOKEN=<your_mapbox_public_token>
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
@@ -62,12 +67,12 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ```env
 DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-SECRET_KEY=8f6aff488cc9f21d8676202403b0d4130b7139e81eb1c744fabcc208ebe452aa
+SECRET_KEY=<your_secret_key>
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 MAIL_USERNAME=phamnamson175@gmail.com
-MAIL_PASSWORD=gqzp zrbi iseo mkbh
+MAIL_PASSWORD=<your_mail_password>
 MAIL_FROM=phamnamson175@gmail.com
 ```
 
@@ -97,6 +102,57 @@ docker compose up --build
 
 - Builds and starts the FastAPI + PostgreSQL containers.
 - Backend API will be live at: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 🕷️ Scraper: Classroom Availability
+
+This project includes a web scraper that collects classroom availability information from the University of Alberta course catalogue.
+
+### 🔧 Running on Linux
+
+```bash
+# Build the Docker image
+sudo docker build -t classroom-scraper .
+
+# Run the container with your auth cookie
+sudo docker run -v $(pwd):/app -e AUTH_COOKIE="your-auth-cookie-value" classroom-scraper
+```
+
+### 🍎 Running on macOS
+
+```bash
+# Build the Docker image
+docker build -t classroom-scraper .
+
+# Run the container with your auth cookie
+docker run -v $(pwd):/app -e AUTH_COOKIE="your-auth-cookie-value" classroom-scraper
+```
+
+### 📊 Processing the Scraped Data
+
+The scraper outputs raw data to:
+
+```bash
+output/raw_classroom_availability.json
+```
+
+To process it into a cleaner format:
+
+```bash
+python3 process_classroom_availability.py
+```
+
+Result will be saved to:
+
+```bash
+processed_classroom_availability.json
+```
+
+### 🌐 Notes
+
+- Building coordinates are fetched through: `https://www.ualberta.ca/api/maps/` or just manually collected with Google Maps.
+- Ensure your `AUTH_COOKIE` is valid to access data.
 
 ---
 

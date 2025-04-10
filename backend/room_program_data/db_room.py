@@ -22,7 +22,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 session = SessionLocal()
 
-json_file_path = os.path.join(os.path.dirname(__file__), "buildings_with_location.json")
+json_file_path = os.path.join(os.path.dirname(__file__), "processed_classroom_availability.json")
 
 with open(json_file_path, "r", encoding="utf-8") as file:
     try:

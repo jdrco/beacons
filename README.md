@@ -79,6 +79,20 @@ MAIL_PASSWORD=<your_mail_password>
 MAIL_FROM=phamnamson175@gmail.com
 ```
 
+## Data Prerequisite
+
+### Frontend: Make sure you have the classroom data
+
+If not there already, you need to place the `processed_classroom_availability.json` in  `web/public/`.
+
+See instructions on how to collect this data in the scraper section of this setup guide.
+
+### Backend: Make sure you have the classroom data
+
+If not there already, you need to place the `processed_classroom_availability.json` in  `backend/room_program_data/`.
+
+See instructions on how to collect this data in the scraper section of this setup guide.
+
 ---
 
 ## 🚀 How to Run
@@ -108,9 +122,11 @@ docker compose up --build
 
 ---
 
-## 🕷️ Scraper: Classroom Availability
+## 🕷️ Scraper: Classroom Availability (Optional)
 
 This project includes a web scraper that collects classroom availability information from the University of Alberta course catalogue.
+
+We've already included the processed_classroom_availability.json so it's optional to run this.
 
 ### 🔧 Running on Linux
 

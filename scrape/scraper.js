@@ -1,3 +1,26 @@
+/*
+
+  4.3 Classroom Availability: Data Collection
+  REQ-1: The system shall fetch classroom schedule data from the University of Alberta's public academic course catalogue at the beginning of each school term.
+
+  REQ-2: The system shall transform and store classroom schedules in the following format:
+
+    Room identifier
+    Building code
+    Start time
+    End time
+    Recurring weekly pattern (e.g. Monday/Wednesday/Friday)
+    Semester period (start and end date range)
+
+  REQ-3: The system shall organize processed classroom data in the database using an optimized schema for efficient querying and retrieval.
+
+  REQ-4: The system shall use Google Maps API and UAlberta map to associate each classroom with its geographical coordinates (latitude/longitude) in the database.
+
+  REQ-5: The system shall implement error handling during data collection workflows including:
+
+    Log of detailed error messages when collecting data for classroom
+    Preserve the last known good data state
+*/
 import { firefox } from 'playwright';
 import fs from 'fs/promises';
 

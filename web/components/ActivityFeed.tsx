@@ -12,6 +12,31 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
+/*
+  4.8 Activity Feed
+
+  REQ-1: The system shall maintain a real-time social activity feed for each room showing event information:
+
+    A track of total current occupancy of the classroom
+    Recent user check-ins (e.g. "@username started studying at ETLC 1-001")
+    If available, the study topics of occupants (e.g. "@username started studying CMPUT 174 at ETLC 1-001")
+    Recent user check-outs
+    The timestamp of each event
+
+  REQ-2: The system will have a check-in mechanism to maintain accurate real-time occupancy counts.
+
+  REQ-3: The system shall allow users to specify their current study topic or course during check-in optionally.
+
+  REQ-4: The system prevents duplicate check-ins across multiple rooms.
+
+  REQ-5: The system automatically expires check-ins after 4 hours of inactivity.
+
+  REQ-6: The system allows manual check-out before the 4-hour expiration.
+
+  REQ-7: The system shall limit the social media feed history to last 24 hours
+
+  REQ-8: The system’s social media feed shall order events chronologically with newest first
+*/
 export default function ActivityFeed() {
   // Get feed data and state from the useCheckIn hook
   const { feedItems, userId, isReconnecting, isConnected, error } =

@@ -1,3 +1,12 @@
+/*
+  4.7 Location Services
+
+  REQ-1: The system shall access the user's device location services upon permission.  
+  REQ-2: The system shall calculate distances from the user's location to all available study spaces.
+  REQ-3: The system shall rank study spaces by proximity and availability status to sort the list view.
+  REQ-4: The system shall dynamically update proximity suggestions when the user's location changes.
+  REQ-5: The system shall respect the user’s permission to use personal location service data.
+*/
 import { useState, useEffect } from "react";
 
 interface LocationState {

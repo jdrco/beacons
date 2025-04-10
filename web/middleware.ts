@@ -14,6 +14,11 @@ const publicPaths = [
 // Paths that should redirect to home if the user is already authenticated
 const authRedirectPaths = ["/signin", "/signup"];
 
+
+/*
+  4.2 User Sign-In
+  REQ-7: The system shall redirect unauthenticated users to the login page when attempting to access protected features.
+*/
 export function middleware(request: NextRequest) {
   // return NextResponse.next() // Uncomment for simple pass through for development
   const accessToken = request.cookies.get("access_token");

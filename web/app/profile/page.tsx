@@ -48,6 +48,21 @@ interface Faculty {
   name: string;
 }
 
+/*
+  4.5 Profile Management
+
+  REQ-1: The system shall display the user's current profile information such as username, educational background, favourite classrooms, and an option to delete the profile.
+  REQ-2: The system shall enable users to edit their profile fields such as:
+
+    Username (display name)
+    Educational background (faculty and program)
+    Favourite classrooms
+
+  REQ-3: The system shall show a list of classrooms the user selected as “favourites”.
+  REQ-4: The system shall allow users to select and update their favourite classrooms for easier access and personalization.
+  REQ-5: The system shall enable users to delete their profiles entirely.
+  REQ-6: The system will ensure that the user’s username is unique
+*/
 export default function ProfilePage() {
   const { user, isLoading, isAuthenticated, logout, checkAuth } = useAuth();
   const { toast } = useToast();

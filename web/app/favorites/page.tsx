@@ -28,6 +28,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Switch } from "@/components/ui/switch";
 
+/*
+  4.6 Notifications
+
+  REQ-1: The system shall send notifications to users when their favourite rooms become available, including the room name and building location in the notification content.
+
+  REQ-2: The system shall provide users with granular controls to enable or disable notifications for each of their favourite rooms individually.
+
+  REQ-3: The system shall verify and respect device-level notification permissions before attempting to send any notifications.
+*/
 export default function FavoritesPage() {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const router = useRouter();

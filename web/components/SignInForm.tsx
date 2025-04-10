@@ -8,6 +8,22 @@ import { useAuth } from "@/contexts/AuthContext";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+/*
+  4.2 User Sign-In
+
+  REQ-1: The system shall provide user authentication via email and password.
+  REQ-2: The system shall verify user credentials against stored information in the database.
+  REQ-3: The system shall securely manage user sessions after successful authentication.
+  REQ-4: The system shall provide the option to log out of the system.
+  REQ-5: The system shall display appropriate error messages for invalid credentials.
+  REQ-6: The system shall maintain the user's authentication state across sessions until explicit logout.
+  REQ-7: The system shall redirect unauthenticated users to the login page when attempting to access protected features.
+  REQ-8: The system shall provide a secure password reset functionality.
+  REQ-9: The system shall allow users to request a password reset by submitting their registered email.
+  REQ-10: The system shall send an email containing a password reset link upon request.
+  REQ-11: The system shall verify and allow users to reset their password upon clicking the password reset link.
+  REQ-12: The system shall display an appropriate error message for invalid or expired password reset links.
+*/
 export function SignInForm({
   className,
   ...props

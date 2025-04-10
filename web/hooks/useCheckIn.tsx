@@ -163,7 +163,11 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
       // const isIOS =
       //   typeof navigator !== "undefined" &&
       //   /iPhone|iPad|iPod/.test(navigator.userAgent);
+<<<<<<< Updated upstream
       const wsUrl = `ws://${process.env.NEXT_PUBLIC_API_DOMAIN}/ws`;
+=======
+      const wsUrl = `wss://${process.env.NEXT_PUBLIC_API_DOMAIN}/ws`;
+>>>>>>> Stashed changes
 
       console.log("Creating new WebSocket connection...");
       const ws = new WebSocket(wsUrl);

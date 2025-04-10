@@ -117,6 +117,8 @@ cd beacons/backend
 docker compose up --build
 ```
 
+You may need to run with `sudo` on Linux systems
+
 - Builds and starts the FastAPI + PostgreSQL containers.
 - Backend API will be live at: [http://localhost:8000](http://localhost:8000)
 

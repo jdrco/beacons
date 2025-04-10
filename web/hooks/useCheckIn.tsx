@@ -324,7 +324,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
             }, 5000);
           }
         } catch (err) {
-          console.error("Error parsing WebSocket message:", err);
+          console.warn("Error parsing WebSocket message:", err);
         }
       };
 
@@ -351,7 +351,7 @@ export function CheckInProvider({ children }: { children: ReactNode }) {
       };
 
       ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
+        console.warn("WebSocket error:", error);
         isConnecting = false;
         ws.close();
       };

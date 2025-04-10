@@ -75,6 +75,15 @@ def update_user(
     try:
         update_data = {}
         if user_data.username:
+            # Check if username is unique before updating
+            existing_username = filter_query(db, model=User, filters=[
+                User.username == user_data.username,
+                User.id != current_user.id  # Exclude the current user
+            ])
+            
+            if existing_username:
+                return error_response(400, False, "Username already exists")
+                
             update_data["username"] = user_data.username
 
         if user_data.program:

@@ -85,7 +85,7 @@ export default function FavoritesPage() {
             </Link>
             <Logo />
           </div>
-          <h1 className="text-xl font-bold text-white">My Favorite Rooms</h1>
+          <h1 className="text-xl font-bold text-white">Favorites</h1>
         </div>
       </header>
 

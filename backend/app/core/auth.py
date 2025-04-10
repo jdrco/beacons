@@ -224,7 +224,6 @@ def sign_in(
     REQ-2: The system shall verify user credentials against stored information in the database.
     REQ-3: The system shall securely manage user sessions after successful authentication.
     REQ-5: The system shall display appropriate error messages for invalid credentials.
-
     """
     try:
         user = get_user_by_email(db, form_data.username)
@@ -381,7 +380,7 @@ async def send_verification_email(
     email: str,
     token: str
 ):
-    verification_url = f"http://localhost:8000/verify-email?token={token}"
+    verification_url = f"{settings.backend_url}/verify-email?token={token}"
     message = MessageSchema(
         subject="Email Verification",
         recipients=[email],
@@ -402,21 +401,21 @@ def verify_email(
 
         if email is None:
             # Redirect to frontend with error message
-            return RedirectResponse(url="http://localhost:3000/resend-verification-email?error=invalid_token")
+            return RedirectResponse(url=f"{settings.frontend_url}/resend-verification-email?error=invalid_token")
 
         user = get_user_by_email(db, email=email)
         if not user:
             # Redirect to frontend with error message
-            return RedirectResponse(url="http://localhost:3000/resend-verification-email?error=user_not_found")
+            return RedirectResponse(url=f"{settings.frontend_url}/resend-verification-email?error=user_not_found")
 
         user.active = True
         db.commit()
 
-        return RedirectResponse(url="http://localhost:3000/signin") 
+        return RedirectResponse(url=f"{settings.frontend_url}/signin")
 
     except Exception as e:
         # Redirect to frontend with general error
-        return RedirectResponse(url="http://localhost:3000/resend-verification-email?error=verification_failed")
+        return RedirectResponse(url=f"{settings.frontend_url}/resend-verification-email?error=verification_failed")
 
 @router.post("/resend-verification-email")
 async def resend_verification_email(
@@ -489,7 +488,7 @@ async def send_reset_password_email(
     4.2 User Sign-In
     REQ-10: The system shall send an email containing a password reset link upon request.
     """
-    reset_url = f"http://localhost:3000/reset-password?token={token}"
+    reset_url = f"{settings.frontend_url}/reset-password?token={token}"
     message = MessageSchema(
         subject="Password Reset Request",
         recipients=[email],
@@ -525,7 +524,7 @@ async def verify_password_reset(token: str, db: Session = Depends(get_db)):
                 message="User not found."
             )
 
-        return RedirectResponse(url="http://localhost:3000/signin") #TODO: change env var
+        return RedirectResponse(url=f"{settings.frontend_url}/signin")
 
     except jwt.ExpiredSignatureError:
         return error_response(
